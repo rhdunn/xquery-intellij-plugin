@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.xdm
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
@@ -25,26 +27,21 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginEnclosedAttrValueExpr
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 
 object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // region XmlAccessorsProvider
 
     override fun element(node: Any): Pair<Any, XmlAccessors>? = when (node) {
-        is XQueryCompElemConstructor -> node to this
-        is XQueryDirElemConstructor -> node to this
+        is XdmElementNode -> node to this
         else -> null
     }
 
     override fun attribute(node: Any): Pair<Any, XmlAccessors>? = when (node) {
-        // computed attribute
+        is XdmAttributeNode -> node to this
+        is XQueryDirAttributeValue -> node.parent to this
         is PluginEnclosedAttrValueExpr -> node.parent to this
-        is XQueryCompAttrConstructor -> node to this
         is XPathStringLiteral -> {
             val parent = node.parent
             when (parent.children().count { it is XpmExpression }) {
@@ -52,10 +49,6 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
                 else -> null
             }
         }
-        // direct attribute
-        is XQueryDirAttributeValue -> node.parent to this
-        is PluginDirAttribute -> node to this
-        // other
         is PsiElement -> node.context?.let { attribute(it) }
         else -> null
     }
@@ -73,10 +66,8 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     override fun localName(node: Any): String? = nodeName(node)?.localName?.data
 
     private fun nodeName(node: Any): XsQNameValue? = when (node) {
-        is XQueryCompAttrConstructor -> node.nodeName
-        is XQueryCompElemConstructor -> node.nodeName
-        is XQueryDirElemConstructor -> node.nodeName
-        is PluginDirAttribute -> node.nodeName
+        is XdmElementNode -> node.nodeName
+        is XdmAttributeNode -> node.nodeName
         else -> null
     }
 
@@ -94,8 +85,7 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // region Accessors (5.11) parent
 
     override fun parent(node: Any): Any? = when (node) {
-        is XQueryCompAttrConstructor -> node.parentNode
-        is PluginDirAttribute -> node.parentNode
+        is XdmAttributeNode -> node.parentNode
         else -> null
     }
 
