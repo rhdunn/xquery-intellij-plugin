@@ -108,6 +108,7 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
 
     override fun stringValue(node: Any): String? = when (node) {
         is XdmAttributeNode -> node.stringValue
+        is XdmTextNode -> node.stringValue
         else -> null
     }
 

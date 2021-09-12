@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmTextNode
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
@@ -379,6 +380,60 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
             assertThat(matched, `is`(sameInstance(node)))
 
             assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
+        }
+
+        @Nested
+        @DisplayName("Accessors (5.12) string-value")
+        internal inner class StringValue {
+            @Test
+            @DisplayName("text value content")
+            fun textValue() {
+                val node = parse<PluginDirTextConstructor>("<test>Lorem ipsum\uFFFF</test>")[0] as XdmTextNode
+                val (matched, accessors) = XmlAccessorsProvider.text(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("Lorem ipsum\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+            }
+
+            @Test
+            @DisplayName("CommonContent tokens")
+            fun commonContent() {
+                val node = parse<PluginDirTextConstructor>("<test>{{}}</test>")[0] as XdmTextNode
+                val (matched, accessors) = XmlAccessorsProvider.text(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("{}"))
+            }
+
+            @Test
+            @DisplayName("PredefinedEntityRef tokens")
+            fun predefinedEntityRef() {
+                // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
+                val node = parse<PluginDirTextConstructor>(
+                    "<test>&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt</test>"
+                )[0] as XdmTextNode
+                val (matched, accessors) = XmlAccessorsProvider.text(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("<áā\uD835\uDD04≪\u0338"))
+            }
+
+            @Test
+            @DisplayName("CharRef tokens")
+            fun charRef() {
+                val node = parse<PluginDirTextConstructor>(
+                    "<test>&#xA0;&#160;&#x20;&#x1D520;</test>"
+                )[0] as XdmTextNode
+                val (matched, accessors) = XmlAccessorsProvider.text(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("\u00A0\u00A0\u0020\uD835\uDD20"))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (153) CDataSection")
+            fun cdataSection() {
+                val node = parse<PluginDirTextConstructor>("<test>One <![CDATA[Two]]> Three</test>")[0] as XdmTextNode
+                val (matched, accessors) = XmlAccessorsProvider.text(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("One Two Three"))
+            }
         }
     }
 
