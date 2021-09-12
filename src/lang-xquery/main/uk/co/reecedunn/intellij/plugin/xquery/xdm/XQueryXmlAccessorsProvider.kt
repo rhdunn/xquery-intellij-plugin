@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmTextNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
@@ -54,6 +55,7 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     }
 
     override fun text(node: Any): Pair<Any, XmlAccessors>? = when (node) {
+        is XdmTextNode -> node to this
         else -> null
     }
 

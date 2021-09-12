@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginEnclosedAttrValueExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
@@ -359,6 +360,23 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
 
             assertThat(matched, `is`(instanceOf(PluginDirAttribute::class.java)))
             assertThat(qname_presentation((matched as PluginDirAttribute).nodeName!!), `is`("test"))
+
+            assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (147) DirElemContent ; XQuery IntelliJ Plugin EBNF (123) DirTextConstructor")
+    inner class DirTextConstructor {
+        @Test
+        @DisplayName("providers")
+        fun providers() {
+            val node = parse<PluginDirTextConstructor>("<test>Lorem ipsum</test>")[0]
+            val (matched, accessors) = XmlAccessorsProvider.text(node)!!
+
+            assertThat(matched, `is`(instanceOf(PluginDirTextConstructor::class.java)))
+            assertThat((matched as PluginDirTextConstructor).text, `is`("Lorem ipsum"))
+            assertThat(matched, `is`(sameInstance(node)))
 
             assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
         }
@@ -795,7 +813,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (2) EnclosedAttrValueExpr")
+    @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor ; XQuery IntelliJ Plugin EBNF (2) EnclosedAttrValueExpr")
     inner class EnclosedAttrValueExpr {
         @Test
         @DisplayName("providers")
