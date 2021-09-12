@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,22 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.LiteralTextEscaper
 import com.intellij.psi.PsiLanguageInjectionHost
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.createElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
+import kotlin.collections.ArrayList
 
 class PluginDirTextConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginDirTextConstructor {
+    companion object {
+        private val STRING_VALUE = Key.create<String>("STRING_VALUE")
+    }
     // region PsiLanguageInjectionHost
 
     private class LiteralTextEscaperImpl(host: PluginDirTextConstructorPsiImpl) :
@@ -83,6 +88,16 @@ class PluginDirTextConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
     override fun createLiteralTextEscaper(): LiteralTextEscaper<out PsiLanguageInjectionHost> {
         return LiteralTextEscaperImpl(this)
     }
+
+    // endregion
+    // region XdmTextNode
+
+    override val stringValue: String?
+        get() = computeUserDataIfAbsent(STRING_VALUE) {
+            val value = StringBuilder()
+            children().filterIsInstance<PsiElementTextDecoder>().forEach { it.decode(value) }
+            value.toString()
+        }
 
     // endregion
 }

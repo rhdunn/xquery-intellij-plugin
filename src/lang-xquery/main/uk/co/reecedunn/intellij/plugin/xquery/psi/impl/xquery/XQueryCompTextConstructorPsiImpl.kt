@@ -31,6 +31,12 @@ class XQueryCompTextConstructorPsiImpl(node: ASTNode) :
         get() = this
 
     // endregion
+    // region XdmTextNode
+
+    override val stringValue: String?
+        get() = null
+
+    // endregion
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
