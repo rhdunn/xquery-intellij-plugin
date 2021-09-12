@@ -208,6 +208,17 @@ class XQueryInfosetMappingTest : ParserTestCase() {
             }
         }
 
+        @Test
+        @DisplayName("Accessors (5.11) parent")
+        fun parent() {
+            val node = parse<PluginDirAttribute>("<a test='value'/>")[0]
+
+            val parent = node.parentNode
+            assertThat(parent, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+            assertThat(qname_presentation((parent as XQueryDirElemConstructor).nodeName!!), `is`("a"))
+        }
+
+        @Nested
         @DisplayName("Accessors (5.12) string-value")
         internal inner class StringValue {
             @Test
@@ -507,6 +518,82 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 )[0] as XdmAttributeNode
 
                 assertThat(node.nodeName, `is`(nullValue()))
+            }
+        }
+
+        @Nested
+        @DisplayName("Accessors (5.11) parent")
+        inner class Parent {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
+            inner class DirElemConstructor {
+                @Test
+                @DisplayName("single item expression")
+                fun single() {
+                    val node = parse<XQueryCompAttrConstructor>("<a>{ attribute test { 'value' } }</a>")[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryDirElemConstructor).nodeName!!), `is`("a"))
+                }
+
+                @Test
+                @DisplayName("multiple item expression")
+                fun multiple() {
+                    val node = parse<XQueryCompAttrConstructor>(
+                        "<a>{ attribute test { 'value' } , attribute attr { 'value' } }</a>"
+                    )[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryDirElemConstructor).nodeName!!), `is`("a"))
+                }
+
+                @Test
+                @DisplayName("complex expression")
+                fun complex() {
+                    val node = parse<XQueryCompAttrConstructor>(
+                        "<a>{ if (true()) then attribute test { 'value' } else () }</a>"
+                    )[0]
+
+                    assertThat(node.parentNode, `is`(nullValue()))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
+            inner class CompElemConstructor {
+                @Test
+                @DisplayName("single item expression")
+                fun single() {
+                    val node = parse<XQueryCompAttrConstructor>("element a { attribute test { 'value' } }")[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryCompElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryCompElemConstructor).nodeName!!), `is`("a"))
+                }
+
+                @Test
+                @DisplayName("multiple item expression")
+                fun multiple() {
+                    val node = parse<XQueryCompAttrConstructor>(
+                        "element a { attribute test { 'value' } , attribute attr { 'value' } }"
+                    )[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryCompElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryCompElemConstructor).nodeName!!), `is`("a"))
+                }
+
+                @Test
+                @DisplayName("complex expression")
+                fun complex() {
+                    val node = parse<XQueryCompAttrConstructor>(
+                        "element a { if (true()) then attribute test { 'value' } else () }"
+                    )[0]
+
+                    assertThat(node.parentNode, `is`(nullValue()))
+                }
             }
         }
     }

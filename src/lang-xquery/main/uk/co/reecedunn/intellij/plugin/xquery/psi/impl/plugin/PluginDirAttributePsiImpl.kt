@@ -50,6 +50,9 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
     override val nodeName: XsQNameValue?
         get() = firstChild as? XsQNameValue
 
+    override val parentNode: XdmNode?
+        get() = parent as? XdmElementNode
+
     override val stringValue: String?
         get() = computeUserDataIfAbsent(STRING_VALUE) {
             val attrValue = children().filterIsInstance<XQueryDirAttributeValue>().firstOrNull()
