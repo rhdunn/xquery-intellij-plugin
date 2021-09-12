@@ -37,13 +37,15 @@ import java.util.*
 
 class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginDirAttribute, XQueryPrologResolver {
     companion object {
-        private val NODE_VALUE = Key.create<Optional<XsAnyAtomicType>>("NODE_VALUE")
+        private val STRING_VALUE = Key.create<Optional<String>>("STRING_VALUE")
+        private val TYPED_VALUE = Key.create<Optional<XsAnyAtomicType>>("TYPED_VALUE")
     }
     // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        clearUserData(NODE_VALUE)
+        clearUserData(STRING_VALUE)
+        clearUserData(TYPED_VALUE)
     }
 
     // endregion
@@ -52,34 +54,36 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
     override val nodeName: XsQNameValue?
         get() = firstChild as? XsQNameValue
 
-    override val typedValue: XsAnyAtomicType?
-        get() = computeUserDataIfAbsent(NODE_VALUE) {
-            val qname = nodeName ?: return@computeUserDataIfAbsent Optional.empty()
+    override val stringValue: String?
+        get() = computeUserDataIfAbsent(STRING_VALUE) {
             val attrValue = children().filterIsInstance<XQueryDirAttributeValue>().firstOrNull()
                 ?: return@computeUserDataIfAbsent Optional.empty()
-            val contents =
-                if (!attrValue.isValidHost)
-                    null // Cannot evaluate enclosed content expressions statically.
-                else
-                    attrValue.children().map { child ->
-                        when (child.elementType) {
-                            XQueryTokenType.XML_ATTRIBUTE_VALUE_START, XQueryTokenType.XML_ATTRIBUTE_VALUE_END ->
-                                null
-                            XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ->
-                                (child as XQueryPredefinedEntityRef).entityRef.value
-                            XQueryTokenType.XML_CHARACTER_REFERENCE ->
-                                (child as XQueryCharRef).codepoint.toString()
-                            XQueryTokenType.XML_ESCAPED_CHARACTER ->
-                                (child as XPathEscapeCharacter).unescapedCharacter.toString()
-                            else ->
-                                child.text
-                        }
-                    }.filterNotNull().joinToString(separator = "")
+            if (!attrValue.isValidHost)
+                Optional.empty() // Cannot evaluate enclosed content expressions statically.
+            else {
+                val value = attrValue.children().map { child ->
+                    when (child.elementType) {
+                        XQueryTokenType.XML_ATTRIBUTE_VALUE_START, XQueryTokenType.XML_ATTRIBUTE_VALUE_END ->
+                            null
+                        XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ->
+                            (child as XQueryPredefinedEntityRef).entityRef.value
+                        XQueryTokenType.XML_CHARACTER_REFERENCE ->
+                            (child as XQueryCharRef).codepoint.toString()
+                        XQueryTokenType.XML_ESCAPED_CHARACTER ->
+                            (child as XPathEscapeCharacter).unescapedCharacter.toString()
+                        else ->
+                            child.text
+                    }
+                }.filterNotNull().joinToString(separator = "")
+                Optional.of(value)
+            }
+        }.orElse(null)
+
+    override val typedValue: XsAnyAtomicType?
+        get() = computeUserDataIfAbsent(TYPED_VALUE) {
+            val contents = stringValue ?: return@computeUserDataIfAbsent Optional.empty()
+            val qname = nodeName ?: return@computeUserDataIfAbsent Optional.empty()
             val ret = when {
-                contents == null -> {
-                    @Suppress("USELESS_CAST") // Needed, otherwise type inference results in `Any?` with warnings.
-                    null as XsAnyAtomicType?
-                }
                 qname.prefix?.data == "xmlns" -> {
                     XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
                 }
@@ -91,7 +95,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
                 }
                 else -> XsUntypedAtomic(contents, this)
             }
-            Optional.ofNullable(ret)
+            Optional.of(ret)
         }.orElse(null)
 
     // endregion
