@@ -19,8 +19,11 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
 
 class XQueryCompAttrConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCompAttrConstructor {
@@ -33,6 +36,13 @@ class XQueryCompAttrConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(nod
 
     override val nodeName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    override val parentNode: XdmNode?
+        get() = when (val parent = parent) {
+            is XdmElementNode -> parent
+            is XPathExpr -> parent.parent as? XdmElementNode
+            else -> null
+        }
 
     override val stringValue: String?
         get() = null

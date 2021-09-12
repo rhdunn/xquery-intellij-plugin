@@ -36,6 +36,8 @@ object XdmNodeItem : XdmItemType {
 interface XdmAttributeNode : XdmNode {
     val nodeName: XsQNameValue?
 
+    val parentNode: XdmNode?
+
     val stringValue: String?
 
     val typedValue: XsAnyAtomicType?
