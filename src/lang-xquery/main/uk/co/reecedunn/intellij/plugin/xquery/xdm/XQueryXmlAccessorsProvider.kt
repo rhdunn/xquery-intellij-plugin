@@ -85,6 +85,7 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // region Accessors (5.11) parent
 
     override fun parent(node: Any): Any? = when (node) {
+        is XdmElementNode -> node.parentNode
         is XdmAttributeNode -> node.parentNode
         else -> null
     }
