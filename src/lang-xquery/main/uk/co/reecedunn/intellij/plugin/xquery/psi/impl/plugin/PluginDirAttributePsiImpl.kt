@@ -17,18 +17,14 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.Key
-import com.intellij.psi.util.elementType
+import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsID
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsUntypedAtomic
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import java.util.*
 
 class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginDirAttribute {
@@ -56,25 +52,14 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
     override val stringValue: String?
         get() = computeUserDataIfAbsent(STRING_VALUE) {
             val attrValue = children().filterIsInstance<XQueryDirAttributeValue>().firstOrNull()
-                ?: return@computeUserDataIfAbsent Optional.empty()
-            if (!attrValue.isValidHost)
-                Optional.empty() // Cannot evaluate enclosed content expressions statically.
-            else {
-                val value = attrValue.children().map { child ->
-                    when (child.elementType) {
-                        XQueryTokenType.XML_ATTRIBUTE_VALUE_START, XQueryTokenType.XML_ATTRIBUTE_VALUE_END ->
-                            null
-                        XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ->
-                            (child as XQueryPredefinedEntityRef).entityRef.value
-                        XQueryTokenType.XML_CHARACTER_REFERENCE ->
-                            (child as XQueryCharRef).codepoint.toString()
-                        XQueryTokenType.XML_ESCAPED_CHARACTER ->
-                            (child as XPathEscapeCharacter).unescapedCharacter.toString()
-                        else ->
-                            child.text
-                    }
-                }.filterNotNull().joinToString(separator = "")
-                Optional.of(value)
+            when {
+                attrValue == null -> Optional.empty()
+                !attrValue.isValidHost -> Optional.empty() // Cannot evaluate enclosed content expressions statically.
+                else -> {
+                    val value = StringBuilder()
+                    attrValue.children().filterIsInstance<PsiElementTextDecoder>().forEach { it.decode(value) }
+                    Optional.of(value.toString())
+                }
             }
         }.orElse(null)
 

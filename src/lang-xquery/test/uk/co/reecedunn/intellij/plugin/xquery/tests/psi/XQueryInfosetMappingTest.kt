@@ -346,7 +346,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 val node = parse<PluginDirAttribute>(
                     "<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"/>"
                 )[0] as XdmAttributeNode
-                assertThat(node.stringValue, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+                assertThat(node.stringValue, `is`("<áā\uD835\uDD04≪\u0338"))
             }
 
             @Test
