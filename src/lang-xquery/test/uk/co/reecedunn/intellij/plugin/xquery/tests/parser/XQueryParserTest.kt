@@ -5253,6 +5253,14 @@ class XQueryParserTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("with surrounding text")
+            fun withSurroundingText() {
+                val expected = loadResource("tests/parser/xquery-1.0/DirElemContent_CDataSection_WithSurroundingText.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/DirElemContent_CDataSection_WithSurroundingText.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
             @DisplayName("error recovery: unclosed")
             fun unclosed() {
                 val expected = loadResource("tests/parser/xquery-1.0/DirElemContent_CDataSection_Unclosed.txt")
