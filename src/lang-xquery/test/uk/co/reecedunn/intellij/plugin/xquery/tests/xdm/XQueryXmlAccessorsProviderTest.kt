@@ -829,37 +829,87 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (164) CompTextConstructor")
+    inner class CompTextConstructor {
+        @Test
+        @DisplayName("providers")
+        fun providers() {
+            val node = parse<XQueryCompTextConstructor>("element a { text { 'value' } }")[0]
+            val (matched, accessors) = XmlAccessorsProvider.text(node)!!
+
+            assertThat(matched, `is`(instanceOf(XQueryCompTextConstructor::class.java)))
+            assertThat(matched, `is`(sameInstance(matched)))
+
+            assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
     inner class StringLiteral {
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
-        inner class CompAttrConstructor {
-            @Test
-            @DisplayName("providers ; single StringLiteral")
-            fun providersForSingleStringLiteral() {
-                val node = parse<XPathStringLiteral>("element a { attribute test { 'value' } }")[0]
-                val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+        @DisplayName("providers")
+        inner class Providers {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
+            inner class CompAttrConstructor {
+                @Test
+                @DisplayName("single StringLiteral")
+                fun singleStringLiteral() {
+                    val node = parse<XPathStringLiteral>("element a { attribute test { 'value' } }")[0]
+                    val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
-                assertThat(matched, `is`(instanceOf(XQueryCompAttrConstructor::class.java)))
-                assertThat(qname_presentation((matched as XQueryCompAttrConstructor).nodeName!!), `is`("test"))
+                    assertThat(matched, `is`(instanceOf(XQueryCompAttrConstructor::class.java)))
+                    assertThat(qname_presentation((matched as XQueryCompAttrConstructor).nodeName!!), `is`("test"))
 
-                assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
+                    assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
+                }
+
+                @Test
+                @DisplayName("multiple StringLiterals")
+                fun multipleStringLiterals() {
+                    val node = parse<XPathStringLiteral>("element a { attribute test { 'one', 'two' } }")[0]
+                    val provider = XmlAccessorsProvider.attribute(node)
+                    assertThat(provider, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("complex expression")
+                fun complexExpression() {
+                    val node = parse<XPathStringLiteral>("element a { attribute test { 'one' || 'two' } }")[0]
+                    val provider = XmlAccessorsProvider.attribute(node)
+                    assertThat(provider, `is`(nullValue()))
+                }
             }
 
-            @Test
-            @DisplayName("providers ; multiple StringLiterals")
-            fun providersForMultipleStringLiterals() {
-                val node = parse<XPathStringLiteral>("element a { attribute test { 'one', 'two' } }")[0]
-                val provider = XmlAccessorsProvider.attribute(node)
-                assertThat(provider, `is`(nullValue()))
-            }
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (164) CompTextConstructor")
+            inner class CompTextConstructor {
+                @Test
+                @DisplayName("single StringLiteral")
+                fun singleStringLiteral() {
+                    val node = parse<XPathStringLiteral>("element a { text { 'value' } }")[0]
+                    val (matched, accessors) = XmlAccessorsProvider.text(node)!!
 
-            @Test
-            @DisplayName("providers ; complex expression")
-            fun providersForComplexExpression() {
-                val node = parse<XPathStringLiteral>("element a { attribute test { 'one' || 'two' } }")[0]
-                val provider = XmlAccessorsProvider.attribute(node)
-                assertThat(provider, `is`(nullValue()))
+                    assertThat(matched, `is`(instanceOf(XQueryCompTextConstructor::class.java)))
+                    assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
+                }
+
+                @Test
+                @DisplayName("multiple StringLiterals")
+                fun multipleStringLiterals() {
+                    val node = parse<XPathStringLiteral>("element a { text { 'one', 'two' } }")[0]
+                    val provider = XmlAccessorsProvider.text(node)
+                    assertThat(provider, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("complex expression")
+                fun complexExpression() {
+                    val node = parse<XPathStringLiteral>("element a { text { 'one' || 'two' } }")[0]
+                    val provider = XmlAccessorsProvider.text(node)
+                    assertThat(provider, `is`(nullValue()))
+                }
             }
         }
     }

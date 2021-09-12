@@ -56,6 +56,13 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
 
     override fun text(node: Any): Pair<Any, XmlAccessors>? = when (node) {
         is XdmTextNode -> node to this
+        is XPathStringLiteral -> {
+            val parent = node.parent
+            when (parent.children().count { it is XpmExpression }) {
+                1 -> text(parent) // single StringLiteral constructor value
+                else -> null
+            }
+        }
         else -> null
     }
 
