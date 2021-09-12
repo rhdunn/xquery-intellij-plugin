@@ -3792,7 +3792,6 @@ class XQueryParser : XPathParser() {
             if (
                 parseDirTextConstructor(builder) ||
                 parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) ||
-                parseCDataSection(builder, XQueryElementType.DIR_ELEM_CONSTRUCTOR) != null ||
                 parseDirectConstructor(builder, depth) != null
             ) {
                 matched = true
@@ -3817,7 +3816,8 @@ class XQueryParser : XPathParser() {
                 ) ||
                 builder.errorOnTokenType(
                     XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")
-                )
+                ) ||
+                parseCDataSection(builder, XQueryElementType.DIR_TEXT_CONSTRUCTOR) != null
             ) {
                 matched = true
             } else if (builder.matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {

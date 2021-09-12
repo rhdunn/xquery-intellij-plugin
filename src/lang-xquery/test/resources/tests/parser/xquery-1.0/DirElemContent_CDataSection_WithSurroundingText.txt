@@ -1,0 +1,19 @@
+XQueryModuleImpl[FILE(0:32)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:32)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:32)]
+         XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:32)]
+            LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+            XPathNCNameImpl[XPATH_NCNAME(1:2)]
+               XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
+            LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
+            PluginDirTextConstructorImpl[XQUERY_DIR_TEXT_CONSTRUCTOR(3:28)]
+               PluginElementContentsImpl[XQUERY_XML_ELEMENT_CONTENTS_TOKEN(3:7)]('One ')
+               XQueryCDataSectionImpl[XQUERY_CDATA_SECTION(7:22)]
+                  LeafPsiElement[XQUERY_CDATA_SECTION_START_TAG_TOKEN(7:16)]('<![CDATA[')
+                  LeafPsiElement[XQUERY_CDATA_SECTION_TOKEN(16:19)]('Two')
+                  LeafPsiElement[XQUERY_CDATA_SECTION_END_TAG_TOKEN(19:22)](']]>')
+               PluginElementContentsImpl[XQUERY_XML_ELEMENT_CONTENTS_TOKEN(22:28)](' Three')
+            LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(28:30)]('</')
+            XPathNCNameImpl[XPATH_NCNAME(30:31)]
+               XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(30:31)]('a')
+            LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(31:32)]('>')

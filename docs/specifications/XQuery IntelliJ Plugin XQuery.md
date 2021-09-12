@@ -1229,8 +1229,8 @@ These changes include support for:
 | \[119\]  | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
 | \[120\]  | `PositionalArguments`          | ::= | `Argument ("," Argument)*`          |                       |
 | \[121\]  | `ForMemberBinding`             | ::= | `"$" VarName TypeDeclaration? PositionalVar? "in" ExprSingle` | |
-| \[122\]  | `DirElemContent`               | ::= | `DirectConstructor \| CDataSection \| EnclosedExpr \| DirTextConstructor` | |
-| \[123\]  | `DirTextConstructor`           | ::= | `ElementContents \| PredefinedEntityRef \| CharRef \| "{{" \| "}}"` | |
+| \[122\]  | `DirElemContent`               | ::= | `DirectConstructor \| EnclosedExpr \| DirTextConstructor` | |
+| \[123\]  | `DirTextConstructor`           | ::= | `ElementContents \| PredefinedEntityRef \| CharRef \| "{{" \| "}}" \| CDataSection` | |
 | \[124\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
 | \[125\]  | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |
 | \[126\]  | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                              |                       |
