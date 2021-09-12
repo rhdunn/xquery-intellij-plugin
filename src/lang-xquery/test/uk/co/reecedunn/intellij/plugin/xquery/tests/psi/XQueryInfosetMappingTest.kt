@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirNamespaceAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompDocConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstructor
@@ -456,6 +457,54 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.namespaceUri?.data, `is`("urn:number:two"))
                 assertThat(node.namespaceUri?.context, `is`(XdmUriContext.NamespaceDeclaration))
                 assertThat(node.namespaceUri?.moduleTypes, `is`(XdmModuleType.MODULE_OR_SCHEMA))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (147) DirElemContent ; XQuery IntelliJ Plugin EBNF (123) DirTextConstructor")
+    inner class DirTextConstructor {
+        @Nested
+        @DisplayName("Accessors (5.12) string-value")
+        internal inner class StringValue {
+            @Test
+            @DisplayName("text value content")
+            fun textValue() {
+                val node = parse<PluginDirTextConstructor>("<test>Lorem ipsum\uFFFF</test>")[0] as XdmTextNode
+                assertThat(node.stringValue, `is`("Lorem ipsum\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+            }
+
+            @Test
+            @DisplayName("CommonContent tokens")
+            fun commonContent() {
+                val node = parse<PluginDirTextConstructor>("<test>{{}}</test>")[0] as XdmTextNode
+                assertThat(node.stringValue, `is`("{}"))
+            }
+
+            @Test
+            @DisplayName("PredefinedEntityRef tokens")
+            fun predefinedEntityRef() {
+                // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
+                val node = parse<PluginDirTextConstructor>(
+                    "<test>&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt</test>"
+                )[0] as XdmTextNode
+                assertThat(node.stringValue, `is`("<áā\uD835\uDD04≪\u0338"))
+            }
+
+            @Test
+            @DisplayName("CharRef tokens")
+            fun charRef() {
+                val node = parse<PluginDirTextConstructor>(
+                    "<test>&#xA0;&#160;&#x20;&#x1D520;</test>"
+                )[0] as XdmTextNode
+                assertThat(node.stringValue, `is`("\u00A0\u00A0\u0020\uD835\uDD20"))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (153) CDataSection")
+            fun cdataSection() {
+                val node = parse<PluginDirTextConstructor>("<test>One <![CDATA[Two]]> Three</test>")[0] as XdmTextNode
+                assertThat(node.stringValue, `is`("One Two Three"))
             }
         }
     }

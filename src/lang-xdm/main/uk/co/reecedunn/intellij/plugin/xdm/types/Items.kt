@@ -115,7 +115,9 @@ interface XdmProcessingInstructionNode : XdmNode
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : text()
 
-interface XdmTextNode : XdmNode
+interface XdmTextNode : XdmNode {
+    val stringValue: String?
+}
 
 // endregion
 // region XQuery IntelliJ Plugin Data Model (2.1) : array-node() [MarkLogic]
