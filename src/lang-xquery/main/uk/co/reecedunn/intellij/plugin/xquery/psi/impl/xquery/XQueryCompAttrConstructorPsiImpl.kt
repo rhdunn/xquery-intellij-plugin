@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2020 Reece H. Dunn
+ * Copyright (C) 2016, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,9 @@ class XQueryCompAttrConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(nod
 
     override val nodeName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    override val stringValue: String?
+        get() = null
 
     override val typedValue: XsAnyAtomicType?
         get() = null
