@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2020-2021 Reece H. Dunn
+ * Copyright (C) 2016 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmTextNode
 
 /**
  * An XQuery 1.0 `CDataSection` node in the XQuery AST containing
  * `CDataSectionContents`.
  */
-interface XQueryCDataSection : PsiElement, XdmTextNode
+interface XQueryCDataSection : PsiElement
