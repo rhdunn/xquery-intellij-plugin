@@ -35,6 +35,8 @@ interface XmlAccessorsProvider {
 
         fun attribute(node: Any): Pair<Any, XmlAccessors>? = providers.mapNotNull { it.attribute(node) }.firstOrNull()
 
+        fun text(node: Any): Pair<Any, XmlAccessors>? = providers.mapNotNull { it.text(node) }.firstOrNull()
+
         @TestOnly
         @Suppress("UsePropertyAccessSyntax")
         fun register(plugin: PluginDescriptorProvider, provider: XmlAccessorsProvider, fieldName: String = "INSTANCE") {
@@ -52,4 +54,6 @@ interface XmlAccessorsProvider {
     fun element(node: Any): Pair<Any, XmlAccessors>?
 
     fun attribute(node: Any): Pair<Any, XmlAccessors>?
+
+    fun text(node: Any): Pair<Any, XmlAccessors>?
 }

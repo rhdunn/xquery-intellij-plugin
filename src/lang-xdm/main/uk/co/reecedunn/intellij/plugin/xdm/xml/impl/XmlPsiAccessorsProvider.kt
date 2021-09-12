@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
+import com.intellij.psi.xml.XmlText
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 
@@ -34,6 +35,11 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
         is XmlAttributeValue -> node.parent to this
         is XmlAttribute -> node to this
         is PsiElement -> node.context?.let { attribute(it) }
+        else -> null
+    }
+
+    override fun text(node: Any): Pair<Any, XmlAccessors>? = when (node) {
+        is XmlText -> node to this
         else -> null
     }
 

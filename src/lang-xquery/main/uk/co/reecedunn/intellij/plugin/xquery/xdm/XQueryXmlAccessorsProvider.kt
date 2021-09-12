@@ -53,6 +53,10 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
         else -> null
     }
 
+    override fun text(node: Any): Pair<Any, XmlAccessors>? = when (node) {
+        else -> null
+    }
+
     // endregion
     // region Accessors (5.10) node-name
 

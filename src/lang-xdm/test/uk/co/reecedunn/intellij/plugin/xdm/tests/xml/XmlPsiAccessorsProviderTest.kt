@@ -263,4 +263,21 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
             assertThat(accessors, `is`(sameInstance(XmlPsiAccessorsProvider)))
         }
     }
+
+    @Nested
+    @DisplayName("XmlText")
+    inner class Text {
+        @Test
+        @DisplayName("providers")
+        fun providers() {
+            val node = parse<XmlText>("<test>Lorem ipsum</test>")[0]
+            val (matched, accessors) = XmlAccessorsProvider.text(node)!!
+
+            assertThat(matched, `is`(instanceOf(XmlText::class.java)))
+            assertThat((matched as XmlText).text, `is`("Lorem ipsum"))
+            assertThat(matched, `is`(sameInstance(node)))
+
+            assertThat(accessors, `is`(sameInstance(XmlPsiAccessorsProvider)))
+        }
+    }
 }
