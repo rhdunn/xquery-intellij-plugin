@@ -32,4 +32,9 @@ interface XmlAccessors {
     fun parent(node: Any): Any?
 
     // endregion
+    // region Accessors (5.12) string-value
+
+    fun stringValue(node: Any): String?
+
+    // endregion
 }

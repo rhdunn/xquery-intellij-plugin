@@ -74,4 +74,11 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     }
 
     // endregion
+    // region Accessors (5.12) string-value
+
+    override fun stringValue(node: Any): String? = when (node) {
+        else -> null
+    }
+
+    // endregion
 }
