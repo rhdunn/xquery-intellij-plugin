@@ -68,6 +68,7 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // region Accessors (5.11) parent
 
     override fun parent(node: Any): Any? = when (node) {
+        is XmlTag -> node.parent
         is XmlAttribute -> node.parent
         else -> null
     }

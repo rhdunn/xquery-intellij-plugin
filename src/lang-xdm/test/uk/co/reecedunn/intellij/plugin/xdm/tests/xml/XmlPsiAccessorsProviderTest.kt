@@ -113,6 +113,32 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
                 assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(true))
             }
         }
+
+        @Nested
+        @DisplayName("Accessors (5.11) parent")
+        inner class Parent {
+            @Test
+            @DisplayName("element node")
+            fun element() {
+                val node = parse<XmlTag>("<lorem><ipsum/></lorem>")[1]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                val parent = accessors.parent(matched)
+                assertThat(parent, `is`(instanceOf(XmlTag::class.java)))
+                assertThat((parent as XmlTag).name, `is`("lorem"))
+            }
+
+            @Test
+            @DisplayName("document node")
+            fun document() {
+                val node = parse<XmlTag>("<lorem><ipsum/></lorem>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                val parent = accessors.parent(matched)
+                assertThat(parent, `is`(instanceOf(XmlDocument::class.java)))
+                assertThat((parent as XmlDocument).rootTag?.name, `is`("lorem"))
+            }
+        }
     }
 
     @Nested
