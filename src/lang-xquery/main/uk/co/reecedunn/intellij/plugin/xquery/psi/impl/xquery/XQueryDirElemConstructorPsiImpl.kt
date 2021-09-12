@@ -15,21 +15,27 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterExpressions
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import java.util.*
 
 class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQueryDirElemConstructor, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node),
+    XQueryDirElemConstructor,
+    XpmSyntaxValidationElement {
+    companion object {
+        private val STRING_VALUE = Key.create<Optional<String>>("STRING_VALUE")
+    }
     // region XpmExpression
 
     override val expressionElement: PsiElement
@@ -50,6 +56,24 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             is XPathExpr -> parent.parent as? XdmNode
             else -> null
         }
+
+    override val stringValue: String?
+        get() = computeUserDataIfAbsent(STRING_VALUE) {
+            val value = StringBuilder()
+            children().forEach { child ->
+                when (child) {
+                    is XdmTextNode -> value.append(child.stringValue ?: "")
+                    is XdmElementNode -> {
+                        val stringValue = child.stringValue ?: return@computeUserDataIfAbsent Optional.empty()
+                        value.append(stringValue)
+                    }
+                    is XpmExpression -> return@computeUserDataIfAbsent Optional.empty()
+                    else -> {
+                    }
+                }
+            }
+            Optional.of(value.toString())
+        }.orElse(null)
 
     override val closingTag: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().lastOrNull()

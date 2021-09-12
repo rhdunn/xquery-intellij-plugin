@@ -65,6 +65,8 @@ interface XdmElementNode : XdmNode {
     val nodeName: XsQNameValue?
 
     val parentNode: XdmNode?
+
+    val stringValue: String?
 }
 
 object XdmElementItem : XdmItemType {

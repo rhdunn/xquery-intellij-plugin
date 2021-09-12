@@ -48,5 +48,8 @@ class XQueryCompElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(nod
             else -> null
         }
 
+    override val stringValue: String?
+        get() = null
+
     // endregion
 }
