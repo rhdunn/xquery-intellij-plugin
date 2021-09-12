@@ -77,6 +77,7 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // region Accessors (5.12) string-value
 
     override fun stringValue(node: Any): String? = when (node) {
+        is XmlAttribute -> node.displayValue
         else -> null
     }
 

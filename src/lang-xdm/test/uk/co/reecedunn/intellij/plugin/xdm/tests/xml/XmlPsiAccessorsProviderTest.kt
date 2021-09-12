@@ -213,6 +213,39 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
             assertThat(parent, `is`(instanceOf(XmlTag::class.java)))
             assertThat((parent as XmlTag).name, `is`("a"))
         }
+
+        @Nested
+        @DisplayName("Accessors (5.12) string-value")
+        internal inner class StringValue {
+            @Test
+            @DisplayName("attribute value content")
+            fun attributeValue() {
+                val node = parse<XmlAttribute>(
+                    "<a b=\"http://www.example.com\"/>"
+                )[0]
+                val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("http://www.example.com"))
+            }
+
+            @Test
+            @DisplayName("PredefinedEntityRef tokens")
+            fun predefinedEntityRef() {
+                val node = parse<XmlAttribute>("<a b=\"&lt;&gt;\"/>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("<>"))
+            }
+
+            @Test
+            @DisplayName("CharRef tokens")
+            fun charRef() {
+                val node = parse<XmlAttribute>("<a b=\"&#xA0;&#160;&#x20;&#xD520;\"/>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("\u00A0\u00A0\u0020\uD520"))
+            }
+        }
     }
 
     @Nested
