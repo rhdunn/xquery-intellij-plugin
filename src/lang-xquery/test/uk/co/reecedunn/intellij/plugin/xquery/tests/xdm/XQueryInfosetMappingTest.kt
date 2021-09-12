@@ -293,14 +293,14 @@ class XQueryInfosetMappingTest : ParserTestCase() {
             @Test
             @DisplayName("EscapeApos tokens")
             fun escapeApos() {
-                val node = parse<PluginDirAttribute>("<a b='''\"\"{{}}'")[0] as XdmAttributeNode
+                val node = parse<PluginDirAttribute>("<a b='''\"\"{{}}'/>")[0] as XdmAttributeNode
                 assertThat(node.stringValue, `is`("'\"\"{}"))
             }
 
             @Test
             @DisplayName("EscapeQuot tokens")
             fun escapeQuot() {
-                val node = parse<PluginDirAttribute>("<a b=\"''\"\"{{}}\"")[0] as XdmAttributeNode
+                val node = parse<PluginDirAttribute>("<a b=\"''\"\"{{}}\"/>")[0] as XdmAttributeNode
                 assertThat(node.stringValue, `is`("''\"{}"))
             }
 
@@ -309,7 +309,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
             fun predefinedEntityRef() {
                 // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
                 val node = parse<PluginDirAttribute>(
-                    "<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\""
+                    "<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"/>"
                 )[0] as XdmAttributeNode
                 assertThat(node.stringValue, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
             }
@@ -317,14 +317,14 @@ class XQueryInfosetMappingTest : ParserTestCase() {
             @Test
             @DisplayName("CharRef tokens")
             fun charRef() {
-                val node = parse<PluginDirAttribute>("<a b=\"&#xA0;&#160;&#x20;&#x1D520;\"")[0] as XdmAttributeNode
+                val node = parse<PluginDirAttribute>("<a b=\"&#xA0;&#160;&#x20;&#x1D520;\"/>")[0] as XdmAttributeNode
                 assertThat(node.stringValue, `is`("\u00A0\u00A0\u0020\uD835\uDD20"))
             }
 
             @Test
             @DisplayName("EnclosedExpr tokens")
             fun enclosedExpr() {
-                val node = parse<PluginDirAttribute>("<a b=\"x{\$y}z\"")[0] as XdmAttributeNode
+                val node = parse<PluginDirAttribute>("<a b=\"x{\$y}z\"/>")[0] as XdmAttributeNode
                 assertThat(node.stringValue, `is`(nullValue()))
             }
         }
