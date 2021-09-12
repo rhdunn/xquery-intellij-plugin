@@ -84,6 +84,7 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
 
     override fun stringValue(node: Any): String? = when (node) {
         is XmlAttribute -> node.displayValue
+        is XmlText -> node.value
         else -> null
     }
 

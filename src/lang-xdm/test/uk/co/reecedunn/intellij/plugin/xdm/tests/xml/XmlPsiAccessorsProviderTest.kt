@@ -240,6 +240,7 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
             @Test
             @DisplayName("CharRef tokens")
             fun charRef() {
+                // IDEA-277995 -- CharRefs > U+FFFF ignore the higher part, e.g. &#x1D520; -> U+D520
                 val node = parse<XmlAttribute>("<a b=\"&#xA0;&#160;&#x20;&#xD520;\"/>")[0]
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
@@ -278,6 +279,47 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
             assertThat(matched, `is`(sameInstance(node)))
 
             assertThat(accessors, `is`(sameInstance(XmlPsiAccessorsProvider)))
+        }
+
+        @Nested
+        @DisplayName("Accessors (5.12) string-value")
+        internal inner class StringValue {
+            @Test
+            @DisplayName("text value content")
+            fun textValue() {
+                val node = parse<XmlText>("<test>Lorem ipsum</text>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.text(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("Lorem ipsum"))
+            }
+
+            @Test
+            @DisplayName("PredefinedEntityRef tokens")
+            fun predefinedEntityRef() {
+                val node = parse<XmlText>("<test>&lt;&gt;</test>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.text(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("<>"))
+            }
+
+            @Test
+            @DisplayName("CharRef tokens")
+            fun charRef() {
+                // IDEA-277995 -- CharRefs > U+FFFF ignore the higher part, e.g. &#x1D520; -> U+D520
+                val node = parse<XmlText>("<test>&#xA0;&#160;&#x20;&#xD520;</test>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.text(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("\u00A0\u00A0\u0020\uD520"))
+            }
+
+            @Test
+            @DisplayName("CDataSection")
+            fun cdataSection() {
+                val node = parse<XmlText>("<test>One <![CDATA[Two]]> Three</text>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.text(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("One Two Three"))
+            }
         }
     }
 }
