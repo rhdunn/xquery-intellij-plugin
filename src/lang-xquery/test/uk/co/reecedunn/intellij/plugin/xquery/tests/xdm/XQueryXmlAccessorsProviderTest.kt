@@ -326,7 +326,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 )[0] as XdmAttributeNode
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
-                assertThat(accessors.stringValue(matched), `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+                assertThat(accessors.stringValue(matched), `is`("<áā\uD835\uDD04≪\u0338"))
             }
 
             @Test
