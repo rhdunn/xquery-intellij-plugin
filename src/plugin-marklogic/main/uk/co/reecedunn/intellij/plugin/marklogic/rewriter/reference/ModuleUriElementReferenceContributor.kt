@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,22 +15,45 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference
 
-import com.intellij.patterns.XmlPatterns
+import com.intellij.patterns.ElementPattern
+import com.intellij.patterns.ElementPatternCondition
+import com.intellij.patterns.PlatformPatterns
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceContributor
 import com.intellij.psi.PsiReferenceRegistrar
+import com.intellij.psi.xml.XmlElementType
+import com.intellij.psi.xml.XmlTag
+import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 
-class ModuleUriElementReferenceContributor : PsiReferenceContributor() {
+class ModuleUriElementReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
+    // region PsiReferenceContributor
+
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
-        val rewriter = XmlPatterns.xmlTag().withNamespace(Rewriter.NAMESPACE)
-
-        val dispatch = rewriter.withLocalName("dispatch").withoutAttributeValue("xdbc", "true")
-        registrar.registerReferenceProvider(dispatch, ModuleUriElementReference)
-
-        val setPath = rewriter.withLocalName("set-path")
-        registrar.registerReferenceProvider(setPath, ModuleUriElementReference)
-
-        val setErrorHandler = rewriter.withLocalName("set-error-handler")
-        registrar.registerReferenceProvider(setErrorHandler, ModuleUriElementReference)
+        registrar.registerReferenceProvider(this, ModuleUriElementReference)
     }
+
+    // endregion
+    // region ElementPattern
+
+    override fun accepts(o: Any?): Boolean {
+        val node = o as? XmlTag ?: return false
+        if (node.namespace != Rewriter.NAMESPACE) return false
+        return when (node.localName) {
+            "dispatch" -> node.getAttributeValue("xdbc") != "true"
+            "set-path" -> true
+            "set-error-handler" -> true
+            else -> false
+        }
+    }
+
+    override fun accepts(o: Any?, context: ProcessingContext?): Boolean = accepts(o)
+
+    override fun getCondition(): ElementPatternCondition<PsiElement> = PATTERN.condition
+
+    companion object {
+        private val PATTERN = PlatformPatterns.psiElement(XmlElementType.XML_TAG)
+    }
+
+    // endregion
 }
