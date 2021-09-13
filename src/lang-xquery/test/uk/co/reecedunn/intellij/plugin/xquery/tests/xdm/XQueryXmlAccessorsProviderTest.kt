@@ -407,8 +407,8 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 EBNF (147) DirElemContent ; XQuery IntelliJ Plugin EBNF (123) DirTextConstructor")
     inner class DirTextConstructor {
         @Test
-        @DisplayName("providers")
-        fun providers() {
+        @DisplayName("Accessors (5.9) node-kind")
+        fun nodeKind() {
             val node = parse<PluginDirTextConstructor>("<test>Lorem ipsum</test>")[0]
             val (matched, accessors) = XmlAccessorsProvider.text(node)!!
 
@@ -945,36 +945,30 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (164) CompTextConstructor")
     inner class CompTextConstructor {
-        @Test
-        @DisplayName("providers")
-        fun providers() {
-            val node = parse<XQueryCompTextConstructor>("element a { text { 'value' } }")[0]
-            val (matched, accessors) = XmlAccessorsProvider.text(node)!!
-
-            assertThat(matched, `is`(instanceOf(XQueryCompTextConstructor::class.java)))
-            assertThat(matched, `is`(sameInstance(matched)))
-
-            assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
-        }
-    }
-
-    @Nested
-    @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
-    inner class StringLiteral {
         @Nested
-        @DisplayName("providers")
-        inner class Providers {
-            @Nested
+        @DisplayName("Accessors (5.9) node-kind")
+        inner class NodeKindTest {
+            @Test
             @DisplayName("XQuery 3.1 EBNF (164) CompTextConstructor")
-            inner class CompTextConstructor {
+            fun compTextConstructor() {
+                val node = parse<XQueryCompTextConstructor>("element a { text { 'value' } }")[0]
+                val (matched, accessors) = XmlAccessorsProvider.text(node)!!
+
+                assertThat(accessors.nodeKind(matched), `is`(NodeKind.Text))
+                assertThat(matched, `is`(instanceOf(XQueryCompTextConstructor::class.java)))
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
+            inner class StringLiteral {
                 @Test
                 @DisplayName("single StringLiteral")
                 fun singleStringLiteral() {
                     val node = parse<XPathStringLiteral>("element a { text { 'value' } }")[0]
                     val (matched, accessors) = XmlAccessorsProvider.text(node)!!
 
+                    assertThat(accessors.nodeKind(matched), `is`(NodeKind.Text))
                     assertThat(matched, `is`(instanceOf(XQueryCompTextConstructor::class.java)))
-                    assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
                 }
 
                 @Test
@@ -982,6 +976,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 fun multipleStringLiterals() {
                     val node = parse<XPathStringLiteral>("element a { text { 'one', 'two' } }")[0]
                     val provider = XmlAccessorsProvider.text(node)
+
                     assertThat(provider, `is`(nullValue()))
                 }
 
@@ -990,6 +985,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 fun complexExpression() {
                     val node = parse<XPathStringLiteral>("element a { text { 'one' || 'two' } }")[0]
                     val provider = XmlAccessorsProvider.text(node)
+
                     assertThat(provider, `is`(nullValue()))
                 }
             }
