@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.xdm.xml.NodeKind
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider
 
@@ -56,16 +57,12 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
     @DisplayName("XmlTag")
     inner class Element {
         @Test
-        @DisplayName("providers")
-        fun providers() {
+        @DisplayName("Accessors (5.9) node-kind")
+        fun nodeKind() {
             val node = parse<XmlTag>("<a test='value'/>")[0]
             val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
-            assertThat(matched, `is`(instanceOf(XmlTag::class.java)))
-            assertThat((matched as XmlTag).name, `is`("a"))
-            assertThat(matched, `is`(sameInstance(node)))
-
-            assertThat(accessors, `is`(sameInstance(XmlPsiAccessorsProvider)))
+            assertThat(accessors.nodeKind(matched), `is`(NodeKind.Element))
         }
 
         @Nested

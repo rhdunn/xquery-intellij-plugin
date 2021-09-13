@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmTextNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.xml.NodeKind
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
@@ -63,6 +64,13 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
                 else -> null
             }
         }
+        else -> null
+    }
+
+    // endregion
+    // region Accessors (5.9) node-kind
+
+    override fun nodeKind(node: Any): NodeKind? = when (node) {
         else -> null
     }
 

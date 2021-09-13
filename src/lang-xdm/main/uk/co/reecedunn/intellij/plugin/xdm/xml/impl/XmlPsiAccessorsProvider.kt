@@ -25,6 +25,7 @@ import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
 import com.intellij.psi.xml.XmlText
+import uk.co.reecedunn.intellij.plugin.xdm.xml.NodeKind
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 
@@ -45,6 +46,14 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
 
     override fun text(node: Any): Pair<Any, XmlAccessors>? = when (node) {
         is XmlText -> node to this
+        else -> null
+    }
+
+    // endregion
+    // region Accessors (5.9) node-kind
+
+    override fun nodeKind(node: Any): NodeKind? = when (node) {
+        is XmlTag -> NodeKind.Element
         else -> null
     }
 
