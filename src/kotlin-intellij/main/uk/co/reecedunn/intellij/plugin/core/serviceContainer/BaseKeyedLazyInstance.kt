@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.compat.serviceContainer
+package uk.co.reecedunn.intellij.plugin.core.serviceContainer
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginAware
 import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.serviceContainer.LazyExtensionInstance
-import org.picocontainer.PicoContainer
 
 abstract class BaseKeyedLazyInstance<T> : LazyExtensionInstance<T>(), PluginAware {
-    // For the AbstractExtensionPointBean#instantiateBean compatibility API on IntelliJ 2020.1 and earlier.
-    @Suppress("UNUSED_PARAMETER")
-    fun <T> instantiateClass(className: String, container: PicoContainer): T = TODO()
-
     @Transient
     var pluginDescriptor: PluginDescriptor? = null
         private set

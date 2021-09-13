@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.serviceContainer
 
-import com.intellij.compat.serviceContainer.BaseKeyedLazyInstance
 import com.intellij.diagnostic.PluginException
 import com.intellij.openapi.application.ApplicationManager
 
