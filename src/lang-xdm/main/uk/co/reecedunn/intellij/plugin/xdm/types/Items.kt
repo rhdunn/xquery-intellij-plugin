@@ -27,6 +27,7 @@ interface XdmNode : XdmItem
 val XdmNode.nodeKind: NodeKind?
     get() = when (this) {
         is XdmElementNode -> NodeKind.Element
+        is XdmAttributeNode -> NodeKind.Attribute
         else -> null
     }
 

@@ -291,6 +291,13 @@ class XQueryInfosetMappingTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList ; XQuery IntelliJ Plugin EBNF (2) DirAttribute")
     inner class DirAttribute {
+        @Test
+        @DisplayName("Accessors (5.9) node-kind")
+        fun nodeKind() {
+            val node = parse<PluginDirAttribute>("<a test='value'/>")[0] as XdmAttributeNode
+            assertThat(node.nodeKind, `is`(NodeKind.Attribute))
+        }
+
         @Nested
         @DisplayName("Accessors (5.10) node-name")
         internal inner class NodeName {
@@ -702,6 +709,13 @@ class XQueryInfosetMappingTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
     inner class CompAttrConstructor {
+        @Test
+        @DisplayName("Accessors (5.9) node-kind")
+        fun nodeKind() {
+            val node = parse<PluginDirAttribute>("<a test='value'/>")[0] as XdmAttributeNode
+            assertThat(node.nodeKind, `is`(NodeKind.Attribute))
+        }
+
         @Nested
         @DisplayName("Accessors (5.10) node-name")
         internal inner class NodeName {
