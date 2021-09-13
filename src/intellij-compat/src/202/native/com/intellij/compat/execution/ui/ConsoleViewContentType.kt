@@ -22,10 +22,6 @@ import com.intellij.openapi.editor.ex.RangeHighlighterEx
 import com.intellij.openapi.editor.markup.HighlighterTargetArea
 import com.intellij.openapi.util.Key
 
-// IntelliJ 2020.1 does not support the attributesKey property.
-val ConsoleViewContentType.textAttributesKey: TextAttributesKey?
-    get() = attributesKey
-
 fun ConsoleViewContentType.addRangeHighlighterAndChangeAttributes(
     markupModel: MarkupModelEx,
     startOffset: Int,

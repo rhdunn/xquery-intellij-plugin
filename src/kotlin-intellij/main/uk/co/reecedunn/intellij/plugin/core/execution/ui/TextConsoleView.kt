@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  * Copyright 2000-2020 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +17,6 @@
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
 import com.intellij.compat.execution.ui.addRangeHighlighterAndChangeAttributes
-import com.intellij.compat.execution.ui.textAttributesKey
 import com.intellij.execution.filters.FileHyperlinkInfo
 import com.intellij.execution.filters.HyperlinkInfo
 import com.intellij.execution.impl.ConsoleViewUtil
@@ -79,7 +78,7 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
                 val model = DocumentMarkupModel.forDocument(editor!!.document, project, false)
                 model.allHighlighters.asSequence().filterIsInstance<RangeHighlighterEx>().forEach { tokenMarker ->
                     val contentType = tokenMarker.getUserData(CONTENT_TYPE)
-                    if (contentType != null && contentType.textAttributesKey == null) {
+                    if (contentType != null && contentType.attributesKey == null) {
                         tokenMarker.setTextAttributes(contentType.attributes)
                     }
                 }
