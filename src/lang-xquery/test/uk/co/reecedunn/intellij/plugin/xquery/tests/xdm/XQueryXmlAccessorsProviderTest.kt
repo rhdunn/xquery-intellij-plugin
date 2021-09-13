@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.xml.NodeKind
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
@@ -33,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.xdm.XQueryXmlAccessorsProvider
 
+@DisplayName("XQuery 3.1 - Data Model (5) Accessors - XQuery Direct and Constructed Nodes")
 class XQueryXmlAccessorsProviderTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryXmlAccessorsProviderTest")
 
@@ -47,16 +49,13 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
     inner class DirElemConstructor {
         @Test
-        @DisplayName("providers")
-        fun providers() {
+        @DisplayName("Accessors (5.9) node-kind")
+        fun nodeKind() {
             val node = parse<XQueryDirElemConstructor>("<a test='value'/>")[0]
             val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
+            assertThat(accessors.nodeKind(matched), `is`(NodeKind.Element))
             assertThat(matched, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
-            assertThat(qname_presentation((matched as XQueryDirElemConstructor).nodeName!!), `is`("a"))
-            assertThat(matched, `is`(sameInstance(node)))
-
-            assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
         }
 
         @Nested
@@ -482,16 +481,13 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
     inner class CompElemConstructor {
         @Test
-        @DisplayName("providers")
-        fun providers() {
+        @DisplayName("Accessors (5.9) node-kind")
+        fun nodeKind() {
             val node = parse<XQueryCompElemConstructor>("element a { attribute test { 'value' } }")[0]
             val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
+            assertThat(accessors.nodeKind(matched), `is`(NodeKind.Element))
             assertThat(matched, `is`(instanceOf(XQueryCompElemConstructor::class.java)))
-            assertThat(qname_presentation((matched as XQueryCompElemConstructor).nodeName!!), `is`("a"))
-            assertThat(matched, `is`(sameInstance(node)))
-
-            assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
         }
 
         @Nested
