@@ -28,6 +28,7 @@ val XdmNode.nodeKind: NodeKind?
     get() = when (this) {
         is XdmElementNode -> NodeKind.Element
         is XdmAttributeNode -> NodeKind.Attribute
+        is XdmTextNode -> NodeKind.Text
         else -> null
     }
 

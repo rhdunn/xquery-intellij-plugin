@@ -28,10 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.xml.NodeKind
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompDocConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
@@ -444,6 +441,13 @@ class XQueryInfosetMappingTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (147) DirElemContent ; XQuery IntelliJ Plugin EBNF (123) DirTextConstructor")
     inner class DirTextConstructor {
+        @Test
+        @DisplayName("Accessors (5.9) node-kind")
+        fun nodeKind() {
+            val node = parse<PluginDirTextConstructor>("<test>Lorem ipsum</test>")[0] as XdmTextNode
+            assertThat(node.nodeKind, `is`(NodeKind.Text))
+        }
+
         @Nested
         @DisplayName("Accessors (5.12) string-value")
         internal inner class StringValue {
@@ -843,6 +847,17 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                     assertThat(node.parentNode, `is`(nullValue()))
                 }
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (164) CompTextConstructor")
+    inner class CompTextConstructor {
+        @Test
+        @DisplayName("Accessors (5.9) node-kind")
+        fun nodeKind() {
+            val node = parse<XQueryCompTextConstructor>("text { 'value' }")[0] as XdmTextNode
+            assertThat(node.nodeKind, `is`(NodeKind.Text))
         }
     }
 }
