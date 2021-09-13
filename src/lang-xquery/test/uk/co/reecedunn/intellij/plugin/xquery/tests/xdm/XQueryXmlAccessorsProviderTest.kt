@@ -202,6 +202,55 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 }
             }
         }
+
+        @Nested
+        @DisplayName("Accessors (5.12) string-value")
+        internal inner class StringValue {
+            @Test
+            @DisplayName("text only")
+            fun textOnly() {
+                val node = parse<XQueryDirElemConstructor>("<test>Lorem ipsum</test>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("Lorem ipsum"))
+            }
+
+            @Test
+            @DisplayName("empty inner element")
+            fun emptyInnerElement() {
+                val node = parse<XQueryDirElemConstructor>("<test>Lorem <empty/> ipsum</test>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("Lorem  ipsum"))
+            }
+
+            @Test
+            @DisplayName("inner element")
+            fun innerElement() {
+                val node = parse<XQueryDirElemConstructor>("<test>Lorem <i>ipsum</i> dolor</test>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("Lorem ipsum dolor"))
+            }
+
+            @Test
+            @DisplayName("expression content")
+            fun expressionContent() {
+                val node = parse<XQueryDirElemConstructor>("<test>Lorem { 2 } dolor</test>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("inner expression content")
+            fun innerExpressionContent() {
+                val node = parse<XQueryDirElemConstructor>("<test>Lorem <i>{ 2 }</i> dolor</test>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`(nullValue()))
+            }
+        }
     }
 
     @Nested
