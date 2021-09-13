@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,11 @@
 package com.intellij.compat.testFramework
 
 import com.intellij.openapi.project.Project
-import com.intellij.pom.PomModel
 import com.intellij.pom.PomTransaction
 import com.intellij.pom.core.impl.PomModelImpl
-import com.intellij.pom.tree.TreeAspect
 
-private class MockPomModelImpl(project: Project) : PomModelImpl(project) {
+class MockPomModelImpl(project: Project) : PomModelImpl(project) {
     override fun runTransaction(transaction: PomTransaction) {
         transaction.run()
     }
-}
-
-@Suppress("UnstableApiUsage")
-fun registerPomModel(project: Project) {
-    project.registerServiceInstance(TreeAspect::class.java, TreeAspect())
-    project.registerServiceInstance(PomModel::class.java, MockPomModelImpl(project))
 }
