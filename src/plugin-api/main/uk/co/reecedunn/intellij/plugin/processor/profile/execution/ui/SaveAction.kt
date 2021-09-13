@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.profile.execution.ui
 
-import com.intellij.compat.icons.AllIcons
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.fileChooser.FileChooser
