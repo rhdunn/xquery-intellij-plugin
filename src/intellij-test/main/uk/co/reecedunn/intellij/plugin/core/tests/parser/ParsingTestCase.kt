@@ -19,7 +19,6 @@ package uk.co.reecedunn.intellij.plugin.core.tests.parser
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
-import com.intellij.compat.mock.MockFileDocumentManagerImpl
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.compat.util.registry.initializeRegistryForTests
@@ -28,6 +27,7 @@ import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
 import com.intellij.lang.parameterInfo.CreateParameterInfoContext
 import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
+import com.intellij.mock.MockFileDocumentManagerImpl
 import com.intellij.mock.MockFileTypeManager
 import com.intellij.mock.MockLanguageFileType
 import com.intellij.openapi.application.ApplicationManager
