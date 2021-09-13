@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.editor
 
-import com.intellij.compat.openapi.editor.CaretModel
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.editor.*
 import com.intellij.openapi.editor.event.CaretListener
