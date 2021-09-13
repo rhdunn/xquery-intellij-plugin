@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.module
 
-import com.intellij.compat.openapi.module.ModuleManager
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.openapi.module.*
 import com.intellij.openapi.project.Project
@@ -26,6 +25,7 @@ import org.jetbrains.annotations.ApiStatus
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockModuleRootsManager
 import java.nio.file.Path
 
+@Suppress("NonExtendableApiUsage")
 class MockModuleManager(private val project: Project) : ModuleManager() {
     private var modules: Array<Module> = arrayOf()
 
