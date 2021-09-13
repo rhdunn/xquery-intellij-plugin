@@ -139,6 +139,37 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
                 assertThat((parent as XmlDocument).rootTag?.name, `is`("lorem"))
             }
         }
+
+        @Nested
+        @DisplayName("Accessors (5.12) string-value")
+        internal inner class StringValue {
+            @Test
+            @DisplayName("text only")
+            fun textOnly() {
+                val node = parse<XmlTag>("<test>Lorem ipsum</test>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("Lorem ipsum"))
+            }
+
+            @Test
+            @DisplayName("empty inner element")
+            fun emptyInnerElement() {
+                val node = parse<XmlTag>("<test>Lorem <empty/> ipsum</test>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("Lorem  ipsum"))
+            }
+
+            @Test
+            @DisplayName("inner element")
+            fun innerElement() {
+                val node = parse<XmlTag>("<test>Lorem <i>ipsum</i> dolor</test>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.stringValue(matched), `is`("Lorem ipsum dolor"))
+            }
+        }
     }
 
     @Nested

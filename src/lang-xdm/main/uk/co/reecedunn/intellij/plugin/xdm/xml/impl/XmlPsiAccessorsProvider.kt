@@ -15,7 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.xml.impl
 
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
+import com.intellij.psi.util.CachedValue
+import com.intellij.psi.util.CachedValueProvider
+import com.intellij.psi.util.CachedValuesManager
+import com.intellij.psi.util.PsiModificationTracker
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
@@ -82,7 +87,21 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // endregion
     // region Accessors (5.12) string-value
 
+    private val STRING_VALUE = Key.create<CachedValue<String>>("STRING_VALUE")
+
     override fun stringValue(node: Any): String? = when (node) {
+        is XmlTag -> CachedValuesManager.getCachedValue(node, STRING_VALUE) {
+            val value = StringBuilder()
+            node.value.children.forEach { child ->
+                when (child) {
+                    is XmlText -> value.append(child.value)
+                    is XmlTag -> value.append(stringValue(child))
+                    else -> {
+                    }
+                }
+            }
+            CachedValueProvider.Result.create(value.toString(), PsiModificationTracker.MODIFICATION_COUNT)
+        }
         is XmlAttribute -> node.displayValue
         is XmlText -> node.value
         else -> null
