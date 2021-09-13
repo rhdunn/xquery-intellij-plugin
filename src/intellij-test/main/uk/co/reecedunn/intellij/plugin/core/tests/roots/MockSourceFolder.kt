@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.roots
 
-import com.intellij.compat.roots.SourceFolder
 import com.intellij.openapi.roots.ContentEntry
+import com.intellij.openapi.roots.SourceFolder
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.JpsElement
 import org.jetbrains.jps.model.java.JavaSourceRootType
