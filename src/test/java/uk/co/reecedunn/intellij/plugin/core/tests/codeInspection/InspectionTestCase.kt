@@ -19,7 +19,7 @@ import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ex.InspectionManagerEx
-import com.intellij.compat.testFramework.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.psi.SmartPointerManager
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator

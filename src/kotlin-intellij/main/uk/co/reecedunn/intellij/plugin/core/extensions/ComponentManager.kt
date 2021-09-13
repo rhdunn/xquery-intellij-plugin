@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.compat.testFramework
+package uk.co.reecedunn.intellij.plugin.core.extensions
 
 import com.intellij.mock.MockComponentManager
 import com.intellij.openapi.Disposable

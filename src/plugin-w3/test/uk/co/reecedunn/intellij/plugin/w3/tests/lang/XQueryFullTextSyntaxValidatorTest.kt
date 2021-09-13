@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.tests.lang
 
-import com.intellij.compat.testFramework.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement

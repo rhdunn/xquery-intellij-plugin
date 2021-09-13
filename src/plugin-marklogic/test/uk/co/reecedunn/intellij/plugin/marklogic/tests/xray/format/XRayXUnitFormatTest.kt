@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.xray.format
 
-import com.intellij.compat.testFramework.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.extensions.PluginId

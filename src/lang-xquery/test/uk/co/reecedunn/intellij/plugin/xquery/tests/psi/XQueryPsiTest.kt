@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
-import com.intellij.compat.testFramework.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.mock.MockResolveScopeManager
 import com.intellij.navigation.ItemPresentation
 import com.intellij.navigation.NavigationItem

@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.tests.xml
 
-import com.intellij.compat.testFramework.registerExtensionPointBean
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XMLParserDefinition
