@@ -3,11 +3,7 @@ ext.intellij_type = project.property('idea_type')
 
 version = ext.intellij_version
 
-if (ext.intellij_version >= 202) {
-    sourceSets.main.java.srcDirs += 'src/202/native'
-} else {
-    sourceSets.main.java.srcDirs += 'src/202/compat'
-}
+sourceSets.main.java.srcDirs += 'src/202/native'
 
 if (ext.intellij_version >= 203) {
     sourceSets.main.java.srcDirs += 'src/203/native'
@@ -32,9 +28,7 @@ if (ext.intellij_version >= 212) {
 sourceSets.main.java.srcDirs += 'src/microservices/api'
 
 if (ext.intellij_type == 'IU') {
-    if (ext.intellij_version == 201) {
-        sourceSets.main.java.srcDirs += 'src/microservices/201'
-    } else if (ext.intellij_version == 202) {
+    if (ext.intellij_version == 202) {
         sourceSets.main.java.srcDirs += 'src/microservices/202'
     } else if (ext.intellij_version >= 203) {
         sourceSets.main.java.srcDirs += 'src/microservices/203'

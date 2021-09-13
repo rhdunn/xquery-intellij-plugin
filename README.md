@@ -7,9 +7,8 @@
 
 ## XQuery and XSLT
 
-This is a plugin for IntelliJ IDE 2019.3 &ndash; 2021.2 that adds support
-for the XML Query (XQuery) and XML Path (XPath) languages. This covers
-support for:
+This is a plugin for the IntelliJ IDE that adds support for the XML Query (XQuery) and
+XML Path (XPath) languages. This covers support for:
 1.  XPath 2.0, 3.0, and 3.1;
 1.  XQuery 1.0, 3.0, and 3.1;
 1.  XQuery and XPath Full Text extension;
@@ -25,6 +24,9 @@ languages that use XPath:
 
 See https://rhdunn.github.io/xquery-intellij-plugin/ for the plugin documentation
 and tutorials.
+
+The latest development version of this plugin supports IntelliJ 2019.3 &ndash; 2021.2.
+Older versions of the plugin are compatible with older versions of IntelliJ.
 
 ### Query Processor and Database Integration
 
