@@ -16,11 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.lang.editor.parameters
 
 import com.intellij.codeInsight.CodeInsightBundle
-import com.intellij.compat.lang.parameterInfo.ParameterInfoHandler
-import com.intellij.lang.parameterInfo.CreateParameterInfoContext
-import com.intellij.lang.parameterInfo.ParameterInfoUIContext
-import com.intellij.lang.parameterInfo.ParameterInfoUtils
-import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
+import com.intellij.lang.parameterInfo.*
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -29,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExp
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
-class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFunctionDeclaration>() {
+class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFunctionDeclaration> {
     override fun findElementForParameterInfo(context: CreateParameterInfoContext): XPathArgumentList? {
         val e = context.file.findElementAt(context.offset)
         val args = e?.ancestors()?.filterIsInstance<XPathArgumentList>()?.firstOrNull()
