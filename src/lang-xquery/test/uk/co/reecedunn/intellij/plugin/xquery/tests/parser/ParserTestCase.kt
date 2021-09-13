@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import com.intellij.application.options.codeStyle.cache.CodeStyleCachingService
 import com.intellij.application.options.codeStyle.cache.CodeStyleCachingServiceImpl
-import com.intellij.compat.testFramework.MockPomModelImpl
 import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
@@ -28,6 +27,7 @@ import com.intellij.pom.PomModel
 import com.intellij.pom.tree.TreeAspect
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.MockPomModel
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
@@ -57,7 +57,7 @@ abstract class ParserTestCase :
         super.registerServicesAndExtensions()
 
         project.registerServiceInstance(TreeAspect::class.java, TreeAspect())
-        project.registerServiceInstance(PomModel::class.java, MockPomModelImpl(project))
+        project.registerServiceInstance(PomModel::class.java, MockPomModel(project))
         registerPsiModification()
 
         project.registerServiceInstance(CodeStyleCachingService::class.java, CodeStyleCachingServiceImpl())
