@@ -11,17 +11,12 @@ jobs:
       fail-fast: false
       matrix:
         idea-version: [
-            IC-2020.2,
             IC-2020.3,
             IC-2021.1,
             IC-2021.2,
             LATEST-EAP-SNAPSHOT
         ]
         include:
-
-          - os: ubuntu-latest
-            java-version: 1.8
-            idea-version: IC-2020.2
 
           - os: ubuntu-latest
             java-version: 11
