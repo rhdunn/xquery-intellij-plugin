@@ -175,7 +175,7 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
     @DisplayName("Nodes (6.3) Attribute Nodes - XmlAttribute")
     inner class Attribute {
         @Nested
-        @DisplayName("Accessors (5.10) node-kind")
+        @DisplayName("Accessors (5.9) node-kind")
         inner class NodeKindTest {
             @Test
             @DisplayName("XmlAttribute")
