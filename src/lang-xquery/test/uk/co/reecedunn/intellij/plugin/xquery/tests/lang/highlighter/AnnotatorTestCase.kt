@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.highlighter
 
-import com.intellij.compat.testFramework.registerExtensionPointBean
-import com.intellij.compat.testFramework.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.application.ApplicationManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.AnnotatorTestCase

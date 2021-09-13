@@ -20,8 +20,8 @@ import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.mock.MockFileDocumentManagerImpl
-import com.intellij.compat.testFramework.registerExtensionPointBean
-import com.intellij.compat.testFramework.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.compat.util.registry.initializeRegistryForTests
 import com.intellij.ide.startup.impl.StartupManagerImpl
 import com.intellij.lang.*

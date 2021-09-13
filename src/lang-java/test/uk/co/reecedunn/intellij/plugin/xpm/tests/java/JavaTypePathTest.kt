@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.tests.java
 
-import com.intellij.compat.testFramework.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName

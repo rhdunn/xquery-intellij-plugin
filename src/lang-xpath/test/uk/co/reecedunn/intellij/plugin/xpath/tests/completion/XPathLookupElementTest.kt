@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.completion
 import com.intellij.codeInsight.lookup.AutoCompletionPolicy
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
-import com.intellij.compat.testFramework.registerExtensionPointBean
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.ui.JBColor

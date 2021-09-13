@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.module
 
 import com.intellij.compat.openapi.module.ModuleManager
-import com.intellij.compat.testFramework.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.openapi.module.*
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ModuleRootManager

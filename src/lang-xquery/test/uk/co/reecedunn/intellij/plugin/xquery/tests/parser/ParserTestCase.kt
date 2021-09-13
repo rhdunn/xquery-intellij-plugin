@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import com.intellij.application.options.codeStyle.cache.CodeStyleCachingService
 import com.intellij.application.options.codeStyle.cache.CodeStyleCachingServiceImpl
-import com.intellij.compat.testFramework.registerExtensionPointBean
-import com.intellij.compat.testFramework.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleManager

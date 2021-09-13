@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.existdb.tests.query.rest
 
-import com.intellij.compat.testFramework.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.mock.MockFileTypeManager
 import com.intellij.mock.MockLanguageFileType
 import com.intellij.openapi.application.ApplicationManager

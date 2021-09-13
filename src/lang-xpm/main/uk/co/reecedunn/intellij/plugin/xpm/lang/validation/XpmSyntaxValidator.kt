@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation
 
-import com.intellij.compat.testFramework.registerExtension
-import com.intellij.compat.testFramework.registerExtensionPointBean
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import org.jetbrains.annotations.TestOnly

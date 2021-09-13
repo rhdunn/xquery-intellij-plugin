@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.tests.functions.op
 
-import com.intellij.compat.testFramework.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
