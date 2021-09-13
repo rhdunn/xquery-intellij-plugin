@@ -15,8 +15,6 @@
  */
 package com.intellij.compat.testFramework
 
-import com.intellij.application.options.codeStyle.cache.CodeStyleCachingService
-import com.intellij.application.options.codeStyle.cache.CodeStyleCachingServiceImpl
 import com.intellij.openapi.project.Project
 import com.intellij.pom.PomModel
 import com.intellij.pom.PomTransaction
@@ -33,8 +31,4 @@ private class MockPomModelImpl(project: Project) : PomModelImpl(project) {
 fun registerPomModel(project: Project) {
     project.registerServiceInstance(TreeAspect::class.java, TreeAspect())
     project.registerServiceInstance(PomModel::class.java, MockPomModelImpl(project))
-}
-
-fun Project.registerCodeStyleCachingService() {
-    registerServiceInstance(CodeStyleCachingService::class.java, CodeStyleCachingServiceImpl())
 }
