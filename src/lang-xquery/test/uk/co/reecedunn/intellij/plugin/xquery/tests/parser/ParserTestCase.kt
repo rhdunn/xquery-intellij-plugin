@@ -15,7 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
-import com.intellij.compat.testFramework.registerCodeStyleCachingService
+import com.intellij.application.options.codeStyle.cache.CodeStyleCachingService
+import com.intellij.application.options.codeStyle.cache.CodeStyleCachingServiceImpl
 import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.compat.testFramework.registerPomModel
 import com.intellij.compat.testFramework.registerServiceInstance
@@ -54,7 +55,7 @@ abstract class ParserTestCase :
         super.registerServicesAndExtensions()
         registerPomModel(project)
         registerPsiModification()
-        project.registerCodeStyleCachingService()
+        project.registerServiceInstance(CodeStyleCachingService::class.java, CodeStyleCachingServiceImpl())
 
         project.registerServiceInstance(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
