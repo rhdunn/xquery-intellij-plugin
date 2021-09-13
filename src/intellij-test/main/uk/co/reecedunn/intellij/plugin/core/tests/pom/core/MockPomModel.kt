@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.compat.testFramework
+package uk.co.reecedunn.intellij.plugin.core.tests.pom.core
 
 import com.intellij.openapi.project.Project
 import com.intellij.pom.PomTransaction
 import com.intellij.pom.core.impl.PomModelImpl
 
-class MockPomModelImpl(project: Project) : PomModelImpl(project) {
+class MockPomModel(project: Project) : PomModelImpl(project) {
     override fun runTransaction(transaction: PomTransaction) {
         transaction.run()
     }
