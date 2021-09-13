@@ -34,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.xml.NodeKind
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider
 
+@DisplayName("XQuery 3.1 - Data Model (5) Accessors - IntelliJ XML API Bindings")
 class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
     override val pluginId: PluginId = PluginId.getId("XmlPsiAccessorsProviderTest")
 
@@ -54,7 +55,7 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
     }
 
     @Nested
-    @DisplayName("XmlTag")
+    @DisplayName("Nodes (6.2) Element Nodes - XmlTag")
     inner class Element {
         @Test
         @DisplayName("Accessors (5.9) node-kind")
@@ -63,6 +64,7 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
             val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
             assertThat(accessors.nodeKind(matched), `is`(NodeKind.Element))
+            assertThat(matched, `is`(instanceOf(XmlTag::class.java)))
         }
 
         @Nested
@@ -170,19 +172,30 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
     }
 
     @Nested
-    @DisplayName("XmlAttribute")
+    @DisplayName("Nodes (6.3) Attribute Nodes - XmlAttribute")
     inner class Attribute {
-        @Test
-        @DisplayName("providers")
-        fun providers() {
-            val node = parse<XmlAttribute>("<a test='value'/>")[0]
-            val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+        @Nested
+        @DisplayName("Accessors (5.10) node-kind")
+        inner class NodeKindTest {
+            @Test
+            @DisplayName("XmlAttribute")
+            fun xmlAttribute() {
+                val node = parse<XmlAttribute>("<a test='value'/>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
-            assertThat(matched, `is`(instanceOf(XmlAttribute::class.java)))
-            assertThat((matched as XmlAttribute).nameElement.text, `is`("test"))
-            assertThat(matched, `is`(sameInstance(node)))
+                assertThat(accessors.nodeKind(matched), `is`(NodeKind.Attribute))
+                assertThat(matched, `is`(instanceOf(XmlAttribute::class.java)))
+            }
 
-            assertThat(accessors, `is`(sameInstance(XmlPsiAccessorsProvider)))
+            @Test
+            @DisplayName("XmlAttributeValue")
+            fun xmlAttributeValue() {
+                val node = parse<XmlAttributeValue>("<a test='value'/>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                assertThat(accessors.nodeKind(matched), `is`(NodeKind.Attribute))
+                assertThat(matched, `is`(instanceOf(XmlAttribute::class.java)))
+            }
         }
 
         @Nested
@@ -278,23 +291,7 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
     }
 
     @Nested
-    @DisplayName("XmlAttributeValue")
-    inner class AttributeValue {
-        @Test
-        @DisplayName("providers")
-        fun providers() {
-            val node = parse<XmlAttributeValue>("<a test='value'/>")[0]
-            val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
-
-            assertThat(matched, `is`(instanceOf(XmlAttribute::class.java)))
-            assertThat((matched as XmlAttribute).nameElement.text, `is`("test"))
-
-            assertThat(accessors, `is`(sameInstance(XmlPsiAccessorsProvider)))
-        }
-    }
-
-    @Nested
-    @DisplayName("XmlText")
+    @DisplayName("Nodes (6.7) Text Nodes - XmlText")
     inner class Text {
         @Test
         @DisplayName("providers")

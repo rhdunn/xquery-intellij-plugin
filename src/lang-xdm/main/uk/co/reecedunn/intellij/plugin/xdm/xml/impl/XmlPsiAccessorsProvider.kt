@@ -54,6 +54,7 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
 
     override fun nodeKind(node: Any): NodeKind? = when (node) {
         is XmlTag -> NodeKind.Element
+        is XmlAttribute -> NodeKind.Attribute
         else -> null
     }
 
