@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
+import uk.co.reecedunn.intellij.plugin.xdm.xml.NodeKind
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
@@ -34,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructo
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
-@DisplayName("XQuery 3.1 - Infoset Mapping for Direct and Constructed Nodes")
+@DisplayName("XQuery 3.1 - Data Model (4) - Infoset Mapping")
 class XQueryInfosetMappingTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryInfosetMappingTest")
 
@@ -117,6 +118,13 @@ class XQueryInfosetMappingTest : ParserTestCase() {
 
                 assertThat(attributes.size, `is`(4))
             }
+        }
+
+        @Test
+        @DisplayName("Accessors (5.9) node-kind")
+        fun nodeKind() {
+            val element = parse<XQueryDirElemConstructor>("<a/>")[0] as XdmElementNode
+            assertThat(element.nodeKind, `is`(NodeKind.Element))
         }
 
         @Nested
@@ -515,6 +523,13 @@ class XQueryInfosetMappingTest : ParserTestCase() {
 
                 assertThat(attributes.size, `is`(2))
             }
+        }
+
+        @Test
+        @DisplayName("Accessors (5.9) node-kind")
+        fun nodeKind() {
+            val element = parse<XQueryCompElemConstructor>("element a {}")[0] as XdmElementNode
+            assertThat(element.nodeKind, `is`(NodeKind.Element))
         }
 
         @Nested

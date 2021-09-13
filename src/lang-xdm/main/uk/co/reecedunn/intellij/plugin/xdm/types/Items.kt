@@ -18,9 +18,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.types
 
+import uk.co.reecedunn.intellij.plugin.xdm.xml.NodeKind
+
 // region XQuery and XPath 3.1 Data Model (2.7.4) : node()
 
 interface XdmNode : XdmItem
+
+val XdmNode.nodeKind: NodeKind?
+    get() = when (this) {
+        is XdmElementNode -> NodeKind.Element
+        else -> null
+    }
 
 object XdmNodeItem : XdmItemType {
     override val typeName: String = "node()"
