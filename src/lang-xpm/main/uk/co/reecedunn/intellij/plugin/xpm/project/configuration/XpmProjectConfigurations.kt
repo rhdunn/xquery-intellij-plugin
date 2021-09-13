@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.project.configuration
 
-import com.intellij.compat.extensions.extensionPoint
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.ExtensionPointListener
 import com.intellij.openapi.extensions.PluginDescriptor
@@ -99,6 +98,6 @@ class XpmProjectConfigurations(private val project: Project) :
     }
 
     init {
-        XpmProjectConfigurationFactory.EP_NAME.extensionPoint.addExtensionPointListener(this, false, this)
+        XpmProjectConfigurationFactory.EP_NAME.point.addExtensionPointListener(this, false, this)
     }
 }
