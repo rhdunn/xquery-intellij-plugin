@@ -16,6 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xdm.xml
 
 interface XmlAccessors {
+    // region Accessors (5.1) attributes
+
+    fun attribute(node: Any, namespaceUri: String, localName: String): Any?
+
+    // endregion
     // region Accessors (5.9) node-kind
 
     fun nodeKind(node: Any): NodeKind?

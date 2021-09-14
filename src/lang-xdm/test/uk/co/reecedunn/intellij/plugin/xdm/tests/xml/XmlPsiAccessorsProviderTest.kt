@@ -57,6 +57,29 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
     @Nested
     @DisplayName("Nodes (6.2) Element Nodes - XmlTag")
     inner class Element {
+        @Nested
+        @DisplayName("Accessors (5.1) attributes")
+        inner class Attributes {
+            @Test
+            @DisplayName("by QName")
+            fun byQName() {
+                val node = parse<XmlTag>("<test one='1' n:two='2' xmlns:n='urn:number'/>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                val one = accessors.attribute(matched, "", "one")!!
+                assertThat(accessors.nodeKind(one), `is`(NodeKind.Attribute))
+                assertThat(accessors.hasNodeName(one, "", "one"), `is`(true))
+
+                val two = accessors.attribute(matched, "urn:number", "two")!!
+                assertThat(accessors.nodeKind(two), `is`(NodeKind.Attribute))
+                assertThat(accessors.hasNodeName(two, "urn:number", "two"), `is`(true))
+
+                assertThat(accessors.attribute(matched, "urn:numbers", "one"), `is`(nullValue()))
+                assertThat(accessors.attribute(matched, "urn:numbers", "two"), `is`(nullValue()))
+                assertThat(accessors.attribute(matched, "", "three"), `is`(nullValue()))
+            }
+        }
+
         @Test
         @DisplayName("Accessors (5.9) node-kind")
         fun nodeKind() {
