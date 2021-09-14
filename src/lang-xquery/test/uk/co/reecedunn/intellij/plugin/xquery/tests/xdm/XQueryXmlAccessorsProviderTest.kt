@@ -557,20 +557,40 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
         @DisplayName("Accessors (5.1) attributes")
         inner class Attributes {
             @Test
-            @DisplayName("by QName")
-            fun byQName() {
+            @DisplayName("empty")
+            fun empty() {
+                val node = parse<XQueryCompElemConstructor>("element test {}")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.attributes(matched).count(), `is`(0))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
+            fun compAttrConstructor() {
                 val node = parse<XQueryCompElemConstructor>(
                     "declare namespace n = 'urn:number'; element test { attribute one { 1 } , attribute n:two { 2 } }"
                 )[0]
                 val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
+                val attributes = accessors.attributes(matched).toList()
+                assertThat(attributes.size, `is`(2))
+
+                assertThat(accessors.nodeKind(attributes[0]), `is`(NodeKind.Attribute))
+                assertThat(accessors.nodeKind(attributes[1]), `is`(NodeKind.Attribute))
+
+                assertThat(accessors.hasNodeName(attributes[0], "", "one"), `is`(true))
+                assertThat(accessors.hasNodeName(attributes[1], "urn:number", "two"), `is`(true))
+
                 val one = accessors.attribute(matched, "", "one")!!
                 assertThat(accessors.nodeKind(one), `is`(NodeKind.Attribute))
                 assertThat(accessors.hasNodeName(one, "", "one"), `is`(true))
+                assertThat(accessors.attributeValue(matched, "", "one"), `is`(nullValue()))
 
                 val two = accessors.attribute(matched, "urn:number", "two")!!
                 assertThat(accessors.nodeKind(two), `is`(NodeKind.Attribute))
                 assertThat(accessors.hasNodeName(two, "urn:number", "two"), `is`(true))
+                assertThat(accessors.attributeValue(matched, "urn:number", "two"), `is`(nullValue()))
 
                 assertThat(accessors.attribute(matched, "urn:numbers", "one"), `is`(nullValue()))
                 assertThat(accessors.attribute(matched, "urn:numbers", "two"), `is`(nullValue()))
