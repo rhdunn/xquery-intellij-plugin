@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xdm.xml
 interface XmlAccessors {
     // region Accessors (5.1) attributes
 
+    fun attributes(node: Any): Sequence<Any>
+
     fun attribute(node: Any, namespaceUri: String, localName: String): Any?
 
     // endregion

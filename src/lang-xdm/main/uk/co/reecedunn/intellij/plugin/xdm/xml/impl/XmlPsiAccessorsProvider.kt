@@ -52,6 +52,11 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // endregion
     // region Accessors (5.1) attributes
 
+    override fun attributes(node: Any): Sequence<Any> = when (node) {
+        is XmlTag -> node.attributes.asSequence().filter { !it.isNamespaceDeclaration }
+        else -> sequenceOf()
+    }
+
     override fun attribute(node: Any, namespaceUri: String, localName: String): Any? = when (node) {
         is XmlTag -> node.getAttribute(localName, namespaceUri)
         else -> null

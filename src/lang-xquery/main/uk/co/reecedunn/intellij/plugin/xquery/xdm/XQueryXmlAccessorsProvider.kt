@@ -66,6 +66,10 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // endregion
     // region Accessors (5.1) attributes
 
+    override fun attributes(node: Any): Sequence<Any> = when (node) {
+        else -> sequenceOf()
+    }
+
     override fun attribute(node: Any, namespaceUri: String, localName: String): Any? = when (node) {
         is XdmElementNode -> node.attributes.find { hasNodeName(it, namespaceUri, localName) }
         else -> null
