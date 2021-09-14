@@ -27,4 +27,8 @@ interface XQueryDirElemConstructor : HintedReferenceHost, XQueryDirectConstructo
     val closingTag: XsQNameValue?
 
     val dirAttributeListStartElement: PsiElement
+
+    val dirElemContentStartElement: PsiElement
+
+    val dirElemContentEndElement: PsiElement
 }

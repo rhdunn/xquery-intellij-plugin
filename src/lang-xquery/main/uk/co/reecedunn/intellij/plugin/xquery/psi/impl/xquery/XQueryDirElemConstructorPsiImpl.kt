@@ -24,6 +24,7 @@ import com.intellij.psi.TokenType
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.core.psi.nextSiblingIfSelf
+import uk.co.reecedunn.intellij.plugin.core.psi.prevSiblingIfSelf
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -82,6 +83,27 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             start = start.nextSiblingIfSelf { it.elementType in XQueryElementType.XML_NAME }
             start = start.nextSiblingIfSelf { it.elementType === XQueryTokenType.XML_WHITE_SPACE }
             return start
+        }
+
+    override val dirElemContentStartElement: PsiElement
+        get() {
+            var start: PsiElement = dirAttributeListStartElement
+            while (start.elementType === XQueryElementType.DIR_ATTRIBUTE) {
+                start = start.nextSibling ?: return start
+                start = start.nextSiblingIfSelf { it.elementType === XQueryTokenType.XML_WHITE_SPACE }
+            }
+            start = start.nextSiblingIfSelf { it.elementType === XQueryTokenType.END_XML_TAG }
+            return start
+        }
+
+    override val dirElemContentEndElement: PsiElement
+        get() {
+            var end: PsiElement = lastChild
+            end = end.prevSiblingIfSelf { it.elementType === XQueryTokenType.END_XML_TAG }
+            end = end.prevSiblingIfSelf { it.elementType === XQueryTokenType.XML_WHITE_SPACE }
+            end = end.prevSiblingIfSelf { it.elementType in XQueryElementType.XML_NAME }
+            end = end.prevSiblingIfSelf { it.elementType === TokenType.ERROR_ELEMENT } // whitespace
+            return end
         }
 
     // endregion
