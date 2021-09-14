@@ -66,6 +66,7 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // region Accessors (5.1) attributes
 
     override fun attribute(node: Any, namespaceUri: String, localName: String): Any? = when (node) {
+        is XdmElementNode -> node.attributes.find { hasNodeName(it, namespaceUri, localName) }
         else -> null
     }
 
