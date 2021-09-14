@@ -18,7 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiReference
+import com.intellij.psi.PsiReferenceService
 import com.intellij.psi.TokenType
+import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.nextSiblingIfSelf
@@ -41,6 +44,22 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     companion object {
         private val STRING_VALUE = Key.create<Optional<String>>("STRING_VALUE")
     }
+    // region HintedReferenceHost
+
+    override fun getReference(): PsiReference? {
+        val references = references
+        return if (references.isEmpty()) null else references[0]
+    }
+
+    override fun getReferences(): Array<PsiReference> = getReferences(PsiReferenceService.Hints.NO_HINTS)
+
+    override fun getReferences(hints: PsiReferenceService.Hints): Array<PsiReference> {
+        return ReferenceProvidersRegistry.getReferencesFromProviders(this, hints)
+    }
+
+    override fun shouldAskParentForReferences(hints: PsiReferenceService.Hints): Boolean = false
+
+    // endregion
     // region XpmExpression
 
     override val expressionElement: PsiElement
