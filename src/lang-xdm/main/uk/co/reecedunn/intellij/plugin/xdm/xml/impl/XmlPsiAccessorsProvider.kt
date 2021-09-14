@@ -57,11 +57,6 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
         else -> sequenceOf()
     }
 
-    override fun attribute(node: Any, namespaceUri: String, localName: String): Any? = when (node) {
-        is XmlTag -> node.getAttribute(localName, namespaceUri)
-        else -> null
-    }
-
     // endregion
     // region Accessors (5.9) node-kind
 

@@ -30,10 +30,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
-import uk.co.reecedunn.intellij.plugin.xdm.xml.NodeKind
-import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
-import uk.co.reecedunn.intellij.plugin.xdm.xml.attributeValue
-import uk.co.reecedunn.intellij.plugin.xdm.xml.hasNodeName
+import uk.co.reecedunn.intellij.plugin.xdm.xml.*
 import uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider
 
 @DisplayName("XQuery 3.1 - Data Model (5) Accessors - IntelliJ XML API Bindings")

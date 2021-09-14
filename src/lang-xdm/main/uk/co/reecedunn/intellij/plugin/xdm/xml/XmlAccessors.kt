@@ -20,8 +20,6 @@ interface XmlAccessors {
 
     fun attributes(node: Any): Sequence<Any>
 
-    fun attribute(node: Any, namespaceUri: String, localName: String): Any?
-
     // endregion
     // region Accessors (5.9) node-kind
 

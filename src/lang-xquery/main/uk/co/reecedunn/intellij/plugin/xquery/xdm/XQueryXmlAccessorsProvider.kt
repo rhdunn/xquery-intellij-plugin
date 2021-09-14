@@ -21,7 +21,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.xml.NodeKind
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
-import uk.co.reecedunn.intellij.plugin.xdm.xml.hasNodeName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
@@ -75,11 +74,6 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     override fun attributes(node: Any): Sequence<Any> = when (node) {
         is XdmElementNode -> node.attributes.filter { !isNamespaceDeclaration(it.nodeName) }
         else -> sequenceOf()
-    }
-
-    override fun attribute(node: Any, namespaceUri: String, localName: String): Any? = when (node) {
-        is XdmElementNode -> node.attributes.find { hasNodeName(it, namespaceUri, localName) }
-        else -> null
     }
 
     // endregion

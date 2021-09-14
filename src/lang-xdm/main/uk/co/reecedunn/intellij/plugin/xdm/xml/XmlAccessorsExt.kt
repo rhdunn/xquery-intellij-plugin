@@ -19,6 +19,10 @@ import javax.xml.namespace.QName
 
 // region Accessors (5.1) attributes
 
+fun XmlAccessors.attribute(node: Any, namespaceUri: String, localName: String): Any? {
+    return attributes(node).find { hasNodeName(it, namespaceUri, localName) }
+}
+
 fun XmlAccessors.attributeValue(node: Any, namespaceUri: String, localName: String): String? {
     return attribute(node, namespaceUri, localName)?.let { stringValue(it) }
 }

@@ -22,10 +22,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
-import uk.co.reecedunn.intellij.plugin.xdm.xml.NodeKind
-import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
-import uk.co.reecedunn.intellij.plugin.xdm.xml.attributeValue
-import uk.co.reecedunn.intellij.plugin.xdm.xml.hasNodeName
+import uk.co.reecedunn.intellij.plugin.xdm.xml.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
