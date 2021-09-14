@@ -20,7 +20,10 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.PsiReferenceService
+import com.intellij.psi.TokenType
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
+import com.intellij.psi.util.elementType
+import uk.co.reecedunn.intellij.plugin.core.psi.nextSiblingIfSelf
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -28,6 +31,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.filterExpressions
 import uk.co.reecedunn.intellij.plugin.xpath.psi.enclosedExpressionBlocks
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -63,8 +68,21 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     override val nodeName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
+    // endregion
+    // region XQueryDirElemConstructor
+
     override val closingTag: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().lastOrNull()
+
+    override val dirAttributeListStartElement: PsiElement
+        get() {
+            var start: PsiElement = firstChild
+            start = start.nextSiblingIfSelf { it.elementType === XQueryTokenType.OPEN_XML_TAG }
+            start = start.nextSiblingIfSelf { it.elementType === TokenType.ERROR_ELEMENT } // whitespace
+            start = start.nextSiblingIfSelf { it.elementType in XQueryElementType.XML_NAME }
+            start = start.nextSiblingIfSelf { it.elementType === XQueryTokenType.XML_WHITE_SPACE }
+            return start
+        }
 
     // endregion
     // region XpmSyntaxValidationElement

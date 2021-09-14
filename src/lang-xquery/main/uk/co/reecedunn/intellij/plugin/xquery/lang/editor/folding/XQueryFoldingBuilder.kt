@@ -21,10 +21,8 @@ import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
-import com.intellij.psi.TokenType
 import com.intellij.psi.tree.TokenSet
 import com.intellij.psi.util.elementType
-import uk.co.reecedunn.intellij.plugin.core.psi.nextSiblingIfSelf
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
@@ -120,13 +118,8 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         return firstLine?.let { "<!--$it-->" } ?: "<!--...-->"
     }
 
-    private fun getDirElemConstructorFoldingRange(element: PsiElement): TextRange? {
-        var start: PsiElement = element.firstChild
-        start = start.nextSiblingIfSelf { it.elementType === XQueryTokenType.OPEN_XML_TAG }
-        start = start.nextSiblingIfSelf { it.elementType === TokenType.ERROR_ELEMENT } // whitespace
-        start = start.nextSiblingIfSelf { it.elementType in XQueryElementType.XML_NAME }
-        start = start.nextSiblingIfSelf { it.elementType === XQueryTokenType.XML_WHITE_SPACE }
-
+    private fun getDirElemConstructorFoldingRange(element: XQueryDirElemConstructor): TextRange? {
+        var start: PsiElement = element.dirAttributeListStartElement
         val dirAttributeList = parseDirAttributeList(start)
         val hasMultiLineAttributes = dirAttributeList.first
         if (!hasMultiLineAttributes) {
