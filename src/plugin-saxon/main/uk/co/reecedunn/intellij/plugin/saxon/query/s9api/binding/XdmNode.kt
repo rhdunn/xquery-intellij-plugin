@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 import org.w3c.dom.Node
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.core.xml.toStreamSource
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.toStreamSource
 
 class XdmNode(`object`: Any, `class`: Class<*>) : XdmItem(`object`, `class`) {
     companion object {
