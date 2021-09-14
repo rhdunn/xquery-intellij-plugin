@@ -66,7 +66,14 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // endregion
     // region Accessors (5.1) attributes
 
+    private fun isNamespaceDeclaration(nodeName: XsQNameValue?): Boolean = when {
+        nodeName?.prefix?.data == "xmlns" -> true // xmlns:*
+        nodeName?.localName?.data == "xmlns" && nodeName.prefix == null -> true // xmlns
+        else -> false
+    }
+
     override fun attributes(node: Any): Sequence<Any> = when (node) {
+        is XdmElementNode -> node.attributes.filter { !isNamespaceDeclaration(it.nodeName) }
         else -> sequenceOf()
     }
 

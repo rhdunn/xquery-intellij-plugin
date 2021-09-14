@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.xml.NodeKind
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
+import uk.co.reecedunn.intellij.plugin.xdm.xml.attributeValue
 import uk.co.reecedunn.intellij.plugin.xdm.xml.hasNodeName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
@@ -51,48 +52,77 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
         @Nested
         @DisplayName("Accessors (5.1) attributes")
         inner class Attributes {
-            @Nested
-            @DisplayName("by QName")
-            inner class ByQName {
-                @Test
-                @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList ; XQuery IntelliJ Plugin EBNF (2) DirAttribute")
-                fun dirAttribute() {
-                    val node = parse<XQueryDirElemConstructor>("<test one='1' n:two='2' xmlns:n='urn:number'/>")[0]
-                    val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+            @Test
+            @DisplayName("empty")
+            fun empty() {
+                val node = parse<XQueryDirElemConstructor>("<test/>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
-                    val one = accessors.attribute(matched, "", "one")!!
-                    assertThat(accessors.nodeKind(one), `is`(NodeKind.Attribute))
-                    assertThat(accessors.hasNodeName(one, "", "one"), `is`(true))
+                assertThat(accessors.attributes(matched).count(), `is`(0))
+            }
 
-                    val two = accessors.attribute(matched, "urn:number", "two")!!
-                    assertThat(accessors.nodeKind(two), `is`(NodeKind.Attribute))
-                    assertThat(accessors.hasNodeName(two, "urn:number", "two"), `is`(true))
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList ; XQuery IntelliJ Plugin EBNF (2) DirAttribute")
+            fun dirAttribute() {
+                val node = parse<XQueryDirElemConstructor>(
+                    "<test one='1' n:two='2' xmlns:n='urn:number' xmlns='urn:test'/>"
+                )[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
-                    assertThat(accessors.attribute(matched, "urn:numbers", "one"), `is`(nullValue()))
-                    assertThat(accessors.attribute(matched, "urn:numbers", "two"), `is`(nullValue()))
-                    assertThat(accessors.attribute(matched, "", "three"), `is`(nullValue()))
-                }
+                val attributes = accessors.attributes(matched).toList()
+                assertThat(attributes.size, `is`(2))
 
-                @Test
-                @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
-                fun compAttrConstructor() {
-                    val node = parse<XQueryDirElemConstructor>(
-                        "<test xmlns:n='urn:number'>{ attribute one { 1 } , attribute n:two { 2 } }</test>"
-                    )[0]
-                    val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+                assertThat(accessors.nodeKind(attributes[0]), `is`(NodeKind.Attribute))
+                assertThat(accessors.nodeKind(attributes[1]), `is`(NodeKind.Attribute))
 
-                    val one = accessors.attribute(matched, "", "one")!!
-                    assertThat(accessors.nodeKind(one), `is`(NodeKind.Attribute))
-                    assertThat(accessors.hasNodeName(one, "", "one"), `is`(true))
+                assertThat(accessors.hasNodeName(attributes[0], "", "one"), `is`(true))
+                assertThat(accessors.hasNodeName(attributes[1], "urn:number", "two"), `is`(true))
 
-                    val two = accessors.attribute(matched, "urn:number", "two")!!
-                    assertThat(accessors.nodeKind(two), `is`(NodeKind.Attribute))
-                    assertThat(accessors.hasNodeName(two, "urn:number", "two"), `is`(true))
+                val one = accessors.attribute(matched, "", "one")!!
+                assertThat(accessors.nodeKind(one), `is`(NodeKind.Attribute))
+                assertThat(accessors.hasNodeName(one, "", "one"), `is`(true))
+                assertThat(accessors.attributeValue(matched, "", "one"), `is`("1"))
 
-                    assertThat(accessors.attribute(matched, "urn:numbers", "one"), `is`(nullValue()))
-                    assertThat(accessors.attribute(matched, "urn:numbers", "two"), `is`(nullValue()))
-                    assertThat(accessors.attribute(matched, "", "three"), `is`(nullValue()))
-                }
+                val two = accessors.attribute(matched, "urn:number", "two")!!
+                assertThat(accessors.nodeKind(two), `is`(NodeKind.Attribute))
+                assertThat(accessors.hasNodeName(two, "urn:number", "two"), `is`(true))
+                assertThat(accessors.attributeValue(matched, "urn:number", "two"), `is`("2"))
+
+                assertThat(accessors.attribute(matched, "urn:numbers", "one"), `is`(nullValue()))
+                assertThat(accessors.attribute(matched, "urn:numbers", "two"), `is`(nullValue()))
+                assertThat(accessors.attribute(matched, "", "three"), `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
+            fun compAttrConstructor() {
+                val node = parse<XQueryDirElemConstructor>(
+                    "<test xmlns:n='urn:number' xmlns='urn:test'>{ attribute one { 1 } , attribute n:two { 2 } }</test>"
+                )[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                val attributes = accessors.attributes(matched).toList()
+                assertThat(attributes.size, `is`(2))
+
+                assertThat(accessors.nodeKind(attributes[0]), `is`(NodeKind.Attribute))
+                assertThat(accessors.nodeKind(attributes[1]), `is`(NodeKind.Attribute))
+
+                assertThat(accessors.hasNodeName(attributes[0], "", "one"), `is`(true))
+                assertThat(accessors.hasNodeName(attributes[1], "urn:number", "two"), `is`(true))
+
+                val one = accessors.attribute(matched, "", "one")!!
+                assertThat(accessors.nodeKind(one), `is`(NodeKind.Attribute))
+                assertThat(accessors.hasNodeName(one, "", "one"), `is`(true))
+                assertThat(accessors.attributeValue(matched, "", "one"), `is`(nullValue()))
+
+                val two = accessors.attribute(matched, "urn:number", "two")!!
+                assertThat(accessors.nodeKind(two), `is`(NodeKind.Attribute))
+                assertThat(accessors.hasNodeName(two, "urn:number", "two"), `is`(true))
+                assertThat(accessors.attributeValue(matched, "urn:number", "two"), `is`(nullValue()))
+
+                assertThat(accessors.attribute(matched, "urn:numbers", "one"), `is`(nullValue()))
+                assertThat(accessors.attribute(matched, "urn:numbers", "two"), `is`(nullValue()))
+                assertThat(accessors.attribute(matched, "", "three"), `is`(nullValue()))
             }
         }
 
