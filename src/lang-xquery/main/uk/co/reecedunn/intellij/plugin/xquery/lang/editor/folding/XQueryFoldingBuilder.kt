@@ -194,7 +194,6 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
             XQueryElementType.COMP_TEXT_CONSTRUCTOR,
             XQueryElementType.DIR_ATTRIBUTE_VALUE,
             XQueryElementType.DIR_ELEM_CONSTRUCTOR,
-            XQueryElementType.ENCLOSED_ATTR_VALUE_EXPR,
             XQueryElementType.ENCLOSED_URI_EXPR,
             XQueryElementType.EXTENSION_EXPR,
             XQueryElementType.FUNCTION_DECL,

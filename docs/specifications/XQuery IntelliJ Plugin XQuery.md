@@ -1261,8 +1261,6 @@ These changes include support for:
 | \[151\]  | `NamespaceDeclaration`         | ::= | `QName "=" URILiteral`              |                       |
 | \[152\]  | `CopyModifyExpr`               | ::= | `"copy" CopyModifyExprBinding ("," CopyModifyExprBinding)* "modify" ExprSingle "return" ExprSingle` | |
 | \[153\]  | `CopyModifyExprBinding`        | ::= | `"$" VarName ":=" ExprSingle`       |                       |
-| \[154\]  | `CompAttrConstructor`          | ::= | `"attribute" (EQName | ("{" Expr "}")) EnclosedAttrValueExpr` | |
-| \[155\]  | `EnclosedAttrValueExpr`        | ::= | `EnclosedExpr`                      |                       |
 | \[156\]  | `ElementContents`              | ::= | `ElementContentChar*`               |                       |
 
 ### A.2 Reserved Function Names

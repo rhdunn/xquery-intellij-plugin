@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginEnclosedAttrValueExpr
+import com.intellij.psi.PsiElement
 
 /**
  * An XQuery 3.1 `EnclosedURIExpr` node in the XQuery AST.
  */
-interface XQueryEnclosedURIExpr : PluginEnclosedAttrValueExpr
+interface XQueryEnclosedURIExpr : PsiElement
