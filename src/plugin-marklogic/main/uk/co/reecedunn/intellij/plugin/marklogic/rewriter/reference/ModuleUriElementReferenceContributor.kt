@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference
 import com.intellij.patterns.ElementPattern
 import com.intellij.patterns.ElementPatternCondition
 import com.intellij.patterns.PlatformPatterns
+import com.intellij.patterns.StandardPatterns
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceContributor
 import com.intellij.psi.PsiReferenceRegistrar
@@ -26,6 +27,7 @@ import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xdm.xml.attributeValue
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 class ModuleUriElementReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
     // region PsiReferenceContributor
@@ -53,7 +55,10 @@ class ModuleUriElementReferenceContributor : PsiReferenceContributor(), ElementP
     override fun getCondition(): ElementPatternCondition<PsiElement> = PATTERN.condition
 
     companion object {
-        private val PATTERN = PlatformPatterns.psiElement(XmlElementType.XML_TAG)
+        private val PATTERN = StandardPatterns.or(
+            PlatformPatterns.psiElement(XmlElementType.XML_TAG),
+            PlatformPatterns.psiElement(XQueryElementType.DIR_ELEM_CONSTRUCTOR)
+        )
     }
 
     // endregion

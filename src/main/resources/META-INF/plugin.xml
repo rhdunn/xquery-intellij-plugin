@@ -119,6 +119,10 @@
         <code>match-execute-privilege</code>, <code>match-header</code>, and <code>match-method</code>
         XQuery direct XML elements.
       </li>
+      <li>
+        Support resolving <code>dispatch</code>, <code>set-error-handler<code>, and <code>set-path</code>
+        elements to the XQuery/MJS/SJS file they reference in XQuery direct elements.
+      </li>
     </ol>
   ]]></change-notes>
 
