@@ -18,7 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
+import com.intellij.psi.TokenType
+import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.nextSiblingIfSelf
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterExpressions
@@ -27,6 +30,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import java.util.*
 
 class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
@@ -75,8 +80,21 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             Optional.of(value.toString())
         }.orElse(null)
 
+    // endregion
+    // region XQueryDirElemConstructor
+
     override val closingTag: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().lastOrNull()
+
+    override val dirAttributeListStartElement: PsiElement
+        get() {
+            var start: PsiElement = firstChild
+            start = start.nextSiblingIfSelf { it.elementType === XQueryTokenType.OPEN_XML_TAG }
+            start = start.nextSiblingIfSelf { it.elementType === TokenType.ERROR_ELEMENT } // whitespace
+            start = start.nextSiblingIfSelf { it.elementType in XQueryElementType.XML_NAME }
+            start = start.nextSiblingIfSelf { it.elementType === XQueryTokenType.XML_WHITE_SPACE }
+            return start
+        }
 
     // endregion
     // region XpmSyntaxValidationElement

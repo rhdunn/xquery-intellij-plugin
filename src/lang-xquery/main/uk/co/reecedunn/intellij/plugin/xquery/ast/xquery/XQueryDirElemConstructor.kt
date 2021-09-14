@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
@@ -23,4 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
  */
 interface XQueryDirElemConstructor : XQueryDirectConstructor, XdmElementNode {
     val closingTag: XsQNameValue?
+
+    val dirAttributeListStartElement: PsiElement
 }
