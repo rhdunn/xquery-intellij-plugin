@@ -20,7 +20,6 @@ import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlText
 import uk.co.reecedunn.intellij.plugin.core.sequences.contexts
-import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 
 abstract class XdmSchemaTypes {
@@ -37,7 +36,7 @@ abstract class XdmSchemaTypes {
     open fun create(text: XmlText): ISchemaType? = null
 
     private fun getSchemaType(element: PsiElement) = when (element) {
-        is XmlAttributeValue -> element.attribute?.let { attr ->
+        is XmlAttributeValue -> (element.parent as XmlAttribute).let { attr ->
             when (attr.parent.namespace) {
                 XSD_NAMESPACE -> create(attr) // Calling attr.schemaType here causes an infinite recursion.
                 else -> create(attr.schemaType) ?: create(attr)
