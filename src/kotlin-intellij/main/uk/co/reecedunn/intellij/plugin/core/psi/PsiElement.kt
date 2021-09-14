@@ -91,3 +91,8 @@ fun PsiElement.nextSiblingIfSelf(predicate: (PsiElement) -> Boolean): PsiElement
     predicate(this) -> nextSibling ?: this
     else -> this
 }
+
+fun PsiElement.prevSiblingIfSelf(predicate: (PsiElement) -> Boolean): PsiElement = when {
+    predicate(this) -> prevSibling ?: this
+    else -> this
+}

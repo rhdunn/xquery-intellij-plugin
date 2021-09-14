@@ -29,6 +29,8 @@ class XQueryDirElemConstructorManipulator : AbstractElementManipulator<XQueryDir
     }
 
     override fun getRangeInElement(element: XQueryDirElemConstructor): TextRange {
-        return super.getRangeInElement(element)
+        val start = element.dirElemContentStartElement
+        val end = element.dirElemContentEndElement
+        return TextRange(start.textOffset, end.textOffset).shiftLeft(element.textOffset)
     }
 }
