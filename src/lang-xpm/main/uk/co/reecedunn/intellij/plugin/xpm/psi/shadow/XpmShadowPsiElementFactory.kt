@@ -21,11 +21,10 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import com.intellij.psi.xml.XmlAttribute
-import com.intellij.psi.xml.XmlTag
 import org.jetbrains.annotations.TestOnly
 import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
-import uk.co.reecedunn.intellij.plugin.core.xml.qname
+import uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider
+import uk.co.reecedunn.intellij.plugin.xdm.xml.qname
 import javax.xml.namespace.QName
 
 interface XpmShadowPsiElementFactory {
@@ -40,7 +39,7 @@ interface XpmShadowPsiElementFactory {
         private val SHADOW_PSI_ELEMENT: Key<Pair<QName?, XpmShadowPsiElement>> = Key.create("SHADOW_PSI_ELEMENT")
 
         fun create(element: PsiElement): XpmShadowPsiElement? {
-            val name = (element as? XmlTag)?.qname() ?: (element as? XmlAttribute)?.qname()
+            val name = XmlPsiAccessorsProvider.qname(element) ?: return null
 
             element.getUserData(SHADOW_PSI_ELEMENT)?.let {
                 if (it.first == name && it.second.isValid) {

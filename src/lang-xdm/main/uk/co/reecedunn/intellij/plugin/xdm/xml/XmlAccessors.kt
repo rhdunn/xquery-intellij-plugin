@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.xml
 
+import javax.xml.namespace.QName
+
 interface XmlAccessors {
     // region Accessors (5.1) attributes
 
@@ -52,3 +54,5 @@ interface XmlAccessors {
 fun XmlAccessors.attributeValue(node: Any, namespaceUri: String, localName: String): String? {
     return attribute(node, namespaceUri, localName)?.let { stringValue(it) }
 }
+
+fun XmlAccessors.qname(node: Any): QName? = namespaceUri(node)?.let { QName(it, localName(node)) }
