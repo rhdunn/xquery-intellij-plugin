@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.xml.NodeKind
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
+import uk.co.reecedunn.intellij.plugin.xdm.xml.hasNodeName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
@@ -81,30 +82,18 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // endregion
     // region Accessors (5.10) node-name
 
-    private fun namespaceUri(qname: XsQNameValue): String? = when (qname) {
-        is XPathNCName, is XPathQName -> qname.expand().firstOrNull()?.namespace?.data
-        else -> qname.namespace?.data // Don't need to expand a URIQualifiedName to get the namespace URI.
-    }
-
-    override fun namespaceUri(node: Any): String? = nodeName(node)?.let { namespaceUri(it) }
-
-    override fun localName(node: Any): String? = nodeName(node)?.localName?.data
-
     private fun nodeName(node: Any): XsQNameValue? = when (node) {
         is XdmElementNode -> node.nodeName
         is XdmAttributeNode -> node.nodeName
         else -> null
     }
 
-    override fun hasNodeName(node: Any, namespaceUri: String, localName: String): Boolean {
-        val nodeName = nodeName(node) ?: return false
-        return nodeName.localName?.data == localName && namespaceUri(nodeName) == namespaceUri
+    override fun namespaceUri(node: Any): String? = when (val qname = nodeName(node)) {
+        is XPathNCName, is XPathQName -> qname.expand().firstOrNull()?.namespace?.data
+        else -> qname?.namespace?.data // Don't need to expand a URIQualifiedName to get the namespace URI.
     }
 
-    override fun hasNodeName(node: Any, namespaceUri: String, localName: Set<String>): Boolean {
-        val nodeName = nodeName(node) ?: return false
-        return localName.contains(nodeName.localName?.data) && namespaceUri(nodeName) == namespaceUri
-    }
+    override fun localName(node: Any): String? = nodeName(node)?.localName?.data
 
     // endregion
     // region Accessors (5.11) parent

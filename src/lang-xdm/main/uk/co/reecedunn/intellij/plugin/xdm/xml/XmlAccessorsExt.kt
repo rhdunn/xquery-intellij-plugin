@@ -17,8 +17,23 @@ package uk.co.reecedunn.intellij.plugin.xdm.xml
 
 import javax.xml.namespace.QName
 
+// region Accessors (5.1) attributes
+
 fun XmlAccessors.attributeValue(node: Any, namespaceUri: String, localName: String): String? {
     return attribute(node, namespaceUri, localName)?.let { stringValue(it) }
 }
 
+// endregion
+// region Accessors (5.10) node-name
+
 fun XmlAccessors.qname(node: Any): QName? = namespaceUri(node)?.let { QName(it, localName(node)) }
+
+fun XmlAccessors.hasNodeName(node: Any, namespaceUri: String, localName: String): Boolean {
+    return localName(node) == localName && namespaceUri(node) == namespaceUri
+}
+
+fun XmlAccessors.hasNodeName(node: Any, namespaceUri: String, localName: Set<String>): Boolean {
+    return localName.contains(localName(node)) && namespaceUri(node) == namespaceUri
+}
+
+// endregion
