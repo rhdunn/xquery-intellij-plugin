@@ -22,9 +22,10 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceContributor
 import com.intellij.psi.PsiReferenceRegistrar
 import com.intellij.psi.xml.XmlElementType
-import com.intellij.psi.xml.XmlTag
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
+import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
+import uk.co.reecedunn.intellij.plugin.xdm.xml.attributeValue
 
 class ModuleUriElementReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
     // region PsiReferenceContributor
@@ -37,10 +38,10 @@ class ModuleUriElementReferenceContributor : PsiReferenceContributor(), ElementP
     // region ElementPattern
 
     override fun accepts(o: Any?): Boolean {
-        val node = o as? XmlTag ?: return false
-        if (node.namespace != Rewriter.NAMESPACE) return false
-        return when (node.localName) {
-            "dispatch" -> node.getAttributeValue("xdbc") != "true"
+        val (node, accessors) = XmlAccessorsProvider.element(o) ?: return false
+        if (accessors.namespaceUri(node) != Rewriter.NAMESPACE) return false
+        return when (accessors.localName(node)) {
+            "dispatch" -> accessors.attributeValue(node, "", "xdbc") != "true"
             "set-path" -> true
             "set-error-handler" -> true
             else -> false

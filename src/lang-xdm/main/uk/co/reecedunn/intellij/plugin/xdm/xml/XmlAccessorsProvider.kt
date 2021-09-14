@@ -31,11 +31,20 @@ interface XmlAccessorsProvider {
         private val providers: Sequence<XmlAccessorsProvider>
             get() = EP_NAME.extensionList.asSequence().map { it.getInstance() }
 
-        fun element(node: Any): Pair<Any, XmlAccessors>? = providers.mapNotNull { it.element(node) }.firstOrNull()
+        fun element(node: Any?): Pair<Any, XmlAccessors>? = when (node) {
+            null -> null
+            else -> providers.mapNotNull { it.element(node) }.firstOrNull()
+        }
 
-        fun attribute(node: Any): Pair<Any, XmlAccessors>? = providers.mapNotNull { it.attribute(node) }.firstOrNull()
+        fun attribute(node: Any?): Pair<Any, XmlAccessors>? = when (node) {
+            null -> null
+            else -> providers.mapNotNull { it.attribute(node) }.firstOrNull()
+        }
 
-        fun text(node: Any): Pair<Any, XmlAccessors>? = providers.mapNotNull { it.text(node) }.firstOrNull()
+        fun text(node: Any?): Pair<Any, XmlAccessors>? = when (node) {
+            null -> null
+            else -> providers.mapNotNull { it.text(node) }.firstOrNull()
+        }
 
         @TestOnly
         @Suppress("UsePropertyAccessSyntax")

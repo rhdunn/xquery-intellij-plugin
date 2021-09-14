@@ -48,3 +48,7 @@ interface XmlAccessors {
 
     // endregion
 }
+
+fun XmlAccessors.attributeValue(node: Any, namespaceUri: String, localName: String): String? {
+    return attribute(node, namespaceUri, localName)?.let { stringValue(it) }
+}
