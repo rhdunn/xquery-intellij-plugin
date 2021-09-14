@@ -15,12 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import com.intellij.psi.HintedReferenceHost
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 /**
  * An XQuery 1.0 `DirElemConstructor` node in the XQuery AST.
  */
-interface XQueryDirElemConstructor : XQueryDirectConstructor, XdmElementNode {
+interface XQueryDirElemConstructor : HintedReferenceHost, XQueryDirectConstructor, XdmElementNode {
     val closingTag: XsQNameValue?
 }
