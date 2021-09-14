@@ -1354,12 +1354,7 @@ class XQuerySyntaxValidatorTest :
                 validator.validate(file, this@XQuerySyntaxValidatorTest)
                 assertThat(
                     report.toString(),
-                    `is`(
-                        """
-                        E XPST0003(0:9): XQuery version string '1.0' does not support XQuery 3.0 constructs.
-                        E XPST0003(15:16): XQuery version string '1.0' does not support XQuery 3.1 constructs.
-                        """.trimIndent()
-                    )
+                    `is`("E XPST0003(15:16): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
                 )
             }
 
@@ -1380,12 +1375,7 @@ class XQuerySyntaxValidatorTest :
                 validator.validate(file, this@XQuerySyntaxValidatorTest)
                 assertThat(
                     report.toString(),
-                    `is`(
-                        """
-                        E XPST0003(0:9): XQuery version string '1.0' does not support XQuery 3.0 constructs.
-                        E XPST0003(16:17): XQuery version string '1.0' does not support XQuery 3.1 constructs.
-                        """.trimIndent()
-                    )
+                    `is`("E XPST0003(16:17): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
                 )
             }
 
