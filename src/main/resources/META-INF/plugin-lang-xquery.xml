@@ -45,6 +45,11 @@
 
     <xdebugger.breakpointType implementation="uk.co.reecedunn.intellij.plugin.xquery.xdebugger.breakpoints.XQueryExpressionBreakpointType"/>
 
+    <!-- Manipulators -->
+
+    <lang.elementManipulator forClass="uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor"
+                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.psi.manipulator.XQueryDirElemConstructorManipulator"/>
+
     <!-- Application / Project Settings -->
 
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings"/>
