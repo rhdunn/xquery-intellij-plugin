@@ -50,15 +50,12 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     }
 
     // endregion
-    // region Accessors (5.1) attributes
+    // region XmlAccessors
 
     override fun attributes(node: Any): Sequence<Any> = when (node) {
         is XmlTag -> node.attributes.asSequence().filter { !it.isNamespaceDeclaration }
         else -> sequenceOf()
     }
-
-    // endregion
-    // region Accessors (5.9) node-kind
 
     override fun nodeKind(node: Any): NodeKind? = when (node) {
         is XmlTag -> NodeKind.Element
@@ -66,9 +63,6 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
         is XmlText -> NodeKind.Text
         else -> null
     }
-
-    // endregion
-    // region Accessors (5.10) node-name
 
     override fun namespaceUri(node: Any): String? = when (node) {
         is XmlTag -> node.namespace
@@ -82,17 +76,11 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
         else -> null
     }
 
-    // endregion
-    // region Accessors (5.11) parent
-
     override fun parent(node: Any): Any? = when (node) {
         is XmlTag -> node.parent
         is XmlAttribute -> node.parent
         else -> null
     }
-
-    // endregion
-    // region Accessors (5.12) string-value
 
     private val STRING_VALUE = Key.create<CachedValue<String>>("STRING_VALUE")
 

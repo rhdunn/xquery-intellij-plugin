@@ -16,31 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.xdm.xml
 
 interface XmlAccessors {
-    // region Accessors (5.1) attributes
-
     fun attributes(node: Any): Sequence<Any>
 
-    // endregion
-    // region Accessors (5.9) node-kind
-
     fun nodeKind(node: Any): NodeKind?
-
-    // endregion
-    // region Accessors (5.10) node-name
 
     fun namespaceUri(node: Any): String?
 
     fun localName(node: Any): String?
 
-    // endregion
-    // region Accessors (5.11) parent
-
     fun parent(node: Any): Any?
 
-    // endregion
-    // region Accessors (5.12) string-value
-
     fun stringValue(node: Any): String?
-
-    // endregion
 }

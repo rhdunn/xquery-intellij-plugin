@@ -63,7 +63,7 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     }
 
     // endregion
-    // region Accessors (5.1) attributes
+    // region XmlAccessorsProvider
 
     private fun isNamespaceDeclaration(nodeName: XsQNameValue?): Boolean = when {
         nodeName?.prefix?.data == "xmlns" -> true // xmlns:*
@@ -76,16 +76,10 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
         else -> sequenceOf()
     }
 
-    // endregion
-    // region Accessors (5.9) node-kind
-
     override fun nodeKind(node: Any): NodeKind? = when (node) {
         is XdmNode -> node.nodeKind
         else -> null
     }
-
-    // endregion
-    // region Accessors (5.10) node-name
 
     private fun nodeName(node: Any): XsQNameValue? = when (node) {
         is XdmElementNode -> node.nodeName
@@ -100,17 +94,11 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
 
     override fun localName(node: Any): String? = nodeName(node)?.localName?.data
 
-    // endregion
-    // region Accessors (5.11) parent
-
     override fun parent(node: Any): Any? = when (node) {
         is XdmElementNode -> node.parentNode
         is XdmAttributeNode -> node.parentNode
         else -> null
     }
-
-    // endregion
-    // region Accessors (5.12) string-value
 
     override fun stringValue(node: Any): String? = when (node) {
         is XdmElementNode -> node.stringValue
