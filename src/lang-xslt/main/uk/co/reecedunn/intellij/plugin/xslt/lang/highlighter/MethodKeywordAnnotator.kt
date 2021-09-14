@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,10 @@ import com.intellij.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.XmlHighlighterColors
 import com.intellij.psi.PsiElement
+import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
@@ -31,7 +31,7 @@ class MethodKeywordAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         element.children().filterIsInstance<XsQNameValue>().forEach { qname ->
             if (qname.isLexicalQName && qname.namespace == null) {
-                val attr = element.contextOfType<XmlAttributeValue>(false)?.attribute ?: return
+                val attr = element.contextOfType<XmlAttributeValue>(false)?.parent as? XmlAttribute ?: return
                 if (attr.schemaType == "xsl:method") {
                     holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                         .range(element)
