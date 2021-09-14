@@ -28,7 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginEnclosedAttrValueExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -716,16 +715,6 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
             fun compAttrConstructor() {
                 val node = parse<XQueryCompAttrConstructor>("element a { attribute test { 'value' } }")[0]
-                val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
-
-                assertThat(accessors.nodeKind(matched), `is`(NodeKind.Attribute))
-                assertThat(matched, `is`(instanceOf(XQueryCompAttrConstructor::class.java)))
-            }
-
-            @Test
-            @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor ; XQuery IntelliJ Plugin EBNF (2) EnclosedAttrValueExpr")
-            fun enclosedAttrValueExpr() {
-                val node = parse<PluginEnclosedAttrValueExpr>("element a { attribute test { 'value' } }")[0]
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
                 assertThat(accessors.nodeKind(matched), `is`(NodeKind.Attribute))

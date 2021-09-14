@@ -26,7 +26,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginEnclosedAttrValueExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 
 object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
@@ -40,7 +39,6 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     override fun attribute(node: Any): Pair<Any, XmlAccessors>? = when (node) {
         is XdmAttributeNode -> node to this
         is XQueryDirAttributeValue -> node.parent to this
-        is PluginEnclosedAttrValueExpr -> node.parent to this
         is XPathStringLiteral -> {
             val parent = node.parent
             when (parent.children().count { it is XpmExpression }) {

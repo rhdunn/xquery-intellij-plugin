@@ -9,11 +9,10 @@ XQueryModuleImpl[FILE(0:25)]
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(13:14)](':')
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:16)]('id')
             PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-            PluginEnclosedAttrValueExprImpl[XQUERY_ENCLOSED_ATTR_VALUE_EXPR(17:25)]
-               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(17:18)]('{')
-               PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-               XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:25)]
-                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
-                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:24)]('test')
-                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(24:25)]('"')
-               PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Expected '}'.')
+            LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(17:18)]('{')
+            PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+            XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:25)]
+               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:24)]('test')
+               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(24:25)]('"')
+            PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Expected '}'.')

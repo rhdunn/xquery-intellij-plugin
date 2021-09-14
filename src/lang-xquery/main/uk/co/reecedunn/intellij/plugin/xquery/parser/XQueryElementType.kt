@@ -554,10 +554,6 @@ object XQueryElementType {
         PluginElvisExprPsiImpl(node)
     }
 
-    val ENCLOSED_ATTR_VALUE_EXPR: IElementType = IASTWrapperElementType("XQUERY_ENCLOSED_ATTR_VALUE_EXPR", XQuery) { node ->
-        PluginEnclosedAttrValueExprPsiImpl(node)
-    }
-
     val FT_FUZZY_OPTION: IElementType = IASTWrapperElementType("XQUERY_FT_FUZZY_OPTION", XQuery) { node ->
         PluginFTFuzzyOptionPsiImpl(node)
     }
