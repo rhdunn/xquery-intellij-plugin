@@ -91,8 +91,32 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
-            fun compAttrConstructor() {
+            @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor ; single attribute")
+            fun compAttrConstructor_singleAttribute() {
+                val node = parse<XQueryDirElemConstructor>(
+                    "<test xmlns:n='urn:number' xmlns='urn:test'>{ attribute one { 1 } }</test>"
+                )[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                val attributes = accessors.attributes(matched).toList()
+                assertThat(attributes.size, `is`(1))
+
+                assertThat(accessors.nodeKind(attributes[0]), `is`(NodeKind.Attribute))
+                assertThat(accessors.hasNodeName(attributes[0], "", "one"), `is`(true))
+
+                val one = accessors.attribute(matched, "", "one")!!
+                assertThat(accessors.nodeKind(one), `is`(NodeKind.Attribute))
+                assertThat(accessors.hasNodeName(one, "", "one"), `is`(true))
+                assertThat(accessors.attributeValue(matched, "", "one"), `is`(nullValue()))
+
+                assertThat(accessors.attribute(matched, "urn:numbers", "one"), `is`(nullValue()))
+                assertThat(accessors.attribute(matched, "urn:numbers", "two"), `is`(nullValue()))
+                assertThat(accessors.attribute(matched, "", "three"), `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor ; multiple attributes")
+            fun compAttrConstructor_multipleAttributes() {
                 val node = parse<XQueryDirElemConstructor>(
                     "<test xmlns:n='urn:number' xmlns='urn:test'>{ attribute one { 1 } , attribute n:two { 2 } }</test>"
                 )[0]
@@ -120,6 +144,28 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 assertThat(accessors.attribute(matched, "urn:numbers", "one"), `is`(nullValue()))
                 assertThat(accessors.attribute(matched, "urn:numbers", "two"), `is`(nullValue()))
                 assertThat(accessors.attribute(matched, "", "three"), `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("with direct and constructed attributes")
+            fun withDirectAndConstructedAttributes() {
+                val node = parse<XQueryDirElemConstructor>(
+                    "<a one='1' two='2'>{attribute three{'3'}, attribute four{'4'}}</a>"
+                )[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                val attributes = accessors.attributes(matched).toList()
+                assertThat(attributes.size, `is`(4))
+
+                assertThat(accessors.hasNodeName(attributes[0], "", "one"), `is`(true))
+                assertThat(accessors.hasNodeName(attributes[1], "", "two"), `is`(true))
+                assertThat(accessors.hasNodeName(attributes[2], "", "three"), `is`(true))
+                assertThat(accessors.hasNodeName(attributes[3], "", "four"), `is`(true))
+
+                assertThat(accessors.attributeValue(matched, "", "one"), `is`("1"))
+                assertThat(accessors.attributeValue(matched, "", "two"), `is`("2"))
+                assertThat(accessors.attributeValue(matched, "", "three"), `is`(nullValue()))
+                assertThat(accessors.attributeValue(matched, "", "four"), `is`(nullValue()))
             }
         }
 
