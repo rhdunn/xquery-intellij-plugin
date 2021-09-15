@@ -69,6 +69,10 @@ various inspections.
   - [Constructable Items](#57-constructable-items)
     - [Maps](#571-maps)
     - [Arrays](#572-arrays)
+- [Accessors](#6-accessors)
+  - [namespace-attributes Accessor](#61-namespace-attributes-accessor)
+    - [Nodes](#611-nodes)
+    - [namespace attributes Property](#612-namespace-attributes-property)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
   - [XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -1108,10 +1112,65 @@ An *array expression* is a *constructale item* that is used to create
 The *member expressions* of an *array expression* are the expressions
 that are used to create the members of the constructed array.
 
+## 6 Accessors
+
+### 6.1 namespace-attributes Accessor
+    dn:namespace-attributes($n as node()) as namespace-node()*
+
+The `dn:namespace-attributes` accessor returns the attributes of a node that define a
+namespace as a sequence containing zero or more Namespace Nodes. The order of Namespace
+Nodes is stable but implementation dependent.
+
+It is defined on all seven node kinds.
+
+> Note:
+>
+> These namespace attributes are present on the element node, but are not returned
+> by the `dm:attributes` accessor. Unlike other attributes, they are presented to
+> the data model as Namespace Nodes.
+
+#### 6.1.1 Nodes
+
+<dl>
+<dt>Document Nodes</dt>
+<dd>Returns the empty sequence.</dd>
+<dt>Element Nodes</dt>
+<dd>
+  Returns the value of the <strong>namespace attributes</strong> property. The order of
+  Namespace Nodes is stable but implementation dependent.
+</dd>
+<dt>Attribute Nodes</dt>
+<dd>Returns the empty sequence.</dd>
+<dt>Namespace Nodes</dt>
+<dd>Returns the empty sequence.</dd>
+<dt>Processing Instruction Nodes</dt>
+<dd>Returns the empty sequence.</dd>
+<dt>Comment Nodes</dt>
+<dd>Returns the empty sequence.</dd>
+<dt>Text Nodes</dt>
+<dd>Returns the empty sequence.</dd>
+</dl>
+
+#### 6.1.2 namespace attributes Property
+
+Element Node properties are derived from the infoset as follows:
+
+__namespace attributes__
+> A set of Namespace Nodes constructed from the __attribute information items__
+> appearing in the __\[namespace attributes\]__ property. This is the namespace
+> declaration attributes of the form `xmlns:*` and `xmlns`.
+
+An Element Node maps to the following infoset properties:
+
+__\[namespace attributes\]__
+> An unordered set of information items obtained by processing each og the
+> `dm:namespace-attributes` and mapping each to the appropriate attribute
+> information item(s).
+
 ## A References
 
 ### A.1 W3C References
-__Core Specifications__
+__XPath and XQuery__
 *  W3C. *XML Path Language (XPath) 3.1*. W3C Recommendation 21 March 2017.
    See [https://www.w3.org/TR/2017/REC-xpath-31-20170321/]().
 *  W3C. *XQuery 3.1: An XML Query Language*. W3C Recommendation 21 March 2017.
@@ -1139,6 +1198,10 @@ __XML Schema__
 *  W3C. *W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes*. W3C
    Recommendation 5 April 2012. See
    [http://www.w3.org/TR/2012/REC-xmlschema11-2-20120405/]().
+
+__XML Infoset__
+*  W3C. *XML Information Set (Second Edition)*. W3C Recommendation 4 February 2004.
+   See [http://www.w3.org/TR/2004/REC-xml-infoset-20040204]().
 
 ### A.2 XPath NG Proposals
 *  EXPath. *Proposal for Annotation Sequence Types*. EXPath Proposal. See
