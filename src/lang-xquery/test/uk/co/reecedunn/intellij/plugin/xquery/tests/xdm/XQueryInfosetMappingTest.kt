@@ -885,6 +885,16 @@ class XQueryInfosetMappingTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (160) CompNamespaceConstructor")
     inner class CompNamespaceConstructor {
+        @Test
+        @DisplayName("Accessors (5.9) node-kind")
+        fun nodeKind() {
+            val node = parse<XQueryCompNamespaceConstructor>(
+                "element a { namespace one { 'urn:test' } }"
+            )[0] as XdmNamespaceNode
+
+            assertThat(node.nodeKind, `is`(NodeKind.Namespace))
+        }
+
         @Nested
         @DisplayName("Accessors (5.10) node-name")
         internal inner class NodeName {
