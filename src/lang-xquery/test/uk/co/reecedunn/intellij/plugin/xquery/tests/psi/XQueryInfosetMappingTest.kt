@@ -45,32 +45,37 @@ class XQueryInfosetMappingTest : ParserTestCase() {
         @DisplayName("Accessors (5.1) attributes")
         internal inner class Attributes {
             @Test
-            @DisplayName("without attributes")
-            fun withoutAttributes() {
-                val element = parse<XQueryDirElemConstructor>("<a/>")[0] as XdmElementNode
-                assertThat(element.attributes.count(), `is`(0))
+            @DisplayName("empty")
+            fun empty() {
+                val node = parse<XQueryDirElemConstructor>("<a/>")[0] as XdmElementNode
+
+                assertThat(node.attributes.count(), `is`(0))
             }
 
             @Test
-            @DisplayName("with direct attributes")
-            fun withDirectAttributes() {
-                val element = parse<XQueryDirElemConstructor>("<a one='1' two='2'/>")[0] as XdmElementNode
-                val attributes = element.attributes.toList()
+            @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList ; XQuery IntelliJ Plugin EBNF (2) DirAttribute")
+            fun dirAttribute() {
+                val node = parse<XQueryDirElemConstructor>(
+                    "<test one='1' n:two='2' xmlns:n='urn:number' xmlns='urn:test'/>"
+                )[0]
+                val attributes = node.attributes.toList()
 
                 assertThat(qname_presentation(attributes[0].nodeName!!), `is`("one"))
-                assertThat((attributes[0].typedValue as? XsUntypedAtomicValue)?.data, `is`("1"))
+                assertThat(qname_presentation(attributes[1].nodeName!!), `is`("n:two"))
 
-                assertThat(qname_presentation(attributes[1].nodeName!!), `is`("two"))
+                assertThat((attributes[0].typedValue as? XsUntypedAtomicValue)?.data, `is`("1"))
                 assertThat((attributes[1].typedValue as? XsUntypedAtomicValue)?.data, `is`("2"))
 
                 assertThat(attributes.size, `is`(2))
             }
 
             @Test
-            @DisplayName("with single constructed attribute")
-            fun withConstructedAttribute() {
-                val element = parse<XQueryDirElemConstructor>("<a>{attribute one{'1'}}</a>")[0] as XdmElementNode
-                val attributes = element.attributes.toList()
+            @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor ; single attribute")
+            fun compAttrConstructor_singleAttribute() {
+                val node = parse<XQueryDirElemConstructor>(
+                    "<test xmlns:n='urn:number' xmlns='urn:test'>{ attribute one { 1 } }</test>"
+                )[0] as XdmElementNode
+                val attributes = node.attributes.toList()
 
                 assertThat(qname_presentation(attributes[0].nodeName!!), `is`("one"))
                 assertThat(attributes[0].typedValue, `is`(nullValue()))
@@ -79,17 +84,17 @@ class XQueryInfosetMappingTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("with multiple constructed attributes")
-            fun withConstructedAttributes() {
-                val element = parse<XQueryDirElemConstructor>(
-                    "<a>{attribute one{'1'}, attribute two{'2'}}</a>"
+            @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor ; multiple attributes")
+            fun compAttrConstructor_multipleAttributes() {
+                val node = parse<XQueryDirElemConstructor>(
+                    "<test xmlns:n='urn:number' xmlns='urn:test'>{ attribute one { 1 } , attribute n:two { 2 } }</test>"
                 )[0] as XdmElementNode
-                val attributes = element.attributes.toList()
+                val attributes = node.attributes.toList()
 
                 assertThat(qname_presentation(attributes[0].nodeName!!), `is`("one"))
-                assertThat(attributes[0].typedValue, `is`(nullValue()))
+                assertThat(qname_presentation(attributes[1].nodeName!!), `is`("n:two"))
 
-                assertThat(qname_presentation(attributes[1].nodeName!!), `is`("two"))
+                assertThat(attributes[0].typedValue, `is`(nullValue()))
                 assertThat(attributes[1].typedValue, `is`(nullValue()))
 
                 assertThat(attributes.size, `is`(2))
@@ -98,21 +103,19 @@ class XQueryInfosetMappingTest : ParserTestCase() {
             @Test
             @DisplayName("with direct and constructed attributes")
             fun withDirectAndConstructedAttributes() {
-                val element = parse<XQueryDirElemConstructor>(
+                val node = parse<XQueryDirElemConstructor>(
                     "<a one='1' two='2'>{attribute three{'3'}, attribute four{'4'}}</a>"
                 )[0] as XdmElementNode
-                val attributes = element.attributes.toList()
+                val attributes = node.attributes.toList()
 
                 assertThat(qname_presentation(attributes[0].nodeName!!), `is`("one"))
-                assertThat((attributes[0].typedValue as? XsUntypedAtomicValue)?.data, `is`("1"))
-
                 assertThat(qname_presentation(attributes[1].nodeName!!), `is`("two"))
-                assertThat((attributes[1].typedValue as? XsUntypedAtomicValue)?.data, `is`("2"))
-
                 assertThat(qname_presentation(attributes[2].nodeName!!), `is`("three"))
-                assertThat(attributes[2].typedValue, `is`(nullValue()))
-
                 assertThat(qname_presentation(attributes[3].nodeName!!), `is`("four"))
+
+                assertThat((attributes[0].typedValue as? XsUntypedAtomicValue)?.data, `is`("1"))
+                assertThat((attributes[1].typedValue as? XsUntypedAtomicValue)?.data, `is`("2"))
+                assertThat(attributes[2].typedValue, `is`(nullValue()))
                 assertThat(attributes[3].typedValue, `is`(nullValue()))
 
                 assertThat(attributes.size, `is`(4))
