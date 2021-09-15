@@ -19,12 +19,10 @@ import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.elementType
-import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
-import uk.co.reecedunn.intellij.plugin.core.psi.nextSiblingIfSelf
-import uk.co.reecedunn.intellij.plugin.core.psi.nextSiblingWhileSelf
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.element
+import uk.co.reecedunn.intellij.plugin.core.psi.*
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.*
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
@@ -41,12 +39,14 @@ class XQueryCompNamespaceConstructorPsiImpl(node: ASTNode) :
     XpmSyntaxValidationElement {
     companion object {
         private val NAMESPACE_PREFIX = Key.create<Optional<XsNCNameValue>>("NAMESPACE_PREFIX")
+        private val NAMESPACE_URI = Key.create<Optional<XsAnyUriValue>>("NAMESPACE_URI")
     }
     // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
         clearUserData(NAMESPACE_PREFIX)
+        clearUserData(NAMESPACE_URI)
     }
 
     // endregion
@@ -66,6 +66,22 @@ class XQueryCompNamespaceConstructorPsiImpl(node: ASTNode) :
                 is XsStringValue -> Optional.of(XsNCName(prefix.data.trim(), prefix.element))
                 is XpmExpression -> Optional.empty() // Can't compute the expression statically.
                 else -> Optional.of(XsNCName("", this)) // Empty EnclosedPrefixExpr.
+            }
+        }.orElse(null)
+
+    override val namespaceUri: XsAnyUriValue?
+        get() = computeUserDataIfAbsent(NAMESPACE_URI) {
+            var uri = lastChild
+            uri = uri.prevSiblingIfSelf { it.elementType === XPathTokenType.BLOCK_CLOSE }
+            uri = uri.prevSiblingWhileSelf { it.elementType === XPathTokenType.WHITE_SPACE || it is XPathComment }
+            when (uri) {
+                is XsStringValue -> Optional.of(
+                    XsAnyUri(uri.data, XdmUriContext.Namespace, XdmModuleType.NONE, this)
+                )
+                is XpmExpression -> Optional.empty() // Can't compute the expression statically.
+                else -> Optional.of( // Empty EnclosedURIExpr.
+                    XsAnyUri("", XdmUriContext.Namespace, XdmModuleType.NONE, this)
+                )
             }
         }.orElse(null)
 
