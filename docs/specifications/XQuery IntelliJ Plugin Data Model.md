@@ -69,6 +69,14 @@ various inspections.
   - [Constructable Items](#57-constructable-items)
     - [Maps](#571-maps)
     - [Arrays](#572-arrays)
+    - [Node Constructors](#573-node-constructors)
+      - [Document Nodes](#5731-document-nodes)
+      - [Element Nodes](#5732-element-nodes)
+      - [Attribute Nodes](#5733-attribute-nodes)
+      - [Namespace Nodes](#5734-namespace-nodes)
+      - [Processing Instruction Nodes](#5735-processing-instruction-nodes)
+      - [Comment Nodes](#57376-comment-nodes)
+      - [Text Nodes](#5737-text-nodes)
 - [Accessors](#6-accessors)
   - [namespace-attributes Accessor](#61-namespace-attributes-accessor)
     - [Nodes](#611-nodes)
@@ -1106,18 +1114,106 @@ the entry value.
 |--------------------------|----------------------|
 | `SquareArrayConstructor` | `XpmArrayExpression` |
 
-An *array expression* is a *constructale item* that is used to create
+An *array expression* is a *constructable item* that is used to create
 `array(*)` or `array-node()` items.
 
 The *member expressions* of an *array expression* are the expressions
 that are used to create the members of the constructed array.
 
+#### 5.7.3 Node Constructors
+
+A *node constructor* is a *constructable item* that is used to create
+`node()` items that correspond to XML nodes in the XQuery data model.
+
+The *node kind* corresponds to the `dm:node-kind` accessor.
+
+##### 5.7.3.1 Document Nodes
+
+| Symbol               | Interface         |
+|----------------------|-------------------|
+| `CompDocConstructor` | `XdmDocumentNode` |
+
+A *document node expression* is a *constructable item* that is used to
+create `document-node()` node items.
+
+##### 5.7.3.2 Element Nodes
+
+| Symbol                | Interface        |
+|-----------------------|------------------|
+| `DirElemConstructor`  | `XdmElementNode` |
+| `CompElemConstructor` | `XdmElementNode` |
+
+An *element node expression* is a *constructable item* that is used to
+create `element()` node items.
+
+The *attributes* property corresponds to the `dm:attributes` accessor.
+
+The *node name* property corresponds to the `dm:node-name` accessor.
+
+The *namespace attributes* property corresponds to the `dm:namespace-attributes` accessor.
+
+##### 5.7.3.3 Attribute Nodes
+
+| Symbol                | Interface          |
+|-----------------------|--------------------|
+| `DirAttribute`        | `XdmAttributeNode` |
+| `CompAttrConstructor` | `XdmAttributeNode` |
+
+An *attribute node expression* is a *constructable item* that is used to
+create `attribute()` node items.
+
+The *node name* property corresponds to the `dm:node-name` accessor.
+
+The *typed value* property corresponds to the `dm:typed-value` accessor.
+
+##### 5.7.3.4 Namespace Nodes
+
+| Symbol                     | Interface          |
+|----------------------------|--------------------|
+| `CompNamespaceConstructor` | `XdmNamespaceNode` |
+
+A *namespace node expression* is a *constructable item* that is used to
+create `namespace-node()` node items.
+
+##### 5.7.3.5 Processing Instruction Nodes
+
+| Symbol              | Interface                      |
+|---------------------|--------------------------------|
+| `DirPIConstructor`  | `XdmProcessingInstructionNode` |
+| `CompPIConstructor` | `XdmProcessingInstructionNode` |
+
+A *processing instruction node expression* is a *constructable item* that is
+used to create `processing-instruction()` node items.
+
+##### 5.7.3.6 Comment Nodes
+
+| Symbol                   | Interface        |
+|--------------------------|------------------|
+| `DirCommentConstructor`  | `XdmCommentNode` |
+| `CompCommentConstructor` | `XdmCommentNode` |
+
+A *comment node expression* is a *constructable item* that is used to create
+`comment()` node items.
+
+##### 5.7.3.7 Text Nodes
+
+| Symbol                | Interface     |
+|-----------------------|---------------|
+| `DirTextConstructor`  | `XdmTextNode` |
+| `CompTextConstructor` | `XdmTextNode` |
+
+A *text node expression* is a *constructable item* that is used to create
+`text()` node items.
+
 ## 6 Accessors
 
-### 6.1 namespace-attributes Accessor
-    dn:namespace-attributes($n as node()) as namespace-node()*
+In addition to the accessors defined in the XPath and XQuery Data Model
+specification, this plugin makes use of the following additional accessors.
 
-The `dn:namespace-attributes` accessor returns the attributes of a node that define a
+### 6.1 namespace-attributes Accessor
+    dm:namespace-attributes($n as node()) as namespace-node()*
+
+The `dm:namespace-attributes` accessor returns the attributes of a node that define a
 namespace as a sequence containing zero or more Namespace Nodes. The order of Namespace
 Nodes is stable but implementation dependent.
 
