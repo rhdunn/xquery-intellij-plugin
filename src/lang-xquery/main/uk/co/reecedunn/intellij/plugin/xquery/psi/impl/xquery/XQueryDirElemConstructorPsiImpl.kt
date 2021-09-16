@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.nextSiblingIfSelf
 import uk.co.reecedunn.intellij.plugin.core.psi.prevSiblingIfSelf
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespaceNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterExpressions
 import uk.co.reecedunn.intellij.plugin.xpath.psi.enclosedExpressionBlocks
@@ -39,13 +40,6 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryDirElemConstructor,
     XpmSyntaxValidationElement {
-    companion object {
-        private fun isNamespaceDeclaration(nodeName: XsQNameValue?): Boolean = when {
-            nodeName?.prefix?.data == "xmlns" -> true // xmlns:*
-            nodeName?.localName?.data == "xmlns" && nodeName.prefix == null -> true // xmlns
-            else -> false
-        }
-    }
     // region HintedReferenceHost
 
     override fun getReference(): PsiReference? {
@@ -71,13 +65,13 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     // region XdmElementNode
 
     override val attributes: Sequence<XdmAttributeNode>
-        get() = filterExpressions<XdmAttributeNode>().filter { !isNamespaceDeclaration(it.nodeName) }
+        get() = filterExpressions()
 
     override val nodeName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
-    override val namespaceAttributes: Sequence<XdmAttributeNode>
-        get() = filterExpressions<XdmAttributeNode>().filter { isNamespaceDeclaration(it.nodeName) }
+    override val namespaceAttributes: Sequence<XdmNamespaceNode>
+        get() = filterExpressions()
 
     // endregion
     // region XQueryDirElemConstructor

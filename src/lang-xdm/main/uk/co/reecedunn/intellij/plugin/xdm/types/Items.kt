@@ -60,7 +60,7 @@ interface XdmElementNode : XdmNode {
 
     val nodeName: XsQNameValue?
 
-    val namespaceAttributes: Sequence<XdmAttributeNode>
+    val namespaceAttributes: Sequence<XdmNamespaceNode>
 }
 
 object XdmElementItem : XdmItemType {

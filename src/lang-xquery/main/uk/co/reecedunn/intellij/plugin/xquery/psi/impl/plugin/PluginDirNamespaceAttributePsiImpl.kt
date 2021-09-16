@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsNCName
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.resolve
 import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
@@ -36,43 +37,58 @@ class PluginDirNamespaceAttributePsiImpl(node: ASTNode) :
     PluginDirNamespaceAttribute,
     XQueryPrologResolver {
     companion object {
-        private val STRING_VALUE = Key.create<Optional<String>>("STRING_VALUE")
-        private val TYPED_VALUE = Key.create<Optional<XsAnyAtomicType>>("TYPED_VALUE")
+        private val NAMESPACE_URI = Key.create<Optional<XsAnyUriValue>>("NAMESPACE_URI")
+
+        private val EMPTY_PREFIX = XsNCName("")
     }
     // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        clearUserData(STRING_VALUE)
-        clearUserData(TYPED_VALUE)
+        clearUserData(NAMESPACE_URI)
     }
 
     // endregion
-    // region XdmAttributeNode
-
-    override val nodeName: XsQNameValue?
-        get() = firstChild as? XsQNameValue
+    // region XdmNamespaceNode
 
     private val stringValue: String?
-        get() = computeUserDataIfAbsent(STRING_VALUE) {
+        get() {
             val attrValue = children().filterIsInstance<XQueryDirAttributeValue>().firstOrNull()
-                ?: return@computeUserDataIfAbsent Optional.empty()
-            if (!attrValue.isValidHost)
-                Optional.empty() // Cannot evaluate enclosed content expressions statically.
-            else {
-                val value = StringBuilder()
-                attrValue.children().filterIsInstance<PsiElementTextDecoder>().forEach { it.decode(value) }
-                Optional.of(value.toString())
+            return when {
+                attrValue == null -> null
+                !attrValue.isValidHost -> null // Cannot evaluate enclosed content expressions statically.
+                else -> {
+                    val value = StringBuilder()
+                    attrValue.children().filterIsInstance<PsiElementTextDecoder>().forEach { it.decode(value) }
+                    value.toString()
+                }
             }
-        }.orElse(null)
+        }
 
-    override val typedValue: XsAnyAtomicType?
-        get() = computeUserDataIfAbsent(TYPED_VALUE) {
+    override val namespacePrefix: XsNCNameValue
+        get() = (firstChild as? XsQNameValue)?.takeIf { it.prefix?.data == "xmlns" }?.localName ?: EMPTY_PREFIX
+
+    override val namespaceUri: XsAnyUriValue?
+        get() = computeUserDataIfAbsent(NAMESPACE_URI) {
             val contents = stringValue ?: return@computeUserDataIfAbsent Optional.empty()
             Optional.of(
                 XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
             )
         }.orElse(null)
+
+    override val parentNode: XdmNode?
+        get() = parent as? XdmElementNode
+
+    // endregion
+    // region XQueryNamespaceDeclaration
+
+    override fun accepts(namespaceType: XdmNamespaceType): Boolean = when (namespacePrefix) {
+        EMPTY_PREFIX -> when (namespaceType) {
+            XdmNamespaceType.DefaultElement, XdmNamespaceType.DefaultType -> true
+            else -> false
+        }
+        else -> namespaceType === XdmNamespaceType.Prefixed
+    }
 
     // endregion
     // region XQueryPrologResolver
@@ -85,23 +101,6 @@ class PluginDirNamespaceAttributePsiImpl(node: ASTNode) :
             val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
             return (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
         }
-
-    // endregion
-    // region XQueryNamespaceDeclaration
-
-    override fun accepts(namespaceType: XdmNamespaceType): Boolean = when (namespacePrefix) {
-        null -> when (namespaceType) {
-            XdmNamespaceType.DefaultElement, XdmNamespaceType.DefaultType -> true
-            else -> false
-        }
-        else -> namespaceType === XdmNamespaceType.Prefixed
-    }
-
-    override val namespacePrefix: XsNCNameValue?
-        get() = nodeName?.takeIf { it.prefix?.data == "xmlns" }?.localName
-
-    override val namespaceUri: XsAnyUriValue?
-        get() = typedValue as? XsAnyUriValue
 
     // endregion
 }

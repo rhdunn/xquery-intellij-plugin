@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirNamespaceAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompNamespaceConstructor
@@ -164,15 +165,16 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 val node = parse<XQueryDirElemConstructor>(
                     "<test one='1' n:two='2' xmlns:n='urn:number' xmlns='urn:test'/>"
                 )[0]
-                val attributes = node.namespaceAttributes.toList()
+                val nsAttributes = node.namespaceAttributes.toList()
 
-                assertThat(qname_presentation(attributes[0].nodeName!!), `is`("xmlns:n"))
-                assertThat(qname_presentation(attributes[1].nodeName!!), `is`("xmlns"))
+                assertThat(nsAttributes[0].namespacePrefix?.data, `is`("n"))
+                assertThat(nsAttributes[1].namespacePrefix?.data, `is`(""))
 
-                assertThat((attributes[0].typedValue as? XsAnyUriValue)?.data, `is`("urn:number"))
-                assertThat((attributes[1].typedValue as? XsAnyUriValue)?.data, `is`("urn:test"))
+                assertThat(nsAttributes[0].namespaceUri?.data, `is`("urn:number"))
+                assertThat(nsAttributes[1].namespaceUri?.data, `is`("urn:test"))
 
-                assertThat(attributes.size, `is`(2))
+                assertThat(nsAttributes.size, `is`(2))
+                assertThat(nsAttributes.size, `is`(2))
             }
         }
     }
@@ -307,6 +309,77 @@ class XQueryInfosetMappingTest : ParserTestCase() {
             fun enclosedExpr() {
                 val node = parse<PluginDirAttribute>("<a b=\"x{\$y}z\"/>")[0] as XdmAttributeNode
                 assertThat(node.typedValue, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList ; XQuery IntelliJ Plugin EBNF (154) DirNamespaceAttribute")
+    inner class DirNamespaceAttribute {
+        @Test
+        @DisplayName("Accessors (5.10) node-name")
+        fun namespacePrefix() {
+            val nodes = parse<PluginDirNamespaceAttribute>(
+                "<a xmlns:one='urn:number:one' xmlns='urn:number:two'/>"
+            )
+
+            assertThat(nodes[0].namespacePrefix?.data, `is`("one"))
+            assertThat(nodes[1].namespacePrefix?.data, `is`(""))
+        }
+
+        @Nested
+        @DisplayName("Accessors (5.11) parent")
+        inner class Parent {
+            @Test
+            @DisplayName("with prefix")
+            fun withPrefix() {
+                val node = parse<PluginDirNamespaceAttribute>(
+                    "<a xmlns:one='urn:number:one' xmlns='urn:number:two'/>"
+                )[0]
+
+                val parent = node.parentNode
+                assertThat(parent, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+                assertThat(qname_presentation((parent as XQueryDirElemConstructor).nodeName!!), `is`("a"))
+            }
+
+            @Test
+            @DisplayName("without prefix")
+            fun withoutPrefix() {
+                val node = parse<PluginDirNamespaceAttribute>(
+                    "<a xmlns:one='urn:number:one' xmlns='urn:number:two'/>"
+                )[1]
+
+                val parent = node.parentNode
+                assertThat(parent, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+                assertThat(qname_presentation((parent as XQueryDirElemConstructor).nodeName!!), `is`("a"))
+            }
+        }
+
+        @Nested
+        @DisplayName("Accessors (5.14) typed-value")
+        internal inner class TypedValue {
+            @Test
+            @DisplayName("with prefix")
+            fun withPrefix() {
+                val node = parse<PluginDirNamespaceAttribute>(
+                    "<a xmlns:one='urn:number:one' xmlns='urn:number:two'/>"
+                )[0]
+
+                assertThat(node.namespaceUri?.data, `is`("urn:number:one"))
+                assertThat(node.namespaceUri?.context, `is`(XdmUriContext.NamespaceDeclaration))
+                assertThat(node.namespaceUri?.moduleTypes, `is`(XdmModuleType.MODULE_OR_SCHEMA))
+            }
+
+            @Test
+            @DisplayName("without prefix")
+            fun withoutPrefix() {
+                val node = parse<PluginDirNamespaceAttribute>(
+                    "<a xmlns:one='urn:number:one' xmlns='urn:number:two'/>"
+                )[1]
+
+                assertThat(node.namespaceUri?.data, `is`("urn:number:two"))
+                assertThat(node.namespaceUri?.context, `is`(XdmUriContext.NamespaceDeclaration))
+                assertThat(node.namespaceUri?.moduleTypes, `is`(XdmModuleType.MODULE_OR_SCHEMA))
             }
         }
     }
