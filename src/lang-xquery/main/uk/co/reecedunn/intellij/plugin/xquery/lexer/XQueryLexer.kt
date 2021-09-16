@@ -648,7 +648,10 @@ class XQueryLexer : XPathLexer() {
                     cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 }
                 mType = if (state == STATE_DIR_ATTRIBUTE_LIST)
-                    XQueryTokenType.XML_ATTRIBUTE_NCNAME
+                    if (tokenText == "xmlns")
+                        XQueryTokenType.XML_ATTRIBUTE_XMLNS
+                    else
+                        XQueryTokenType.XML_ATTRIBUTE_NCNAME
                 else
                     XQueryTokenType.XML_TAG_NCNAME
             }
