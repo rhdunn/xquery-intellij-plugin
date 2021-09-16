@@ -44,12 +44,6 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     XpmSyntaxValidationElement {
     companion object {
         private val STRING_VALUE = Key.create<Optional<String>>("STRING_VALUE")
-
-        private fun isNamespaceDeclaration(nodeName: XsQNameValue?): Boolean = when {
-            nodeName?.prefix?.data == "xmlns" -> true // xmlns:*
-            nodeName?.localName?.data == "xmlns" && nodeName.prefix == null -> true // xmlns
-            else -> false
-        }
     }
     // region HintedReferenceHost
 
@@ -76,7 +70,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     // region XdmElementNode
 
     override val attributes: Sequence<XdmAttributeNode>
-        get() = filterExpressions<XdmAttributeNode>().filter { !isNamespaceDeclaration(it.nodeName) }
+        get() = filterExpressions()
 
     override val nodeName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
@@ -106,8 +100,8 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             Optional.of(value.toString())
         }.orElse(null)
 
-    override val namespaceAttributes: Sequence<XdmAttributeNode>
-        get() = filterExpressions<XdmAttributeNode>().filter { isNamespaceDeclaration(it.nodeName) }
+    override val namespaceAttributes: Sequence<XdmNamespaceNode>
+        get() = filterExpressions()
 
     // endregion
     // region XQueryDirElemConstructor

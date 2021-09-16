@@ -79,7 +79,7 @@ interface XdmElementNode : XdmNode {
 
     val stringValue: String?
 
-    val namespaceAttributes: Sequence<XdmAttributeNode>
+    val namespaceAttributes: Sequence<XdmNamespaceNode>
 }
 
 object XdmElementItem : XdmItemType {

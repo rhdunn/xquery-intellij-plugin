@@ -5420,7 +5420,7 @@ class XQueryPsiTest : ParserTestCase() {
                             "<a xmlns='http://www.example.com'/>"
                         )[0] as XpmNamespaceDeclaration
 
-                        assertThat(expr.namespacePrefix, `is`(nullValue()))
+                        assertThat(expr.namespacePrefix?.data, `is`(""))
                         assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
                         assertThat(expr.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
                         assertThat(expr.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))

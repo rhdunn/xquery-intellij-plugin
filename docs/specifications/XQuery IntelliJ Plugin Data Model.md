@@ -1141,8 +1141,8 @@ create `document-node()` node items.
 
 | Symbol                | Interface        |
 |-----------------------|------------------|
-| `DirElemConstructor`  | `XdmElementNode` |
 | `CompElemConstructor` | `XdmElementNode` |
+| `DirElemConstructor`  | `XdmElementNode` |
 
 An *element node expression* is a *constructable item* that is used to
 create `element()` node items.
@@ -1161,8 +1161,8 @@ The *namespace attributes* property corresponds to the `dm:namespace-attributes`
 
 | Symbol                | Interface          |
 |-----------------------|--------------------|
-| `DirAttribute`        | `XdmAttributeNode` |
 | `CompAttrConstructor` | `XdmAttributeNode` |
+| `DirAttribute`        | `XdmAttributeNode` |
 
 An *attribute node expression* is a *constructable item* that is used to
 create `attribute()` node items.
@@ -1180,6 +1180,7 @@ The *typed value* property corresponds to the `dm:typed-value` accessor.
 | Symbol                     | Interface          |
 |----------------------------|--------------------|
 | `CompNamespaceConstructor` | `XdmNamespaceNode` |
+| `DirNamespaceAttribute`    | `XdmNamespaceNode` |
 
 A *namespace node expression* is a *constructable item* that is used to
 create `namespace-node()` node items.
@@ -1196,12 +1197,14 @@ node binds to. This can have one of the following values:
 
 The *namespace uri* property corresponds to the `dm:typed-value` accessor.
 
+The *parent node* property corresponds to the `dm:parent` accessor.
+
 ##### 5.7.3.5 Processing Instruction Nodes
 
 | Symbol              | Interface                      |
 |---------------------|--------------------------------|
-| `DirPIConstructor`  | `XdmProcessingInstructionNode` |
 | `CompPIConstructor` | `XdmProcessingInstructionNode` |
+| `DirPIConstructor`  | `XdmProcessingInstructionNode` |
 
 A *processing instruction node expression* is a *constructable item* that is
 used to create `processing-instruction()` node items.
@@ -1210,8 +1213,8 @@ used to create `processing-instruction()` node items.
 
 | Symbol                   | Interface        |
 |--------------------------|------------------|
-| `DirCommentConstructor`  | `XdmCommentNode` |
 | `CompCommentConstructor` | `XdmCommentNode` |
+| `DirCommentConstructor`  | `XdmCommentNode` |
 
 A *comment node expression* is a *constructable item* that is used to create
 `comment()` node items.
@@ -1220,8 +1223,8 @@ A *comment node expression* is a *constructable item* that is used to create
 
 | Symbol                | Interface     |
 |-----------------------|---------------|
-| `DirTextConstructor`  | `XdmTextNode` |
 | `CompTextConstructor` | `XdmTextNode` |
+| `DirTextConstructor`  | `XdmTextNode` |
 
 A *text node expression* is a *constructable item* that is used to create
 `text()` node items.
