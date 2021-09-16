@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespaceNode.Companion.EMPTY_PREFIX
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
@@ -34,10 +35,10 @@ class XQuerySchemaImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     private val schemaPrefix
         get() = children().filterIsInstance<XQuerySchemaPrefix>().firstOrNull()
 
-    override val namespacePrefix: XsNCNameValue?
+    override val namespacePrefix: XsNCNameValue
         get() = schemaPrefix?.let {
             it.children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
-        }
+        } ?: EMPTY_PREFIX
 
     override val namespaceUri: XsAnyUriValue?
         get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()

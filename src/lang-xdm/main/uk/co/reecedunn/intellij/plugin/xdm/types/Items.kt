@@ -18,6 +18,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.types
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsNCName
+
 // region XQuery and XPath 3.1 Data Model (2.7.4) : node()
 
 interface XdmNode : XdmItem
@@ -80,6 +82,10 @@ interface XdmCommentNode : XdmNode
 // region XQuery and XPath 3.1 Data Model (2.7.4) : namespace-node()
 
 interface XdmNamespaceNode : XdmNode {
+    companion object {
+        val EMPTY_PREFIX: XsNCNameValue = XsNCName("")
+    }
+
     val namespacePrefix: XsNCNameValue?
 
     val namespaceUri: XsAnyUriValue?

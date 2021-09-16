@@ -22,8 +22,8 @@ import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespaceNode.Companion.EMPTY_PREFIX
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsAnyUri
-import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsNCName
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.resolve
 import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
@@ -38,8 +38,6 @@ class PluginDirNamespaceAttributePsiImpl(node: ASTNode) :
     XQueryPrologResolver {
     companion object {
         private val NAMESPACE_URI = Key.create<Optional<XsAnyUriValue>>("NAMESPACE_URI")
-
-        private val EMPTY_PREFIX = XsNCName("")
     }
     // region PsiElement
 
