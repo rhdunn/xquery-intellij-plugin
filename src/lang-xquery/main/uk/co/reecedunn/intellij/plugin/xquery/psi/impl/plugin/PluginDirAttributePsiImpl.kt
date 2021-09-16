@@ -20,22 +20,18 @@ import com.intellij.openapi.util.Key
 import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
-import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsID
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsUntypedAtomic
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
-import uk.co.reecedunn.intellij.plugin.xpm.module.loader.resolve
-import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import java.util.*
 
-class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginDirAttribute, XQueryPrologResolver {
+class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginDirAttribute {
     companion object {
         private val NODE_VALUE = Key.create<Optional<XsAnyAtomicType>>("NODE_VALUE")
     }
@@ -76,16 +72,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
                         }
                     }.filterNotNull().joinToString(separator = "")
             val ret = when {
-                contents == null -> {
-                    @Suppress("USELESS_CAST") // Needed, otherwise type inference results in `Any?` with warnings.
-                    null as XsAnyAtomicType?
-                }
-                qname.prefix?.data == "xmlns" -> {
-                    XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
-                }
-                qname.localName?.data == "xmlns" && qname.prefix == null -> {
-                    XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
-                }
+                contents == null -> null
                 qname.prefix?.data == "xml" && qname.localName?.data == "id" -> {
                     XsID(contents, this)
                 }
@@ -93,39 +80,6 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
             }
             Optional.ofNullable(ret)
         }.orElse(null)
-
-    // endregion
-    // region XQueryPrologResolver
-
-    override val prolog: Sequence<XQueryProlog>
-        get() {
-            val file = namespaceUri?.let {
-                it.resolve() ?: it.resolveUri<XQueryModule>()
-            }
-            val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
-            return (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
-        }
-
-    // endregion
-    // region XQueryNamespaceDeclaration
-
-    override fun accepts(namespaceType: XdmNamespaceType): Boolean {
-        val qname = nodeName ?: return false
-        return when {
-            qname.prefix?.data == "xmlns" -> namespaceType === XdmNamespaceType.Prefixed
-            qname.localName?.data == "xmlns" && qname.prefix == null -> when (namespaceType) {
-                XdmNamespaceType.DefaultElement, XdmNamespaceType.DefaultType -> true
-                else -> false
-            }
-            else -> namespaceType === XdmNamespaceType.Undefined
-        }
-    }
-
-    override val namespacePrefix: XsNCNameValue?
-        get() = nodeName?.takeIf { it.prefix?.data == "xmlns" }?.localName
-
-    override val namespaceUri: XsAnyUriValue?
-        get() = typedValue as? XsAnyUriValue
 
     // endregion
 }

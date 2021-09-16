@@ -872,16 +872,16 @@ The abbreviated syntax permits the following additional abbreviations:
 
 ### 5.3 Namespace Declarations
 
-| Symbol                 | Interface                 | Accepts EQName Type                    |
-|------------------------|---------------------------|----------------------------------------|
-| `DefaultNamespaceDecl` | `XpmNamespaceDeclaration` | see below                              |
-| `DirAttribute`         | `XpmNamespaceDeclaration` | see below                              |
-| `ModuleDecl`           | `XpmNamespaceDeclaration` | default function declaration/reference |
-| `ModuleImport`         | `XpmNamespaceDeclaration` | prefixed                               |
-| `NamespaceDecl`        | `XpmNamespaceDeclaration` | prefixed                               |
-| `NamespaceDeclaration` | `XpmNamespaceDeclaration` | see below                              |
-| `SchemaImport`         | `XpmNamespaceDeclaration` | see below                              |
-| `UsingDecl`            | `XpmNamespaceDeclaration` | default function reference             |
+| Symbol                  | Interface                 | Accepts EQName Type                    |
+|-------------------------|---------------------------|----------------------------------------|
+| `DefaultNamespaceDecl`  | `XpmNamespaceDeclaration` | see below                              |
+| `DirNamespaceAttribute` | `XpmNamespaceDeclaration` | see below                              |
+| `ModuleDecl`            | `XpmNamespaceDeclaration` | default function declaration/reference |
+| `ModuleImport`          | `XpmNamespaceDeclaration` | prefixed                               |
+| `NamespaceDecl`         | `XpmNamespaceDeclaration` | prefixed                               |
+| `NamespaceDeclaration`  | `XpmNamespaceDeclaration` | see below                              |
+| `SchemaImport`          | `XpmNamespaceDeclaration` | see below                              |
+| `UsingDecl`             | `XpmNamespaceDeclaration` | default function reference             |
 
 A *namespace declaration* is an EBNF symbol that adds a namespace to the
 *statically-known namespaces* for the scope that it is contained in.
@@ -899,9 +899,10 @@ accepts *default element\/type* EQNames. If it is a `default function`
 declaration then it accepts *default function declaration* or *default
 function reference* EQNames.
 
-If the *prefix* of a `DirAttribute` is `xmlns` then it accepts *prefixed*
-EQNames. If the *local name* is `xmlns` without a prefix then it accepts
-*default element\/type* EQNames. Otherwise, it does not accept any EQNames.
+If the *prefix* of a `DirNamespaceAttribute` is `xmlns` then it accepts
+*prefixed* EQNames. If the *local name* is `xmlns` without a prefix then
+it accepts *default element\/type* EQNames. Otherwise, it does not accept
+any EQNames.
 
 If the *prefix* of a `NamespaceDeclaration` is `xmlns` then it accepts
 *prefixed* EQNames. If the *local name* is `xmlns` without a prefix then
