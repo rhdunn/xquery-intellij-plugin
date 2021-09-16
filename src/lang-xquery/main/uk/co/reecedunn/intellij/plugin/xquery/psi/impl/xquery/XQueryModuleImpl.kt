@@ -132,12 +132,13 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     // endregion
 
     companion object {
-        val XMLNS_DECLARATION = TokenSet.create(
+        private val XMLNS_DECLARATION = TokenSet.create(
             XPathElementType.NAMESPACE_DECLARATION,
-            XQueryElementType.DIR_ATTRIBUTE
+            XQueryElementType.DIR_ATTRIBUTE,
+            XQueryElementType.DIR_NAMESPACE_ATTRIBUTE
         )
 
-        val USAGE_TYPES: Map<IElementType, XpmUsageType> = mapOf(
+        private val USAGE_TYPES: Map<IElementType, XpmUsageType> = mapOf(
             XQueryElementType.ANNOTATION to XpmUsageType.Annotation,
             XPathElementType.ARROW_FUNCTION_CALL to XpmUsageType.FunctionRef,
             XQueryElementType.ASSIGNMENT_EXPR to XpmUsageType.Variable,

@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirNamespaceAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirPIConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -80,8 +81,7 @@ object XQuerySemanticHighlighter : XpmSemanticHighlighter {
             .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
             .create()
 
-        val parent = element.parent.parent
-        if (parent is PluginDirAttribute || parent is XQueryDirElemConstructor || parent is XQueryDirPIConstructor) {
+        if (supportsXmlTagHighlighting(element.parent.parent)) {
             // Workaround IDEA-234709 -- XML_TAG is overriding the text colour of textAttributes.
             if (!EditorColorsManager.getInstance().isDarkEditor) {
                 holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
@@ -93,5 +93,13 @@ object XQuerySemanticHighlighter : XpmSemanticHighlighter {
         holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
             .textAttributes(textAttributes)
             .create()
+    }
+
+    private fun supportsXmlTagHighlighting(node: PsiElement): Boolean = when (node) {
+        is PluginDirAttribute -> true
+        is PluginDirNamespaceAttribute -> true
+        is XQueryDirElemConstructor -> true
+        is XQueryDirPIConstructor -> true
+        else -> false
     }
 }

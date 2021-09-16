@@ -151,8 +151,8 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         private fun parseDirAttributeList(first: PsiElement?): Pair<Boolean, PsiElement?> {
             var start = first
             var hasMultiLineAttributes = false
-            while (start?.elementType === XQueryElementType.DIR_ATTRIBUTE) {
-                if (start.textContains('\n')) {
+            while (start?.elementType in XQueryElementType.DIR_ATTRIBUTE_TOKENS) {
+                if (start!!.textContains('\n')) {
                     hasMultiLineAttributes = true
                 }
                 start = start.nextSibling
