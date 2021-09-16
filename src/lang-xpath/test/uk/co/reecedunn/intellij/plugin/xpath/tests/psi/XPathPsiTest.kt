@@ -2225,7 +2225,7 @@ class XPathPsiTest : ParserTestCase() {
                         "with xmlns=\"http://www.example.com\" {}"
                     )[0] as XpmNamespaceDeclaration
 
-                    assertThat(expr.namespacePrefix, `is`(nullValue()))
+                    assertThat(expr.namespacePrefix?.data, `is`(""))
 
                     val uri = expr.namespaceUri!!
                     assertThat(uri.data, `is`("http://www.example.com"))
@@ -2250,7 +2250,7 @@ class XPathPsiTest : ParserTestCase() {
                         "with b=\"http://www.example.com\" {}"
                     )[0] as XpmNamespaceDeclaration
 
-                    assertThat(expr.namespacePrefix, `is`(nullValue()))
+                    assertThat(expr.namespacePrefix?.data, `is`(""))
 
                     val uri = expr.namespaceUri!!
                     assertThat(uri.data, `is`("http://www.example.com"))

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespaceNode.Companion.EMPTY_PREFIX
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
@@ -28,8 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 class XPathNamespaceDeclarationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNamespaceDeclaration {
     // region XdmNamespaceNode
 
-    override val namespacePrefix: XsNCNameValue?
-        get() = (firstChild as? XsQNameValue)?.takeIf { it.prefix?.data == "xmlns" }?.localName
+    override val namespacePrefix: XsNCNameValue
+        get() = (firstChild as? XsQNameValue)?.takeIf { it.prefix?.data == "xmlns" }?.localName ?: EMPTY_PREFIX
 
     override val namespaceUri: XsAnyUriValue?
         get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
