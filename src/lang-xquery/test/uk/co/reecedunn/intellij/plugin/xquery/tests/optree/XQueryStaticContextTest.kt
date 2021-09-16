@@ -646,7 +646,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -668,7 +668,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -694,7 +694,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -734,7 +734,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -756,7 +756,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -790,7 +790,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -817,7 +817,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElement).toList()
                 assertThat(element.size, `is`(2))
 
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/1999/xhtml"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -830,7 +830,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -852,7 +852,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -873,7 +873,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElement).toList()
                 assertThat(element.size, `is`(2))
 
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -886,7 +886,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -910,7 +910,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -932,7 +932,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -954,7 +954,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -980,7 +980,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1014,7 +1014,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1048,7 +1048,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1074,7 +1074,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1108,7 +1108,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1142,7 +1142,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1172,7 +1172,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1194,7 +1194,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1220,7 +1220,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1260,7 +1260,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1282,7 +1282,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1316,7 +1316,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1343,7 +1343,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 val element = ctx.defaultNamespace(XdmNamespaceType.DefaultType).toList()
                 assertThat(element.size, `is`(2))
 
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/1999/xhtml"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1356,7 +1356,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1378,7 +1378,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1399,7 +1399,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 val element = ctx.defaultNamespace(XdmNamespaceType.DefaultType).toList()
                 assertThat(element.size, `is`(2))
 
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1412,7 +1412,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1436,7 +1436,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1458,7 +1458,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1480,7 +1480,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1506,7 +1506,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1528,7 +1528,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1550,7 +1550,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1576,7 +1576,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1610,7 +1610,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1644,7 +1644,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1674,7 +1674,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1696,7 +1696,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1722,7 +1722,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1750,7 +1750,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1772,7 +1772,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1794,7 +1794,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1822,7 +1822,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1844,7 +1844,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1866,7 +1866,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1889,7 +1889,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(2))
 
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions/math"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1902,7 +1902,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1924,7 +1924,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1945,7 +1945,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
                 assertThat(element.size, `is`(2))
 
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1958,7 +1958,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
 
                 // predefined static context
-                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespacePrefix?.data, `is`(""))
                 assertThat(element[1].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -1984,7 +1984,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -2006,7 +2006,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -2028,7 +2028,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -2054,7 +2054,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -2076,7 +2076,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
@@ -2098,7 +2098,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element.size, `is`(1))
 
                 // predefined static context
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))

@@ -76,7 +76,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirNamespaceAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
@@ -9048,7 +9047,7 @@ class XQueryPsiTest : ParserTestCase() {
                         "declare default element namespace 'http://www.w3.org/1999/xhtml';"
                     )[0]
 
-                    assertThat(decl.namespacePrefix, `is`(nullValue()))
+                    assertThat(decl.namespacePrefix?.data, `is`(""))
                     assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/1999/xhtml"))
                     assertThat(decl.namespaceUri?.context, `is`(XdmUriContext.Namespace))
                     assertThat(decl.namespaceUri?.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
@@ -9070,7 +9069,7 @@ class XQueryPsiTest : ParserTestCase() {
                         "declare default function namespace 'http://www.w3.org/2005/xpath-functions/math';"
                     )[0]
 
-                    assertThat(decl.namespacePrefix, `is`(nullValue()))
+                    assertThat(decl.namespacePrefix?.data, `is`(""))
                     assertThat(decl.namespaceUri?.data, `is`("http://www.w3.org/2005/xpath-functions/math"))
                     assertThat(decl.namespaceUri?.context, `is`(XdmUriContext.Namespace))
                     assertThat(decl.namespaceUri?.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
@@ -9090,7 +9089,7 @@ class XQueryPsiTest : ParserTestCase() {
                 fun emptyNamespace() {
                     val decl = parse<XpmNamespaceDeclaration>("declare default element namespace '';")[0]
 
-                    assertThat(decl.namespacePrefix, `is`(nullValue()))
+                    assertThat(decl.namespacePrefix?.data, `is`(""))
                     assertThat(decl.namespaceUri!!.data, `is`(""))
                     assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.Namespace))
                     assertThat(decl.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
@@ -9110,7 +9109,7 @@ class XQueryPsiTest : ParserTestCase() {
                 fun missingNamespace() {
                     val decl = parse<XpmNamespaceDeclaration>("declare default element namespace;")[0]
 
-                    assertThat(decl.namespacePrefix, `is`(nullValue()))
+                    assertThat(decl.namespacePrefix?.data, `is`(""))
                     assertThat(decl.namespaceUri, `is`(nullValue()))
 
                     assertThat(decl.accepts(XdmNamespaceType.DefaultElement), `is`(true))
