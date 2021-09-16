@@ -559,6 +559,82 @@ class XQueryInfosetMappingTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("Accessors (5.11) parent")
+        inner class Parent {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
+            inner class DirElemConstructor {
+                @Test
+                @DisplayName("single item expression")
+                fun single() {
+                    val node = parse<XQueryCompNamespaceConstructor>("<a>{ namespace test { 'value' } }</a>")[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryDirElemConstructor).nodeName!!), `is`("a"))
+                }
+
+                @Test
+                @DisplayName("multiple item expression")
+                fun multiple() {
+                    val node = parse<XQueryCompNamespaceConstructor>(
+                        "<a>{ namespace test { 'one' } , namespace attr { 'two' } }</a>"
+                    )[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryDirElemConstructor).nodeName!!), `is`("a"))
+                }
+
+                @Test
+                @DisplayName("complex expression")
+                fun complex() {
+                    val node = parse<XQueryCompNamespaceConstructor>(
+                        "<a>{ if (true()) then namespace test { 'value' } else () }</a>"
+                    )[0]
+
+                    assertThat(node.parentNode, `is`(nullValue()))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
+            inner class CompElemConstructor {
+                @Test
+                @DisplayName("single item expression")
+                fun single() {
+                    val node = parse<XQueryCompNamespaceConstructor>("element a { namespace test { 'value' } }")[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryCompElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryCompElemConstructor).nodeName!!), `is`("a"))
+                }
+
+                @Test
+                @DisplayName("multiple item expression")
+                fun multiple() {
+                    val node = parse<XQueryCompNamespaceConstructor>(
+                        "element a { namespace test { 'one' } , namespace attr { 'two' } }"
+                    )[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryCompElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryCompElemConstructor).nodeName!!), `is`("a"))
+                }
+
+                @Test
+                @DisplayName("complex expression")
+                fun complex() {
+                    val node = parse<XQueryCompNamespaceConstructor>(
+                        "element a { if (true()) then namespace test { 'value' } else () }"
+                    )[0]
+
+                    assertThat(node.parentNode, `is`(nullValue()))
+                }
+            }
+        }
+
+        @Nested
         @DisplayName("Accessors (5.14) typed-value")
         internal inner class TypedValue {
             @Test

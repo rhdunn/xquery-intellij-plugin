@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.enclosedExpressionBlocks
@@ -84,6 +85,13 @@ class XQueryCompNamespaceConstructorPsiImpl(node: ASTNode) :
                 )
             }
         }.orElse(null)
+
+    override val parentNode: XdmNode?
+        get() = when (val parent = parent) {
+            is XdmElementNode -> parent
+            is XPathExpr -> parent.parent as? XdmElementNode
+            else -> null
+        }
 
     // endregion
     // region XpmExpression

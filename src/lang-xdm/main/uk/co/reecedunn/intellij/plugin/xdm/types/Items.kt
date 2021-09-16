@@ -83,6 +83,8 @@ interface XdmNamespaceNode : XdmNode {
     val namespacePrefix: XsNCNameValue?
 
     val namespaceUri: XsAnyUriValue?
+
+    val parentNode: XdmNode?
 }
 
 object XdmNamespaceItem : XdmItemType {
