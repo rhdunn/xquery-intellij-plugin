@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -28,13 +29,18 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
 class XQueryModuleDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryModuleDecl, XQueryPrologResolver {
-    // region XdmNamespaceDeclaration
+    // region XdmNamespaceNode
 
     override val namespacePrefix: XsNCNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
     override val namespaceUri: XsAnyUriValue?
         get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+
+    override val parentNode: XdmNode? = null
+
+    // endregion
+    // region XpmNamespaceDeclaration
 
     // MarkLogic treats NCName FunctionDecls as being in the ModuleDecl namespace.
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518

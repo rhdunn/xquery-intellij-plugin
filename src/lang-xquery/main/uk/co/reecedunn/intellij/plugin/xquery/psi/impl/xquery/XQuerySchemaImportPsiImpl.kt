@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -33,6 +34,19 @@ class XQuerySchemaImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     private val schemaPrefix
         get() = children().filterIsInstance<XQuerySchemaPrefix>().firstOrNull()
 
+    override val namespacePrefix: XsNCNameValue?
+        get() = schemaPrefix?.let {
+            it.children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
+        }
+
+    override val namespaceUri: XsAnyUriValue?
+        get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+
+    override val parentNode: XdmNode? = null
+
+    // endregion
+    // region XpmNamespaceDeclaration
+
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         return when (schemaPrefix?.firstChild?.node?.elementType) {
             XPathTokenType.K_NAMESPACE -> namespaceType === XdmNamespaceType.Prefixed
@@ -43,19 +57,13 @@ class XQuerySchemaImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         }
     }
 
-    override val namespacePrefix: XsNCNameValue?
-        get() = schemaPrefix?.let { it.children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName }
-
-    override val namespaceUri: XsAnyUriValue?
-        get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
-
     // endregion
     // region XQueryImport
 
     override val locationUris: Sequence<XsAnyUriValue>
         get() {
             val uris = children().filterIsInstance<PluginLocationURIList>().firstOrNull()
-            return uris?.children()?.filterIsInstance<XsAnyUriValue>()?.filterNotNull() ?: emptySequence()
+            return uris?.children()?.filterIsInstance<XsAnyUriValue>() ?: emptySequence()
         }
 
     // endregion

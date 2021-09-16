@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -27,13 +28,18 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUsingDecl
 
 class PluginUsingDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginUsingDecl, XpmSyntaxValidationElement {
-    // region XdmNamespaceDeclaration
+    // region XdmNamespaceNode
 
     override val namespacePrefix: XsNCNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
     override val namespaceUri: XsAnyUriValue?
         get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+
+    override val parentNode: XdmNode? = null
+
+    // endregion
+    // region XpmNamespaceDeclaration
 
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         return namespaceType === XdmNamespaceType.DefaultFunctionRef // Usage only, not declaration.

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2020 Reece H. Dunn
+ * Copyright (C) 2017-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.optree
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
@@ -28,8 +29,11 @@ internal object DefaultFunctionXPathNamespace : XpmNamespaceDeclaration {
     private const val FN_NAMESPACE_URI = "http://www.w3.org/2005/xpath-functions"
 
     override val namespacePrefix: XsNCNameValue? = null
+
     override val namespaceUri: XsAnyUriValue =
         XsAnyUri(FN_NAMESPACE_URI, XdmUriContext.Namespace, XdmModuleType.MODULE, null as PsiElement?)
+
+    override val parentNode: XdmNode? = null
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {

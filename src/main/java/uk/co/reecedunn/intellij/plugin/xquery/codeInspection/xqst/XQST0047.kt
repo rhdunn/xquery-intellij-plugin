@@ -45,7 +45,7 @@ class XQST0047 : Inspection("xqst/XQST0047.md", XQST0047::class.java.classLoader
 
                 // NOTE: A ModuleImport without a namespace prefix can import
                 // additional definitions into the namespace.
-                if (ns == null || uri == null || ns.namespacePrefix == null)
+                if (ns == null || uri == null || ns.namespacePrefix?.data.isNullOrBlank())
                     return
 
                 val duplicate: XpmNamespaceDeclaration? = uris[uri]

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
@@ -65,8 +66,11 @@ object XsltNamespaceProvider : XpmNamespaceProvider {
         return if (prefix.isEmpty()) {
             object : XpmNamespaceDeclaration {
                 override val namespacePrefix: XsNCNameValue? = null
+
                 override val namespaceUri: XsAnyUriValue =
                     XsAnyUri(value, XdmUriContext.Namespace, XdmModuleType.NONE, attribute.originalElement)
+
+                override val parentNode: XdmNode? = null
 
                 override fun accepts(namespaceType: XdmNamespaceType): Boolean = when (namespaceType) {
                     XdmNamespaceType.DefaultElement, XdmNamespaceType.DefaultType -> true
@@ -95,8 +99,11 @@ object XsltNamespaceProvider : XpmNamespaceProvider {
         } else {
             object : XpmNamespaceDeclaration {
                 override val namespacePrefix: XsNCNameValue = XsNCName(localName, attribute.originalElement)
+
                 override val namespaceUri: XsAnyUriValue =
                     XsAnyUri(value, XdmUriContext.Namespace, XdmModuleType.MODULE, attribute.originalElement)
+
+                override val parentNode: XdmNode? = null
 
                 override fun accepts(namespaceType: XdmNamespaceType): Boolean {
                     return namespaceType === XdmNamespaceType.Prefixed
