@@ -721,7 +721,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElement).toList()
                 assertThat(element.size, `is`(2))
 
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/1999/xhtml"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -777,7 +777,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElement).toList()
                 assertThat(element.size, `is`(2))
 
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1247,7 +1247,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 val element = ctx.defaultNamespace(XdmNamespaceType.DefaultType).toList()
                 assertThat(element.size, `is`(2))
 
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/1999/xhtml"))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
@@ -1303,7 +1303,7 @@ class XQueryStaticContextTest : ParserTestCase() {
                 val element = ctx.defaultNamespace(XdmNamespaceType.DefaultType).toList()
                 assertThat(element.size, `is`(2))
 
-                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespacePrefix?.data, `is`(""))
                 assertThat(element[0].namespaceUri!!.data, `is`(""))
 
                 assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))

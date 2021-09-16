@@ -42,7 +42,7 @@ object XQueryNamespaceProvider : XpmNamespaceProvider {
                 }
                 else -> emptySequence()
             }
-        }.filterNotNull().distinct().filter { node -> node.namespacePrefix != null && node.namespaceUri != null }
+        }.distinct().filter { node -> !node.namespacePrefix?.data.isNullOrBlank() && node.namespaceUri != null }
     }
 
     override fun defaultNamespace(context: PsiElement, type: XdmNamespaceType): Sequence<XpmNamespaceDeclaration> {

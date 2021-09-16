@@ -8573,7 +8573,7 @@ class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("missing namespace prefix")
                 fun noNamespacePrefix() {
                     val import = parse<XQuerySchemaImport>("import schema namespace = 'http://www.example.com';")[0] as XpmNamespaceDeclaration
-                    assertThat(import.namespacePrefix, `is`(nullValue()))
+                    assertThat(import.namespacePrefix?.data, `is`(""))
                     assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                     assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
                     assertThat(import.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.SCHEMA)))
@@ -8615,7 +8615,7 @@ class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("default element namespace")
                 fun defaultElementNamespace() {
                     val import = parse<XQuerySchemaImport>("import schema default element namespace 'http://www.example.com';")[0] as XpmNamespaceDeclaration
-                    assertThat(import.namespacePrefix, `is`(nullValue()))
+                    assertThat(import.namespacePrefix?.data, `is`(""))
                     assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                     assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
                     assertThat(import.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.SCHEMA)))
