@@ -15,13 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.namespace
 
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespaceNode
 
-interface XpmNamespaceDeclaration {
-    val namespacePrefix: XsNCNameValue?
-
-    val namespaceUri: XsAnyUriValue?
-
+interface XpmNamespaceDeclaration : XdmNamespaceNode {
     fun accepts(namespaceType: XdmNamespaceType): Boolean
 }

@@ -1172,7 +1172,14 @@ The *typed value* property corresponds to the `dm:typed-value` accessor.
 | Symbol                     | Interface          |
 |----------------------------|--------------------|
 | `CompNamespaceConstructor` | `XdmNamespaceNode` |
-| `DirNamespaceAttribute`    | `XdmNamespaceNode` |
+| `DefaultNamespaceDecl`     | `XpmNamespaceNode` |
+| `DirNamespaceAttribute`    | `XpmNamespaceNode` |
+| `ModuleDecl`               | `XpmNamespaceNode` |
+| `ModuleImport`             | `XpmNamespaceNode` |
+| `NamespaceDecl`            | `XpmNamespaceNode` |
+| `NamespaceDeclaration`     | `XpmNamespaceNode` |
+| `SchemaImport`             | `XpmNamespaceNode` |
+| `UsingDecl`                | `XpmNamespaceNode` |
 
 A *namespace node expression* is a *constructable item* that is used to
 create `namespace-node()` node items.

@@ -20,6 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -32,12 +33,17 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryDefaultNamespaceDecl,
     XpmSyntaxValidationElement {
-    // region XdmDefaultNamespaceDeclaration
+    // region XdmNamespaceNode
 
     override val namespacePrefix: XsNCNameValue? = null
 
     override val namespaceUri: XsAnyUriValue?
-        get() = children().filterIsInstance<XsAnyUriValue>().filterNotNull().firstOrNull()
+        get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+
+    override val parentNode: XdmNode? = null
+
+    // endregion
+    // region XpmDefaultNamespaceDeclaration
 
     override fun accepts(namespaceType: XdmNamespaceType): Boolean = when (conformanceElement.elementType) {
         XPathTokenType.K_ELEMENT -> when (namespaceType) {

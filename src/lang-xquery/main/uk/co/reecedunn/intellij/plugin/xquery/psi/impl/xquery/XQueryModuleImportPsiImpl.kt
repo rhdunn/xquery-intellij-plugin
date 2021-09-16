@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -37,13 +38,18 @@ class XQueryModuleImportPsiImpl(node: ASTNode) :
     XQueryModuleImport,
     XQueryPrologResolver,
     XpmNamespaceDeclaration {
-    // region XdmNamespaceDeclaration
+    // region XdmNamespaceNode
 
     override val namespacePrefix: XsNCNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
     override val namespaceUri: XsAnyUriValue?
         get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+
+    override val parentNode: XdmNode? = null
+
+    // endregion
+    // region XpmNamespaceDeclaration
 
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         return namespaceType === XdmNamespaceType.Prefixed
@@ -55,7 +61,7 @@ class XQueryModuleImportPsiImpl(node: ASTNode) :
     override val locationUris: Sequence<XsAnyUriValue>
         get() {
             val uris = children().filterIsInstance<PluginLocationURIList>().firstOrNull()
-            return uris?.children()?.filterIsInstance<XsAnyUriValue>()?.filterNotNull() ?: emptySequence()
+            return uris?.children()?.filterIsInstance<XsAnyUriValue>() ?: emptySequence()
         }
 
     // endregion
@@ -69,7 +75,7 @@ class XQueryModuleImportPsiImpl(node: ASTNode) :
                     val file = uri.resolve() ?: uri.resolveUri<XQueryModule>()
                     val library = file?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
                     (library as? XQueryPrologResolver)?.prolog ?: emptySequence()
-                }.filterNotNull()
+                }
             else
                 namespaceUri?.let { uri ->
                     val file = uri.resolve() ?: uri.resolveUri<XQueryModule>()
