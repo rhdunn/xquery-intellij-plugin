@@ -47,6 +47,7 @@ object XQueryTokenType {
     val XML_TAG_NCNAME: IElementType = INCNameType("XQUERY_XML_TAG_NCNAME_TOKEN", XQuery) // XQuery 1.0
     val XML_TAG_QNAME_SEPARATOR: IElementType = IElementType("XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN", XQuery) // XQuery 1.0
     val XML_ATTRIBUTE_NCNAME: IElementType = INCNameType("XQUERY_XML_ATTRIBUTE_NCNAME_TOKEN", XQuery) // XQuery 1.0
+    val XML_ATTRIBUTE_XMLNS: IElementType = IKeywordOrNCNameType("XQUERY_XML_ATTRIBUTE_KEYWORD_OR_NCNAME_XMLNS_TOKEN", XQuery) // XQuery 1.0
     val XML_ATTRIBUTE_QNAME_SEPARATOR: IElementType = IElementType("XQUERY_XML_ATTRIBUTE_QNAME_SEPARATOR_TOKEN", XQuery) // XQuery 1.0
     val XML_PI_TARGET_NCNAME: IElementType = INCNameType("XQUERY_XML_PI_TARGET_NCNAME_TOKEN", XQuery) // XQuery 1.0
 

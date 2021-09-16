@@ -1046,6 +1046,48 @@ class XQueryLexerTest : LexerTestCase() {
         }
 
         @Test
+        @DisplayName("xmlns namespace declaration")
+        fun xmlns() = tokenize("<a xmlns=\"test\"/>") {
+            state(0x60000000 or 30)
+            token("<", XQueryTokenType.OPEN_XML_TAG)
+            state(0x60000000 or 11)
+            token("a", XQueryTokenType.XML_TAG_NCNAME)
+            token(" ", XQueryTokenType.XML_WHITE_SPACE)
+            state(25)
+            token("xmlns", XQueryTokenType.XML_ATTRIBUTE_XMLNS)
+            token("=", XQueryTokenType.XML_EQUAL)
+            token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+            state(13)
+            token("test", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+            state(25)
+            token("/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
+            state(0)
+        }
+
+        @Test
+        @DisplayName("xmlns:prefix namespace declaration")
+        fun xmlnsPrefix() = tokenize("<a xmlns:b=\"test\"/>") {
+            state(0x60000000 or 30)
+            token("<", XQueryTokenType.OPEN_XML_TAG)
+            state(0x60000000 or 11)
+            token("a", XQueryTokenType.XML_TAG_NCNAME)
+            token(" ", XQueryTokenType.XML_WHITE_SPACE)
+            state(25)
+            token("xmlns", XQueryTokenType.XML_ATTRIBUTE_XMLNS)
+            token(":", XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR)
+            token("b", XQueryTokenType.XML_ATTRIBUTE_NCNAME)
+            token("=", XQueryTokenType.XML_EQUAL)
+            token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+            state(13)
+            token("test", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+            state(25)
+            token("/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
+            state(0)
+        }
+
+        @Test
         @DisplayName("incomplete closing tag")
         fun incompleteClosingTag() = tokenize("<a b/") {
             state(0x60000000 or 30)

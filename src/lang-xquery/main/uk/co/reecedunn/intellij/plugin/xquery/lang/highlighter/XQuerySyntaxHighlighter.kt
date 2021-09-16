@@ -195,6 +195,7 @@ object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
         XPathTokenType.BRACED_URI_LITERAL_END to STRING_KEYS,
         // XML Attribute Name
         XQueryTokenType.XML_ATTRIBUTE_NCNAME to XML_ATTRIBUTE_NAME_KEYS,
+        XQueryTokenType.XML_ATTRIBUTE_XMLNS to XML_ATTRIBUTE_NAME_KEYS,
         XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR to XML_ATTRIBUTE_NAME_KEYS,
         // XML Attribute Value
         XQueryTokenType.XML_EQUAL to XML_ATTRIBUTE_VALUE_KEYS,
