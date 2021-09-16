@@ -128,7 +128,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     override val dirElemContentStartElement: PsiElement
         get() {
             var start: PsiElement = dirAttributeListStartElement
-            while (start.elementType === XQueryElementType.DIR_ATTRIBUTE) {
+            while (start.elementType in XQueryElementType.DIR_ATTRIBUTE_TOKENS) {
                 start = start.nextSibling ?: return start
                 start = start.nextSiblingIfSelf { it.elementType === XQueryTokenType.XML_WHITE_SPACE }
             }

@@ -77,6 +77,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirNamespaceAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
@@ -5388,12 +5389,12 @@ class XQueryPsiTest : ParserTestCase() {
                 }
 
                 @Nested
-                @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList ; XQuery IntelliJ Plugin EBNF (2) DirAttribute")
-                internal inner class DirAttribute {
+                @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList ; XQuery IntelliJ Plugin EBNF (154) DirNamespaceAttribute")
+                internal inner class DirNamespaceAttribute {
                     @Test
                     @DisplayName("namespace prefix")
                     fun namespacePrefix() {
-                        val expr = parse<PluginDirAttribute>(
+                        val expr = parse<PluginDirNamespaceAttribute>(
                             "<a xmlns:b='http://www.example.com'/>"
                         )[0] as XpmNamespaceDeclaration
 
@@ -5415,7 +5416,7 @@ class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("default element/type namespace")
                     fun defaultElementTypeNamespace() {
-                        val expr = parse<PluginDirAttribute>(
+                        val expr = parse<PluginDirNamespaceAttribute>(
                             "<a xmlns='http://www.example.com'/>"
                         )[0] as XpmNamespaceDeclaration
 
@@ -5434,6 +5435,57 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
                     }
 
+                    @Nested
+                    @DisplayName("resolve uri")
+                    internal inner class ResolveUri {
+                        @Test
+                        @DisplayName("empty")
+                        fun empty() {
+                            val file = parseResource("tests/resolve-xquery/files/DirAttributeList_Empty.xq")
+                            val psi = file.walkTree().filterIsInstance<PluginDirNamespaceAttribute>().toList()[0]
+
+                            assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                        }
+
+                        @Test
+                        @DisplayName("same directory")
+                        fun sameDirectory() {
+                            val file = parseResource("tests/resolve-xquery/files/DirAttributeList_SameDirectory.xq")
+                            val psi = file.walkTree().filterIsInstance<PluginDirNamespaceAttribute>().toList()[0]
+
+                            assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                        }
+
+                        @Test
+                        @DisplayName("http:// file matching")
+                        fun httpProtocol() {
+                            val file = parseResource("tests/resolve-xquery/files/DirAttributeList_HttpProtocol.xq")
+                            val psi = file.walkTree().filterIsInstance<PluginDirNamespaceAttribute>().toList()[0]
+
+                            val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                            assertThat(prologs.size, `is`(1))
+
+                            assertThat(
+                                prologs[0].resourcePath(),
+                                endsWith("/org/w3/www/2005/xpath-functions/array.xqy")
+                            )
+                        }
+
+                        @Test
+                        @DisplayName("http:// file missing")
+                        fun httpProtocolMissing() {
+                            val file = parseResource("tests/resolve-xquery/files/DirAttributeList_HttpProtocol_FileNotFound.xq")
+                            val psi = file.walkTree().filterIsInstance<PluginDirNamespaceAttribute>().toList()[0]
+
+                            assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                        }
+                    }
+                }
+
+
+                @Nested
+                @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList ; XQuery IntelliJ Plugin EBNF (2) DirAttribute")
+                internal inner class DirAttribute {
                     @Test
                     @DisplayName("xml:id")
                     fun id() {
@@ -5509,52 +5561,6 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
                         assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
                         assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
-                    }
-
-                    @Nested
-                    @DisplayName("resolve uri")
-                    internal inner class ResolveUri {
-                        @Test
-                        @DisplayName("empty")
-                        fun empty() {
-                            val file = parseResource("tests/resolve-xquery/files/DirAttributeList_Empty.xq")
-                            val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
-
-                            assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
-                        }
-
-                        @Test
-                        @DisplayName("same directory")
-                        fun sameDirectory() {
-                            val file = parseResource("tests/resolve-xquery/files/DirAttributeList_SameDirectory.xq")
-                            val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
-
-                            assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
-                        }
-
-                        @Test
-                        @DisplayName("http:// file matching")
-                        fun httpProtocol() {
-                            val file = parseResource("tests/resolve-xquery/files/DirAttributeList_HttpProtocol.xq")
-                            val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
-
-                            val prologs = (psi as XQueryPrologResolver).prolog.toList()
-                            assertThat(prologs.size, `is`(1))
-
-                            assertThat(
-                                prologs[0].resourcePath(),
-                                endsWith("/org/w3/www/2005/xpath-functions/array.xqy")
-                            )
-                        }
-
-                        @Test
-                        @DisplayName("http:// file missing")
-                        fun httpProtocolMissing() {
-                            val file = parseResource("tests/resolve-xquery/files/DirAttributeList_HttpProtocol_FileNotFound.xq")
-                            val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
-
-                            assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
-                        }
                     }
                 }
             }

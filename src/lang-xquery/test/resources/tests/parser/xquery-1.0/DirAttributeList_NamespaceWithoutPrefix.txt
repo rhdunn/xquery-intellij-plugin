@@ -1,0 +1,22 @@
+XQueryModuleImpl[FILE(0:22)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:22)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:22)]
+         XQueryDirElemConstructorImpl[XQUERY_DIR_ELEM_CONSTRUCTOR(0:22)]
+            LeafPsiElement[XQUERY_OPEN_XML_TAG_TOKEN(0:1)]('<')
+            XPathQNameImpl[XPATH_QNAME(1:4)]
+               XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
+               LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(2:3)](':')
+               XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(3:4)]('b')
+            XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(4:5)](' ')
+            PluginDirNamespaceAttributeImpl[XQUERY_DIR_NAMESPACE_ATTRIBUTE(5:19)]
+               XPathNCNameImpl[XPATH_NCNAME(5:10)]
+                  XmlNCNameImpl[XQUERY_XML_ATTRIBUTE_KEYWORD_OR_NCNAME_XMLNS_TOKEN(5:10)]('xmlns')
+               XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(10:11)](' ')
+               LeafPsiElement[XQUERY_XML_EQUAL_TOKEN(11:12)]('=')
+               XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(12:13)](' ')
+               XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(13:19)]
+                  LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_START_TOKEN(13:14)]('"')
+                  XQueryDirAttributeValueContentsImpl[XQUERY_XML_ATTRIBUTE_VALUE_CONTENTS_TOKEN(14:18)]('test')
+                  LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_END_TOKEN(18:19)]('"')
+            XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(19:20)](' ')
+            LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(20:22)]('/>')

@@ -3657,15 +3657,21 @@ class XQueryParser : XPathParser() {
         // Because the parseQName function can consume that whitespace during error handling, the QName tokens are
         // used as the next iteration marker in this implementation.
         var parsed = builder.matchTokenType(XQueryTokenType.XML_WHITE_SPACE)
-        while (parseDirAttribute(builder)) {
+        while (parseDirAttribute(builder) != null) {
             parsed = true
             builder.matchTokenType(XQueryTokenType.XML_WHITE_SPACE)
         }
         return parsed
     }
 
-    private fun parseDirAttribute(builder: PsiBuilder): Boolean {
+    private fun parseDirAttribute(builder: PsiBuilder): IElementType? {
         val marker = builder.mark()
+
+        val type = when {
+            builder.tokenType === XQueryTokenType.XML_ATTRIBUTE_XMLNS -> XQueryElementType.DIR_NAMESPACE_ATTRIBUTE
+            else -> XQueryElementType.DIR_ATTRIBUTE
+        }
+
         if (parseQNameOrWildcard(builder, XPathElementType.QNAME, false) != null) {
             var haveErrors = false
 
@@ -3676,18 +3682,16 @@ class XQueryParser : XPathParser() {
             }
 
             builder.matchTokenType(XQueryTokenType.XML_WHITE_SPACE)
-            if (!parseDirAttributeValue(builder)) {
+            return if (!parseDirAttributeValue(builder)) {
                 if (!haveErrors) {
                     builder.error(XQueryBundle.message("parser.error.expected-attribute-string"))
                 }
-                marker.drop()
+                marker.dropAndReturn(TokenType.ERROR_ELEMENT)
             } else {
-                marker.done(XQueryElementType.DIR_ATTRIBUTE)
+                marker.doneAndReturn(type)
             }
-            return true
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseDirAttributeValue(builder: PsiBuilder): Boolean {

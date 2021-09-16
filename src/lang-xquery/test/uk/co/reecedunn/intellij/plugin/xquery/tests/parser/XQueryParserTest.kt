@@ -5019,6 +5019,22 @@ class XQueryParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_MissingEquals.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
+
+            @Test
+            @DisplayName("namespace with prefix")
+            fun namespaceWithPrefix() {
+                val expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_NamespaceWithPrefix.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_NamespaceWithPrefix.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("namespace without prefix")
+            fun namespaceWithoutPrefix() {
+                val expected = loadResource("tests/parser/xquery-1.0/DirAttributeList_NamespaceWithoutPrefix.txt")
+                val actual = parseResource("tests/parser/xquery-1.0/DirAttributeList_NamespaceWithoutPrefix.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
         }
 
         @Test

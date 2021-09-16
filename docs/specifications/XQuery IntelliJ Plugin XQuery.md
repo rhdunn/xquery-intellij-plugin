@@ -1113,7 +1113,7 @@ These changes include support for:
 {: .ebnf-symbols }
 | Ref      | Symbol                         |     | Expression                          | Options               |
 |----------|--------------------------------|-----|-------------------------------------|-----------------------|
-| \[1\]    | `DirAttributeList`             | ::= | `(S DirAttribute?)*`                | /\* ws: explicit \*/  |
+| \[1\]    | `DirAttributeList`             | ::= | `( S ( DirNamespaceAttribute \| DirAttribute )? )*` | /\* ws: explicit \*/  |
 | \[2\]    | `DirAttribute`                 | ::= | `QName S? "=" S? DirAttributeValue` | /\* ws: explicit \*/  |
 | \[3\]    | `QuantifiedExpr`               | ::= | `("some" \| "every") QuantifierBinding ("," QuantifierBinding)* "satisfies" ExprSingle` | |
 | \[4\]    | `QuantifierBinding`            | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` |            |
@@ -1261,6 +1261,8 @@ These changes include support for:
 | \[151\]  | `NamespaceDeclaration`         | ::= | `QName "=" URILiteral`              |                       |
 | \[152\]  | `CopyModifyExpr`               | ::= | `"copy" CopyModifyExprBinding ("," CopyModifyExprBinding)* "modify" ExprSingle "return" ExprSingle` | |
 | \[153\]  | `CopyModifyExprBinding`        | ::= | `"$" VarName ":=" ExprSingle`       |                       |
+| \[154\]  | `DirNamespaceAttribute`        | ::= | `DirNamespaceQName S? "=" S? DirAttributeValue` | /\* ws: explicit \*/  |
+| \[155\]  | `DirNamespaceQName`            | ::= | `"xmlns" ( ":" Prefix )?`           | /\* ws: explicit \*/  |
 | \[156\]  | `ElementContents`              | ::= | `ElementContentChar*`               |                       |
 
 ### A.2 Reserved Function Names

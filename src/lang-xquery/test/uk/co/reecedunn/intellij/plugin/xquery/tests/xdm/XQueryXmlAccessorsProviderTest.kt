@@ -425,7 +425,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun qname() {
-                val node = parse<PluginDirAttribute>("<a xmlns:t='urn:test' t:test='value'/>")[1]
+                val node = parse<PluginDirAttribute>("<a xmlns:t='urn:test' t:test='value'/>")[0]
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
                 assertThat(accessors.namespaceUri(matched), `is`("urn:test"))

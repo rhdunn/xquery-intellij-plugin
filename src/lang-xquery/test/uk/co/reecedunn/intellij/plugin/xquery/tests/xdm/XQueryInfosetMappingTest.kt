@@ -344,7 +344,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun qname() {
-                val node = parse<PluginDirAttribute>("<a xmlns:t='urn:test' t:test='value'/>")[1] as XdmAttributeNode
+                val node = parse<PluginDirAttribute>("<a xmlns:t='urn:test' t:test='value'/>")[0] as XdmAttributeNode
 
                 assertThat(node.nodeName?.prefix?.data, `is`("t"))
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
@@ -424,30 +424,6 @@ class XQueryInfosetMappingTest : ParserTestCase() {
         @Nested
         @DisplayName("Accessors (5.14) typed-value")
         internal inner class TypedValue {
-            @Test
-            @DisplayName("namespace prefix")
-            fun namespacePrefix() {
-                val node = parse<PluginDirAttribute>("<a xmlns:b='http://www.example.com'/>")[0] as XdmAttributeNode
-
-                val value = node.typedValue as XsAnyUriValue
-                assertThat(value.data, `is`("http://www.example.com"))
-                assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
-                assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
-                assertThat(value.element, `is`(node as PsiElement))
-            }
-
-            @Test
-            @DisplayName("default element/type namespace")
-            fun defaultElementTypeNamespace() {
-                val node = parse<PluginDirAttribute>("<a xmlns='http://www.example.com'/>")[0] as XdmAttributeNode
-
-                val value = node.typedValue as XsAnyUriValue
-                assertThat(value.data, `is`("http://www.example.com"))
-                assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
-                assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
-                assertThat(value.element, `is`(node as PsiElement))
-            }
-
             @Test
             @DisplayName("xml:id")
             fun id() {

@@ -538,6 +538,10 @@ object XQueryElementType {
         PluginDirAttributePsiImpl(node)
     }
 
+    val DIR_NAMESPACE_ATTRIBUTE: IElementType = IASTWrapperElementType("XQUERY_DIR_NAMESPACE_ATTRIBUTE", XQuery) { node ->
+        PluginDirNamespaceAttributePsiImpl(node)
+    }
+
     val DIR_TEXT_CONSTRUCTOR: IElementType = IASTWrapperElementType("XQUERY_DIR_TEXT_CONSTRUCTOR", XQuery) { node ->
         PluginDirTextConstructorPsiImpl(node)
     }
@@ -649,7 +653,9 @@ object XQueryElementType {
     // endregion
     // region Token Sets
 
-    val XML_NAME = TokenSet.create(XPathElementType.NCNAME, XPathElementType.QNAME)
+    val DIR_ATTRIBUTE_TOKENS: TokenSet = TokenSet.create(DIR_ATTRIBUTE, DIR_NAMESPACE_ATTRIBUTE)
+
+    val XML_NAME: TokenSet = TokenSet.create(XPathElementType.NCNAME, XPathElementType.QNAME)
 
     // endregion
 }
