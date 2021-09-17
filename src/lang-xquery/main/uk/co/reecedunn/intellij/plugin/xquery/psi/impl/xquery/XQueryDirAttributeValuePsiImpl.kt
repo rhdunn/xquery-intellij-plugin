@@ -62,10 +62,7 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
             else -> decoded!![offsetInDecoded]
         }
 
-        override fun getRelevantTextRange(): TextRange = when {
-            myHost.isClosed -> TextRange(1, myHost.textLength - 1)
-            else -> TextRange(1, myHost.textLength)
-        }
+        override fun getRelevantTextRange(): TextRange = myHost.relevantTextRange
 
         override fun isOneLine(): Boolean = false
     }
@@ -105,6 +102,15 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
 
     private val isClosed
         get() = children().find { it.elementType == XQueryTokenType.XML_ATTRIBUTE_VALUE_END } != null
+
+    // endregion
+    // region XQueryDirAttributeValue
+
+    override val relevantTextRange: TextRange
+        get() = when {
+            isClosed -> TextRange(1, textLength - 1)
+            else -> TextRange(1, textLength)
+        }
 
     // endregion
     // region XpmSyntaxValidationElement
