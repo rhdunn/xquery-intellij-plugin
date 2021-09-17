@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference
+package uk.co.reecedunn.intellij.plugin.xpath.psi.reference
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiNamedElement
 import com.intellij.psi.PsiReferenceBase
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.element
-import uk.co.reecedunn.intellij.plugin.xpm.context.expand
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.variableDefinition
 
-class XPathQNamePrefixReference(element: PsiElement, range: TextRange) :
-    PsiReferenceBase<PsiElement>(element, range) {
+class XPathVariableNameReference(element: XPathEQName, range: TextRange) :
+    PsiReferenceBase<XPathEQName>(element, range) {
 
-    override fun resolve(): PsiElement? {
-        val ns = (element as XsQNameValue).expand().firstOrNull()?.namespace?.element
-        return (ns?.parent as? XpmNamespaceDeclaration)?.namespacePrefix?.element
-    }
+    override fun resolve(): PsiElement? = element.variableDefinition?.variableName as? PsiElement
 
     override fun getVariants(): Array<Any> = arrayOf()
+
+    override fun handleElementRename(newElementName: String): PsiElement {
+        return (element as PsiNamedElement).setName(newElementName)
+    }
 }

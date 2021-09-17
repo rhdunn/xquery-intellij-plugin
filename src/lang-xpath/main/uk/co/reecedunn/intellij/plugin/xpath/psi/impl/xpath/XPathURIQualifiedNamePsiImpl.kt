@@ -31,9 +31,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathURIQualifiedName
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathBracedURILiteralReference
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathVariableNameReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathBracedURILiteralReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathFunctionNameReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathVariableNameReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 
