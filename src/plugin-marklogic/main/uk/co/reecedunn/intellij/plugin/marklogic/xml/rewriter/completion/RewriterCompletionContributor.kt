@@ -24,7 +24,7 @@ import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.completion.schemaListCompletions
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.lang.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.Rewriter
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 
 class RewriterCompletionContributor : CompletionContributor() {

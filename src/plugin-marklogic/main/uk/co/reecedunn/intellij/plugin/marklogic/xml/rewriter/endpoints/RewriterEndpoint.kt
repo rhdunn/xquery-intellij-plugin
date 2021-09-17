@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.layout.detailsPanel
 import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.lang.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.Rewriter
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 import uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider
 import javax.swing.Icon
