@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
+package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints
 
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.plugin.core.xml.descendants
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.lang.Rewriter
 import javax.swing.Icon
 
 class RewriterEndpointsGroup(private val rewriter: XmlTag) : EndpointsGroup, ItemPresentation, DataProvider {

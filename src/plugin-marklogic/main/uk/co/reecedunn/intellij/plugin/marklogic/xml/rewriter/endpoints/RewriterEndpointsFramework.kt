@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
+package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.lang.Rewriter
 import javax.swing.Icon
 
 object RewriterEndpointsFramework : EndpointsFramework {

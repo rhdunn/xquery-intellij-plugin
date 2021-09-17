@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
+package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints
 
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -27,8 +27,8 @@ import uk.co.reecedunn.intellij.plugin.core.ui.layout.detailsPanel
 import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementReference
+import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.lang.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference.ModuleUriElementReference
 import uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider
 import javax.swing.Icon
 import javax.swing.JPanel

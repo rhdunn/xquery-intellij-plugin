@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference
+package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference
 
 import com.intellij.patterns.ElementPattern
 import com.intellij.patterns.ElementPatternCondition
@@ -24,7 +24,7 @@ import com.intellij.psi.PsiReferenceContributor
 import com.intellij.psi.PsiReferenceRegistrar
 import com.intellij.psi.xml.XmlElementType
 import com.intellij.util.ProcessingContext
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xdm.xml.attributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType

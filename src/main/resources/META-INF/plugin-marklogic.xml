@@ -1,11 +1,11 @@
 <idea-plugin>
   <extensions defaultExtensionNs="com.intellij">
     <!-- Rewriter XML -->
-    <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.ModelTypeRegexLanguageInjection"/>
-    <completion.contributor language="XML" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion.RewriterCompletionContributor"/>
-    <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion.RewriterCompletionContributor"/>
-    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementReferenceContributor"/>
-    <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementLineMarkerProvider"/>
+    <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.lang.ModelTypeRegexLanguageInjection"/>
+    <completion.contributor language="XML" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.completion.RewriterCompletionContributor"/>
+    <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.completion.RewriterCompletionContributor"/>
+    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference.ModuleUriElementReferenceContributor"/>
+    <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference.ModuleUriElementLineMarkerProvider"/>
 
     <!-- XRay Unit Tests -->
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService"/>
