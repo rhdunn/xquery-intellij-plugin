@@ -86,12 +86,12 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
                 val one = accessors.attribute(matched, "", "one")!!
                 assertThat(accessors.nodeKind(one), `is`(NodeKind.Attribute))
                 assertThat(accessors.hasNodeName(one, "", "one"), `is`(true))
-                assertThat(accessors.attributeValue(matched, "", "one"), `is`("1"))
+                assertThat(accessors.attributeStringValue(matched, "", "one"), `is`("1"))
 
                 val two = accessors.attribute(matched, "urn:number", "two")!!
                 assertThat(accessors.nodeKind(two), `is`(NodeKind.Attribute))
                 assertThat(accessors.hasNodeName(two, "urn:number", "two"), `is`(true))
-                assertThat(accessors.attributeValue(matched, "urn:number", "two"), `is`("2"))
+                assertThat(accessors.attributeStringValue(matched, "urn:number", "two"), `is`("2"))
 
                 assertThat(accessors.attribute(matched, "urn:numbers", "one"), `is`(nullValue()))
                 assertThat(accessors.attribute(matched, "urn:numbers", "two"), `is`(nullValue()))

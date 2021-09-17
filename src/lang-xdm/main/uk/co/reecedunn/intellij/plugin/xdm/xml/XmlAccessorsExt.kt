@@ -23,7 +23,7 @@ fun XmlAccessors.attribute(node: Any, namespaceUri: String, localName: String): 
     return attributes(node).find { hasNodeName(it, namespaceUri, localName) }
 }
 
-fun XmlAccessors.attributeValue(node: Any, namespaceUri: String, localName: String): String? {
+fun XmlAccessors.attributeStringValue(node: Any, namespaceUri: String, localName: String): String? {
     return attribute(node, namespaceUri, localName)?.let { stringValue(it) }
 }
 

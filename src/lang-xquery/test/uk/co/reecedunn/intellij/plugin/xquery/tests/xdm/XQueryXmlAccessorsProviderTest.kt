@@ -78,12 +78,12 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val one = accessors.attribute(matched, "", "one")!!
                 assertThat(accessors.nodeKind(one), `is`(NodeKind.Attribute))
                 assertThat(accessors.hasNodeName(one, "", "one"), `is`(true))
-                assertThat(accessors.attributeValue(matched, "", "one"), `is`("1"))
+                assertThat(accessors.attributeStringValue(matched, "", "one"), `is`("1"))
 
                 val two = accessors.attribute(matched, "urn:number", "two")!!
                 assertThat(accessors.nodeKind(two), `is`(NodeKind.Attribute))
                 assertThat(accessors.hasNodeName(two, "urn:number", "two"), `is`(true))
-                assertThat(accessors.attributeValue(matched, "urn:number", "two"), `is`("2"))
+                assertThat(accessors.attributeStringValue(matched, "urn:number", "two"), `is`("2"))
 
                 assertThat(accessors.attribute(matched, "urn:numbers", "one"), `is`(nullValue()))
                 assertThat(accessors.attribute(matched, "urn:numbers", "two"), `is`(nullValue()))
@@ -107,7 +107,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val one = accessors.attribute(matched, "", "one")!!
                 assertThat(accessors.nodeKind(one), `is`(NodeKind.Attribute))
                 assertThat(accessors.hasNodeName(one, "", "one"), `is`(true))
-                assertThat(accessors.attributeValue(matched, "", "one"), `is`(nullValue()))
+                assertThat(accessors.attributeStringValue(matched, "", "one"), `is`(nullValue()))
 
                 assertThat(accessors.attribute(matched, "urn:numbers", "one"), `is`(nullValue()))
                 assertThat(accessors.attribute(matched, "urn:numbers", "two"), `is`(nullValue()))
@@ -134,12 +134,12 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val one = accessors.attribute(matched, "", "one")!!
                 assertThat(accessors.nodeKind(one), `is`(NodeKind.Attribute))
                 assertThat(accessors.hasNodeName(one, "", "one"), `is`(true))
-                assertThat(accessors.attributeValue(matched, "", "one"), `is`(nullValue()))
+                assertThat(accessors.attributeStringValue(matched, "", "one"), `is`(nullValue()))
 
                 val two = accessors.attribute(matched, "urn:number", "two")!!
                 assertThat(accessors.nodeKind(two), `is`(NodeKind.Attribute))
                 assertThat(accessors.hasNodeName(two, "urn:number", "two"), `is`(true))
-                assertThat(accessors.attributeValue(matched, "urn:number", "two"), `is`(nullValue()))
+                assertThat(accessors.attributeStringValue(matched, "urn:number", "two"), `is`(nullValue()))
 
                 assertThat(accessors.attribute(matched, "urn:numbers", "one"), `is`(nullValue()))
                 assertThat(accessors.attribute(matched, "urn:numbers", "two"), `is`(nullValue()))
@@ -162,10 +162,10 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 assertThat(accessors.hasNodeName(attributes[2], "", "three"), `is`(true))
                 assertThat(accessors.hasNodeName(attributes[3], "", "four"), `is`(true))
 
-                assertThat(accessors.attributeValue(matched, "", "one"), `is`("1"))
-                assertThat(accessors.attributeValue(matched, "", "two"), `is`("2"))
-                assertThat(accessors.attributeValue(matched, "", "three"), `is`(nullValue()))
-                assertThat(accessors.attributeValue(matched, "", "four"), `is`(nullValue()))
+                assertThat(accessors.attributeStringValue(matched, "", "one"), `is`("1"))
+                assertThat(accessors.attributeStringValue(matched, "", "two"), `is`("2"))
+                assertThat(accessors.attributeStringValue(matched, "", "three"), `is`(nullValue()))
+                assertThat(accessors.attributeStringValue(matched, "", "four"), `is`(nullValue()))
             }
         }
 
@@ -628,12 +628,12 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val one = accessors.attribute(matched, "", "one")!!
                 assertThat(accessors.nodeKind(one), `is`(NodeKind.Attribute))
                 assertThat(accessors.hasNodeName(one, "", "one"), `is`(true))
-                assertThat(accessors.attributeValue(matched, "", "one"), `is`(nullValue()))
+                assertThat(accessors.attributeStringValue(matched, "", "one"), `is`(nullValue()))
 
                 val two = accessors.attribute(matched, "urn:number", "two")!!
                 assertThat(accessors.nodeKind(two), `is`(NodeKind.Attribute))
                 assertThat(accessors.hasNodeName(two, "urn:number", "two"), `is`(true))
-                assertThat(accessors.attributeValue(matched, "urn:number", "two"), `is`(nullValue()))
+                assertThat(accessors.attributeStringValue(matched, "urn:number", "two"), `is`(nullValue()))
 
                 assertThat(accessors.attribute(matched, "urn:numbers", "one"), `is`(nullValue()))
                 assertThat(accessors.attribute(matched, "urn:numbers", "two"), `is`(nullValue()))

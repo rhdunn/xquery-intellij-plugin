@@ -26,7 +26,7 @@ import com.intellij.psi.xml.XmlElementType
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.Rewriter
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
-import uk.co.reecedunn.intellij.plugin.xdm.xml.attributeValue
+import uk.co.reecedunn.intellij.plugin.xdm.xml.attributeStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 
@@ -44,7 +44,7 @@ class RewriterReferenceContributor : PsiReferenceContributor(), ElementPattern<P
         val (node, accessors) = XmlAccessorsProvider.element(o) ?: return false
         if (accessors.namespaceUri(node) != Rewriter.NAMESPACE) return false
         return when (accessors.localName(node)) {
-            "dispatch" -> accessors.attributeValue(node, "", "xdbc") != "true"
+            "dispatch" -> accessors.attributeStringValue(node, "", "xdbc") != "true"
             "set-path" -> true
             "set-error-handler" -> true
             else -> false
