@@ -16,11 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.openapi.util.TextRange
+import com.intellij.psi.HintedReferenceHost
 import com.intellij.psi.PsiLanguageInjectionHost
 
 /**
  * An XQuery 1.0 `DirAttributeValue` node in the XQuery AST.
  */
-interface XQueryDirAttributeValue : PsiLanguageInjectionHost {
+interface XQueryDirAttributeValue : PsiLanguageInjectionHost, HintedReferenceHost {
     val relevantTextRange: TextRange
 }

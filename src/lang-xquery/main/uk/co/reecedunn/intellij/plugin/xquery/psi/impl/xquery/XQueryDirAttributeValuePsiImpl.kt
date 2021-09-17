@@ -18,9 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
-import com.intellij.psi.LiteralTextEscaper
-import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiLanguageInjectionHost
+import com.intellij.psi.*
+import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
 import uk.co.reecedunn.intellij.plugin.core.psi.createElement
@@ -102,6 +101,22 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
 
     private val isClosed
         get() = children().find { it.elementType == XQueryTokenType.XML_ATTRIBUTE_VALUE_END } != null
+
+    // endregion
+    // region HintedReferenceHost
+
+    override fun getReference(): PsiReference? {
+        val references = references
+        return if (references.isEmpty()) null else references[0]
+    }
+
+    override fun getReferences(): Array<PsiReference> = getReferences(PsiReferenceService.Hints.NO_HINTS)
+
+    override fun getReferences(hints: PsiReferenceService.Hints): Array<PsiReference> {
+        return ReferenceProvidersRegistry.getReferencesFromProviders(this, hints)
+    }
+
+    override fun shouldAskParentForReferences(hints: PsiReferenceService.Hints): Boolean = false
 
     // endregion
     // region XQueryDirAttributeValue
