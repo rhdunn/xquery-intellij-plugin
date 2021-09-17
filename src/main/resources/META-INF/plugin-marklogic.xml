@@ -5,7 +5,7 @@
     <completion.contributor language="XML" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.completion.RewriterCompletionContributor"/>
     <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.completion.RewriterCompletionContributor"/>
     <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference.RewriterReferenceContributor"/>
-    <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference.ModuleUriElementLineMarkerProvider"/>
+    <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference.RewriterLineMarkerProvider"/>
 
     <!-- XRay Unit Tests -->
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService"/>

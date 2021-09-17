@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints.Rewriter
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
-class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
+class RewriterLineMarkerProvider : LineMarkerProvider {
     override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? {
         if (element !is XQueryQueryBody) return null
 
