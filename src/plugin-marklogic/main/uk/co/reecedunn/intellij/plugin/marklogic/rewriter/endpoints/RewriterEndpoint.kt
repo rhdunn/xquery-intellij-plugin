@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementReference
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 import javax.swing.Icon
 import javax.swing.JPanel
 
@@ -71,7 +71,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) : ItemPresentation, Endpoin
     override val reference: PsiReference?
         get() = when {
             endpoint.value.text.isBlank() -> null
-            else -> ModuleUriElementReference(endpoint)
+            else -> ModuleUriReference(endpoint)
         }
 
     override val element: PsiElement = endpoint

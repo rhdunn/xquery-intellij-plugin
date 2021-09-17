@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference
+package uk.co.reecedunn.intellij.plugin.xquery.psi.reference
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
-class ModuleUriElementReference(element: XmlTag) : PsiReferenceBase<XmlTag>(element) {
+class ModuleUriReference(element: XmlTag) : PsiReferenceBase<XmlTag>(element) {
     private val uri: XsAnyUriValue by lazy {
         XsAnyUri(element.value.text, XdmUriContext.Location, arrayOf(XdmModuleType.XQuery))
     }
@@ -50,7 +50,7 @@ class ModuleUriElementReference(element: XmlTag) : PsiReferenceBase<XmlTag>(elem
             val tag = element as XmlTag
             return when {
                 tag.value.text.isBlank() -> arrayOf()
-                else -> arrayOf(ModuleUriElementReference(tag))
+                else -> arrayOf(ModuleUriReference(tag))
             }
         }
     }

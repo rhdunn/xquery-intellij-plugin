@@ -19,18 +19,19 @@ import com.intellij.patterns.XmlPatterns
 import com.intellij.psi.PsiReferenceContributor
 import com.intellij.psi.PsiReferenceRegistrar
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 
 class ModuleUriElementReferenceContributor : PsiReferenceContributor() {
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
         val rewriter = XmlPatterns.xmlTag().withNamespace(Rewriter.NAMESPACE)
 
         val dispatch = rewriter.withLocalName("dispatch").withoutAttributeValue("xdbc", "true")
-        registrar.registerReferenceProvider(dispatch, ModuleUriElementReference)
+        registrar.registerReferenceProvider(dispatch, ModuleUriReference)
 
         val setPath = rewriter.withLocalName("set-path")
-        registrar.registerReferenceProvider(setPath, ModuleUriElementReference)
+        registrar.registerReferenceProvider(setPath, ModuleUriReference)
 
         val setErrorHandler = rewriter.withLocalName("set-error-handler")
-        registrar.registerReferenceProvider(setErrorHandler, ModuleUriElementReference)
+        registrar.registerReferenceProvider(setErrorHandler, ModuleUriReference)
     }
 }
