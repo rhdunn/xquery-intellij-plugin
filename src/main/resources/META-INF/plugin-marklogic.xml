@@ -4,7 +4,7 @@
     <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.lang.ModelTypeRegexLanguageInjection"/>
     <completion.contributor language="XML" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.completion.RewriterCompletionContributor"/>
     <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.completion.RewriterCompletionContributor"/>
-    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference.ModuleUriElementReferenceContributor"/>
+    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference.RewriterReferenceContributor"/>
     <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference.ModuleUriElementLineMarkerProvider"/>
 
     <!-- XRay Unit Tests -->
