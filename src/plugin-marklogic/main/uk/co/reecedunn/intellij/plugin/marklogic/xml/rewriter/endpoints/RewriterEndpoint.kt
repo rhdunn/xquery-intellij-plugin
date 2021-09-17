@@ -72,7 +72,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) : ItemPresentation, Endpoin
     override val reference: PsiReference?
         get() = when {
             endpoint.value.text.isBlank() -> null
-            else -> ModuleUriReference(endpoint, XmlPsiAccessorsProvider)
+            else -> ModuleUriReference(endpoint, endpoint, XmlPsiAccessorsProvider)
         }
 
     override val element: PsiElement = endpoint

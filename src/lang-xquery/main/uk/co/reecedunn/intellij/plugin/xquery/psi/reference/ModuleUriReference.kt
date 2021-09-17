@@ -32,11 +32,11 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
-class ModuleUriReference(element: PsiElement, private val accessors: XmlAccessors) :
+class ModuleUriReference(element: PsiElement, private val node: Any, private val accessors: XmlAccessors) :
     PsiReferenceBase<PsiElement>(element) {
 
     private val uri: XsAnyUriValue by lazy {
-        XsAnyUri(accessors.stringValue(element) ?: "", XdmUriContext.Location, arrayOf(XdmModuleType.XQuery))
+        XsAnyUri(accessors.stringValue(node) ?: "", XdmUriContext.Location, arrayOf(XdmModuleType.XQuery))
     }
 
     override fun resolve(): PsiElement? {
@@ -50,11 +50,13 @@ class ModuleUriReference(element: PsiElement, private val accessors: XmlAccessor
 
     companion object : PsiReferenceProvider() {
         override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
-            val (node, accessors) = XmlAccessorsProvider.element(element) ?: return arrayOf()
+            val (node, accessors) = XmlAccessorsProvider.element(element)
+                ?: XmlAccessorsProvider.attribute(element)
+                ?: return arrayOf()
             return when {
                 node !is PsiElement -> arrayOf()
                 accessors.stringValue(node).isNullOrBlank() -> arrayOf()
-                else -> arrayOf(ModuleUriReference(node, accessors))
+                else -> arrayOf(ModuleUriReference(element, node, accessors))
             }
         }
     }

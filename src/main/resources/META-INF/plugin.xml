@@ -124,6 +124,13 @@
         elements to the XQuery/MJS/SJS file they reference in XQuery direct elements.
       </li>
     </ol>
+    <p>MarkLogic Search Options XML Integration:</p>
+    <ol>
+      <li>
+        Support resolving <code>parse/@at</code>, <code>start-facet/@at</code>, and <code>finish-facet/@at</code>
+        attribute values to the XQuery/MJS/SJS file they reference in XML files.
+      </li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

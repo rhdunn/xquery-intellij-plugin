@@ -41,6 +41,11 @@ MarkLogic Rewriter XML Integration:
 3. Support resolving `dispatch`, `set-error-handler`, and `set-path` elements to the XQuery/MJS/SJS
    file they reference in XQuery direct elements.
 
+MarkLogic Search Options XML Integration:
+
+1. Support resolving `parse/@at`, `start-facet/@at`, and `finish-facet/@at` attribute values to the
+   XQuery/MJS/SJS file they reference in XML files.
+
 ## 2021
 
 *  [1.9.1 - 2021-07-23](docs/_posts/2021-07-23-release-1.9.1.md)
