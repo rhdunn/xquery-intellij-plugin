@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctio
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginLambdaFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
+import uk.co.reecedunn.intellij.plugin.xpath.psi.enclosedExpressionBlocks
 
 class XPathFoldingBuilder : FoldingBuilderEx() {
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor> {
