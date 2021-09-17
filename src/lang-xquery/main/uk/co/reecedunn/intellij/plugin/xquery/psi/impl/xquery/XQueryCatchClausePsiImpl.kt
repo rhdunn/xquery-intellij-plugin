@@ -23,8 +23,8 @@ import com.intellij.psi.search.SearchScope
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
+import uk.co.reecedunn.intellij.plugin.xpath.psi.blockOpen
+import uk.co.reecedunn.intellij.plugin.xpath.psi.isEmptyEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression

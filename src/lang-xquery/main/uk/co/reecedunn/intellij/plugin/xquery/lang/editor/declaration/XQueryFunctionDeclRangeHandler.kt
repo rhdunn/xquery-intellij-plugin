@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang.editor.declaration
 
 import com.intellij.codeInsight.hint.DeclarationRangeHandler
 import com.intellij.openapi.util.TextRange
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
+import uk.co.reecedunn.intellij.plugin.xpath.psi.blockOpen
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 
 class XQueryFunctionDeclRangeHandler : DeclarationRangeHandler<XQueryFunctionDecl> {

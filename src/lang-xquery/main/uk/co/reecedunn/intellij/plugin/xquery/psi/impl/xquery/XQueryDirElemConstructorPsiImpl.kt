@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterExpressions
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
+import uk.co.reecedunn.intellij.plugin.xpath.psi.enclosedExpressionBlocks
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
