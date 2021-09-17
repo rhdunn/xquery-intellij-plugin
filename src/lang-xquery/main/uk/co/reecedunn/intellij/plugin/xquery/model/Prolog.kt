@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.model
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
+import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -27,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclarat
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 
 fun <Decl : Any> XQueryProlog.annotatedDeclarations(klass: Class<Decl>, reversed: Boolean = true): Sequence<Decl> {
@@ -41,8 +43,11 @@ inline fun <reified Decl : Any> XQueryProlog.annotatedDeclarations(reversed: Boo
 }
 
 fun PsiElement.fileProlog(): XQueryProlog? {
-    val module = ancestors().filter { it is XQueryMainModule || it is XQueryLibraryModule }.first()
-    return (module as XQueryPrologResolver).prolog.firstOrNull()
+    val module = when (this) {
+        is XQueryModule -> mainOrLibraryModule
+        else -> ancestorsAndSelf().filter { it is XQueryMainModule || it is XQueryLibraryModule }.firstOrNull()
+    }
+    return (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
 }
 
 private class PrologVisitor(

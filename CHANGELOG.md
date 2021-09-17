@@ -45,6 +45,8 @@ MarkLogic Search Options XML Integration:
 
 1. Support resolving `parse/@at`, `start-facet/@at`, and `finish-facet/@at` attribute values to the
    XQuery/MJS/SJS file they reference in XML files.
+2. Support resolving `parse/@apply`, `start-facet/@apply`, and `finish-facet/@apply` attribute values
+   to the XQuery function they reference in XML files.
 
 ## 2021
 
