@@ -26,6 +26,7 @@ import com.intellij.psi.xml.XmlElementType
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.SearchOptions
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 
 class SearchOptionsAtReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
@@ -58,7 +59,8 @@ class SearchOptionsAtReferenceContributor : PsiReferenceContributor(), ElementPa
 
     companion object {
         private val PATTERN = StandardPatterns.or(
-            PlatformPatterns.psiElement(XmlElementType.XML_ATTRIBUTE_VALUE)
+            PlatformPatterns.psiElement(XmlElementType.XML_ATTRIBUTE_VALUE),
+            PlatformPatterns.psiElement(XQueryElementType.DIR_ATTRIBUTE_VALUE)
         )
     }
 
