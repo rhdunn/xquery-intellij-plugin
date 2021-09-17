@@ -32,7 +32,7 @@ class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
             NavigationGutterIconBuilder.create(MarkLogicIcons.Markers.Endpoint)
                 .setTargets(it.toList())
                 .setTooltipText(PluginApiBundle.message("line-marker.rewriter-endpoint.tooltip-text"))
-                .setCellRenderer(ModuleUriElementListCellRenderer)
+                .setCellRenderer(RewriterListCellRenderer)
                 .createLineMarkerInfo(element)
         }
     }

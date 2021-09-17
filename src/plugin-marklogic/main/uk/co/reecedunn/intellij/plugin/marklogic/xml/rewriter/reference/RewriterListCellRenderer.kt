@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints.RewriterEndpoint
 import javax.swing.Icon
 
-object ModuleUriElementListCellRenderer : PsiElementListCellRenderer<XmlTag>() {
+object RewriterListCellRenderer : PsiElementListCellRenderer<XmlTag>() {
     override fun getContainerText(element: XmlTag, name: String?): String = element.containingFile.resourcePath()
 
     override fun getElementText(element: XmlTag): String {
