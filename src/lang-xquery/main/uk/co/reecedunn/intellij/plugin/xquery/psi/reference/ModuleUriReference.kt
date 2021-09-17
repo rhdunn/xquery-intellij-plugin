@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference
+package uk.co.reecedunn.intellij.plugin.xquery.psi.reference
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
-class ModuleUriElementReference(element: PsiElement, private val accessors: XmlAccessors) :
+class ModuleUriReference(element: PsiElement, private val accessors: XmlAccessors) :
     PsiReferenceBase<PsiElement>(element) {
 
     private val uri: XsAnyUriValue by lazy {
@@ -54,7 +54,7 @@ class ModuleUriElementReference(element: PsiElement, private val accessors: XmlA
             return when {
                 node !is PsiElement -> arrayOf()
                 accessors.stringValue(node).isNullOrBlank() -> arrayOf()
-                else -> arrayOf(ModuleUriElementReference(node, accessors))
+                else -> arrayOf(ModuleUriReference(node, accessors))
             }
         }
     }

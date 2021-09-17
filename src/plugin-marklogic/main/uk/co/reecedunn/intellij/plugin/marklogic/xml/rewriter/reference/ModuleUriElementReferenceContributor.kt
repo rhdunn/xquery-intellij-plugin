@@ -28,12 +28,13 @@ import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xdm.xml.attributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 
 class ModuleUriElementReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
     // region PsiReferenceContributor
 
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
-        registrar.registerReferenceProvider(this, ModuleUriElementReference)
+        registrar.registerReferenceProvider(this, ModuleUriReference)
     }
 
     // endregion
