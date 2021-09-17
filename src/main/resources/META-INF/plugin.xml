@@ -122,6 +122,11 @@
         Support resolving <code>parse/@at</code>, <code>start-facet/@at</code>, and <code>finish-facet/@at</code>
         attribute values in XQuery direct constructors to the XQuery/MJS/SJS file they reference.
       </li>
+      <li>
+        Support resolving <code>parse/@apply</code>, <code>start-facet/@apply</code>, and
+        <code>finish-facet/@apply</code> attribute values in XQuery dirct constructors to the XQuery function they
+        reference.
+      </li>
     </ol>
   ]]></change-notes>
 
