@@ -15,8 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.xml
 
+import com.intellij.psi.PsiElement
+
 interface XmlAccessors {
     fun attributes(node: Any): Sequence<Any>
+
+    fun attributeValueNode(node: Any): PsiElement?
 
     fun nodeKind(node: Any): NodeKind?
 

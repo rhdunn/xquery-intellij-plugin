@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 
 object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
@@ -68,6 +69,11 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     override fun attributes(node: Any): Sequence<Any> = when (node) {
         is XdmElementNode -> node.attributes
         else -> sequenceOf()
+    }
+
+    override fun attributeValueNode(node: Any): PsiElement? = when (node) {
+        is PluginDirAttribute -> node.children().filterIsInstance<XQueryDirAttributeValue>().firstOrNull()
+        else -> null
     }
 
     override fun nodeKind(node: Any): NodeKind? = when (node) {

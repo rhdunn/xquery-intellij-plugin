@@ -57,6 +57,11 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
         else -> sequenceOf()
     }
 
+    override fun attributeValueNode(node: Any): PsiElement? = when (node) {
+        is XmlAttribute -> node.valueElement
+        else -> null
+    }
+
     override fun nodeKind(node: Any): NodeKind? = when (node) {
         is XmlTag -> NodeKind.Element
         is XmlAttribute -> NodeKind.Attribute

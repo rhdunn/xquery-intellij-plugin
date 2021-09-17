@@ -19,11 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.PsiReferenceBase
 import com.intellij.psi.PsiReferenceProvider
-import com.intellij.psi.tree.TokenSet
-import com.intellij.psi.util.elementType
-import com.intellij.psi.xml.XmlElementType
 import com.intellij.util.ProcessingContext
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
@@ -31,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.xml.attribute
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
 import uk.co.reecedunn.intellij.plugin.xquery.model.fileProlog
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 
 class SearchOptionsApplyReference(element: PsiElement, private val node: Any, private val accessors: XmlAccessors) :
@@ -42,7 +37,7 @@ class SearchOptionsApplyReference(element: PsiElement, private val node: Any, pr
         val parent = accessors.parent(node) ?: return null
 
         val at = accessors.attribute(parent, "", "at") as? PsiElement ?: return null
-        val atValue = at.children().find { it.elementType in ATTRIBUTE_VALUE_TOKENS } ?: return null
+        val atValue = accessors.attributeValueNode(at) ?: return null
 
         val moduleRef = atValue.references.find { it is ModuleUriReference }
         val prolog = moduleRef?.resolve()?.fileProlog() ?: return null
@@ -63,10 +58,5 @@ class SearchOptionsApplyReference(element: PsiElement, private val node: Any, pr
                 else -> arrayOf(SearchOptionsApplyReference(element, node, accessors))
             }
         }
-
-        private val ATTRIBUTE_VALUE_TOKENS = TokenSet.create(
-            XmlElementType.XML_ATTRIBUTE_VALUE,
-            XQueryElementType.DIR_ATTRIBUTE_VALUE
-        )
     }
 }
