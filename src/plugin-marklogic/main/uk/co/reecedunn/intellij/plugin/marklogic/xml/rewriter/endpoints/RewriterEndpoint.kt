@@ -21,7 +21,6 @@ import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.xml.XmlTag
-import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
@@ -32,24 +31,23 @@ import uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider
 import javax.swing.Icon
 
 class RewriterEndpoint(private val endpoint: XmlTag) :
-    Endpoint,
     ItemPresentation,
     EndpointMethodPresentation,
     DataProvider {
-    // region Endpoint
+    // region RewriterEndpoint
 
-    override val presentation: ItemPresentation
+    val presentation: ItemPresentation
         get() = this
 
-    override val reference: PsiReference?
+    val reference: PsiReference?
         get() = when {
             endpoint.value.text.isBlank() -> null
             else -> ModuleUriReference(endpoint, endpoint, XmlPsiAccessorsProvider)
         }
 
-    override val element: PsiElement = endpoint
+    val element: PsiElement = endpoint
 
-    override val path: String?
+    val path: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-path").firstOrNull()?.let { matchPath ->
             val matches = matchPath.getAttributeValue("matches")
             val anyOf = matchPath.getAttributeValue("any-of")?.split("\\s+".toRegex())?.getOrNull(0)

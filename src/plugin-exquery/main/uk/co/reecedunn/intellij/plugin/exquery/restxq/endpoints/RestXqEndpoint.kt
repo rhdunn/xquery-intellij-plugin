@@ -20,27 +20,25 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
-import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import javax.swing.Icon
 
 class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
-    Endpoint,
     ItemPresentation,
     EndpointMethodPresentation,
     DataProvider {
-    // region Endpoint
+    // region RestXqEndpoint
 
-    override val presentation: ItemPresentation
+    val presentation: ItemPresentation
         get() = this
 
-    override val reference: PsiReference? = (endpoint as PsiElement).reference
+    val reference: PsiReference? = (endpoint as PsiElement).reference
 
-    override val element: PsiElement = endpoint as PsiElement
+    val element: PsiElement = endpoint as PsiElement
 
-    override val path: String? = rest?.path
+    val path: String? = rest?.path
 
     // endregion
     // region ItemPresentation
