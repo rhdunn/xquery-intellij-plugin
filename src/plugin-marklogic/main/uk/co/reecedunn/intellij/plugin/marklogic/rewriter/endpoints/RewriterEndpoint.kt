@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
+import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.details
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.detailsPanel
 import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
@@ -32,16 +33,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 import javax.swing.Icon
 import javax.swing.JPanel
 
-class RewriterEndpoint(private val endpoint: XmlTag) : ItemPresentation, Endpoint, DataProvider {
-    // region ItemPresentation
-
-    override fun getPresentableText(): String? = path
-
-    override fun getLocationString(): String? = dispatch.split("/").lastOrNull()
-
-    override fun getIcon(unused: Boolean): Icon = MarkLogicIcons.Rewriter.Endpoint
-
-    // endregion
+class RewriterEndpoint(private val endpoint: XmlTag) :
+    Endpoint,
+    ItemPresentation,
+    EndpointMethodPresentation,
+    DataProvider {
     // region Endpoint
 
     override val presentation: ItemPresentation
@@ -86,6 +82,24 @@ class RewriterEndpoint(private val endpoint: XmlTag) : ItemPresentation, Endpoin
             val prefix = matchPath.getAttributeValue("prefix")
             matches ?: anyOf ?: prefix
         }
+
+    // endregion
+    // region ItemPresentation
+
+    override fun getPresentableText(): String? = path
+
+    override fun getLocationString(): String? = dispatch.split("/").lastOrNull()
+
+    override fun getIcon(unused: Boolean): Icon = MarkLogicIcons.Rewriter.Endpoint
+
+    // endregion
+    // region EndpointMethodPresentation
+
+    override val endpointMethod: String?
+        get() = method
+
+    override val endpointMethodOrder: Int
+        get() = EndpointMethodPresentation.getHttpMethodOrder(endpointMethod?.split("\\s+")?.get(0))
 
     // endregion
     // region DataProvider
