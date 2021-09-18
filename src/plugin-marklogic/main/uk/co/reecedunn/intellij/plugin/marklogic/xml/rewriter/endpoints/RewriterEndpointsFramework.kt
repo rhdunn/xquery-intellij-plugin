@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints
 
+import com.intellij.lang.xml.XMLLanguage
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.util.CachedValueProvider
@@ -46,7 +47,9 @@ object RewriterEndpointsFramework : UserDataHolderBase() {
                 }
                 true
             }
-            CachedValueProvider.Result.create(groups, PsiModificationTracker.MODIFICATION_COUNT)
+
+            val tracker = PsiModificationTracker.SERVICE.getInstance(project).forLanguage(XMLLanguage.INSTANCE)
+            CachedValueProvider.Result.create(groups, tracker)
         }, false)
     }
 }
