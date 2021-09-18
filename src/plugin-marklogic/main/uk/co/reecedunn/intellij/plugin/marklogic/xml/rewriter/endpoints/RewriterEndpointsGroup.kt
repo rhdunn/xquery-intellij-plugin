@@ -15,25 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints
 
-import com.intellij.openapi.actionSystem.CommonDataKeys
-import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.xml.descendants
 import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.Rewriter
 
-class RewriterEndpointsGroup(private val rewriter: XmlTag) : DataProvider {
-    // region RewriterEndpointsGroup
-
+class RewriterEndpointsGroup(private val rewriter: XmlTag) {
     val endpoints: Sequence<RewriterEndpoint>
         get() = rewriter.descendants(Rewriter.NAMESPACE, Rewriter.ENDPOINT_ELEMENTS).map { RewriterEndpoint(it) }
-
-    // endregion
-    // region DataProvider
-
-    override fun getData(dataId: String): Any? = when (dataId) {
-        CommonDataKeys.PSI_ELEMENT.name -> rewriter
-        else -> null
-    }
-
-    // endregion
 }
