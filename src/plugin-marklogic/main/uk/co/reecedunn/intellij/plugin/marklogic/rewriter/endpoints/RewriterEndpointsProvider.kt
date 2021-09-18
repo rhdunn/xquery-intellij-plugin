@@ -24,6 +24,9 @@ import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.ModificationTracker
 import com.intellij.psi.util.CachedValue
 import uk.co.reecedunn.intellij.microservices.endpoints.*
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.Rewriter
 
 @Suppress("unused")
 class RewriterEndpointsProvider :
@@ -37,15 +40,19 @@ class RewriterEndpointsProvider :
 
     override val endpointType: EndpointType = HTTP_SERVER_TYPE
 
-    override val presentation: FrameworkPresentation
-        get() = RewriterEndpointsFramework.presentation
+    override val presentation: FrameworkPresentation = FrameworkPresentation(
+        "xijp.marklogic-rewriter",
+        MarkLogicBundle.message("endpoints.rewriter.label"),
+        MarkLogicIcons.Rewriter.EndpointsFramework
+    )
+
 
     override fun getEndpointData(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint, dataId: String): Any? {
         return endpoint.getData(dataId)
     }
 
     override fun getEndpointGroups(project: Project, filter: EndpointsFilter): Iterable<RewriterEndpointsGroup> {
-        return RewriterEndpointsFramework.groups(project)
+        return Rewriter.groups(project)
     }
 
     override fun getEndpointPresentation(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint): ItemPresentation {
@@ -59,7 +66,7 @@ class RewriterEndpointsProvider :
     override fun getModificationTracker(project: Project): ModificationTracker = ModificationTracker.NEVER_CHANGED
 
     override fun getStatus(project: Project): EndpointsProviderStatus = when {
-        RewriterEndpointsFramework.groups(project).isNotEmpty() -> EndpointsProviderStatus.AVAILABLE
+        Rewriter.groups(project).isNotEmpty() -> EndpointsProviderStatus.AVAILABLE
         else -> EndpointsProviderStatus.HAS_ENDPOINTS
     }
 
@@ -69,11 +76,11 @@ class RewriterEndpointsProvider :
     // region ExtensionPointListener
 
     override fun extensionAdded(extension: EndpointsProvider<*, *>, pluginDescriptor: PluginDescriptor) {
-        RewriterEndpointsFramework.clearUserData(GROUPS)
+        Rewriter.clearUserData(GROUPS)
     }
 
     override fun extensionRemoved(extension: EndpointsProvider<*, *>, pluginDescriptor: PluginDescriptor) {
-        RewriterEndpointsFramework.clearUserData(GROUPS)
+        Rewriter.clearUserData(GROUPS)
     }
 
     // endregion
