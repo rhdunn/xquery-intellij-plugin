@@ -20,6 +20,7 @@ import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
@@ -34,8 +35,11 @@ class CustomConstraintLineMarkerProvider : LineMarkerProvider {
         val qname = element.parent as? XsQNameValue ?: return null
         val decl = qname.element?.parent as? XQueryFunctionDecl ?: return null
 
-        return NavigationGutterIconBuilder.create(icon("parse"))
-            .setTargets(decl)
+        val facets = SearchOptions.customConstraintFunctionReferences(decl)
+        if (facets.isEmpty()) return null
+
+        return NavigationGutterIconBuilder.create(icon(facets[0].referenceType))
+            .setTargets(facets.map { it.element })
             .setTooltipText(PluginApiBundle.message("line-marker.search-constraint.tooltip-text"))
             .createLineMarkerInfo(element)
     }

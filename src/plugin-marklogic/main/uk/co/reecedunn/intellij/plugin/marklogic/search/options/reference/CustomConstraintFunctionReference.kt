@@ -80,6 +80,8 @@ class CustomConstraintFunctionReference(
     // endregion
 
     companion object : PsiReferenceProvider() {
+        val REFERENCE_TYPES: Set<String> = setOf("parse", "start-facet", "finish-facet")
+
         private fun create(
             element: PsiElement,
             current: PsiElement

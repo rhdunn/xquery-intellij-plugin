@@ -44,6 +44,7 @@ MarkLogic Search Options XML Integration:
    constructors to the XQuery/MJS/SJS file they reference.
 2. Support resolving `parse/@apply`, `start-facet/@apply`, and `finish-facet/@apply` attribute values in XQuery
    direct constructors to the XQuery function they reference.
+3. Add line markers to functions referenced by custom facets in search options XQuery direct constructors.
 
 ## 2021
 

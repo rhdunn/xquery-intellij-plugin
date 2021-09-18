@@ -127,6 +127,7 @@
         <code>finish-facet/@apply</code> attribute values in XQuery dirct constructors to the XQuery function they
         reference.
       </li>
+      <li>Add line markers to functions referenced by custom facets in search options XQuery direct constructors.</li>
     </ol>
   ]]></change-notes>
 
