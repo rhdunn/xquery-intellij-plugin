@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryBundle
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 object RestXqEndpointsFramework : UserDataHolderBase() {
     val presentation: FrameworkPresentation = FrameworkPresentation(
@@ -48,7 +49,9 @@ object RestXqEndpointsFramework : UserDataHolderBase() {
                 }
                 true
             }
-            CachedValueProvider.Result.create(groups, PsiModificationTracker.MODIFICATION_COUNT)
+
+            val tracker = PsiModificationTracker.SERVICE.getInstance(project).forLanguage(XQuery)
+            CachedValueProvider.Result.create(groups, tracker)
         }, false)
     }
 }
