@@ -15,4 +15,4 @@
  */
 package uk.co.reecedunn.intellij.microservices.endpoints
 
-abstract class EndpointsProvider : EndpointsFramework
+abstract class EndpointsProviderImpl : EndpointsFramework
