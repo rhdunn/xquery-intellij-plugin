@@ -19,7 +19,6 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
@@ -29,18 +28,9 @@ class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
     ItemPresentation,
     EndpointMethodPresentation,
     DataProvider {
-    // region RestXqEndpoint
-
-    val reference: PsiReference? = (endpoint as PsiElement).reference
-
-    val element: PsiElement = endpoint as PsiElement
-
-    val path: String? = rest?.path
-
-    // endregion
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = path
+    override fun getPresentableText(): String? = rest?.path
 
     override fun getLocationString(): String? = endpoint.functionRefPresentableText
 
