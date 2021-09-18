@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.microservices.endpoints
 
-import com.intellij.microservices.endpoints.*
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.openapi.project.Project
