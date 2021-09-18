@@ -39,7 +39,7 @@ class RewriterLineMarkerProvider : LineMarkerProvider {
 
     private fun getModuleUriElements(element: XQueryQueryBody): Sequence<PsiElement> {
         return RewriterEndpointsFramework.groups(element.project).asSequence().flatMap { group ->
-            group.endpoints.filter { it.reference?.resolve() === element }.map { it.endpoint }
+            group.endpoints.filter { it.endpointTarget === element }.map { it.endpoint }
         }
     }
 }
