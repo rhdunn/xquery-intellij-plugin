@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints.RewriterEndpointsFramework
+import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.Rewriter
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
@@ -38,7 +38,7 @@ class RewriterLineMarkerProvider : LineMarkerProvider {
     }
 
     private fun getModuleUriElements(element: XQueryQueryBody): Sequence<PsiElement> {
-        return RewriterEndpointsFramework.groups(element.project).asSequence().flatMap { group ->
+        return Rewriter.groups(element.project).asSequence().flatMap { group ->
             group.endpoints.filter { it.endpointTarget?.resolve() === element }.map { it.endpoint }
         }
     }
