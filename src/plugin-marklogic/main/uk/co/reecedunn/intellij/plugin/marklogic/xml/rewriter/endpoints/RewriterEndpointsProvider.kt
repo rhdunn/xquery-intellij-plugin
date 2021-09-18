@@ -41,7 +41,7 @@ class RewriterEndpointsProvider : EndpointsProvider<RewriterEndpointsGroup, Rewr
     }
 
     override fun getEndpoints(group: RewriterEndpointsGroup): Iterable<RewriterEndpoint> {
-        return group.endpoints.toList()
+        return group.endpoints.asIterable()
     }
 
     override fun getModificationTracker(project: Project): ModificationTracker = ModificationTracker.NEVER_CHANGED

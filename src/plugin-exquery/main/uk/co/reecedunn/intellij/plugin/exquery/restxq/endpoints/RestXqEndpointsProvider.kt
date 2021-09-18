@@ -42,7 +42,7 @@ class RestXqEndpointsProvider : EndpointsProvider<RestXqEndpointsGroup, RestXqEn
     }
 
     override fun getEndpoints(group: RestXqEndpointsGroup): Iterable<RestXqEndpoint> {
-        return group.endpoints.toList()
+        return group.endpoints.asIterable()
     }
 
     override fun getModificationTracker(project: Project): ModificationTracker = ModificationTracker.NEVER_CHANGED
