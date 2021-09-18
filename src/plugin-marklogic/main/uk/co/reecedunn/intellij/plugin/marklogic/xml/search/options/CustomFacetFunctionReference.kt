@@ -17,6 +17,10 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
+import com.intellij.psi.PsiReferenceBase
+import com.intellij.psi.PsiReferenceProvider
+import com.intellij.util.ProcessingContext
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xdm.xml.attribute
@@ -26,7 +30,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
 import uk.co.reecedunn.intellij.plugin.xquery.model.fileProlog
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 
-class CustomFacetFunctionReference(private val node: Any, private val accessors: XmlAccessors) {
+class CustomFacetFunctionReference(element: PsiElement, private val node: Any, private val accessors: XmlAccessors) :
+    PsiReferenceBase<PsiElement>(element) {
+    // region facet properties
+
     @Suppress("unused")
     val referenceType: String
         get() = accessors.localName(node) ?: ""
@@ -41,6 +48,9 @@ class CustomFacetFunctionReference(private val node: Any, private val accessors:
     @Suppress("unused")
     val moduleUri: String
         get() = accessors.attributeStringValue(node, "", "at") ?: ""
+
+    // endregion
+    // region function reference
 
     private val moduleUriReference: PsiReference?
         get() {
@@ -57,11 +67,28 @@ class CustomFacetFunctionReference(private val node: Any, private val accessors:
             }
         }
 
-    companion object {
-        fun fromAttribute(element: PsiElement): CustomFacetFunctionReference? {
+    // endregion
+    // region PsiReference
+
+    override fun resolve(): PsiElement? = function?.functionName?.element
+
+    override fun getVariants(): Array<Any> = arrayOf()
+
+    // endregion
+
+    companion object : PsiReferenceProvider() {
+        private fun fromAttribute(element: PsiElement): CustomFacetFunctionReference? {
             val (node, accessors) = XmlAccessorsProvider.attribute(element) ?: return null
             val parent = accessors.parent(node) ?: return null
-            return CustomFacetFunctionReference(parent, accessors)
+            return CustomFacetFunctionReference(element, parent, accessors)
+        }
+
+        override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
+            val ref = fromAttribute(element) ?: return arrayOf()
+            return when {
+                ref.apply.isBlank() -> arrayOf()
+                else -> arrayOf(ref)
+            }
         }
     }
 }
