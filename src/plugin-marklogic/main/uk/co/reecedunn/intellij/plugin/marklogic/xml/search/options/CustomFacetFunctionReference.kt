@@ -77,6 +77,8 @@ class CustomFacetFunctionReference(element: PsiElement, private val node: Any, p
     // endregion
 
     companion object : PsiReferenceProvider() {
+        val REFERENCE_TYPES: Set<String> = setOf("parse", "start-facet", "finish-facet")
+
         private fun fromAttribute(element: PsiElement): CustomFacetFunctionReference? {
             val (node, accessors) = XmlAccessorsProvider.attribute(element) ?: return null
             val parent = accessors.parent(node) ?: return null
