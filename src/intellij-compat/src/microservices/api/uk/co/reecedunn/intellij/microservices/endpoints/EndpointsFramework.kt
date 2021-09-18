@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,10 @@
  */
 package uk.co.reecedunn.intellij.microservices.endpoints
 
-import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
 
-interface EndpointsFramework : ItemPresentation {
-    val id: String
+interface EndpointsFramework {
+    val presentation: FrameworkPresentation
 
     fun groups(project: Project): List<EndpointsGroup>
 }

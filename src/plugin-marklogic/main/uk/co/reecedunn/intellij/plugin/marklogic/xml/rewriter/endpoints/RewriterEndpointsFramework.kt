@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,25 +20,18 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.xml.XmlFile
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsFramework
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
+import uk.co.reecedunn.intellij.microservices.endpoints.FrameworkPresentation
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.Rewriter
-import javax.swing.Icon
 
 object RewriterEndpointsFramework : EndpointsFramework {
-    // region ItemPresentation
-
-    override fun getIcon(unused: Boolean): Icon = MarkLogicIcons.Rewriter.EndpointsFramework
-
-    override fun getLocationString(): String? = null
-
-    override fun getPresentableText(): String = MarkLogicBundle.message("endpoints.rewriter.label")
-
-    // endregion
-    // region EndpointsFramework
-
-    override val id: String = "xijp.marklogic-rewriter"
+    override val presentation: FrameworkPresentation = FrameworkPresentation(
+        "xijp.marklogic-rewriter",
+        MarkLogicBundle.message("endpoints.rewriter.label"),
+        MarkLogicIcons.Rewriter.EndpointsFramework
+    )
 
     override fun groups(project: Project): List<EndpointsGroup> {
         val groups = ArrayList<EndpointsGroup>()
@@ -52,6 +45,4 @@ object RewriterEndpointsFramework : EndpointsFramework {
         }
         return groups
     }
-
-    // endregion
 }

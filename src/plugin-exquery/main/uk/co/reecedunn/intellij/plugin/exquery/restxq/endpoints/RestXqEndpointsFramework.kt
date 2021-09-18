@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,26 +19,19 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsFramework
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
+import uk.co.reecedunn.intellij.microservices.endpoints.FrameworkPresentation
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryBundle
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import javax.swing.Icon
 
 object RestXqEndpointsFramework : EndpointsFramework {
-    // region ItemPresentation
-
-    override fun getIcon(unused: Boolean): Icon = EXQueryIcons.RESTXQ.EndpointsFramework
-
-    override fun getLocationString(): String? = null
-
-    override fun getPresentableText(): String = EXQueryBundle.message("endpoints.restxq.label")
-
-    // endregion
-    // region EndpointsFramework
-
-    override val id: String = "xijp.exquery-restxq"
+    override val presentation: FrameworkPresentation = FrameworkPresentation(
+        "xijp.exquery-restxq",
+        EXQueryBundle.message("endpoints.restxq.label"),
+        EXQueryIcons.RESTXQ.EndpointsFramework
+    )
 
     override fun groups(project: Project): List<EndpointsGroup> {
         val groups = ArrayList<EndpointsGroup>()
@@ -54,6 +47,4 @@ object RestXqEndpointsFramework : EndpointsFramework {
         }
         return groups
     }
-
-    // endregion
 }

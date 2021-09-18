@@ -28,9 +28,6 @@ abstract class EndpointsProvider : EndpointsProvider<EndpointsGroup, Endpoint>, 
 
     override val endpointType: EndpointType = HTTP_SERVER_TYPE
 
-    override val presentation: FrameworkPresentation
-        get() = FrameworkPresentation(id, presentableText!!, getIcon(false))
-
     override fun getEndpointData(group: EndpointsGroup, endpoint: Endpoint, dataId: String): Any? {
         return (endpoint as? DataProvider)?.getData(dataId)
     }
