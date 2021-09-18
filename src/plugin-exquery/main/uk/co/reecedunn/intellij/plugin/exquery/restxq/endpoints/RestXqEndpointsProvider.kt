@@ -20,7 +20,6 @@ import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProviderImpl
 import uk.co.reecedunn.intellij.microservices.endpoints.FrameworkPresentation
 
-@Suppress("unused")
 class RestXqEndpointsProvider : EndpointsProviderImpl() {
     override val presentation: FrameworkPresentation
         get() = RestXqEndpointsFramework.presentation
