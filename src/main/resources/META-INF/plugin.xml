@@ -111,6 +111,11 @@
       </li>
       <li>Improve the error message when a <code>QName</code> is used in a <code>DirPIConstructor</code>.</li>
     </ol>
+    <p>MarkLogic Rewriter XML Integration:</p>
+    <ol>
+      <li>Cache the endpoints to improve the line marker performance when the data has been previously calculated.</li>
+      <li>In the Endpoints tool window navigate to the module file, not the rewriter XML element that references it.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

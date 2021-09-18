@@ -33,6 +33,11 @@ XPath and XQuery:
 3. Don't generate an error when parsing `?$` and `?($)`, where the `VarName` is missing.
 4. Improve the error message when a `QName` is used in a `DirPIConstructor`.
 
+MarkLogic Rewriter XML Integration:
+
+1. Cache the endpoints to improve the line marker performance when the data has been previously calculated.
+2. In the Endpoints tool window navigate to the module file, not the rewriter XML element that references it.
+
 ## 2021
 
 *  [1.9.1 - 2021-07-23](docs/_posts/2021-07-23-release-1.9.1.md)
