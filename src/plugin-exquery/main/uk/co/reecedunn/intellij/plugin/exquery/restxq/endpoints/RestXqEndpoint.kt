@@ -22,13 +22,9 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.details
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.detailsPanel
-import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryBundle
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import javax.swing.Icon
-import javax.swing.JPanel
 
 class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
     Endpoint,
@@ -39,19 +35,6 @@ class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
 
     override val presentation: ItemPresentation
         get() = this
-
-    override val details: JPanel
-        get() = detailsPanel {
-            val rest = rest ?: return@detailsPanel
-            details(EXQueryBundle.message("endpoints.restxq.path.label"), rest.path)
-            details(EXQueryBundle.message("endpoints.restxq.method.label"), rest.methods)
-            details(EXQueryBundle.message("endpoints.restxq.consumes.label"), rest.consumes)
-            details(EXQueryBundle.message("endpoints.restxq.produces.label"), rest.produces)
-            details(EXQueryBundle.message("endpoints.restxq.query-params.label"), rest.queryParams)
-            details(EXQueryBundle.message("endpoints.restxq.form-params.label"), rest.formParams)
-            details(EXQueryBundle.message("endpoints.restxq.header-params.label"), rest.headerParams)
-            details(EXQueryBundle.message("endpoints.restxq.cookie-params.label"), rest.cookieParams)
-        }
 
     override val reference: PsiReference? = (endpoint as PsiElement).reference
 

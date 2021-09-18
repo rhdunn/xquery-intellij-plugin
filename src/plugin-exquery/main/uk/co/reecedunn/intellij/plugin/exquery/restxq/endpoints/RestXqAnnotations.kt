@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,26 +42,32 @@ class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
         get() = annotations.asSequence().mapNotNull { it.name?.localName?.data }.filter { METHODS.contains(it) }
 
     // 3.2.3 Consumes Annotation
+    @Suppress("unused")
     val consumes: Sequence<String>
         get() = strings("consumes")
 
     // 3.2.4 Produces Annotation
+    @Suppress("unused")
     val produces: Sequence<String>
         get() = strings("produces")
 
     // 3.3.1 Query Parameters
+    @Suppress("unused")
     val queryParams: Sequence<String>
         get() = params("query-param")
 
     // 3.3.2 Form Parameters
+    @Suppress("unused")
     val formParams: Sequence<String>
         get() = params("form-param")
 
     // 3.3.3 HTTP Header Parameters
+    @Suppress("unused")
     val headerParams: Sequence<String>
         get() = params("header-param")
 
     // 3.3.4 Cookie Parameters
+    @Suppress("unused")
     val cookieParams: Sequence<String>
         get() = params("cookie-param")
 
