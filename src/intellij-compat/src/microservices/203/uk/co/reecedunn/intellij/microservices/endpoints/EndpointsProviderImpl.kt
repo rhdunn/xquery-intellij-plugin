@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.microservices.endpoints
 
 import com.intellij.microservices.endpoints.*
-import com.intellij.microservices.endpoints.EndpointsProvider
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.openapi.project.Project
@@ -46,12 +45,12 @@ abstract class EndpointsProviderImpl : EndpointsProvider<EndpointsGroup, Endpoin
         return ModificationTracker.NEVER_CHANGED
     }
 
-    override fun getStatus(project: Project): EndpointsProvider.Status {
+    override fun getStatus(project: Project): EndpointsProviderStatus {
         cachedEndpointGroups = groups(project)
         return if (cachedEndpointGroups.isNotEmpty())
-            EndpointsProvider.Status.AVAILABLE
+            EndpointsProviderStatus.AVAILABLE
         else
-            EndpointsProvider.Status.HAS_ENDPOINTS
+            EndpointsProviderStatus.HAS_ENDPOINTS
     }
 
     override fun isValidEndpoint(group: EndpointsGroup, endpoint: Endpoint): Boolean = true
