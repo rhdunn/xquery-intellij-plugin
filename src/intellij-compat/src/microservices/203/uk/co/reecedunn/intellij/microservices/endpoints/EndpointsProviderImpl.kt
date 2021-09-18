@@ -23,7 +23,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.ModificationTracker
 
 @Suppress("UnstableApiUsage")
-abstract class EndpointsProvider : EndpointsProvider<EndpointsGroup, Endpoint>, EndpointsFramework {
+abstract class EndpointsProviderImpl : EndpointsProvider<EndpointsGroup, Endpoint>, EndpointsFramework {
     private var cachedEndpointGroups: List<EndpointsGroup> = listOf()
 
     override val endpointType: EndpointType = HTTP_SERVER_TYPE

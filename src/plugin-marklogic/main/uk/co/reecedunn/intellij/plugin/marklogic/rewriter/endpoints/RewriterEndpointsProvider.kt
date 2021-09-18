@@ -17,11 +17,11 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
-import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
+import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProviderImpl
 import uk.co.reecedunn.intellij.microservices.endpoints.FrameworkPresentation
 
 @Suppress("unused")
-class RewriterEndpointsProvider : EndpointsProvider() {
+class RewriterEndpointsProvider : EndpointsProviderImpl() {
     override val presentation: FrameworkPresentation
         get() = RewriterEndpointsFramework.presentation
 
