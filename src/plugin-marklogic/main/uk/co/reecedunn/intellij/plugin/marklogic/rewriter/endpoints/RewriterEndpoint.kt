@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
-import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
@@ -53,16 +52,16 @@ class RewriterEndpoint(val endpoint: XmlTag) :
     // region DataProvider
 
     override fun getData(dataId: String): Any? = when (dataId) {
-        CommonDataKeys.PSI_ELEMENT.name -> endpointTarget
+        CommonDataKeys.PSI_ELEMENT.name -> endpointTarget?.resolve()
         else -> null
     }
 
     // endregion
     // region RewriterEndpoint
 
-    val endpointTarget: PsiElement? = when {
+    val endpointTarget: ModuleUriReference? = when {
         endpoint.value.text.isBlank() -> null
-        else -> ModuleUriReference(endpoint).resolve()
+        else -> ModuleUriReference(endpoint)
     }
 
     val path: String?
@@ -137,4 +136,8 @@ class RewriterEndpoint(val endpoint: XmlTag) :
         }
 
     // endregion
+    init {
+        // Ensure that the module file is resolved to not generate a slow EDT warning.
+        endpointTarget?.resolve()
+    }
 }
