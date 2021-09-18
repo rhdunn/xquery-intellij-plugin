@@ -33,7 +33,6 @@ object MarkLogicIcons {
 
     object Rewriter {
         val EndpointsFramework: Icon = Product
-        val EndpointsGroup: Icon = AllIcons.FileTypes.Xml
         val Endpoint: Icon = LayeredIcon.create(PlatformIcons.XML_TAG_ICON, XQueryIcons.Endpoints.EndpointOverlay)
     }
 

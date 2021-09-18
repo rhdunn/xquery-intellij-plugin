@@ -15,32 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
-import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
-import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
-import javax.swing.Icon
 
-class RestXqEndpointsGroup(private val prolog: XQueryProlog) : ItemPresentation, DataProvider {
-    companion object {
-        const val ROOT_PATH: String = "/"
-    }
-    // region ItemPresentation
-
-    override fun getIcon(unused: Boolean): Icon = EXQueryIcons.RESTXQ.EndpointsGroup
-
-    override fun getLocationString(): String = prolog.containingFile.name
-
-    override fun getPresentableText(): String = ROOT_PATH
-
-    // endregion
+class RestXqEndpointsGroup(private val prolog: XQueryProlog) : DataProvider {
     // region RestXqEndpointsGroup
-
-    val presentation: ItemPresentation
-        get() = this
 
     val endpoints: Sequence<RestXqEndpoint>
         get() = prolog.annotatedDeclarations<XpmFunctionDeclaration>().mapNotNull { function ->
