@@ -39,9 +39,12 @@ class ModuleUriReference(element: PsiElement, private val node: Any, private val
         XsAnyUri(accessors.stringValue(node) ?: "", XdmUriContext.Location, arrayOf(XdmModuleType.XQuery))
     }
 
+    private val module: PsiElement? by lazy {
+        uri.resolve(element) ?: uri.resolveUri(element.project)
+    }
+
     override fun resolve(): PsiElement? {
-        val module = uri.resolve(element) ?: uri.resolveUri(element.project) ?: return null
-        val mainModule = module.children().filterIsInstance<XQueryMainModule>().firstOrNull()
+        val mainModule = module?.children()?.filterIsInstance<XQueryMainModule>()?.firstOrNull()
         val queryBody = mainModule?.children()?.filterIsInstance<XQueryQueryBody>()?.firstOrNull()
         return queryBody ?: module
     }

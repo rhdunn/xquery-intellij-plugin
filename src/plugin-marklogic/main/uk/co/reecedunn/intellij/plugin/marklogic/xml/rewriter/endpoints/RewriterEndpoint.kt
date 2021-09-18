@@ -54,16 +54,16 @@ class RewriterEndpoint(val endpoint: XmlTag) :
     // region DataProvider
 
     override fun getData(dataId: String): Any? = when (dataId) {
-        CommonDataKeys.PSI_ELEMENT.name -> endpointTarget
+        CommonDataKeys.PSI_ELEMENT.name -> endpointTarget?.resolve()
         else -> null
     }
 
     // endregion
     // region RewriterEndpoint
 
-    val endpointTarget: PsiElement? = when {
+    val endpointTarget: ModuleUriReference? = when {
         endpoint.value.text.isBlank() -> null
-        else -> ModuleUriReference(endpoint, endpoint, XmlPsiAccessorsProvider).resolve()
+        else -> ModuleUriReference(endpoint, endpoint, XmlPsiAccessorsProvider)
     }
 
     val path: String?
@@ -138,4 +138,8 @@ class RewriterEndpoint(val endpoint: XmlTag) :
         }
 
     // endregion
+    init {
+        // Ensure that the module file is resolved to not generate a slow EDT warning.
+        endpointTarget?.resolve()
+    }
 }
