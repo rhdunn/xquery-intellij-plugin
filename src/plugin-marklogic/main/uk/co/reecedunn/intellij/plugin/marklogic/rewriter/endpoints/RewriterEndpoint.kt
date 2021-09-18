@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
@@ -29,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.Rewriter
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 import javax.swing.Icon
 
-class RewriterEndpoint(private val endpoint: XmlTag) :
+class RewriterEndpoint(val endpoint: XmlTag) :
     ItemPresentation,
     EndpointMethodPresentation,
     DataProvider {
@@ -66,8 +65,6 @@ class RewriterEndpoint(private val endpoint: XmlTag) :
             endpoint.value.text.isBlank() -> null
             else -> ModuleUriReference(endpoint)
         }
-
-    val element: PsiElement = endpoint
 
     val path: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-path").firstOrNull()?.let { matchPath ->
