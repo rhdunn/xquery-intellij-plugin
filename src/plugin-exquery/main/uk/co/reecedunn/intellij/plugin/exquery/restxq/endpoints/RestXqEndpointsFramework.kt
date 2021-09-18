@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsFramework
-import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.microservices.endpoints.FrameworkPresentation
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryBundle
@@ -33,8 +32,8 @@ object RestXqEndpointsFramework : EndpointsFramework {
         EXQueryIcons.RESTXQ.EndpointsFramework
     )
 
-    override fun groups(project: Project): List<EndpointsGroup> {
-        val groups = ArrayList<EndpointsGroup>()
+    override fun groups(project: Project): List<RestXqEndpointsGroup> {
+        val groups = ArrayList<RestXqEndpointsGroup>()
         ProjectRootManager.getInstance(project).fileIndex.iterateContent {
             val module = it.toPsiFile(project) as? XQueryModule
             (module?.mainOrLibraryModule as? XQueryLibraryModule)?.prolog?.forEach { prolog ->

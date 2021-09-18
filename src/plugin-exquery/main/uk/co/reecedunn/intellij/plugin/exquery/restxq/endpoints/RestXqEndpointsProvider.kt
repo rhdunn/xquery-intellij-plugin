@@ -15,15 +15,46 @@
  */
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
+import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
-import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
-import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProviderImpl
-import uk.co.reecedunn.intellij.microservices.endpoints.FrameworkPresentation
+import com.intellij.openapi.util.ModificationTracker
+import uk.co.reecedunn.intellij.microservices.endpoints.*
 
 @Suppress("unused")
-class RestXqEndpointsProvider : EndpointsProviderImpl() {
+class RestXqEndpointsProvider : EndpointsProvider<RestXqEndpointsGroup, RestXqEndpoint> {
+    override val endpointType: EndpointType = HTTP_SERVER_TYPE
+
     override val presentation: FrameworkPresentation
         get() = RestXqEndpointsFramework.presentation
 
-    override fun groups(project: Project): List<EndpointsGroup> = RestXqEndpointsFramework.groups(project)
+
+    override fun getEndpointData(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint, dataId: String): Any? {
+        return endpoint.getData(dataId)
+    }
+
+    private var cachedEndpointGroups: List<RestXqEndpointsGroup> = listOf()
+
+    override fun getEndpointGroups(project: Project, filter: EndpointsFilter): Iterable<RestXqEndpointsGroup> {
+        return cachedEndpointGroups
+    }
+
+    override fun getEndpointPresentation(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint): ItemPresentation {
+        return endpoint.presentation
+    }
+
+    override fun getEndpoints(group: RestXqEndpointsGroup): Iterable<RestXqEndpoint> {
+        return group.endpoints.toList()
+    }
+
+    override fun getModificationTracker(project: Project): ModificationTracker = ModificationTracker.NEVER_CHANGED
+
+    override fun getStatus(project: Project): EndpointsProviderStatus {
+        cachedEndpointGroups = RestXqEndpointsFramework.groups(project)
+        return if (cachedEndpointGroups.isNotEmpty())
+            EndpointsProviderStatus.AVAILABLE
+        else
+            EndpointsProviderStatus.HAS_ENDPOINTS
+    }
+
+    override fun isValidEndpoint(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint): Boolean = true
 }
