@@ -15,27 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
-import com.intellij.openapi.actionSystem.CommonDataKeys
-import com.intellij.openapi.actionSystem.DataProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
 
-class RestXqEndpointsGroup(private val prolog: XQueryProlog) : DataProvider {
-    // region RestXqEndpointsGroup
-
+class RestXqEndpointsGroup(private val prolog: XQueryProlog) {
     val endpoints: Sequence<RestXqEndpoint>
         get() = prolog.annotatedDeclarations<XpmFunctionDeclaration>().mapNotNull { function ->
             function.functionName?.let { RestXqEndpoint(function) }
         }.filter { it.rest != null }
-
-    // endregion
-    // region DataProvider
-
-    override fun getData(dataId: String): Any? = when (dataId) {
-        CommonDataKeys.PSI_ELEMENT.name -> prolog
-        else -> null
-    }
-
-    // endregion
 }
