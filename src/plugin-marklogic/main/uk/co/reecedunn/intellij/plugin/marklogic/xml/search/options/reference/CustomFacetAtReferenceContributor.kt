@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 
-class SearchOptionsAtReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
+class CustomFacetAtReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
     // region PsiReferenceContributor
 
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {

@@ -9,7 +9,7 @@
     <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference.RewriterLineMarkerProvider"/>
 
     <!-- Search Options XML -->
-    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.reference.SearchOptionsAtReferenceContributor"/>
+    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.reference.CustomFacetAtReferenceContributor"/>
     <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.reference.CustomFacetApplyReferenceContributor"/>
 
     <!-- XRay Unit Tests -->
