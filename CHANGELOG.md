@@ -40,6 +40,8 @@ MarkLogic Rewriter XML Integration:
    and `match-method` XQuery direct XML elements.
 3. Support resolving `dispatch`, `set-error-handler`, and `set-path` elements to the XQuery/MJS/SJS
    file they reference in XQuery direct elements.
+4. Cache the endpoints to improve the line marker performance when the data has been previously calculated.
+5. In the Endpoints tool window navigate to the module file, not the rewriter XML element that references it.
 
 MarkLogic Search Options XML Integration:
 

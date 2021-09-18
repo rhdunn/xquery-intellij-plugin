@@ -54,7 +54,7 @@ class RewriterEndpoint(val endpoint: XmlTag) :
     // region DataProvider
 
     override fun getData(dataId: String): Any? = when (dataId) {
-        CommonDataKeys.PSI_ELEMENT.name -> endpoint.value.textElements.firstOrNull() ?: endpoint
+        CommonDataKeys.PSI_ELEMENT.name -> endpointTarget
         else -> null
     }
 

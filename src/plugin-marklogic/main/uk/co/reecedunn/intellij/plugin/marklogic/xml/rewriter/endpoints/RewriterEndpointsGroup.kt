@@ -19,7 +19,9 @@ import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.xml.descendants
 import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.Rewriter
 
-class RewriterEndpointsGroup(private val rewriter: XmlTag) {
-    val endpoints: Sequence<RewriterEndpoint>
-        get() = rewriter.descendants(Rewriter.NAMESPACE, Rewriter.ENDPOINT_ELEMENTS).map { RewriterEndpoint(it) }
+class RewriterEndpointsGroup(rewriter: XmlTag) {
+    val endpoints: List<RewriterEndpoint> =
+        rewriter.descendants(Rewriter.NAMESPACE, Rewriter.ENDPOINT_ELEMENTS).mapTo(mutableListOf()) {
+            RewriterEndpoint(it)
+        }
 }

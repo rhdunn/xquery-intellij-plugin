@@ -123,6 +123,8 @@
         Support resolving <code>dispatch</code>, <code>set-error-handler<code>, and <code>set-path</code>
         elements to the XQuery/MJS/SJS file they reference in XQuery direct elements.
       </li>
+      <li>Cache the endpoints to improve the line marker performance when the data has been previously calculated.</li>
+      <li>In the Endpoints tool window navigate to the module file, not the rewriter XML element that references it.</li>
     </ol>
     <p>MarkLogic Search Options XML Integration:</p>
     <ol>
