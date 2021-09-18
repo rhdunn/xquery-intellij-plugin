@@ -10,7 +10,7 @@
 
     <!-- Search Options XML -->
     <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.reference.SearchOptionsAtReferenceContributor"/>
-    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.reference.SearchOptionsApplyReferenceContributor"/>
+    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.reference.CustomFacetApplyReferenceContributor"/>
 
     <!-- XRay Unit Tests -->
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService"/>

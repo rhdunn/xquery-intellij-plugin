@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.SearchOption
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
-class SearchOptionsApplyReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
+class CustomFacetApplyReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
     // region PsiReferenceContributor
 
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
