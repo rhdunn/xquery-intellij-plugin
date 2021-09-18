@@ -30,11 +30,12 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.CustomFacetFunctionReference.Companion.REFERENCE_TYPES
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
+import uk.co.reecedunn.intellij.plugin.xdm.xml.hasNodeName
 import uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.xdm.XQueryXmlAccessorsProvider
 
 object SearchOptions : UserDataHolderBase() {
     const val NAMESPACE: String = "http://marklogic.com/appservices/search"
@@ -48,6 +49,7 @@ object SearchOptions : UserDataHolderBase() {
             ProjectRootManager.getInstance(project).fileIndex.iterateContent {
                 when (val file = it.toPsiFile(project)) {
                     is XmlFile -> optionsXml(file, options)
+                    is XQueryModule -> optionsXQuery(file, options)
                     else -> {
                     }
                 }
@@ -64,6 +66,17 @@ object SearchOptions : UserDataHolderBase() {
         }
     }
 
+    private fun optionsXQuery(node: PsiElement, options: ArrayList<PsiElement>) {
+        when (node) {
+            is XdmElementNode -> when {
+                XQueryXmlAccessorsProvider.namespaceUri(node) == NAMESPACE -> options.add(node)
+                else -> {
+                }
+            }
+            else -> node.children().forEach { child -> optionsXQuery(child, options) }
+        }
+    }
+
     @Suppress("MemberVisibilityCanBePrivate")
     fun customFacets(project: Project): List<CustomFacetFunctionReference> {
         return CachedValuesManager.getManager(project).getCachedValue(this, CUSTOM_FACET_REFS, {
@@ -71,8 +84,15 @@ object SearchOptions : UserDataHolderBase() {
             options(project).map { node ->
                 when (node) {
                     is XmlTag -> node.walkTree().filterIsInstance<XmlTag>().forEach { tag ->
-                        if (tag.namespace == NAMESPACE && REFERENCE_TYPES.contains(tag.localName)) {
-                            refs.add(CustomFacetFunctionReference(tag, tag, XmlPsiAccessorsProvider))
+                        val accessors = XmlPsiAccessorsProvider
+                        if (accessors.hasNodeName(tag, NAMESPACE, REFERENCE_TYPES)) {
+                            refs.add(CustomFacetFunctionReference(tag, tag, accessors))
+                        }
+                    }
+                    is XdmElementNode -> node.walkTree().filterIsInstance<XdmElementNode>().forEach { element ->
+                        val accessors = XQueryXmlAccessorsProvider
+                        if (accessors.hasNodeName(element, NAMESPACE, REFERENCE_TYPES)) {
+                            refs.add(CustomFacetFunctionReference(element as PsiElement, element, accessors))
                         }
                     }
                 }
