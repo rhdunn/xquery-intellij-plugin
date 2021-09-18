@@ -33,25 +33,6 @@ class RewriterEndpoint(private val endpoint: XmlTag) :
     ItemPresentation,
     EndpointMethodPresentation,
     DataProvider {
-    // region RewriterEndpoint
-
-    val reference: PsiReference?
-        get() = when {
-            endpoint.value.text.isBlank() -> null
-            else -> ModuleUriReference(endpoint)
-        }
-
-    val element: PsiElement = endpoint
-
-    val path: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-path").firstOrNull()?.let { matchPath ->
-            val matches = matchPath.getAttributeValue("matches")
-            val anyOf = matchPath.getAttributeValue("any-of")?.split("\\s+".toRegex())?.getOrNull(0)
-            val prefix = matchPath.getAttributeValue("prefix")
-            matches ?: anyOf ?: prefix
-        }
-
-    // endregion
     // region ItemPresentation
 
     override fun getPresentableText(): String? = path
@@ -79,6 +60,22 @@ class RewriterEndpoint(private val endpoint: XmlTag) :
 
     // endregion
     // region RewriterEndpoint
+
+    val reference: PsiReference?
+        get() = when {
+            endpoint.value.text.isBlank() -> null
+            else -> ModuleUriReference(endpoint)
+        }
+
+    val element: PsiElement = endpoint
+
+    val path: String?
+        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-path").firstOrNull()?.let { matchPath ->
+            val matches = matchPath.getAttributeValue("matches")
+            val anyOf = matchPath.getAttributeValue("any-of")?.split("\\s+".toRegex())?.getOrNull(0)
+            val prefix = matchPath.getAttributeValue("prefix")
+            matches ?: anyOf ?: prefix
+        }
 
     private val dispatch: String
         get() = endpoint.value.text
