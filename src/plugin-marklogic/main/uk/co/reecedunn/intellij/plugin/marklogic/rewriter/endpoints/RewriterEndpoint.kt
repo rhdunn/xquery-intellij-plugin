@@ -23,15 +23,12 @@ import com.intellij.psi.PsiReference
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.details
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.detailsPanel
 import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.Rewriter
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 import javax.swing.Icon
-import javax.swing.JPanel
 
 class RewriterEndpoint(private val endpoint: XmlTag) :
     Endpoint,
@@ -42,27 +39,6 @@ class RewriterEndpoint(private val endpoint: XmlTag) :
 
     override val presentation: ItemPresentation
         get() = this
-
-    override val details: JPanel
-        get() = detailsPanel {
-            val detailsLabel = when (endpoint.localName) {
-                "dispatch" -> MarkLogicBundle.message("endpoints.rewriter.dispatch.label")
-                "set-error-handler" -> MarkLogicBundle.message("endpoints.rewriter.set-error-handler.label")
-                "set-path" -> MarkLogicBundle.message("endpoints.rewriter.set-path.label")
-                else -> null
-            }
-            detailsLabel?.let { details(it, dispatch) }
-            details(MarkLogicBundle.message("endpoints.rewriter.path.label"), paths)
-            details(MarkLogicBundle.message("endpoints.rewriter.method.label"), endpointMethod)
-            details(MarkLogicBundle.message("endpoints.rewriter.accept.label"), accept)
-            details(MarkLogicBundle.message("endpoints.rewriter.content-type.label"), contentType)
-            details(MarkLogicBundle.message("endpoints.rewriter.cookie.label"), cookie)
-            details(MarkLogicBundle.message("endpoints.rewriter.execute-privilege.label"), executePrivilege)
-            details(MarkLogicBundle.message("endpoints.rewriter.header.label"), header)
-            details(MarkLogicBundle.message("endpoints.rewriter.query-param.label"), queryParam)
-            details(MarkLogicBundle.message("endpoints.rewriter.role.label"), role)
-            details(MarkLogicBundle.message("endpoints.rewriter.user.label"), user)
-        }
 
     override val reference: PsiReference?
         get() = when {
@@ -112,15 +88,19 @@ class RewriterEndpoint(private val endpoint: XmlTag) :
     private val dispatch: String
         get() = endpoint.value.text
 
+    @Suppress("unused")
     private val accept: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-accept").firstOrNull()?.getAttributeValue("any-of")
 
+    @Suppress("unused")
     private val contentType: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-content-type").firstOrNull()?.getAttributeValue("any-of")
 
+    @Suppress("unused")
     private val cookie: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-cookie").firstOrNull()?.getAttributeValue("name")
 
+    @Suppress("unused")
     private val executePrivilege: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-execute-privilege").firstOrNull()?.let { privilege ->
             val anyOf = privilege.getAttributeValue("any-of")
@@ -128,6 +108,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) :
             anyOf ?: allOf
         }
 
+    @Suppress("unused")
     private val header: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-header").firstOrNull()?.let { matchPath ->
             val name = matchPath.getAttributeValue("name")
@@ -135,6 +116,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) :
             name ?: matches
         }
 
+    @Suppress("unused")
     private val paths: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-path").firstOrNull()?.let { matchPath ->
             val matches = matchPath.getAttributeValue("matches")
@@ -143,9 +125,11 @@ class RewriterEndpoint(private val endpoint: XmlTag) :
             matches ?: anyOf ?: prefix
         }
 
+    @Suppress("unused")
     private val queryParam: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-query-param").firstOrNull()?.getAttributeValue("name")
 
+    @Suppress("unused")
     private val role: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-role").firstOrNull()?.let { matchPath ->
             val anyOf = matchPath.getAttributeValue("any-of")
@@ -153,6 +137,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) :
             anyOf ?: allOf
         }
 
+    @Suppress("unused")
     private val user: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-user").firstOrNull()?.let { matchPath ->
             val name = matchPath.getAttributeValue("name")

@@ -18,12 +18,9 @@ package uk.co.reecedunn.intellij.microservices.endpoints
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
-import javax.swing.JPanel
 
 interface Endpoint {
     val presentation: ItemPresentation
-
-    val details: JPanel
 
     val reference: PsiReference?
 
