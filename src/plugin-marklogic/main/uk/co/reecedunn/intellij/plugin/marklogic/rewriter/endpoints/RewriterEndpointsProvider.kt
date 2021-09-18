@@ -38,7 +38,7 @@ class RewriterEndpointsProvider : EndpointsProvider<RewriterEndpointsGroup, Rewr
     }
 
     override fun getEndpointPresentation(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint): ItemPresentation {
-        return endpoint.presentation
+        return endpoint
     }
 
     override fun getEndpoints(group: RewriterEndpointsGroup): Iterable<RewriterEndpoint> {

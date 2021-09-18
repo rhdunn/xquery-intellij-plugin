@@ -31,9 +31,6 @@ class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
     DataProvider {
     // region RestXqEndpoint
 
-    val presentation: ItemPresentation
-        get() = this
-
     val reference: PsiReference? = (endpoint as PsiElement).reference
 
     val element: PsiElement = endpoint as PsiElement

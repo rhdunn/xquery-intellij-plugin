@@ -35,9 +35,6 @@ class RewriterEndpoint(private val endpoint: XmlTag) :
     DataProvider {
     // region RewriterEndpoint
 
-    val presentation: ItemPresentation
-        get() = this
-
     val reference: PsiReference?
         get() = when {
             endpoint.value.text.isBlank() -> null

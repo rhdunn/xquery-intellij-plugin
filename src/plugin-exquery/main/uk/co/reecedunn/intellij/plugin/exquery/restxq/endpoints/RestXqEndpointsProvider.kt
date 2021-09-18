@@ -39,7 +39,7 @@ class RestXqEndpointsProvider : EndpointsProvider<RestXqEndpointsGroup, RestXqEn
     }
 
     override fun getEndpointPresentation(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint): ItemPresentation {
-        return endpoint.presentation
+        return endpoint
     }
 
     override fun getEndpoints(group: RestXqEndpointsGroup): Iterable<RestXqEndpoint> {
