@@ -15,15 +15,45 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
+import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
-import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
-import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProviderImpl
-import uk.co.reecedunn.intellij.microservices.endpoints.FrameworkPresentation
+import com.intellij.openapi.util.ModificationTracker
+import uk.co.reecedunn.intellij.microservices.endpoints.*
 
 @Suppress("unused")
-class RewriterEndpointsProvider : EndpointsProviderImpl() {
+class RewriterEndpointsProvider : EndpointsProvider<RewriterEndpointsGroup, RewriterEndpoint> {
+    override val endpointType: EndpointType = HTTP_SERVER_TYPE
+
     override val presentation: FrameworkPresentation
         get() = RewriterEndpointsFramework.presentation
 
-    override fun groups(project: Project): List<EndpointsGroup> = RewriterEndpointsFramework.groups(project)
+    override fun getEndpointData(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint, dataId: String): Any? {
+        return endpoint.getData(dataId)
+    }
+
+    private var cachedEndpointGroups: List<RewriterEndpointsGroup> = listOf()
+
+    override fun getEndpointGroups(project: Project, filter: EndpointsFilter): Iterable<RewriterEndpointsGroup> {
+        return cachedEndpointGroups
+    }
+
+    override fun getEndpointPresentation(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint): ItemPresentation {
+        return endpoint.presentation
+    }
+
+    override fun getEndpoints(group: RewriterEndpointsGroup): Iterable<RewriterEndpoint> {
+        return group.endpoints.toList()
+    }
+
+    override fun getModificationTracker(project: Project): ModificationTracker = ModificationTracker.NEVER_CHANGED
+
+    override fun getStatus(project: Project): EndpointsProviderStatus {
+        cachedEndpointGroups = RewriterEndpointsFramework.groups(project)
+        return if (cachedEndpointGroups.isNotEmpty())
+            EndpointsProviderStatus.AVAILABLE
+        else
+            EndpointsProviderStatus.HAS_ENDPOINTS
+    }
+
+    override fun isValidEndpoint(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint): Boolean = true
 }
