@@ -19,7 +19,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.xml.XmlFile
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsFramework
-import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.microservices.endpoints.FrameworkPresentation
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
@@ -33,8 +32,8 @@ object RewriterEndpointsFramework : EndpointsFramework {
         MarkLogicIcons.Rewriter.EndpointsFramework
     )
 
-    override fun groups(project: Project): List<EndpointsGroup> {
-        val groups = ArrayList<EndpointsGroup>()
+    override fun groups(project: Project): List<RewriterEndpointsGroup> {
+        val groups = ArrayList<RewriterEndpointsGroup>()
         ProjectRootManager.getInstance(project).fileIndex.iterateContent {
             val file = it.toPsiFile(project) as? XmlFile ?: return@iterateContent true
             val root = file.rootTag ?: return@iterateContent true
