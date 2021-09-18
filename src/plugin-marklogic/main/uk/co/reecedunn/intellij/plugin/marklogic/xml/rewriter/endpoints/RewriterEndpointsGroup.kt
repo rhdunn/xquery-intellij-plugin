@@ -19,29 +19,31 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.xml.XmlTag
-import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.plugin.core.xml.descendants
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.Rewriter
 import javax.swing.Icon
 
-class RewriterEndpointsGroup(private val rewriter: XmlTag) : EndpointsGroup, ItemPresentation, DataProvider {
+class RewriterEndpointsGroup(private val rewriter: XmlTag) : ItemPresentation, DataProvider {
+    companion object {
+        const val ROOT_PATH: String = "/"
+    }
+    // region RewriterEndpointsGroup
+
+    val presentation: ItemPresentation
+        get() = this
+
+    val endpoints: Sequence<RewriterEndpoint>
+        get() = rewriter.descendants(Rewriter.NAMESPACE, Rewriter.ENDPOINT_ELEMENTS).map { RewriterEndpoint(it) }
+
+    // endregion
     // region ItemPresentation
 
     override fun getIcon(unused: Boolean): Icon = MarkLogicIcons.Rewriter.EndpointsGroup
 
     override fun getLocationString(): String = rewriter.containingFile.name
 
-    override fun getPresentableText(): String = EndpointsGroup.ROOT_PATH
-
-    // endregion
-    // region EndpointsGroup
-
-    override val presentation: ItemPresentation
-        get() = this
-
-    override val endpoints: Sequence<RewriterEndpoint>
-        get() = rewriter.descendants(Rewriter.NAMESPACE, Rewriter.ENDPOINT_ELEMENTS).map { RewriterEndpoint(it) }
+    override fun getPresentableText(): String = ROOT_PATH
 
     // endregion
     // region DataProvider
