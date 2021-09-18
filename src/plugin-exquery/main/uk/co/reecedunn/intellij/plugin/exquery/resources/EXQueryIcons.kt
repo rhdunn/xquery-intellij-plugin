@@ -25,7 +25,6 @@ object EXQueryIcons {
 
     object RESTXQ {
         val EndpointsFramework: Icon = getIcon("/icons/restxq.svg")
-        val EndpointsGroup: Icon = XQueryIcons.FileType
         val Endpoint: Icon = XQueryIcons.Endpoints.FunctionEndpoint
     }
 }
