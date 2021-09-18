@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ object RewriterListCellRenderer : PsiElementListCellRenderer<XmlTag>() {
     override fun getElementText(element: XmlTag): String {
         val endpoint = RewriterEndpoint(element)
         return endpoint.path?.let { path ->
-            endpoint.method?.let { method -> "[$method] $path" } ?: path
+            endpoint.endpointMethod?.let { method -> "[$method] $path" } ?: path
         } ?: element.localName
     }
 

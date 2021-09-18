@@ -57,8 +57,6 @@ class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
 
     override val element: PsiElement = endpoint as PsiElement
 
-    override val method: String? = rest?.methods?.joinToString(" ")
-
     override val path: String? = rest?.path
 
     // endregion
@@ -74,10 +72,10 @@ class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
     // region EndpointMethodPresentation
 
     override val endpointMethod: String?
-        get() = method
+        get() = rest?.methods?.joinToString(" ")
 
     override val endpointMethodOrder: Int
-        get() = EndpointMethodPresentation.getHttpMethodOrder(endpointMethod?.split("\\s+")?.get(0))
+        get() = EndpointMethodPresentation.getHttpMethodOrder(rest?.methods?.firstOrNull())
 
     // endregion
     // region DataProvider

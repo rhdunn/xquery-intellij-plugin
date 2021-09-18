@@ -54,7 +54,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) :
             }
             detailsLabel?.let { details(it, dispatch) }
             details(MarkLogicBundle.message("endpoints.rewriter.path.label"), paths)
-            details(MarkLogicBundle.message("endpoints.rewriter.method.label"), method)
+            details(MarkLogicBundle.message("endpoints.rewriter.method.label"), endpointMethod)
             details(MarkLogicBundle.message("endpoints.rewriter.accept.label"), accept)
             details(MarkLogicBundle.message("endpoints.rewriter.content-type.label"), contentType)
             details(MarkLogicBundle.message("endpoints.rewriter.cookie.label"), cookie)
@@ -72,9 +72,6 @@ class RewriterEndpoint(private val endpoint: XmlTag) :
         }
 
     override val element: PsiElement = endpoint
-
-    override val method: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-method").firstOrNull()?.getAttributeValue("any-of")
 
     override val path: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-path").firstOrNull()?.let { matchPath ->
@@ -97,7 +94,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) :
     // region EndpointMethodPresentation
 
     override val endpointMethod: String?
-        get() = method
+        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-method").firstOrNull()?.getAttributeValue("any-of")
 
     override val endpointMethodOrder: Int
         get() = EndpointMethodPresentation.getHttpMethodOrder(endpointMethod?.split("\\s+")?.get(0))
