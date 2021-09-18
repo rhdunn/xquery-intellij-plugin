@@ -18,21 +18,20 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.xml.XmlFile
-import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsFramework
 import uk.co.reecedunn.intellij.microservices.endpoints.FrameworkPresentation
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.Rewriter
 
-object RewriterEndpointsFramework : EndpointsFramework {
-    override val presentation: FrameworkPresentation = FrameworkPresentation(
+object RewriterEndpointsFramework {
+    val presentation: FrameworkPresentation = FrameworkPresentation(
         "xijp.marklogic-rewriter",
         MarkLogicBundle.message("endpoints.rewriter.label"),
         MarkLogicIcons.Rewriter.EndpointsFramework
     )
 
-    override fun groups(project: Project): List<RewriterEndpointsGroup> {
+    fun groups(project: Project): List<RewriterEndpointsGroup> {
         val groups = ArrayList<RewriterEndpointsGroup>()
         ProjectRootManager.getInstance(project).fileIndex.iterateContent {
             val file = it.toPsiFile(project) as? XmlFile ?: return@iterateContent true
