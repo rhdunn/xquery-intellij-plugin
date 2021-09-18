@@ -20,42 +20,22 @@ import com.intellij.psi.PsiReference
 import com.intellij.psi.PsiReferenceBase
 import com.intellij.psi.PsiReferenceProvider
 import com.intellij.util.ProcessingContext
+import uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.CustomFacetFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
-import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
-import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
-import uk.co.reecedunn.intellij.plugin.xdm.xml.attribute
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
-import uk.co.reecedunn.intellij.plugin.xquery.model.fileProlog
-import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 
-class SearchOptionsApplyReference(element: PsiElement, private val node: Any, private val accessors: XmlAccessors) :
+class SearchOptionsApplyReference(element: PsiElement, private val ref: CustomFacetFunctionReference) :
     PsiReferenceBase<PsiElement>(element) {
 
-    override fun resolve(): PsiElement? {
-        val apply = accessors.stringValue(node) ?: return null
-        val parent = accessors.parent(node) ?: return null
-
-        val at = accessors.attribute(parent, "", "at") as? PsiElement ?: return null
-        val atValue = accessors.attributeValueNode(at) ?: return null
-
-        val moduleRef = atValue.references.find { it is ModuleUriReference }
-        val prolog = moduleRef?.resolve()?.fileProlog() ?: return null
-
-        return prolog.annotatedDeclarations<XpmFunctionDeclaration>().find { function ->
-            function.functionName?.localName?.data == apply
-        }?.functionName?.element
-    }
+    override fun resolve(): PsiElement? = ref.function?.functionName?.element
 
     override fun getVariants(): Array<Any> = arrayOf()
 
     companion object : PsiReferenceProvider() {
         override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
-            val (node, accessors) = XmlAccessorsProvider.attribute(element) ?: return arrayOf()
+            val ref = CustomFacetFunctionReference.fromAttribute(element) ?: return arrayOf()
             return when {
-                node !is PsiElement -> arrayOf()
-                accessors.stringValue(node).isNullOrBlank() -> arrayOf()
-                else -> arrayOf(SearchOptionsApplyReference(element, node, accessors))
+                ref.apply.isBlank() -> arrayOf()
+                else -> arrayOf(SearchOptionsApplyReference(element, ref))
             }
         }
     }
