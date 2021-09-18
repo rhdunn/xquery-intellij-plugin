@@ -16,11 +16,24 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints
 
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.Disposable
+import com.intellij.openapi.extensions.ExtensionPointListener
+import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.ModificationTracker
+import com.intellij.psi.util.CachedValue
 import uk.co.reecedunn.intellij.microservices.endpoints.*
 
-class RewriterEndpointsProvider : EndpointsProvider<RewriterEndpointsGroup, RewriterEndpoint> {
+class RewriterEndpointsProvider :
+    EndpointsProvider<RewriterEndpointsGroup, RewriterEndpoint>,
+    ExtensionPointListener<EndpointsProvider<*, *>>,
+    Disposable {
+    companion object {
+        val GROUPS: Key<CachedValue<List<RewriterEndpointsGroup>>> = Key.create("GROUPS")
+    }
+    // region EndpointsProvider
+
     override val endpointType: EndpointType = HTTP_SERVER_TYPE
 
     override val presentation: FrameworkPresentation
@@ -30,10 +43,8 @@ class RewriterEndpointsProvider : EndpointsProvider<RewriterEndpointsGroup, Rewr
         return endpoint.getData(dataId)
     }
 
-    private var cachedEndpointGroups: List<RewriterEndpointsGroup> = listOf()
-
     override fun getEndpointGroups(project: Project, filter: EndpointsFilter): Iterable<RewriterEndpointsGroup> {
-        return cachedEndpointGroups
+        return RewriterEndpointsFramework.groups(project)
     }
 
     override fun getEndpointPresentation(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint): ItemPresentation {
@@ -46,13 +57,32 @@ class RewriterEndpointsProvider : EndpointsProvider<RewriterEndpointsGroup, Rewr
 
     override fun getModificationTracker(project: Project): ModificationTracker = ModificationTracker.NEVER_CHANGED
 
-    override fun getStatus(project: Project): EndpointsProviderStatus {
-        cachedEndpointGroups = RewriterEndpointsFramework.groups(project)
-        return if (cachedEndpointGroups.isNotEmpty())
-            EndpointsProviderStatus.AVAILABLE
-        else
-            EndpointsProviderStatus.HAS_ENDPOINTS
+    override fun getStatus(project: Project): EndpointsProviderStatus = when {
+        RewriterEndpointsFramework.groups(project).isNotEmpty() -> EndpointsProviderStatus.AVAILABLE
+        else -> EndpointsProviderStatus.HAS_ENDPOINTS
     }
 
     override fun isValidEndpoint(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint): Boolean = true
+
+    // endregion
+    // region ExtensionPointListener
+
+    override fun extensionAdded(extension: EndpointsProvider<*, *>, pluginDescriptor: PluginDescriptor) {
+        RewriterEndpointsFramework.clearUserData(GROUPS)
+    }
+
+    override fun extensionRemoved(extension: EndpointsProvider<*, *>, pluginDescriptor: PluginDescriptor) {
+        RewriterEndpointsFramework.clearUserData(GROUPS)
+    }
+
+    // endregion
+    // region Disposable
+
+    override fun dispose() {
+    }
+
+    // endregion
+    init {
+        EndpointsProvider.EP_NAME.point.addExtensionPointListener(this, false, this)
+    }
 }

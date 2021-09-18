@@ -16,10 +16,17 @@
 package uk.co.reecedunn.intellij.microservices.endpoints
 
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.ModificationTracker
 
 interface EndpointsProvider<Group, Endpoint> {
+    companion object {
+        val EP_NAME: ExtensionPointName<EndpointsProvider<*, *>> = ExtensionPointName.create(
+            "com.intellij.microservices.endpointsProvider"
+        )
+    }
+
     val endpointType: EndpointType
 
     val presentation: FrameworkPresentation
