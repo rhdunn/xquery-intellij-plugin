@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
-import com.intellij.psi.PsiReference
+import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
@@ -61,11 +61,10 @@ class RewriterEndpoint(val endpoint: XmlTag) :
     // endregion
     // region RewriterEndpoint
 
-    val reference: PsiReference?
-        get() = when {
-            endpoint.value.text.isBlank() -> null
-            else -> ModuleUriReference(endpoint, endpoint, XmlPsiAccessorsProvider)
-        }
+    val endpointTarget: PsiElement? = when {
+        endpoint.value.text.isBlank() -> null
+        else -> ModuleUriReference(endpoint, endpoint, XmlPsiAccessorsProvider).resolve()
+    }
 
     val path: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-path").firstOrNull()?.let { matchPath ->
