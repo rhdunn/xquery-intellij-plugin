@@ -15,9 +15,6 @@
  */
 package uk.co.reecedunn.intellij.microservices.endpoints
 
-typealias EndpointType = com.intellij.microservices.endpoints.EndpointType
+class EndpointType
 
-typealias FrameworkPresentation = com.intellij.microservices.endpoints.FrameworkPresentation
-
-val HTTP_SERVER_TYPE: EndpointType
-    get() = com.intellij.microservices.endpoints.HTTP_SERVER_TYPE
+val HTTP_SERVER_TYPE: EndpointType = EndpointType()
