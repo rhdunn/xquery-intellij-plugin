@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
+import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.details
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.detailsPanel
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryBundle
@@ -29,16 +30,11 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaratio
 import javax.swing.Icon
 import javax.swing.JPanel
 
-class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) : ItemPresentation, Endpoint, DataProvider {
-    // region ItemPresentation
-
-    override fun getPresentableText(): String? = path
-
-    override fun getLocationString(): String? = endpoint.functionRefPresentableText
-
-    override fun getIcon(unused: Boolean): Icon = EXQueryIcons.RESTXQ.Endpoint
-
-    // endregion
+class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
+    Endpoint,
+    ItemPresentation,
+    EndpointMethodPresentation,
+    DataProvider {
     // region Endpoint
 
     override val presentation: ItemPresentation
@@ -64,6 +60,24 @@ class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) : ItemPresent
     override val method: String? = rest?.methods?.joinToString(" ")
 
     override val path: String? = rest?.path
+
+    // endregion
+    // region ItemPresentation
+
+    override fun getPresentableText(): String? = path
+
+    override fun getLocationString(): String? = endpoint.functionRefPresentableText
+
+    override fun getIcon(unused: Boolean): Icon = EXQueryIcons.RESTXQ.Endpoint
+
+    // endregion
+    // region EndpointMethodPresentation
+
+    override val endpointMethod: String?
+        get() = method
+
+    override val endpointMethodOrder: Int
+        get() = EndpointMethodPresentation.getHttpMethodOrder(endpointMethod?.split("\\s+")?.get(0))
 
     // endregion
     // region DataProvider

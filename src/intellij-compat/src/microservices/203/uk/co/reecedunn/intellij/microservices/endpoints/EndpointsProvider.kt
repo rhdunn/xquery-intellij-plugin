@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ abstract class EndpointsProvider : EndpointsProvider<EndpointsGroup, Endpoint>, 
     }
 
     override fun getEndpointPresentation(group: EndpointsGroup, endpoint: Endpoint): ItemPresentation {
-        return EndpointPresentation(endpoint)
+        return endpoint.presentation
     }
 
     override fun getEndpoints(group: EndpointsGroup): List<Endpoint> = group.endpoints.toList()
