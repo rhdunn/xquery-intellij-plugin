@@ -10,6 +10,7 @@
     <!-- Search Options XML -->
     <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomConstraintModuleUriReferenceContributor"/>
     <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomConstraintFunctionReferenceContributor"/>
+    <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.search.options.navigation.CustomConstraintLineMarkerProvider"/>
 
     <!-- XRay Unit Tests -->
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService"/>
