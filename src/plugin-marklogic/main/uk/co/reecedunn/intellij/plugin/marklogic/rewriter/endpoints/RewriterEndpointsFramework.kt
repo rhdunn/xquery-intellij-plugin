@@ -17,14 +17,18 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
+import com.intellij.psi.util.CachedValueProvider
+import com.intellij.psi.util.CachedValuesManager
+import com.intellij.psi.util.PsiModificationTracker
 import com.intellij.psi.xml.XmlFile
 import uk.co.reecedunn.intellij.microservices.endpoints.FrameworkPresentation
+import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.Rewriter
 
-object RewriterEndpointsFramework {
+object RewriterEndpointsFramework : UserDataHolderBase() {
     val presentation: FrameworkPresentation = FrameworkPresentation(
         "xijp.marklogic-rewriter",
         MarkLogicBundle.message("endpoints.rewriter.label"),
@@ -32,15 +36,17 @@ object RewriterEndpointsFramework {
     )
 
     fun groups(project: Project): List<RewriterEndpointsGroup> {
-        val groups = ArrayList<RewriterEndpointsGroup>()
-        ProjectRootManager.getInstance(project).fileIndex.iterateContent {
-            val file = it.toPsiFile(project) as? XmlFile ?: return@iterateContent true
-            val root = file.rootTag ?: return@iterateContent true
-            if (root.namespace == Rewriter.NAMESPACE && root.localName == "rewriter") {
-                groups.add(RewriterEndpointsGroup(root))
+        return CachedValuesManager.getManager(project).getCachedValue(this, RewriterEndpointsProvider.GROUPS, {
+            val groups = ArrayList<RewriterEndpointsGroup>()
+            ProjectRootManager.getInstance(project).fileIndex.iterateContent {
+                val file = it.toPsiFile(project) as? XmlFile ?: return@iterateContent true
+                val root = file.rootTag ?: return@iterateContent true
+                if (root.namespace == Rewriter.NAMESPACE && root.localName == "rewriter") {
+                    groups.add(RewriterEndpointsGroup(root))
+                }
+                true
             }
-            true
-        }
-        return groups
+            CachedValueProvider.Result.create(groups, PsiModificationTracker.MODIFICATION_COUNT)
+        }, false)
     }
 }
