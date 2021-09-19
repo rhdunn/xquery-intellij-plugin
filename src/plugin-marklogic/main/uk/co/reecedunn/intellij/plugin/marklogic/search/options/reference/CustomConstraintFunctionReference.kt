@@ -21,6 +21,7 @@ import com.intellij.psi.PsiReferenceBase
 import com.intellij.psi.PsiReferenceProvider
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
@@ -31,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
 import uk.co.reecedunn.intellij.plugin.xquery.model.fileProlog
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
+import javax.swing.Icon
 
 class CustomConstraintFunctionReference(
     element: PsiElement,
@@ -98,6 +100,13 @@ class CustomConstraintFunctionReference(
                 ref.apply?.stringValue.isNullOrBlank() -> arrayOf()
                 else -> arrayOf(ref)
             }
+        }
+
+        fun getIcon(referenceType: String?): Icon = when (referenceType) {
+            "parse" -> MarkLogicIcons.Markers.CusomSearchFacetParse
+            "start-facet" -> MarkLogicIcons.Markers.CusomSearchFacetStart
+            "finish-facet" -> MarkLogicIcons.Markers.CusomSearchFacetFinish
+            else -> MarkLogicIcons.Markers.CusomSearchFacetParse
         }
     }
 }
