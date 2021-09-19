@@ -20,6 +20,7 @@ import com.intellij.psi.PsiReference
 import com.intellij.psi.PsiReferenceBase
 import com.intellij.psi.PsiReferenceProvider
 import com.intellij.util.ProcessingContext
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
@@ -29,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaratio
 import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
 import uk.co.reecedunn.intellij.plugin.xquery.model.fileProlog
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
+import javax.swing.Icon
 
 class CustomFacetFunctionReference(element: PsiElement, private val node: Any, private val accessors: XmlAccessors) :
     PsiReferenceBase<PsiElement>(element) {
@@ -91,6 +93,13 @@ class CustomFacetFunctionReference(element: PsiElement, private val node: Any, p
                 ref.apply.isBlank() -> arrayOf()
                 else -> arrayOf(ref)
             }
+        }
+
+        fun getIcon(referenceType: String?): Icon = when (referenceType) {
+            "parse" -> MarkLogicIcons.Markers.CusomSearchFacetParse
+            "start-facet" -> MarkLogicIcons.Markers.CusomSearchFacetStart
+            "finish-facet" -> MarkLogicIcons.Markers.CusomSearchFacetFinish
+            else -> MarkLogicIcons.Markers.CusomSearchFacetParse
         }
     }
 }

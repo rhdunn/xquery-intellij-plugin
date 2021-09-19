@@ -19,14 +19,13 @@ import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.CustomFacetFunctionReference
 import uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.SearchOptions
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
-import javax.swing.Icon
 
 class CustomFacetLineMarkerProvider : LineMarkerProvider {
     override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? {
@@ -38,16 +37,10 @@ class CustomFacetLineMarkerProvider : LineMarkerProvider {
         val facets = SearchOptions.getInstance().getCustomFacets(decl)
         if (facets.isEmpty()) return null
 
-        return NavigationGutterIconBuilder.create(icon(facets[0].referenceType))
+        return NavigationGutterIconBuilder.create(CustomFacetFunctionReference.getIcon(facets[0].referenceType))
             .setTargets(facets.map { it.element })
             .setTooltipText(PluginApiBundle.message("line-marker.search-facet.tooltip-text"))
+            .setCellRenderer(CustomFacetListCellRenderer(facets))
             .createLineMarkerInfo(element)
-    }
-
-    private fun icon(referenceType: String): Icon = when (referenceType) {
-        "parse" -> MarkLogicIcons.Markers.CusomSearchFacetParse
-        "start-facet" -> MarkLogicIcons.Markers.CusomSearchFacetStart
-        "finish-facet" -> MarkLogicIcons.Markers.CusomSearchFacetFinish
-        else -> MarkLogicIcons.Markers.CusomSearchFacetParse
     }
 }
