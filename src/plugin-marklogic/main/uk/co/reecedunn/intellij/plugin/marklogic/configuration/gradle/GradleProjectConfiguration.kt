@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.gradle.configuration
+package uk.co.reecedunn.intellij.plugin.marklogic.configuration.gradle
 
 import com.intellij.lang.properties.IProperty
 import com.intellij.lang.properties.psi.PropertiesFile
@@ -25,7 +25,8 @@ import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 
-class GradleConfiguration(private val project: Project, override val baseDir: VirtualFile) : XpmProjectConfiguration {
+class GradleProjectConfiguration(private val project: Project, override val baseDir: VirtualFile) :
+    XpmProjectConfiguration {
     // region ml-gradle
 
     private fun getPropertiesFile(name: String?): PropertiesFile? {
@@ -75,7 +76,7 @@ class GradleConfiguration(private val project: Project, override val baseDir: Vi
     companion object : XpmProjectConfigurationFactory {
         override fun create(project: Project, baseDir: VirtualFile): XpmProjectConfiguration? {
             val properties = baseDir.findChild(GRADLE_PROPERTIES)?.toPsiFile(project) as? PropertiesFile ?: return null
-            return properties.findPropertyByKey(ML_APP_NAME)?.let { GradleConfiguration(project, baseDir) }
+            return properties.findPropertyByKey(ML_APP_NAME)?.let { GradleProjectConfiguration(project, baseDir) }
         }
 
         private const val GRADLE_PROPERTIES = "gradle.properties"

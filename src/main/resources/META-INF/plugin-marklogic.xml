@@ -34,7 +34,7 @@
     <projectConfigurationFactory implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration.RoxyConfiguration$Companion"/>
 
     <!-- ml-gradle -->
-    <projectConfigurationFactory implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.gradle.configuration.GradleConfiguration$Companion"/>
+    <projectConfigurationFactory implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.configuration.gradle.GradleProjectConfiguration$Companion"/>
 
     <!-- Static Context -->
     <variableProvider implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.model.MarkLogicBuiltInVariableProvider" fieldName="INSTANCE"/>
