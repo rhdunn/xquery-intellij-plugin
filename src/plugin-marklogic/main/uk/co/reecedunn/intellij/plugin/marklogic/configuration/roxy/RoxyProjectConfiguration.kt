@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 
 @Suppress("MemberVisibilityCanBePrivate")
 class RoxyProjectConfiguration(private val project: Project, override val baseDir: VirtualFile) :
@@ -101,11 +102,14 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         get() = getPropertyValue(CONTENT_DB)
 
     // endregion
-    // region XpmProjectConfigurationFactory
-
     companion object : XpmProjectConfigurationFactory {
         override fun create(project: Project, baseDir: VirtualFile): XpmProjectConfiguration? {
             return baseDir.children.find { ML_COMMAND.contains(it.name) }?.let { RoxyProjectConfiguration(project, baseDir) }
+        }
+
+        fun getInstance(project: Project): RoxyProjectConfiguration {
+            val configurations = XpmProjectConfigurations.getInstance(project).configurations
+            return configurations.filterIsInstance<RoxyProjectConfiguration>().first()
         }
 
         private val ML_COMMAND = setOf("ml", "ml.bat")
@@ -116,6 +120,4 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
 
         private val LOCALHOST_STRINGS = setOf("localhost", "127.0.0.1")
     }
-
-    // endregion
 }

@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 
 class GradleProjectConfiguration(private val project: Project, override val baseDir: VirtualFile) :
     XpmProjectConfiguration {
@@ -71,12 +72,15 @@ class GradleProjectConfiguration(private val project: Project, override val base
         get() = getPropertyValue(ML_CONTENT_DATABASE_NAME) ?: applicationName?.let { "$it-content" }
 
     // endregion
-    // region XpmProjectConfigurationFactory
-
     companion object : XpmProjectConfigurationFactory {
         override fun create(project: Project, baseDir: VirtualFile): XpmProjectConfiguration? {
             val properties = baseDir.findChild(GRADLE_PROPERTIES)?.toPsiFile(project) as? PropertiesFile ?: return null
             return properties.findPropertyByKey(ML_APP_NAME)?.let { GradleProjectConfiguration(project, baseDir) }
+        }
+
+        fun getInstance(project: Project): GradleProjectConfiguration {
+            val configurations = XpmProjectConfigurations.getInstance(project).configurations
+            return configurations.filterIsInstance<GradleProjectConfiguration>().first()
         }
 
         private const val GRADLE_PROPERTIES = "gradle.properties"
@@ -89,6 +93,4 @@ class GradleProjectConfiguration(private val project: Project, override val base
 
         private val LOCALHOST_STRINGS = setOf("localhost", "127.0.0.1")
     }
-
-    // endregion
 }
