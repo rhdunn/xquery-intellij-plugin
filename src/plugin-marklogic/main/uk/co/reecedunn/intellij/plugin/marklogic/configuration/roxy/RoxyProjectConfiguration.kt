@@ -98,6 +98,13 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
             CachedValueProvider.Result.create(Optional.ofNullable(file?.rootTag), file, default, build, env)
         }, false).orElse(null)
 
+    private val databases: List<XmlTag>
+        get() = CachedValuesManager.getManager(project).getCachedValue(this, DATABASES, {
+            val root = children(configuration, DATABASE_NAMESPACE, "databases").firstOrNull()
+            val databases = children(root, DATABASE_NAMESPACE, "database")
+            CachedValueProvider.Result.create(databases, configuration, default, build, env)
+        }, false)
+
     // endregion
     // region XpmProjectConfiguration
 
@@ -134,7 +141,14 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
             return configurations.filterIsInstance<RoxyProjectConfiguration>().first()
         }
 
+        private fun children(tag: XmlTag?, namespaceUri: String, localName: String): List<XmlTag> {
+            return tag?.value?.children?.filterIsInstance<XmlTag>()?.filter {
+                it.namespace == namespaceUri && it.localName == localName
+            } ?: listOf()
+        }
+
         private val CONFIGURATION = Key.create<CachedValue<Optional<XmlTag>>>("CONFIGURATION")
+        private val DATABASES = Key.create<CachedValue<List<XmlTag>>>("DATABASES")
 
         private val ML_COMMAND = setOf("ml", "ml.bat")
 
@@ -144,5 +158,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         private const val XQUERY_DIR = "xquery.dir"
 
         private val LOCALHOST_STRINGS = setOf("localhost", "127.0.0.1")
+
+        private const val DATABASE_NAMESPACE = "http://marklogic.com/xdmp/database"
     }
 }
