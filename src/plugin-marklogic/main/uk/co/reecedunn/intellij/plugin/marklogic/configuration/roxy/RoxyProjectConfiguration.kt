@@ -101,13 +101,15 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
             CachedValueProvider.Result.create(Optional.ofNullable(file?.rootTag), file, default, build, env)
         }, false).orElse(null)
 
-    private fun computeDatabases(configuration: XmlTag?, accessors: XmlAccessors): List<Any>? {
+    private fun computeDatabases(configuration: XmlTag?, accessors: XmlAccessors): List<RoxyDatabaseConfiguration>? {
         if (configuration == null) return null
         val root = accessors.child(configuration, DATABASE_NAMESPACE, "databases").firstOrNull() ?: return null
-        return accessors.child(root, DATABASE_NAMESPACE, "database").toList()
+        return accessors.child(root, DATABASE_NAMESPACE, "database").mapTo(mutableListOf()) {
+            RoxyDatabaseConfiguration(it, accessors)
+        }
     }
 
-    private val databases: List<Any>
+    private val databases: List<RoxyDatabaseConfiguration>
         get() = CachedValuesManager.getManager(project).getCachedValue(this, DATABASES, {
             val databases = computeDatabases(configuration, XmlPsiAccessorsProvider) ?: emptyList()
             CachedValueProvider.Result.create(databases, configuration, default, build, env)
@@ -150,7 +152,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         }
 
         private val CONFIGURATION = Key.create<CachedValue<Optional<XmlTag>>>("CONFIGURATION")
-        private val DATABASES = Key.create<CachedValue<List<Any>>>("DATABASES")
+        private val DATABASES = Key.create<CachedValue<List<RoxyDatabaseConfiguration>>>("DATABASES")
 
         private val ML_COMMAND = setOf("ml", "ml.bat")
 
