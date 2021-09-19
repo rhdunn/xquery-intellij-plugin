@@ -24,7 +24,7 @@ import com.intellij.psi.PsiReferenceContributor
 import com.intellij.psi.PsiReferenceRegistrar
 import com.intellij.psi.xml.XmlElementType
 import com.intellij.util.ProcessingContext
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints.Rewriter
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xdm.xml.attributeStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType

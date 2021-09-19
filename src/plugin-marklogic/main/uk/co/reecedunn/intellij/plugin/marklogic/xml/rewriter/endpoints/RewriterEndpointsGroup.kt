@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints
 
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.xml.descendants
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.Rewriter
 
 class RewriterEndpointsGroup(rewriter: XmlTag) {
     val endpoints: List<RewriterEndpoint> =

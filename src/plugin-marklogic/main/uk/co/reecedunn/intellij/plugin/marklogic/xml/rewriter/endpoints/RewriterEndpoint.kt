@@ -18,13 +18,11 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
-import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.Rewriter
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 import uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider
 import javax.swing.Icon
