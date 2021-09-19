@@ -19,6 +19,8 @@ import com.intellij.lang.properties.IProperty
 import com.intellij.lang.properties.psi.PropertiesFile
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.xml.XmlFile
+import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
@@ -79,6 +81,15 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
     }
 
     // endregion
+    // region MarkLogicConfiguration
+
+    private val configuration: XmlTag? by lazy {
+        val path = getPropertyValue(CONFIG_FILE) ?: return@lazy null
+        val file = baseDir.findFileByRelativePath(path)?.toPsiFile(project) as? XmlFile
+        file?.rootTag
+    }
+
+    // endregion
     // region XpmProjectConfiguration
 
     override val applicationName: String?
@@ -115,8 +126,9 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         private val ML_COMMAND = setOf("ml", "ml.bat")
 
         private const val APP_NAME = "app-name"
-        private const val XQUERY_DIR = "xquery.dir"
+        private const val CONFIG_FILE = "config.file"
         private const val CONTENT_DB = "content-db"
+        private const val XQUERY_DIR = "xquery.dir"
 
         private val LOCALHOST_STRINGS = setOf("localhost", "127.0.0.1")
     }
