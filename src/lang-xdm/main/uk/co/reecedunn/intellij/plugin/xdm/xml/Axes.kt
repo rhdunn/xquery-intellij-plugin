@@ -15,6 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.xml
 
+fun XmlAccessors.child(node: Any, namespaceUri: String, localName: String): Sequence<Any> {
+    return children(node).filter {
+        nodeKind(node) == NodeKind.Element && hasNodeName(node, namespaceUri, localName)
+    }
+}
+
+fun XmlAccessors.child(node: Any, nodeKind: NodeKind): Sequence<Any> {
+    return children(node).filter { nodeKind(node) == nodeKind }
+}
+
 fun XmlAccessors.self(node: Any, namespaceUri: String, localName: String): Any? {
     return node.takeIf {
         nodeKind(node) == NodeKind.Element && hasNodeName(node, namespaceUri, localName)
