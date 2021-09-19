@@ -15,9 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options
 
+import com.intellij.lang.xml.XMLLanguage
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.util.Key
+import com.intellij.openapi.util.ModificationTracker
 import com.intellij.openapi.util.UserDataHolderBase
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.CachedValue
@@ -35,53 +38,64 @@ import uk.co.reecedunn.intellij.plugin.xdm.xml.hasNodeName
 import uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.xdm.XQueryXmlAccessorsProvider
 
-object SearchOptions : UserDataHolderBase() {
-    const val NAMESPACE: String = "http://marklogic.com/appservices/search"
+class SearchOptions : UserDataHolderBase() {
+    companion object {
+        const val NAMESPACE: String = "http://marklogic.com/appservices/search"
 
-    private val OPTIONS = Key.create<CachedValue<List<PsiElement>>>("OPTIONS")
-    private val CUSTOM_FACET_REFS = Key.create<CachedValue<List<CustomFacetFunctionReference>>>("CUSTOM_FACET_REFS")
+        private val OPTIONS = Key.create<CachedValue<List<PsiElement>>>("OPTIONS")
+        private val CUSTOM_FACET_REFS = Key.create<CachedValue<List<CustomFacetFunctionReference>>>("CUSTOM_FACET_REFS")
 
-    fun options(project: Project): List<PsiElement> {
+        fun getInstance(): SearchOptions = ApplicationManager.getApplication().getService(SearchOptions::class.java)
+    }
+
+    private fun getModificationTracker(project: Project): ModificationTracker {
+        return PsiModificationTracker.SERVICE.getInstance(project).forLanguages {
+            it === XQuery || it === XMLLanguage.INSTANCE
+        }
+    }
+
+    private fun getSearchOptions(project: Project): List<PsiElement> {
         return CachedValuesManager.getManager(project).getCachedValue(this, OPTIONS, {
             val options = ArrayList<PsiElement>()
             ProjectRootManager.getInstance(project).fileIndex.iterateContent {
                 when (val file = it.toPsiFile(project)) {
-                    is XmlFile -> optionsXml(file, options)
-                    is XQueryModule -> optionsXQuery(file, options)
+                    is XmlFile -> processOptionsXml(file, options)
+                    is XQueryModule -> processOptionsXQuery(file, options)
                     else -> {
                     }
                 }
                 true
             }
-            CachedValueProvider.Result.create(options, PsiModificationTracker.MODIFICATION_COUNT)
+            CachedValueProvider.Result.create(options, getModificationTracker(project))
         }, false)
     }
 
-    private fun optionsXml(file: XmlFile, options: ArrayList<PsiElement>) {
+    private fun processOptionsXml(file: XmlFile, options: ArrayList<PsiElement>) {
         val root = file.rootTag ?: return
         if (root.namespace == NAMESPACE && root.localName == "options") {
             options.add(root)
         }
     }
 
-    private fun optionsXQuery(node: PsiElement, options: ArrayList<PsiElement>) {
+    private fun processOptionsXQuery(node: PsiElement, options: ArrayList<PsiElement>) {
         when (node) {
             is XdmElementNode -> when {
                 XQueryXmlAccessorsProvider.namespaceUri(node) == NAMESPACE -> options.add(node)
                 else -> {
                 }
             }
-            else -> node.children().forEach { child -> optionsXQuery(child, options) }
+            else -> node.children().forEach { child -> processOptionsXQuery(child, options) }
         }
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
-    fun customFacets(project: Project): List<CustomFacetFunctionReference> {
+    fun getCustomFacets(project: Project): List<CustomFacetFunctionReference> {
         return CachedValuesManager.getManager(project).getCachedValue(this, CUSTOM_FACET_REFS, {
             val refs = ArrayList<CustomFacetFunctionReference>()
-            options(project).map { node ->
+            getSearchOptions(project).map { node ->
                 when (node) {
                     is XmlTag -> node.walkTree().filterIsInstance<XmlTag>().forEach { tag ->
                         val accessors = XmlPsiAccessorsProvider
@@ -101,9 +115,9 @@ object SearchOptions : UserDataHolderBase() {
         }, false)
     }
 
-    fun customFacets(function: XpmFunctionDeclaration): List<CustomFacetFunctionReference> {
+    fun getCustomFacets(function: XpmFunctionDeclaration): List<CustomFacetFunctionReference> {
         val name = function.functionName ?: return listOf()
-        return customFacets((name as PsiElement).project).filter { ref ->
+        return getCustomFacets((name as PsiElement).project).filter { ref ->
             if (ref.apply != name.localName?.data) return@filter false
 
             val module = name.containingFile as XQueryModule
