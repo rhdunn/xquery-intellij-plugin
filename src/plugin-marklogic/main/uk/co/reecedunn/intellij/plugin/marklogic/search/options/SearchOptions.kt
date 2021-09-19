@@ -15,9 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.search.options
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.util.Key
+import com.intellij.openapi.util.ModificationTracker
 import com.intellij.openapi.util.UserDataHolderBase
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.CachedValue
@@ -34,46 +36,57 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaratio
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.localName
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.namespaceUri
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
-object SearchOptions : UserDataHolderBase() {
-    const val NAMESPACE: String = "http://marklogic.com/appservices/search"
+class SearchOptions : UserDataHolderBase() {
+    companion object {
+        const val NAMESPACE: String = "http://marklogic.com/appservices/search"
 
-    private val OPTIONS = Key.create<CachedValue<List<PsiElement>>>("OPTIONS")
+        private val OPTIONS = Key.create<CachedValue<List<PsiElement>>>("OPTIONS")
 
-    private val CUSTOM_FACET_REFS =
-        Key.create<CachedValue<List<CustomConstraintFunctionReference>>>("CUSTOM_FACET_REFS")
+        private val CUSTOM_FACET_REFS =
+            Key.create<CachedValue<List<CustomConstraintFunctionReference>>>("CUSTOM_FACET_REFS")
 
-    fun options(project: Project): List<PsiElement> {
+        fun getInstance(): SearchOptions = ApplicationManager.getApplication().getService(SearchOptions::class.java)
+    }
+
+    private fun getModificationTracker(project: Project): ModificationTracker {
+        return PsiModificationTracker.SERVICE.getInstance(project).forLanguages {
+            it === XQuery
+        }
+    }
+
+    private fun getSearchOptions(project: Project): List<PsiElement> {
         return CachedValuesManager.getManager(project).getCachedValue(this, OPTIONS, {
             val options = ArrayList<PsiElement>()
             ProjectRootManager.getInstance(project).fileIndex.iterateContent {
                 when (val file = it.toPsiFile(project)) {
-                    is XQueryModule -> options(file, options)
+                    is XQueryModule -> processOptions(file, options)
                     else -> {
                     }
                 }
                 true
             }
-            CachedValueProvider.Result.create(options, PsiModificationTracker.MODIFICATION_COUNT)
+            CachedValueProvider.Result.create(options, getModificationTracker(project))
         }, false)
     }
 
-    private fun options(node: PsiElement, options: ArrayList<PsiElement>) {
+    private fun processOptions(node: PsiElement, options: ArrayList<PsiElement>) {
         when (node) {
             is XdmElementNode -> when (node.namespaceUri) {
                 NAMESPACE -> options.add(node)
                 else -> {
                 }
             }
-            else -> node.children().forEach { child -> options(child, options) }
+            else -> node.children().forEach { child -> processOptions(child, options) }
         }
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
-    fun customConstraintFunctionReferences(project: Project): List<CustomConstraintFunctionReference> {
+    fun getCustomConstraintFunctionReferences(project: Project): List<CustomConstraintFunctionReference> {
         return CachedValuesManager.getManager(project).getCachedValue(this, CUSTOM_FACET_REFS, {
             val refs = ArrayList<CustomConstraintFunctionReference>()
-            options(project).map { node ->
+            getSearchOptions(project).map { node ->
                 when (node) {
                     is XdmElementNode -> node.walkTree().filterIsInstance<XdmElementNode>().forEach { element ->
                         if (element.localName in REFERENCE_TYPES && element.namespaceUri == NAMESPACE) {
@@ -86,9 +99,9 @@ object SearchOptions : UserDataHolderBase() {
         }, false)
     }
 
-    fun customConstraintFunctionReferences(function: XpmFunctionDeclaration): List<CustomConstraintFunctionReference> {
+    fun getCustomConstraintFunctionReferences(function: XpmFunctionDeclaration): List<CustomConstraintFunctionReference> {
         val name = function.functionName ?: return listOf()
-        return customConstraintFunctionReferences((name as PsiElement).project).filter { ref ->
+        return getCustomConstraintFunctionReferences((name as PsiElement).project).filter { ref ->
             if (ref.apply?.stringValue != name.localName?.data) return@filter false
 
             val module = name.containingFile as XQueryModule

@@ -8,6 +8,7 @@
     <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.navigation.RewriterLineMarkerProvider"/>
 
     <!-- Search Options XML -->
+    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions"/>
     <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomConstraintModuleUriReferenceContributor"/>
     <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomConstraintFunctionReferenceContributor"/>
     <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.search.options.navigation.CustomConstraintLineMarkerProvider"/>
