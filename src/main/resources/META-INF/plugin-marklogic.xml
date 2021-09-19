@@ -33,7 +33,7 @@
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
     <!-- Roxy -->
-    <projectConfigurationFactory implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration.RoxyConfiguration$Companion"/>
+    <projectConfigurationFactory implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.RoxyProjectConfiguration$Companion"/>
 
     <!-- ml-gradle -->
     <projectConfigurationFactory implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.configuration.gradle.GradleProjectConfiguration$Companion"/>
