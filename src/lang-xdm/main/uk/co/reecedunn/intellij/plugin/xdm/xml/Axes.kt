@@ -25,6 +25,16 @@ fun XmlAccessors.child(node: Any, nodeKind: NodeKind): Sequence<Any> {
     return children(node).filter { nodeKind(node) == nodeKind }
 }
 
+fun XmlAccessors.parent(node: Any, namespaceUri: String, localName: String): Any? {
+    return parent(node).takeIf {
+        nodeKind(node) == NodeKind.Element && hasNodeName(node, namespaceUri, localName)
+    }
+}
+
+fun XmlAccessors.parent(node: Any, nodeKind: NodeKind): Any? {
+    return parent(node).takeIf { nodeKind(node) == nodeKind }
+}
+
 fun XmlAccessors.self(node: Any, namespaceUri: String, localName: String): Any? {
     return node.takeIf {
         nodeKind(node) == NodeKind.Element && hasNodeName(node, namespaceUri, localName)
