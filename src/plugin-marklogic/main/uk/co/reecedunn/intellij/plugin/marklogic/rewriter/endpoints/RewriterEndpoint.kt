@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMet
 import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.Rewriter
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 import javax.swing.Icon
 

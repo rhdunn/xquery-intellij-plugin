@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.completion.schemaListCompletions
 import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.Rewriter
 
 class RewriterCompletionContributor : CompletionContributor() {
     override fun fillCompletionVariants(parameters: CompletionParameters, result: CompletionResultSet) {

@@ -24,7 +24,7 @@ import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
 import org.intellij.lang.regexp.RegExpLanguage
 import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.Rewriter
 
 class ModelTypeRegexLanguageInjection : MultiHostInjector {
     override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> = ELEMENTS_TO_INJECT_IN

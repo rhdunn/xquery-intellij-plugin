@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference
 import com.intellij.patterns.XmlPatterns
 import com.intellij.psi.PsiReferenceContributor
 import com.intellij.psi.PsiReferenceRegistrar
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.Rewriter
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 
 class RewriterReferenceContributor : PsiReferenceContributor() {

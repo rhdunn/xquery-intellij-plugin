@@ -13,27 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.rewriter
+package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
 import com.intellij.lang.xml.XMLLanguage
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
+import com.intellij.openapi.util.Key
+import com.intellij.openapi.util.ModificationTracker
+import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.psi.util.PsiModificationTracker
 import com.intellij.psi.xml.XmlFile
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpointsGroup
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpointsProvider
 
-object Rewriter : UserDataHolderBase() {
-    const val NAMESPACE: String = "http://marklogic.com/xdmp/rewriter"
+class Rewriter : UserDataHolderBase() {
+    companion object {
+        const val NAMESPACE: String = "http://marklogic.com/xdmp/rewriter"
 
-    val ENDPOINT_ELEMENTS: Set<String> = setOf("dispatch", "set-error-handler", "set-path")
+        val ENDPOINT_ELEMENTS: Set<String> = setOf("dispatch", "set-error-handler", "set-path")
 
-    fun groups(project: Project): List<RewriterEndpointsGroup> {
-        return CachedValuesManager.getManager(project).getCachedValue(this, RewriterEndpointsProvider.GROUPS, {
+        val GROUPS: Key<CachedValue<List<RewriterEndpointsGroup>>> = Key.create("GROUPS")
+
+        fun getInstance(): Rewriter = ApplicationManager.getApplication().getService(Rewriter::class.java)
+    }
+
+    fun getEndpointGroups(project: Project): List<RewriterEndpointsGroup> {
+        return CachedValuesManager.getManager(project).getCachedValue(this, GROUPS, {
             val groups = ArrayList<RewriterEndpointsGroup>()
             ProjectRootManager.getInstance(project).fileIndex.iterateContent {
                 val file = it.toPsiFile(project) as? XmlFile ?: return@iterateContent true
@@ -43,9 +51,11 @@ object Rewriter : UserDataHolderBase() {
                 }
                 true
             }
-
-            val tracker = PsiModificationTracker.SERVICE.getInstance(project).forLanguage(XMLLanguage.INSTANCE)
-            CachedValueProvider.Result.create(groups, tracker)
+            CachedValueProvider.Result.create(groups, getModificationTracker(project))
         }, false)
+    }
+
+    fun getModificationTracker(project: Project): ModificationTracker {
+        return PsiModificationTracker.SERVICE.getInstance(project).forLanguage(XMLLanguage.INSTANCE)
     }
 }
