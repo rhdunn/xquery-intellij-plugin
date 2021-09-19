@@ -67,9 +67,7 @@ class RestXqEndpointsProvider :
                 }
                 true
             }
-
-            val tracker = PsiModificationTracker.SERVICE.getInstance(project).forLanguage(XQuery)
-            CachedValueProvider.Result.create(groups, tracker)
+            CachedValueProvider.Result.create(groups, getModificationTracker(project))
         }, false)
     }
 
@@ -85,7 +83,9 @@ class RestXqEndpointsProvider :
         return group.endpoints.asIterable()
     }
 
-    override fun getModificationTracker(project: Project): ModificationTracker = ModificationTracker.NEVER_CHANGED
+    override fun getModificationTracker(project: Project): ModificationTracker {
+        return PsiModificationTracker.SERVICE.getInstance(project).forLanguage(XQuery)
+    }
 
     override fun getStatus(project: Project): EndpointsProviderStatus = when {
         getEndpointGroups(project).isNotEmpty() -> EndpointsProviderStatus.AVAILABLE
