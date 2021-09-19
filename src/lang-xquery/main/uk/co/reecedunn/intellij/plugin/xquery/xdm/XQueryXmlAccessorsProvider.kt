@@ -76,6 +76,10 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
         else -> null
     }
 
+    override fun children(node: Any): Sequence<Any> = when (node) {
+        else -> emptySequence()
+    }
+
     override fun nodeKind(node: Any): NodeKind? = when (node) {
         is XdmNode -> node.nodeKind
         else -> null

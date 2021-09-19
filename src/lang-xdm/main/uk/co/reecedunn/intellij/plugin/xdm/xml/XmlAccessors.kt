@@ -22,6 +22,8 @@ interface XmlAccessors {
 
     fun attributeValueNode(node: Any): PsiElement?
 
+    fun children(node: Any): Sequence<Any>
+
     fun nodeKind(node: Any): NodeKind?
 
     fun namespaceUri(node: Any): String?
