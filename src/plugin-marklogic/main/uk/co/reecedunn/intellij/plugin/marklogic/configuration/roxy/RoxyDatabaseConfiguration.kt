@@ -16,8 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy
 
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.MarkLogicDatabaseConfiguration
+import uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices.MarkLogicElementIndex
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 
 class RoxyDatabaseConfiguration(private val database: Any, private val accessors: XmlAccessors) :
     MarkLogicDatabaseConfiguration {
+
+    override val elementIndices: List<MarkLogicElementIndex>
+        get() = emptyList()
 }
