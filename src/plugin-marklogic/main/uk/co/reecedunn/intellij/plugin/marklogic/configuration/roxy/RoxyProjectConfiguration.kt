@@ -28,6 +28,7 @@ import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.MarkLogicConfiguration
+import uk.co.reecedunn.intellij.plugin.marklogic.configuration.MarkLogicDatabaseConfiguration
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
@@ -101,15 +102,15 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
             CachedValueProvider.Result.create(Optional.ofNullable(file?.rootTag), file, default, build, env)
         }, false).orElse(null)
 
-    private fun computeDatabases(configuration: XmlTag?, accessors: XmlAccessors): List<RoxyDatabaseConfiguration>? {
-        if (configuration == null) return null
-        val root = accessors.child(configuration, DATABASE_NAMESPACE, "databases").firstOrNull() ?: return null
+    private fun computeDatabases(config: XmlTag?, accessors: XmlAccessors): List<MarkLogicDatabaseConfiguration>? {
+        if (config == null) return null
+        val root = accessors.child(config, DATABASE_NAMESPACE, "databases").firstOrNull() ?: return null
         return accessors.child(root, DATABASE_NAMESPACE, "database").mapTo(mutableListOf()) {
             RoxyDatabaseConfiguration(it, accessors)
         }
     }
 
-    private val databases: List<RoxyDatabaseConfiguration>
+    override val databases: List<MarkLogicDatabaseConfiguration>
         get() = CachedValuesManager.getManager(project).getCachedValue(this, DATABASES, {
             val databases = computeDatabases(configuration, XmlPsiAccessorsProvider) ?: emptyList()
             CachedValueProvider.Result.create(databases, configuration, default, build, env)
@@ -152,7 +153,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         }
 
         private val CONFIGURATION = Key.create<CachedValue<Optional<XmlTag>>>("CONFIGURATION")
-        private val DATABASES = Key.create<CachedValue<List<RoxyDatabaseConfiguration>>>("DATABASES")
+        private val DATABASES = Key.create<CachedValue<List<MarkLogicDatabaseConfiguration>>>("DATABASES")
 
         private val ML_COMMAND = setOf("ml", "ml.bat")
 

@@ -16,4 +16,5 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.configuration
 
 interface MarkLogicConfiguration {
+    val databases: List<MarkLogicDatabaseConfiguration>
 }
