@@ -22,6 +22,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafElement
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints.RewriterEndpoint
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
@@ -30,13 +31,13 @@ class RewriterLineMarkerProvider : LineMarkerProvider {
         if (element !is LeafElement) return null
 
         val body = getQueryBody(element) ?: return null
-        val targets = getModuleUriElements(body)
-        if (targets.isEmpty()) return null
+        val endpoints = getTargetEndpoints(body)
+        if (endpoints.isEmpty()) return null
 
         return NavigationGutterIconBuilder.create(MarkLogicIcons.Markers.Endpoint)
-            .setTargets(targets)
+            .setTargets(endpoints.map { it.endpoint })
             .setTooltipText(PluginApiBundle.message("line-marker.rewriter-endpoint.tooltip-text"))
-            .setCellRenderer(RewriterListCellRenderer)
+            .setCellRenderer(RewriterListCellRenderer(endpoints))
             .createLineMarkerInfo(element)
     }
 
@@ -46,9 +47,9 @@ class RewriterLineMarkerProvider : LineMarkerProvider {
         else -> element.parent?.let { getQueryBody(it) }
     }
 
-    private fun getModuleUriElements(element: XQueryQueryBody): List<PsiElement> {
+    private fun getTargetEndpoints(element: XQueryQueryBody): List<RewriterEndpoint> {
         return Rewriter.getInstance().getEndpointGroups(element.project).flatMap { group ->
-            group.endpoints.filter { it.endpointTarget?.resolve() === element }.map { it.endpoint }
+            group.endpoints.filter { it.endpointTarget?.resolve() === element }
         }
     }
 }

@@ -23,11 +23,11 @@ import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints.RewriterEndpoint
 import javax.swing.Icon
 
-object RewriterListCellRenderer : PsiElementListCellRenderer<XmlTag>() {
+class RewriterListCellRenderer(private val endpoints: List<RewriterEndpoint>) : PsiElementListCellRenderer<XmlTag>() {
     override fun getContainerText(element: XmlTag, name: String?): String = element.containingFile.resourcePath()
 
     override fun getElementText(element: XmlTag): String {
-        val endpoint = RewriterEndpoint(element)
+        val endpoint = endpoints.find { it.endpoint === element } ?: return element.localName
         return endpoint.path?.let { path ->
             endpoint.endpointMethod?.let { method -> "[$method] $path" } ?: path
         } ?: element.localName
