@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.configuration
+package uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices
 
-import uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices.MarkLogicAttributeIndex
-import uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices.MarkLogicElementIndex
+interface MarkLogicAttributeIndex {
+    val schemaType: String
 
-interface MarkLogicDatabaseConfiguration {
-    val elementIndices: List<MarkLogicElementIndex>
+    val elementNamespaceUri: String
 
-    val attributeIndices: List<MarkLogicAttributeIndex>
+    val elementLocalName: String
+
+    val namespaceUri: String
+
+    val localName: String
 }

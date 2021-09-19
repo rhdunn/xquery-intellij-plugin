@@ -22,6 +22,7 @@ import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.MarkLogicDatabaseConfiguration
+import uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices.MarkLogicAttributeIndex
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices.MarkLogicElementIndex
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.indices.RoxyElementRangeIndex
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
@@ -50,4 +51,7 @@ class RoxyDatabaseConfiguration(private val database: PsiElement, private val ac
             val indices = computeElementIndices() ?: emptyList()
             CachedValueProvider.Result.create(indices, database)
         }, false)
+
+    override val attributeIndices: List<MarkLogicAttributeIndex>
+        get() = emptyList()
 }
