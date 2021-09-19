@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.completion
+package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion
 
 import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionParameters
@@ -24,7 +24,7 @@ import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.completion.schemaListCompletions
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.Rewriter
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 
 class RewriterCompletionContributor : CompletionContributor() {

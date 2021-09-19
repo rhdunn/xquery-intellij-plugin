@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference
+package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference
 
 import com.intellij.ide.util.PsiElementListCellRenderer
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints.RewriterEndpoint
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpoint
 import javax.swing.Icon
 
 class RewriterListCellRenderer(private val endpoints: List<RewriterEndpoint>) : PsiElementListCellRenderer<XmlTag>() {

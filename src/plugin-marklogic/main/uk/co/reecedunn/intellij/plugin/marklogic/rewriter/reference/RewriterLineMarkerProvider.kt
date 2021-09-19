@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference
+package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference
 
 import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
@@ -21,8 +21,8 @@ import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafElement
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints.Rewriter
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints.RewriterEndpoint
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpoint
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 

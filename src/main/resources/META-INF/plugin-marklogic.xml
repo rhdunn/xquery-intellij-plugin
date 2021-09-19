@@ -1,19 +1,19 @@
 <idea-plugin>
   <extensions defaultExtensionNs="com.intellij">
     <!-- Rewriter XML -->
-    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints.Rewriter"/>
-    <microservices.endpointsProvider implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.endpoints.RewriterEndpointsProvider"/>
-    <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.lang.ModelTypeRegexLanguageInjection"/>
-    <completion.contributor language="XML" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.completion.RewriterCompletionContributor"/>
-    <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.completion.RewriterCompletionContributor"/>
-    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference.RewriterReferenceContributor"/>
-    <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.rewriter.reference.RewriterLineMarkerProvider"/>
+    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.Rewriter"/>
+    <microservices.endpointsProvider implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpointsProvider"/>
+    <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.ModelTypeRegexLanguageInjection"/>
+    <completion.contributor language="XML" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion.RewriterCompletionContributor"/>
+    <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion.RewriterCompletionContributor"/>
+    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.RewriterReferenceContributor"/>
+    <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.RewriterLineMarkerProvider"/>
 
     <!-- Search Options XML -->
-    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.SearchOptions"/>
-    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.reference.CustomFacetAtReferenceContributor"/>
-    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.reference.CustomFacetApplyReferenceContributor"/>
-    <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.reference.CustomFacetLineMarkerProvider"/>
+    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions"/>
+    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomFacetAtReferenceContributor"/>
+    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomFacetApplyReferenceContributor"/>
+    <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomFacetLineMarkerProvider"/>
 
     <!-- XRay Unit Tests -->
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService"/>

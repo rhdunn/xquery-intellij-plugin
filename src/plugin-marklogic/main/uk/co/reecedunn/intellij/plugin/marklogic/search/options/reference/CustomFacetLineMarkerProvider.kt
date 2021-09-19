@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.reference
+package uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference
 
 import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.CustomFacetFunctionReference
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.SearchOptions
+import uk.co.reecedunn.intellij.plugin.marklogic.search.options.CustomFacetFunctionReference
+import uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element

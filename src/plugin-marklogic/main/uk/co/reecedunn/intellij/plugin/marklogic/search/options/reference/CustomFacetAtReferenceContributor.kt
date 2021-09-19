@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.reference
+package uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference
 
 import com.intellij.patterns.ElementPattern
 import com.intellij.patterns.ElementPatternCondition
@@ -24,16 +24,16 @@ import com.intellij.psi.PsiReferenceContributor
 import com.intellij.psi.PsiReferenceRegistrar
 import com.intellij.psi.xml.XmlElementType
 import com.intellij.util.ProcessingContext
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.CustomFacetFunctionReference
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.SearchOptions
+import uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 
-class CustomFacetApplyReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
+class CustomFacetAtReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
     // region PsiReferenceContributor
 
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
-        registrar.registerReferenceProvider(this, CustomFacetFunctionReference)
+        registrar.registerReferenceProvider(this, ModuleUriReference)
     }
 
     // endregion
@@ -46,9 +46,9 @@ class CustomFacetApplyReferenceContributor : PsiReferenceContributor(), ElementP
         if (accessors.namespaceUri(parent) != SearchOptions.NAMESPACE) return false
 
         return when (accessors.localName(parent)) {
-            "parse" -> accessors.localName(node) == "apply"
-            "start-facet" -> accessors.localName(node) == "apply"
-            "finish-facet" -> accessors.localName(node) == "apply"
+            "parse" -> accessors.localName(node) == "at"
+            "start-facet" -> accessors.localName(node) == "at"
+            "finish-facet" -> accessors.localName(node) == "at"
             else -> false
         }
     }

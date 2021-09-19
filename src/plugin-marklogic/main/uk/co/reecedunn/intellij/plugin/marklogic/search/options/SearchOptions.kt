@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options
+package uk.co.reecedunn.intellij.plugin.marklogic.search.options
 
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.openapi.application.ApplicationManager
@@ -32,7 +32,7 @@ import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.CustomFacetFunctionReference.Companion.REFERENCE_TYPES
+import uk.co.reecedunn.intellij.plugin.marklogic.search.options.CustomFacetFunctionReference.Companion.REFERENCE_TYPES
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.xml.hasNodeName
 import uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.reference
+package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference
 
 import com.intellij.patterns.ElementPattern
 import com.intellij.patterns.ElementPatternCondition
@@ -24,12 +24,13 @@ import com.intellij.psi.PsiReferenceContributor
 import com.intellij.psi.PsiReferenceRegistrar
 import com.intellij.psi.xml.XmlElementType
 import com.intellij.util.ProcessingContext
-import uk.co.reecedunn.intellij.plugin.marklogic.xml.search.options.SearchOptions
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.Rewriter
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
+import uk.co.reecedunn.intellij.plugin.xdm.xml.attributeStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 
-class CustomFacetAtReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
+class RewriterReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
     // region PsiReferenceContributor
 
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
@@ -40,15 +41,12 @@ class CustomFacetAtReferenceContributor : PsiReferenceContributor(), ElementPatt
     // region ElementPattern
 
     override fun accepts(o: Any?): Boolean {
-        val (node, accessors) = XmlAccessorsProvider.attribute(o) ?: return false
-
-        val parent = accessors.parent(node) ?: return false
-        if (accessors.namespaceUri(parent) != SearchOptions.NAMESPACE) return false
-
-        return when (accessors.localName(parent)) {
-            "parse" -> accessors.localName(node) == "at"
-            "start-facet" -> accessors.localName(node) == "at"
-            "finish-facet" -> accessors.localName(node) == "at"
+        val (node, accessors) = XmlAccessorsProvider.element(o) ?: return false
+        if (accessors.namespaceUri(node) != Rewriter.NAMESPACE) return false
+        return when (accessors.localName(node)) {
+            "dispatch" -> accessors.attributeStringValue(node, "", "xdbc") != "true"
+            "set-path" -> true
+            "set-error-handler" -> true
             else -> false
         }
     }
@@ -59,8 +57,8 @@ class CustomFacetAtReferenceContributor : PsiReferenceContributor(), ElementPatt
 
     companion object {
         private val PATTERN = StandardPatterns.or(
-            PlatformPatterns.psiElement(XmlElementType.XML_ATTRIBUTE_VALUE),
-            PlatformPatterns.psiElement(XQueryElementType.DIR_ATTRIBUTE_VALUE)
+            PlatformPatterns.psiElement(XmlElementType.XML_TAG),
+            PlatformPatterns.psiElement(XQueryElementType.DIR_ELEM_CONSTRUCTOR)
         )
     }
 
