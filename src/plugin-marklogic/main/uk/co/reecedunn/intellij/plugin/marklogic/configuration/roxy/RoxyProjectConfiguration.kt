@@ -40,7 +40,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
     private val build: PropertiesFile? = getPropertiesFile("build") // Project-specific properties
     private var env: PropertiesFile? = getPropertiesFile("local") // Environment-specific properties
 
-    fun getProperty(property: String): Sequence<IProperty> = sequenceOf(
+    private fun getProperty(property: String): Sequence<IProperty> = sequenceOf(
         env?.findPropertyByKey(property),
         build?.findPropertyByKey(property),
         default?.findPropertyByKey(property)
@@ -71,7 +71,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         }
     }
 
-    fun getDirectory(property: String): VirtualFile? {
+    fun getVirtualFile(property: String): VirtualFile? {
         return getPropertyValue(property, expand = false)?.takeIf { it.startsWith("\${basedir}") }?.let {
             baseDir.findFileByRelativePath(it.substringAfter("\${basedir}"))
         }
@@ -90,7 +90,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         }
 
     override val modulePaths: Sequence<VirtualFile>
-        get() = sequenceOf(getDirectory(XQUERY_DIR)).filterNotNull()
+        get() = sequenceOf(getVirtualFile(XQUERY_DIR)).filterNotNull()
 
     override val processorId: Int?
         get() = QueryProcessors.getInstance().processors.find {
@@ -105,7 +105,9 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
 
     companion object : XpmProjectConfigurationFactory {
         override fun create(project: Project, baseDir: VirtualFile): XpmProjectConfiguration? {
-            return baseDir.children.find { ML_COMMAND.contains(it.name) }?.let { RoxyProjectConfiguration(project, baseDir) }
+            return baseDir.children.find { ML_COMMAND.contains(it.name) }?.let {
+                RoxyProjectConfiguration(project, baseDir)
+            }
         }
 
         private val ML_COMMAND = setOf("ml", "ml.bat")
