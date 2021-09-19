@@ -28,6 +28,13 @@ fun XmlAccessors.attributeStringValue(node: Any, namespaceUri: String, localName
 }
 
 // endregion
+// region Accessors (5.3) children
+
+fun XmlAccessors.childStringValue(node: Any, namespaceUri: String, localName: String): String? {
+    return child(node, namespaceUri, localName).firstOrNull()?.let { stringValue(it) }
+}
+
+// endregion
 // region Accessors (5.10) node-name
 
 fun XmlAccessors.qname(node: Any): QName? = namespaceUri(node)?.let { QName(it, localName(node)) }

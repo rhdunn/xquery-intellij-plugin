@@ -20,6 +20,7 @@ import com.intellij.lang.properties.psi.PropertiesFile
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiElement
 import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
@@ -104,9 +105,10 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
 
     private fun computeDatabases(config: XmlTag?, accessors: XmlAccessors): List<MarkLogicDatabaseConfiguration>? {
         if (config == null) return null
-        val root = accessors.child(config, DATABASE_NAMESPACE, "databases").firstOrNull() ?: return null
-        return accessors.child(root, DATABASE_NAMESPACE, "database").mapTo(mutableListOf()) {
-            RoxyDatabaseConfiguration(it, accessors)
+        val root = accessors.child(config, RoxyDatabaseConfiguration.NAMESPACE, "databases").firstOrNull()
+            ?: return null
+        return accessors.child(root, RoxyDatabaseConfiguration.NAMESPACE, "database").mapTo(mutableListOf()) {
+            RoxyDatabaseConfiguration(it as PsiElement, accessors)
         }
     }
 
@@ -163,7 +165,5 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         private const val XQUERY_DIR = "xquery.dir"
 
         private val LOCALHOST_STRINGS = setOf("localhost", "127.0.0.1")
-
-        private const val DATABASE_NAMESPACE = "http://marklogic.com/xdmp/database"
     }
 }

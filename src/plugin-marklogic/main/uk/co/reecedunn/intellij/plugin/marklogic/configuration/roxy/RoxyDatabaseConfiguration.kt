@@ -15,13 +15,39 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy
 
+import com.intellij.openapi.util.Key
+import com.intellij.psi.PsiElement
+import com.intellij.psi.util.CachedValue
+import com.intellij.psi.util.CachedValueProvider
+import com.intellij.psi.util.CachedValuesManager
+import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.MarkLogicDatabaseConfiguration
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices.MarkLogicElementIndex
+import uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.indices.RoxyElementRangeIndex
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
+import uk.co.reecedunn.intellij.plugin.xdm.xml.child
 
-class RoxyDatabaseConfiguration(private val database: Any, private val accessors: XmlAccessors) :
+class RoxyDatabaseConfiguration(private val database: PsiElement, private val accessors: XmlAccessors) :
+    UserDataHolderBase(),
     MarkLogicDatabaseConfiguration {
+    companion object {
+        const val NAMESPACE: String = "http://marklogic.com/xdmp/database"
+
+        private val ELEMENT_INDICES = Key.create<CachedValue<List<MarkLogicElementIndex>>>("ELEMENT_INDICES")
+        private const val RANGE_ELEMENT_INDEXES = "range-element-indexes"
+        private const val RANGE_ELEMENT_INDEX = "range-element-index"
+    }
+
+    private fun computeElementIndices(): List<MarkLogicElementIndex>? {
+        val root = accessors.child(database, NAMESPACE, RANGE_ELEMENT_INDEXES).firstOrNull() ?: return null
+        return accessors.child(root, NAMESPACE, RANGE_ELEMENT_INDEX).mapTo(mutableListOf()) {
+            RoxyElementRangeIndex(it, accessors)
+        }
+    }
 
     override val elementIndices: List<MarkLogicElementIndex>
-        get() = emptyList()
+        get() = CachedValuesManager.getManager(database.project).getCachedValue(this, ELEMENT_INDICES, {
+            val indices = computeElementIndices() ?: emptyList()
+            CachedValueProvider.Result.create(indices, database)
+        }, false)
 }
