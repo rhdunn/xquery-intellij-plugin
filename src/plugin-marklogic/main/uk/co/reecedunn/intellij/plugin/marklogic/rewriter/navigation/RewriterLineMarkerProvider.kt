@@ -28,17 +28,18 @@ class RewriterLineMarkerProvider : LineMarkerProvider {
     override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? {
         if (element !is XQueryQueryBody) return null
 
-        return getModuleUriElements(element).takeIf { it.any() }?.let {
-            NavigationGutterIconBuilder.create(MarkLogicIcons.Markers.Endpoint)
-                .setTargets(it.toList())
-                .setTooltipText(PluginApiBundle.message("line-marker.rewriter-endpoint.tooltip-text"))
-                .setCellRenderer(RewriterListCellRenderer)
-                .createLineMarkerInfo(element)
-        }
+        val targets = getModuleUriElements(element)
+        if (targets.isEmpty()) return null
+
+        return NavigationGutterIconBuilder.create(MarkLogicIcons.Markers.Endpoint)
+            .setTargets(targets)
+            .setTooltipText(PluginApiBundle.message("line-marker.rewriter-endpoint.tooltip-text"))
+            .setCellRenderer(RewriterListCellRenderer)
+            .createLineMarkerInfo(element)
     }
 
-    private fun getModuleUriElements(element: XQueryQueryBody): Sequence<PsiElement> {
-        return Rewriter.getInstance().getEndpointGroups(element.project).asSequence().flatMap { group ->
+    private fun getModuleUriElements(element: XQueryQueryBody): List<PsiElement> {
+        return Rewriter.getInstance().getEndpointGroups(element.project).flatMap { group ->
             group.endpoints.filter { it.endpointTarget?.resolve() === element }.map { it.endpoint }
         }
     }
