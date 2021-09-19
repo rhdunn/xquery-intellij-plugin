@@ -18,9 +18,14 @@ package uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy
 import com.intellij.lang.properties.IProperty
 import com.intellij.lang.properties.psi.PropertiesFile
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Key
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.util.CachedValue
+import com.intellij.psi.util.CachedValueProvider
+import com.intellij.psi.util.CachedValuesManager
 import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
+import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.MarkLogicConfiguration
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
@@ -28,9 +33,11 @@ import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
+import java.util.*
 
 @Suppress("MemberVisibilityCanBePrivate")
 class RoxyProjectConfiguration(private val project: Project, override val baseDir: VirtualFile) :
+    UserDataHolderBase(),
     XpmProjectConfiguration,
     MarkLogicConfiguration {
     // region Roxy
@@ -85,10 +92,11 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
     // endregion
     // region MarkLogicConfiguration
 
-    private val configuration: XmlTag? by lazy {
-        val file = getVirtualFile(CONFIG_FILE)?.toPsiFile(project) as? XmlFile ?: return@lazy null
-        file.rootTag
-    }
+    private val configuration: XmlTag?
+        get() = CachedValuesManager.getManager(project).getCachedValue(this, CONFIGURATION, {
+            val file = getVirtualFile(CONFIG_FILE)?.toPsiFile(project) as? XmlFile
+            CachedValueProvider.Result.create(Optional.ofNullable(file?.rootTag), file, default, build, env)
+        }, false).orElse(null)
 
     // endregion
     // region XpmProjectConfiguration
@@ -125,6 +133,8 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
             val configurations = XpmProjectConfigurations.getInstance(project).configurations
             return configurations.filterIsInstance<RoxyProjectConfiguration>().first()
         }
+
+        private val CONFIGURATION = Key.create<CachedValue<Optional<XmlTag>>>("CONFIGURATION")
 
         private val ML_COMMAND = setOf("ml", "ml.bat")
 
