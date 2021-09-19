@@ -16,20 +16,27 @@
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
 import com.intellij.navigation.ItemPresentation
-import com.intellij.openapi.Disposable
-import com.intellij.openapi.extensions.ExtensionPointListener
-import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.ModificationTracker
 import com.intellij.psi.util.CachedValue
+import com.intellij.psi.util.CachedValueProvider
+import com.intellij.psi.util.CachedValuesManager
+import com.intellij.psi.util.PsiModificationTracker
 import uk.co.reecedunn.intellij.microservices.endpoints.*
+import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
+import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryBundle
+import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryIcons
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 @Suppress("unused")
 class RestXqEndpointsProvider :
-    EndpointsProvider<RestXqEndpointsGroup, RestXqEndpoint>,
-    ExtensionPointListener<EndpointsProvider<*, *>>,
-    Disposable {
+    UserDataHolderBase(),
+    EndpointsProvider<RestXqEndpointsGroup, RestXqEndpoint> {
     companion object {
         val GROUPS: Key<CachedValue<List<RestXqEndpointsGroup>>> = Key.create("GROUPS")
     }
@@ -37,16 +44,37 @@ class RestXqEndpointsProvider :
 
     override val endpointType: EndpointType = HTTP_SERVER_TYPE
 
-    override val presentation: FrameworkPresentation
-        get() = RestXqEndpointsFramework.presentation
-
+    override val presentation: FrameworkPresentation = FrameworkPresentation(
+        "xijp.exquery-restxq",
+        EXQueryBundle.message("endpoints.restxq.label"),
+        EXQueryIcons.RESTXQ.EndpointsFramework
+    )
 
     override fun getEndpointData(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint, dataId: String): Any? {
         return endpoint.getData(dataId)
     }
 
+    private fun getEndpointGroups(project: Project): List<RestXqEndpointsGroup> {
+        return CachedValuesManager.getManager(project).getCachedValue(this, GROUPS, {
+            val groups = ArrayList<RestXqEndpointsGroup>()
+            ProjectRootManager.getInstance(project).fileIndex.iterateContent {
+                val module = it.toPsiFile(project) as? XQueryModule
+                (module?.mainOrLibraryModule as? XQueryLibraryModule)?.prolog?.forEach { prolog ->
+                    val group = RestXqEndpointsGroup(prolog)
+                    if (group.endpoints.any()) {
+                        groups.add(group)
+                    }
+                }
+                true
+            }
+
+            val tracker = PsiModificationTracker.SERVICE.getInstance(project).forLanguage(XQuery)
+            CachedValueProvider.Result.create(groups, tracker)
+        }, false)
+    }
+
     override fun getEndpointGroups(project: Project, filter: EndpointsFilter): Iterable<RestXqEndpointsGroup> {
-        return RestXqEndpointsFramework.groups(project)
+        return getEndpointGroups(project)
     }
 
     override fun getEndpointPresentation(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint): ItemPresentation {
@@ -60,31 +88,11 @@ class RestXqEndpointsProvider :
     override fun getModificationTracker(project: Project): ModificationTracker = ModificationTracker.NEVER_CHANGED
 
     override fun getStatus(project: Project): EndpointsProviderStatus = when {
-        RestXqEndpointsFramework.groups(project).isNotEmpty() -> EndpointsProviderStatus.AVAILABLE
+        getEndpointGroups(project).isNotEmpty() -> EndpointsProviderStatus.AVAILABLE
         else -> EndpointsProviderStatus.HAS_ENDPOINTS
     }
 
     override fun isValidEndpoint(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint): Boolean = true
 
     // endregion
-    // region ExtensionPointListener
-
-    override fun extensionAdded(extension: EndpointsProvider<*, *>, pluginDescriptor: PluginDescriptor) {
-        RestXqEndpointsFramework.clearUserData(GROUPS)
-    }
-
-    override fun extensionRemoved(extension: EndpointsProvider<*, *>, pluginDescriptor: PluginDescriptor) {
-        RestXqEndpointsFramework.clearUserData(GROUPS)
-    }
-
-    // endregion
-    // region Disposable
-
-    override fun dispose() {
-    }
-
-    // endregion
-    init {
-        EndpointsProvider.EP_NAME.point.addExtensionPointListener(this, false, this)
-    }
 }
