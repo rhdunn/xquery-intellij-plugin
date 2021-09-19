@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration
+package uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy
 
 import com.intellij.lang.properties.IProperty
 import com.intellij.lang.properties.psi.PropertiesFile
@@ -26,7 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfi
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 
 @Suppress("MemberVisibilityCanBePrivate")
-class RoxyConfiguration(private val project: Project, override val baseDir: VirtualFile) : XpmProjectConfiguration {
+class RoxyProjectConfiguration(private val project: Project, override val baseDir: VirtualFile) :
+    XpmProjectConfiguration {
     // region Roxy
 
     private val deployDir = baseDir.findChild("deploy")
@@ -104,7 +105,7 @@ class RoxyConfiguration(private val project: Project, override val baseDir: Virt
 
     companion object : XpmProjectConfigurationFactory {
         override fun create(project: Project, baseDir: VirtualFile): XpmProjectConfiguration? {
-            return baseDir.children.find { ML_COMMAND.contains(it.name) }?.let { RoxyConfiguration(project, baseDir) }
+            return baseDir.children.find { ML_COMMAND.contains(it.name) }?.let { RoxyProjectConfiguration(project, baseDir) }
         }
 
         private val ML_COMMAND = setOf("ml", "ml.bat")
