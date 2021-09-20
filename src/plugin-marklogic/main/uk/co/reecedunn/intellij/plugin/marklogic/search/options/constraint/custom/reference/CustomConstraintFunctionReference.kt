@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.search.options
+package uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.reference
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
@@ -32,8 +32,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.model.fileProlog
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 import javax.swing.Icon
 
-class CustomFacetFunctionReference(element: PsiElement, private val node: Any, private val accessors: XmlAccessors) :
-    PsiReferenceBase<PsiElement>(element) {
+class CustomConstraintFunctionReference(
+    element: PsiElement,
+    private val node: Any,
+    private val accessors: XmlAccessors
+) : PsiReferenceBase<PsiElement>(element) {
     // region facet properties
 
     @Suppress("unused")
@@ -81,10 +84,10 @@ class CustomFacetFunctionReference(element: PsiElement, private val node: Any, p
     companion object : PsiReferenceProvider() {
         val REFERENCE_TYPES: Set<String> = setOf("parse", "start-facet", "finish-facet")
 
-        private fun fromAttribute(element: PsiElement): CustomFacetFunctionReference? {
+        private fun fromAttribute(element: PsiElement): CustomConstraintFunctionReference? {
             val (node, accessors) = XmlAccessorsProvider.attribute(element) ?: return null
             val parent = accessors.parent(node) ?: return null
-            return CustomFacetFunctionReference(element, parent, accessors)
+            return CustomConstraintFunctionReference(element, parent, accessors)
         }
 
         override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {

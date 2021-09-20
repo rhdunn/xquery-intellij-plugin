@@ -24,7 +24,7 @@ import com.intellij.psi.PsiReferenceContributor
 import com.intellij.psi.PsiReferenceRegistrar
 import com.intellij.psi.xml.XmlElementType
 import com.intellij.util.ProcessingContext
-import uk.co.reecedunn.intellij.plugin.marklogic.search.options.CustomFacetFunctionReference
+import uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.reference.CustomConstraintFunctionReference
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -33,7 +33,7 @@ class CustomFacetApplyReferenceContributor : PsiReferenceContributor(), ElementP
     // region PsiReferenceContributor
 
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
-        registrar.registerReferenceProvider(this, CustomFacetFunctionReference)
+        registrar.registerReferenceProvider(this, CustomConstraintFunctionReference)
     }
 
     // endregion

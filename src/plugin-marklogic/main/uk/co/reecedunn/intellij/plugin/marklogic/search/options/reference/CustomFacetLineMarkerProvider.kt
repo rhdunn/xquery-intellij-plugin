@@ -19,7 +19,7 @@ import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.marklogic.search.options.CustomFacetFunctionReference
+import uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.reference.CustomConstraintFunctionReference
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -37,7 +37,7 @@ class CustomFacetLineMarkerProvider : LineMarkerProvider {
         val facets = SearchOptions.getInstance().getCustomFacets(decl)
         if (facets.isEmpty()) return null
 
-        return NavigationGutterIconBuilder.create(CustomFacetFunctionReference.getIcon(facets[0].referenceType))
+        return NavigationGutterIconBuilder.create(CustomConstraintFunctionReference.getIcon(facets[0].referenceType))
             .setTargets(facets.map { it.element })
             .setTooltipText(PluginApiBundle.message("line-marker.search-facet.tooltip-text"))
             .setCellRenderer(CustomFacetListCellRenderer(facets))

@@ -32,7 +32,8 @@ import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.marklogic.search.options.CustomFacetFunctionReference.Companion.REFERENCE_TYPES
+import uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.reference.CustomConstraintFunctionReference
+import uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.reference.CustomConstraintFunctionReference.Companion.REFERENCE_TYPES
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.xml.hasNodeName
 import uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider
@@ -46,7 +47,7 @@ class SearchOptions : UserDataHolderBase() {
         const val NAMESPACE: String = "http://marklogic.com/appservices/search"
 
         private val OPTIONS = Key.create<CachedValue<List<PsiElement>>>("OPTIONS")
-        private val CUSTOM_FACET_REFS = Key.create<CachedValue<List<CustomFacetFunctionReference>>>("CUSTOM_FACET_REFS")
+        private val CUSTOM_FACET_REFS = Key.create<CachedValue<List<CustomConstraintFunctionReference>>>("CUSTOM_FACET_REFS")
 
         fun getInstance(): SearchOptions = ApplicationManager.getApplication().getService(SearchOptions::class.java)
     }
@@ -92,21 +93,21 @@ class SearchOptions : UserDataHolderBase() {
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
-    fun getCustomFacets(project: Project): List<CustomFacetFunctionReference> {
+    fun getCustomFacets(project: Project): List<CustomConstraintFunctionReference> {
         return CachedValuesManager.getManager(project).getCachedValue(this, CUSTOM_FACET_REFS, {
-            val refs = ArrayList<CustomFacetFunctionReference>()
+            val refs = ArrayList<CustomConstraintFunctionReference>()
             getSearchOptions(project).map { node ->
                 when (node) {
                     is XmlTag -> node.walkTree().filterIsInstance<XmlTag>().forEach { tag ->
                         val accessors = XmlPsiAccessorsProvider
                         if (accessors.hasNodeName(tag, NAMESPACE, REFERENCE_TYPES)) {
-                            refs.add(CustomFacetFunctionReference(tag, tag, accessors))
+                            refs.add(CustomConstraintFunctionReference(tag, tag, accessors))
                         }
                     }
                     is XdmElementNode -> node.walkTree().filterIsInstance<XdmElementNode>().forEach { element ->
                         val accessors = XQueryXmlAccessorsProvider
                         if (accessors.hasNodeName(element, NAMESPACE, REFERENCE_TYPES)) {
-                            refs.add(CustomFacetFunctionReference(element as PsiElement, element, accessors))
+                            refs.add(CustomConstraintFunctionReference(element as PsiElement, element, accessors))
                         }
                     }
                 }
@@ -115,7 +116,7 @@ class SearchOptions : UserDataHolderBase() {
         }, false)
     }
 
-    fun getCustomFacets(function: XpmFunctionDeclaration): List<CustomFacetFunctionReference> {
+    fun getCustomFacets(function: XpmFunctionDeclaration): List<CustomConstraintFunctionReference> {
         val name = function.functionName ?: return listOf()
         return getCustomFacets((name as PsiElement).project).filter { ref ->
             if (ref.apply != name.localName?.data) return@filter false

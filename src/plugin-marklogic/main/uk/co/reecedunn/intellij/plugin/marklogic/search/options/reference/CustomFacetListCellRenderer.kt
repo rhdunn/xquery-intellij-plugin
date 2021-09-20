@@ -18,10 +18,10 @@ package uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference
 import com.intellij.ide.util.PsiElementListCellRenderer
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
-import uk.co.reecedunn.intellij.plugin.marklogic.search.options.CustomFacetFunctionReference
+import uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.reference.CustomConstraintFunctionReference
 import javax.swing.Icon
 
-class CustomFacetListCellRenderer(private val facets: List<CustomFacetFunctionReference>) :
+class CustomFacetListCellRenderer(private val facets: List<CustomConstraintFunctionReference>) :
     PsiElementListCellRenderer<PsiElement>() {
     override fun getContainerText(element: PsiElement, name: String?): String = element.containingFile.resourcePath()
 
@@ -32,7 +32,7 @@ class CustomFacetListCellRenderer(private val facets: List<CustomFacetFunctionRe
 
     override fun getIcon(element: PsiElement?): Icon {
         val ref = facets.find { it.element === element }
-        return CustomFacetFunctionReference.getIcon(ref?.referenceType)
+        return CustomConstraintFunctionReference.getIcon(ref?.referenceType)
     }
 
     override fun getIconFlags(): Int = 0
