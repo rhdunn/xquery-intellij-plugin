@@ -12,7 +12,7 @@
     <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions"/>
     <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.reference.CustomConstraintModuleUriReferenceContributor"/>
     <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.reference.CustomConstraintFunctionReferenceContributor"/>
-    <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomFacetLineMarkerProvider"/>
+    <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.navigation.CustomConstraintLineMarkerProvider"/>
 
     <!-- XRay Unit Tests -->
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService"/>

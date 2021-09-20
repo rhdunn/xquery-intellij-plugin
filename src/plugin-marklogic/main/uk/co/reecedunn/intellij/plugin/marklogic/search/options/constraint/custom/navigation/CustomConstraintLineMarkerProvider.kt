@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference
+package uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.navigation
 
 import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
@@ -21,13 +21,14 @@ import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.reference.CustomConstraintFunctionReference
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions
+import uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomFacetListCellRenderer
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 
-class CustomFacetLineMarkerProvider : LineMarkerProvider {
+class CustomConstraintLineMarkerProvider : LineMarkerProvider {
     override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? {
         if (element !is XmlNCNameImpl || element.prevSibling != null) return null
 
