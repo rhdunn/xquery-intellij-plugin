@@ -6,7 +6,7 @@
     <completion.contributor language="XML" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion.RewriterCompletionContributor"/>
     <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion.RewriterCompletionContributor"/>
     <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.RewriterReferenceContributor"/>
-    <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.RewriterLineMarkerProvider"/>
+    <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.navigation.RewriterLineMarkerProvider"/>
 
     <!-- Search Options XML -->
     <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions"/>
