@@ -36,7 +36,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.xml.child
 import uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
-import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import java.util.*
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -147,11 +146,6 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
             return baseDir.children.find { ML_COMMAND.contains(it.name) }?.let {
                 RoxyProjectConfiguration(project, baseDir)
             }
-        }
-
-        fun getInstance(project: Project): RoxyProjectConfiguration {
-            val configurations = XpmProjectConfigurations.getInstance(project).configurations
-            return configurations.filterIsInstance<RoxyProjectConfiguration>().first()
         }
 
         private val CONFIGURATION = Key.create<CachedValue<Optional<XmlTag>>>("CONFIGURATION")

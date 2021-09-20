@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
-import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmDatabaseConfiguration
 
 class GradleProjectConfiguration(private val project: Project, override val baseDir: VirtualFile) :
@@ -80,11 +79,6 @@ class GradleProjectConfiguration(private val project: Project, override val base
         override fun create(project: Project, baseDir: VirtualFile): XpmProjectConfiguration? {
             val properties = baseDir.findChild(GRADLE_PROPERTIES)?.toPsiFile(project) as? PropertiesFile ?: return null
             return properties.findPropertyByKey(ML_APP_NAME)?.let { GradleProjectConfiguration(project, baseDir) }
-        }
-
-        fun getInstance(project: Project): GradleProjectConfiguration {
-            val configurations = XpmProjectConfigurations.getInstance(project).configurations
-            return configurations.filterIsInstance<GradleProjectConfiguration>().first()
         }
 
         private const val GRADLE_PROPERTIES = "gradle.properties"
