@@ -17,30 +17,30 @@ package uk.co.reecedunn.intellij.plugin.xdm.xml
 
 fun XmlAccessors.child(node: Any, namespaceUri: String, localName: String): Sequence<Any> {
     return children(node).filter {
-        nodeKind(node) == NodeKind.Element && hasNodeName(node, namespaceUri, localName)
+        nodeKind(it) === NodeKind.Element && hasNodeName(it, namespaceUri, localName)
     }
 }
 
 fun XmlAccessors.child(node: Any, nodeKind: NodeKind): Sequence<Any> {
-    return children(node).filter { nodeKind(node) == nodeKind }
+    return children(node).filter { nodeKind(it) === nodeKind }
 }
 
 fun XmlAccessors.parent(node: Any, namespaceUri: String, localName: String): Any? {
     return parent(node).takeIf {
-        nodeKind(node) == NodeKind.Element && hasNodeName(node, namespaceUri, localName)
+        it != null && nodeKind(it) === NodeKind.Element && hasNodeName(it, namespaceUri, localName)
     }
 }
 
 fun XmlAccessors.parent(node: Any, nodeKind: NodeKind): Any? {
-    return parent(node).takeIf { nodeKind(node) == nodeKind }
+    return parent(node).takeIf { it != null && nodeKind(it) === nodeKind }
 }
 
 fun XmlAccessors.self(node: Any, namespaceUri: String, localName: String): Any? {
     return node.takeIf {
-        nodeKind(node) == NodeKind.Element && hasNodeName(node, namespaceUri, localName)
+        nodeKind(it) === NodeKind.Element && hasNodeName(it, namespaceUri, localName)
     }
 }
 
 fun XmlAccessors.self(node: Any, nodeKind: NodeKind): Any? {
-    return node.takeIf { nodeKind(node) == nodeKind }
+    return node.takeIf { nodeKind(it) === nodeKind }
 }
