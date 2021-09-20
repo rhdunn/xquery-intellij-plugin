@@ -21,7 +21,7 @@ import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
-import uk.co.reecedunn.intellij.plugin.marklogic.configuration.MarkLogicDatabaseConfiguration
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmDatabaseConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmAttributeIndex
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmElementIndex
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.indices.RoxyAttributeRangeIndex
@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.xml.child
 
 class RoxyDatabaseConfiguration(private val database: PsiElement, private val accessors: XmlAccessors) :
     UserDataHolderBase(),
-    MarkLogicDatabaseConfiguration {
+    XpmDatabaseConfiguration {
     companion object {
         const val NAMESPACE: String = "http://marklogic.com/xdmp/database"
 

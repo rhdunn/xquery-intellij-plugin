@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.configuration
 
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmDatabaseConfiguration
+
 interface MarkLogicConfiguration {
-    val databases: List<MarkLogicDatabaseConfiguration>
+    val databases: List<XpmDatabaseConfiguration>
 }

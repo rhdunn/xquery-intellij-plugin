@@ -13,12 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.configuration
+package uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database
 
-import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmAttributeIndex
-import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmElementIndex
-
-interface MarkLogicDatabaseConfiguration {
+interface XpmDatabaseConfiguration {
     val elementIndices: List<XpmElementIndex>
 
     val attributeIndices: List<XpmAttributeIndex>

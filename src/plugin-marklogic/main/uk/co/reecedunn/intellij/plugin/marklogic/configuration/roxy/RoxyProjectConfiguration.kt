@@ -29,7 +29,7 @@ import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.MarkLogicConfiguration
-import uk.co.reecedunn.intellij.plugin.marklogic.configuration.MarkLogicDatabaseConfiguration
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmDatabaseConfiguration
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
@@ -105,7 +105,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
             CachedValueProvider.Result.create(Optional.ofNullable(file?.rootTag), cacheDependencies(file))
         }, false).orElse(null)
 
-    private fun computeDatabases(config: XmlTag?, accessors: XmlAccessors): List<MarkLogicDatabaseConfiguration>? {
+    private fun computeDatabases(config: XmlTag?, accessors: XmlAccessors): List<XpmDatabaseConfiguration>? {
         if (config == null) return null
         val root = accessors.child(config, RoxyDatabaseConfiguration.NAMESPACE, "databases").firstOrNull()
             ?: return null
@@ -114,7 +114,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         }
     }
 
-    override val databases: List<MarkLogicDatabaseConfiguration>
+    override val databases: List<XpmDatabaseConfiguration>
         get() = CachedValuesManager.getManager(project).getCachedValue(this, DATABASES, {
             val databases = computeDatabases(configuration, XmlPsiAccessorsProvider) ?: emptyList()
             CachedValueProvider.Result.create(databases, cacheDependencies(configuration))
@@ -157,7 +157,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         }
 
         private val CONFIGURATION = Key.create<CachedValue<Optional<XmlTag>>>("CONFIGURATION")
-        private val DATABASES = Key.create<CachedValue<List<MarkLogicDatabaseConfiguration>>>("DATABASES")
+        private val DATABASES = Key.create<CachedValue<List<XpmDatabaseConfiguration>>>("DATABASES")
 
         private val ML_COMMAND = setOf("ml", "ml.bat")
 
