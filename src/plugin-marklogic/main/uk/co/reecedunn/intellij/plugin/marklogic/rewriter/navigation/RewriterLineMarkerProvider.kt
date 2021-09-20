@@ -23,7 +23,6 @@ import com.intellij.psi.impl.source.tree.LeafElement
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.Rewriter
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpoint
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.RewriterListCellRenderer
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
