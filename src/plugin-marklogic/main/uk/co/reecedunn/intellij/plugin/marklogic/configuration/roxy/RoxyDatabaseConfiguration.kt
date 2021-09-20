@@ -22,7 +22,7 @@ import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.MarkLogicDatabaseConfiguration
-import uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices.MarkLogicAttributeIndex
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmAttributeIndex
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmElementIndex
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.indices.RoxyAttributeRangeIndex
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.indices.RoxyElementRangeIndex
@@ -39,7 +39,7 @@ class RoxyDatabaseConfiguration(private val database: PsiElement, private val ac
         private const val RANGE_ELEMENT_INDEXES = "range-element-indexes"
         private const val RANGE_ELEMENT_INDEX = "range-element-index"
 
-        private val ATTRIBUTE_INDICES = Key.create<CachedValue<List<MarkLogicAttributeIndex>>>("ATTRIBUTE_INDICES")
+        private val ATTRIBUTE_INDICES = Key.create<CachedValue<List<XpmAttributeIndex>>>("ATTRIBUTE_INDICES")
         private const val RANGE_ELEMENT_ATTRIBUTE_INDEXES = "range-element-attribute-indexes"
         private const val RANGE_ELEMENT_ATTRIBUTE_INDEX = "range-element-attribute-index"
     }
@@ -57,14 +57,14 @@ class RoxyDatabaseConfiguration(private val database: PsiElement, private val ac
             CachedValueProvider.Result.create(indices, database)
         }, false)
 
-    private fun computeAttributeIndices(): List<MarkLogicAttributeIndex>? {
+    private fun computeAttributeIndices(): List<XpmAttributeIndex>? {
         val root = accessors.child(database, NAMESPACE, RANGE_ELEMENT_ATTRIBUTE_INDEXES).firstOrNull() ?: return null
         return accessors.child(root, NAMESPACE, RANGE_ELEMENT_ATTRIBUTE_INDEX).mapTo(mutableListOf()) {
             RoxyAttributeRangeIndex(it, accessors)
         }
     }
 
-    override val attributeIndices: List<MarkLogicAttributeIndex>
+    override val attributeIndices: List<XpmAttributeIndex>
         get() = CachedValuesManager.getManager(database.project).getCachedValue(this, ATTRIBUTE_INDICES, {
             val indices = computeAttributeIndices() ?: emptyList()
             CachedValueProvider.Result.create(indices, database)

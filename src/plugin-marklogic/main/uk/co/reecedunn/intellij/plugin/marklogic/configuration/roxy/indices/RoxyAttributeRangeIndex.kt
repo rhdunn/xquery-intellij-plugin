@@ -15,13 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.indices
 
-import uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices.MarkLogicAttributeIndex
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmAttributeIndex
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.RoxyDatabaseConfiguration
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.childStringValue
 
 class RoxyAttributeRangeIndex(private val index: Any, private val accessors: XmlAccessors) :
-    MarkLogicAttributeIndex {
+    XpmAttributeIndex {
     companion object {
         private const val SCALAR_TYPE = "scalar-type"
         private const val PARENT_NAMESPACE_URI = "parent-namespace-uri"
