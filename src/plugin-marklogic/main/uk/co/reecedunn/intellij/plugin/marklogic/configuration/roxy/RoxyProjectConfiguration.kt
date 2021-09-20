@@ -57,6 +57,8 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
     private val build: PropertiesFile? = getPropertiesFile("build") // Project-specific properties
     private var env: PropertiesFile? = getPropertiesFile("local") // Environment-specific properties
 
+    private fun cacheDependencies(context: PsiElement?): List<Any> = listOfNotNull(context, default, build, env)
+
     private fun getProperty(property: String): Sequence<IProperty> = sequenceOf(
         env?.findPropertyByKey(property),
         build?.findPropertyByKey(property),
@@ -100,7 +102,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
     private val configuration: XmlTag?
         get() = CachedValuesManager.getManager(project).getCachedValue(this, CONFIGURATION, {
             val file = getVirtualFile(CONFIG_FILE)?.toPsiFile(project) as? XmlFile
-            CachedValueProvider.Result.create(Optional.ofNullable(file?.rootTag), file, default, build, env)
+            CachedValueProvider.Result.create(Optional.ofNullable(file?.rootTag), cacheDependencies(file))
         }, false).orElse(null)
 
     private fun computeDatabases(config: XmlTag?, accessors: XmlAccessors): List<MarkLogicDatabaseConfiguration>? {
@@ -115,7 +117,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
     override val databases: List<MarkLogicDatabaseConfiguration>
         get() = CachedValuesManager.getManager(project).getCachedValue(this, DATABASES, {
             val databases = computeDatabases(configuration, XmlPsiAccessorsProvider) ?: emptyList()
-            CachedValueProvider.Result.create(databases, configuration, default, build, env)
+            CachedValueProvider.Result.create(databases, cacheDependencies(configuration))
         }, false)
 
     // endregion
