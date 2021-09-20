@@ -16,10 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.configuration
 
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices.MarkLogicAttributeIndex
-import uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices.MarkLogicElementIndex
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmElementIndex
 
 interface MarkLogicDatabaseConfiguration {
-    val elementIndices: List<MarkLogicElementIndex>
+    val elementIndices: List<XpmElementIndex>
 
     val attributeIndices: List<MarkLogicAttributeIndex>
 }

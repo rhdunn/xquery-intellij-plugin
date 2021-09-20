@@ -15,13 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.indices
 
-import uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices.MarkLogicElementIndex
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmElementIndex
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.RoxyDatabaseConfiguration
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.childStringValue
 
 class RoxyElementRangeIndex(private val index: Any, private val accessors: XmlAccessors) :
-    MarkLogicElementIndex {
+    XpmElementIndex {
     companion object {
         private const val SCALAR_TYPE = "scalar-type"
         private const val NAMESPACE_URI = "namespace-uri"

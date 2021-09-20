@@ -23,7 +23,7 @@ import com.intellij.psi.util.CachedValuesManager
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.MarkLogicDatabaseConfiguration
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices.MarkLogicAttributeIndex
-import uk.co.reecedunn.intellij.plugin.marklogic.configuration.indices.MarkLogicElementIndex
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmElementIndex
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.indices.RoxyAttributeRangeIndex
 import uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.indices.RoxyElementRangeIndex
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
@@ -35,7 +35,7 @@ class RoxyDatabaseConfiguration(private val database: PsiElement, private val ac
     companion object {
         const val NAMESPACE: String = "http://marklogic.com/xdmp/database"
 
-        private val ELEMENT_INDICES = Key.create<CachedValue<List<MarkLogicElementIndex>>>("ELEMENT_INDICES")
+        private val ELEMENT_INDICES = Key.create<CachedValue<List<XpmElementIndex>>>("ELEMENT_INDICES")
         private const val RANGE_ELEMENT_INDEXES = "range-element-indexes"
         private const val RANGE_ELEMENT_INDEX = "range-element-index"
 
@@ -44,14 +44,14 @@ class RoxyDatabaseConfiguration(private val database: PsiElement, private val ac
         private const val RANGE_ELEMENT_ATTRIBUTE_INDEX = "range-element-attribute-index"
     }
 
-    private fun computeElementIndices(): List<MarkLogicElementIndex>? {
+    private fun computeElementIndices(): List<XpmElementIndex>? {
         val root = accessors.child(database, NAMESPACE, RANGE_ELEMENT_INDEXES).firstOrNull() ?: return null
         return accessors.child(root, NAMESPACE, RANGE_ELEMENT_INDEX).mapTo(mutableListOf()) {
             RoxyElementRangeIndex(it, accessors)
         }
     }
 
-    override val elementIndices: List<MarkLogicElementIndex>
+    override val elementIndices: List<XpmElementIndex>
         get() = CachedValuesManager.getManager(database.project).getCachedValue(this, ELEMENT_INDICES, {
             val indices = computeElementIndices() ?: emptyList()
             CachedValueProvider.Result.create(indices, database)
