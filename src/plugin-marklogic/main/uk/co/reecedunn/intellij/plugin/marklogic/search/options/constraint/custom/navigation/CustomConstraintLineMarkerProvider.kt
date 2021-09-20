@@ -21,7 +21,6 @@ import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.reference.CustomConstraintFunctionReference
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions
-import uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomFacetListCellRenderer
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference
+package uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.navigation
 
 import com.intellij.ide.util.PsiElementListCellRenderer
 import com.intellij.psi.PsiElement
