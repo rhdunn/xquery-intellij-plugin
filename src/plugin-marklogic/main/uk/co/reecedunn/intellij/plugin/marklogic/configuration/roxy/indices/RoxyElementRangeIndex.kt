@@ -28,12 +28,15 @@ class RoxyElementRangeIndex(private val index: Any, private val accessors: XmlAc
         private const val LOCAL_NAME = "localname"
     }
 
-    override val schemaType: String
-        get() = accessors.childStringValue(index, RoxyDatabaseConfiguration.NAMESPACE, SCALAR_TYPE) ?: ""
+    override val schemaType: String by lazy {
+        accessors.childStringValue(index, RoxyDatabaseConfiguration.NAMESPACE, SCALAR_TYPE) ?: ""
+    }
 
-    override val namespaceUri: String
-        get() = accessors.childStringValue(index, RoxyDatabaseConfiguration.NAMESPACE, NAMESPACE_URI) ?: ""
+    override val namespaceUri: String by lazy {
+        accessors.childStringValue(index, RoxyDatabaseConfiguration.NAMESPACE, NAMESPACE_URI) ?: ""
+    }
 
-    override val localName: String
-        get() = accessors.childStringValue(index, RoxyDatabaseConfiguration.NAMESPACE, LOCAL_NAME) ?: ""
+    override val localName: String by lazy {
+        accessors.childStringValue(index, RoxyDatabaseConfiguration.NAMESPACE, LOCAL_NAME) ?: ""
+    }
 }
