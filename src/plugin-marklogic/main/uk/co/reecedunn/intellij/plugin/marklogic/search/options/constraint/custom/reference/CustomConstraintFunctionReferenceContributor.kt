@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference
+package uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.reference
 
 import com.intellij.patterns.ElementPattern
 import com.intellij.patterns.ElementPatternCondition
@@ -24,12 +24,11 @@ import com.intellij.psi.PsiReferenceContributor
 import com.intellij.psi.PsiReferenceRegistrar
 import com.intellij.psi.xml.XmlElementType
 import com.intellij.util.ProcessingContext
-import uk.co.reecedunn.intellij.plugin.marklogic.search.options.constraint.custom.reference.CustomConstraintFunctionReference
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
-class CustomFacetApplyReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
+class CustomConstraintFunctionReferenceContributor : PsiReferenceContributor(), ElementPattern<PsiElement> {
     // region PsiReferenceContributor
 
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
