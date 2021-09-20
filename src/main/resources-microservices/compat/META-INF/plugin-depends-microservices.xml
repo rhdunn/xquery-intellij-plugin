@@ -1,7 +1,2 @@
 <idea-plugin>
-    <extensionPoints>
-        <extensionPoint qualifiedName="com.intellij.microservices.endpointsProvider" interface="uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider" dynamic="true">
-            <with attribute="interface" implements="uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider"/>
-        </extensionPoint>
-    </extensionPoints>
 </idea-plugin>

@@ -2,7 +2,6 @@
   <extensions defaultExtensionNs="com.intellij">
     <!-- Rewriter XML -->
     <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.Rewriter"/>
-    <microservices.endpointsProvider implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpointsProvider"/>
     <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.ModelTypeRegexLanguageInjection"/>
     <completion.contributor language="XML" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion.RewriterCompletionContributor"/>
     <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion.RewriterCompletionContributor"/>

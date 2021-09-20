@@ -1,5 +1,0 @@
-<idea-plugin>
-    <extensions defaultExtensionNs="com.intellij">
-        <microservices.endpointsProvider implementation="uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints.RestXqEndpointsProvider"/>
-    </extensions>
-</idea-plugin>

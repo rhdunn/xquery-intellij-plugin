@@ -1,2 +1,6 @@
 <idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <microservices.endpointsProvider implementation="uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints.RestXqEndpointsProvider"/>
+        <microservices.endpointsProvider implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpointsProvider"/>
+    </extensions>
 </idea-plugin>
