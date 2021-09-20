@@ -28,7 +28,6 @@ import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.marklogic.configuration.MarkLogicConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmDatabaseConfiguration
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
@@ -43,9 +42,8 @@ import java.util.*
 @Suppress("MemberVisibilityCanBePrivate")
 class RoxyProjectConfiguration(private val project: Project, override val baseDir: VirtualFile) :
     UserDataHolderBase(),
-    XpmProjectConfiguration,
-    MarkLogicConfiguration {
-    // region Roxy
+    XpmProjectConfiguration {
+    // region properties file
 
     private val deployDir = baseDir.findChild("deploy")
 
@@ -97,7 +95,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
     }
 
     // endregion
-    // region MarkLogicConfiguration
+    // region configuration file
 
     private val configuration: XmlTag?
         get() = CachedValuesManager.getManager(project).getCachedValue(this, CONFIGURATION, {
@@ -113,12 +111,6 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
             RoxyDatabaseConfiguration(it as PsiElement, accessors)
         }
     }
-
-    override val databases: List<XpmDatabaseConfiguration>
-        get() = CachedValuesManager.getManager(project).getCachedValue(this, DATABASES, {
-            val databases = computeDatabases(configuration, XmlPsiAccessorsProvider) ?: emptyList()
-            CachedValueProvider.Result.create(databases, cacheDependencies(configuration))
-        }, false)
 
     // endregion
     // region XpmProjectConfiguration
@@ -142,6 +134,12 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
 
     override val databaseName: String?
         get() = getPropertyValue(CONTENT_DB)
+
+    override val databases: List<XpmDatabaseConfiguration>
+        get() = CachedValuesManager.getManager(project).getCachedValue(this, DATABASES, {
+            val databases = computeDatabases(configuration, XmlPsiAccessorsProvider) ?: emptyList()
+            CachedValueProvider.Result.create(databases, cacheDependencies(configuration))
+        }, false)
 
     // endregion
     companion object : XpmProjectConfigurationFactory {

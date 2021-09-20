@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.project.configuration
 
 import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmDatabaseConfiguration
 
 interface XpmProjectConfiguration {
     val baseDir: VirtualFile
@@ -29,4 +30,6 @@ interface XpmProjectConfiguration {
     val processorId: Int?
 
     val databaseName: String?
+
+    val databases: List<XpmDatabaseConfiguration>
 }

@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.database.XpmDatabaseConfiguration
 
 class GradleProjectConfiguration(private val project: Project, override val baseDir: VirtualFile) :
     XpmProjectConfiguration {
@@ -70,6 +71,9 @@ class GradleProjectConfiguration(private val project: Project, override val base
 
     override val databaseName: String?
         get() = getPropertyValue(ML_CONTENT_DATABASE_NAME) ?: applicationName?.let { "$it-content" }
+
+    override val databases: List<XpmDatabaseConfiguration>
+        get() = emptyList()
 
     // endregion
     companion object : XpmProjectConfigurationFactory {
