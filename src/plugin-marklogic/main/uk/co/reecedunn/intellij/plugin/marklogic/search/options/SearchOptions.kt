@@ -93,7 +93,7 @@ class SearchOptions : UserDataHolderBase() {
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
-    fun getCustomFacets(project: Project): List<CustomConstraintFunctionReference> {
+    fun getCustomConstraintFunctionReferences(project: Project): List<CustomConstraintFunctionReference> {
         return CachedValuesManager.getManager(project).getCachedValue(this, CUSTOM_FACET_REFS, {
             val refs = ArrayList<CustomConstraintFunctionReference>()
             getSearchOptions(project).map { node ->
@@ -116,9 +116,9 @@ class SearchOptions : UserDataHolderBase() {
         }, false)
     }
 
-    fun getCustomFacets(function: XpmFunctionDeclaration): List<CustomConstraintFunctionReference> {
+    fun getCustomConstraintFunctionReferences(function: XpmFunctionDeclaration): List<CustomConstraintFunctionReference> {
         val name = function.functionName ?: return listOf()
-        return getCustomFacets((name as PsiElement).project).filter { ref ->
+        return getCustomConstraintFunctionReferences((name as PsiElement).project).filter { ref ->
             if (ref.apply != name.localName?.data) return@filter false
 
             val module = name.containingFile as XQueryModule

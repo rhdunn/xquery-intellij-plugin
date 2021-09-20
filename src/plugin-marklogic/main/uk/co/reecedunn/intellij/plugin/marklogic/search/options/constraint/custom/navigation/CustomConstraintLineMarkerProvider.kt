@@ -34,7 +34,7 @@ class CustomConstraintLineMarkerProvider : LineMarkerProvider {
         val qname = element.parent as? XsQNameValue ?: return null
         val decl = qname.element?.parent as? XQueryFunctionDecl ?: return null
 
-        val facets = SearchOptions.getInstance().getCustomFacets(decl)
+        val facets = SearchOptions.getInstance().getCustomConstraintFunctionReferences(decl)
         if (facets.isEmpty()) return null
 
         return NavigationGutterIconBuilder.create(CustomConstraintFunctionReference.getIcon(facets[0].referenceType))
