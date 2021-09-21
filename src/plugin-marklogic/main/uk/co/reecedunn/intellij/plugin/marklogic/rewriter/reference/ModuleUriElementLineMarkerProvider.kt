@@ -21,6 +21,7 @@ import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpointsFramework
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.navigation.RewriterListCellRenderer
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
@@ -32,7 +33,7 @@ class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
             NavigationGutterIconBuilder.create(MarkLogicIcons.Markers.Endpoint)
                 .setTargets(it.toList())
                 .setTooltipText(PluginApiBundle.message("line-marker.rewriter-endpoint.tooltip-text"))
-                .setCellRenderer(ModuleUriElementListCellRenderer)
+                .setCellRenderer(RewriterListCellRenderer)
                 .createLineMarkerInfo(element)
         }
     }
