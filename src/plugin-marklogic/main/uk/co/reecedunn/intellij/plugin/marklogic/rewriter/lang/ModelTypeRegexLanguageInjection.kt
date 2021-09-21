@@ -19,17 +19,18 @@ import com.intellij.lang.injection.MultiHostInjector
 import com.intellij.lang.injection.MultiHostRegistrar
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
+import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
 import org.intellij.lang.regexp.RegExpLanguage
 import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
-import uk.co.reecedunn.intellij.plugin.core.xml.attribute
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.Rewriter
 
 class ModelTypeRegexLanguageInjection : MultiHostInjector {
     override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> = ELEMENTS_TO_INJECT_IN
 
     override fun getLanguagesToInject(registrar: MultiHostRegistrar, context: PsiElement) {
-        val attribute = context.contextOfType<XmlAttributeValue>(false)?.attribute ?: return
+        val attribute = context.contextOfType<XmlAttributeValue>(false)?.parent as? XmlAttribute ?: return
         if (attribute.localName != "matches" || !isModelTypeRegex(attribute.parent)) return
 
         val host = context as PsiLanguageInjectionHost

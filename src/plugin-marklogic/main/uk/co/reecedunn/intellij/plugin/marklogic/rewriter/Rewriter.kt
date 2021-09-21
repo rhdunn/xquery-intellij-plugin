@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang
+package uk.co.reecedunn.intellij.plugin.marklogic.rewriter
 
 object Rewriter {
     const val NAMESPACE: String = "http://marklogic.com/xdmp/rewriter"

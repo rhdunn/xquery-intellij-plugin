@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.plugin.core.xml.descendants
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.Rewriter
 import javax.swing.Icon
 
 class RewriterEndpointsGroup(private val rewriter: XmlTag) : EndpointsGroup, ItemPresentation, DataProvider {
