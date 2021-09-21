@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference
+package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.navigation
 
 import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
@@ -21,11 +21,10 @@ import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpointsFramework
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.navigation.RewriterListCellRenderer
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
-class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
+class RewriterLineMarkerProvider : LineMarkerProvider {
     override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? {
         if (element !is XQueryQueryBody) return null
 
