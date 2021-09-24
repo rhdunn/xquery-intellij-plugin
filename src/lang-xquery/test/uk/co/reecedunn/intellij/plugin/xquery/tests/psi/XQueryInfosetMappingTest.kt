@@ -544,7 +544,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                     "element a { namespace { 'one' || 'two' } { 'urn:test' } }"
                 )[0] as XdmNamespaceNode
 
-                assertThat(node.namespacePrefix?.data, `is`(nullValue()))
+                assertThat(node.namespacePrefix, `is`(nullValue()))
             }
 
             @Test
@@ -555,6 +555,44 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 )[0] as XdmNamespaceNode
 
                 assertThat(node.namespacePrefix?.data, `is`(""))
+            }
+        }
+
+        @Nested
+        @DisplayName("Accessors (5.14) typed-value")
+        internal inner class TypedValue {
+            @Test
+            @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
+            fun stringLiteral() {
+                val node = parse<XQueryCompNamespaceConstructor>(
+                    "element a { namespace { 'one' } { 'urn:test' } }"
+                )[0] as XdmNamespaceNode
+
+                assertThat(node.namespaceUri?.data, `is`("urn:test"))
+                assertThat(node.namespaceUri?.context, `is`(XdmUriContext.Namespace))
+                assertThat(node.namespaceUri?.moduleTypes, `is`(XdmModuleType.NONE))
+            }
+
+            @Test
+            @DisplayName("complex expression")
+            fun complexExpression() {
+                val node = parse<XQueryCompNamespaceConstructor>(
+                    "element a { namespace { 'one' } { 'urn:' || 'test' } }"
+                )[0] as XdmNamespaceNode
+
+                assertThat(node.namespaceUri, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("empty expression")
+            fun emptyExpression() {
+                val node = parse<XQueryCompNamespaceConstructor>(
+                    "element a { namespace { 'one' } { } }"
+                )[0] as XdmNamespaceNode
+
+                assertThat(node.namespaceUri?.data, `is`(""))
+                assertThat(node.namespaceUri?.context, `is`(XdmUriContext.Namespace))
+                assertThat(node.namespaceUri?.moduleTypes, `is`(XdmModuleType.NONE))
             }
         }
     }

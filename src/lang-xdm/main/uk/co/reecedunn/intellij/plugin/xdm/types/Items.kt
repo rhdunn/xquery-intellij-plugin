@@ -81,6 +81,8 @@ interface XdmCommentNode : XdmNode
 
 interface XdmNamespaceNode : XdmNode {
     val namespacePrefix: XsNCNameValue?
+
+    val namespaceUri: XsAnyUriValue?
 }
 
 object XdmNamespaceItem : XdmItemType {

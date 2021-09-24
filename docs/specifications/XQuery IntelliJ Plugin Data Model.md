@@ -1185,6 +1185,8 @@ node binds to. This can have one of the following values:
    be determined, e.g. if evaluating a complex expression statically that
    is dependent on the dynamic context.
 
+The *namespace uri* property corresponds to the `dm:typed-value` accessor.
+
 ##### 5.7.3.5 Processing Instruction Nodes
 
 | Symbol              | Interface                      |

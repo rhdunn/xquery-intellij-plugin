@@ -104,3 +104,11 @@ fun PsiElement.prevSiblingIfSelf(predicate: (PsiElement) -> Boolean): PsiElement
     predicate(this) -> prevSibling ?: this
     else -> this
 }
+
+fun PsiElement.prevSiblingWhileSelf(predicate: (PsiElement) -> Boolean): PsiElement {
+    var prev = this
+    while (predicate(prev)) {
+        prev = prevSibling ?: return prev
+    }
+    return prev
+}
