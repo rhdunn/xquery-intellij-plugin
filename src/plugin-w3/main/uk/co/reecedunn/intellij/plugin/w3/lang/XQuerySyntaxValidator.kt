@@ -151,11 +151,6 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
-        is XQueryEnclosedURIExpr -> when (element.conformanceElement.elementType) {
-            XPathTokenType.BLOCK_OPEN -> reporter.requires(element, XQUERY_3_1)
-            else -> {
-            }
-        }
         is XQueryFunctionDecl -> when (element.conformanceElement.elementType) {
             XPathTokenType.BLOCK_OPEN -> reporter.requires(element, XQUERY_3_1)
             else -> {
