@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirNamespaceAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompDocConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompNamespaceConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
@@ -145,6 +146,93 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
+            }
+        }
+
+        @Nested
+        @DisplayName("Accessors (5.11) parent")
+        inner class Parent {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
+            fun dirElemConstructor() {
+                val node = parse<XQueryDirElemConstructor>("<lorem><ipsum/></lorem>")[1]
+
+                val parent = node.parentNode
+                assertThat(parent, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+                assertThat(qname_presentation((parent as XQueryDirElemConstructor).nodeName!!), `is`("lorem"))
+            }
+
+            @Test
+            @DisplayName("expression")
+            fun expression() {
+                val node = parse<XQueryDirElemConstructor>("<lorem><ipsum/></lorem>")[0]
+                assertThat(node.parentNode, `is`(nullValue()))
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (156) CompDocConstructor")
+            inner class CompDocConstructor {
+                @Test
+                @DisplayName("single item expression")
+                fun single() {
+                    val node = parse<XQueryDirElemConstructor>("document { <ipsum/> }")[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryCompDocConstructor::class.java)))
+                }
+
+                @Test
+                @DisplayName("multiple item expression")
+                fun multiple() {
+                    val node = parse<XQueryDirElemConstructor>("document { <ipsum/> , <dolor/> }")[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryCompDocConstructor::class.java)))
+                }
+
+                @Test
+                @DisplayName("complex expression")
+                fun complex() {
+                    val node = parse<XQueryDirElemConstructor>(
+                        "document { if (true()) then <ipsum/> else () }"
+                    )[0]
+
+                    assertThat(node.parentNode, `is`(nullValue()))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
+            inner class CompElemConstructor {
+                @Test
+                @DisplayName("single item expression")
+                fun single() {
+                    val node = parse<XQueryDirElemConstructor>("element lorem { <ipsum/> }")[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryCompElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryCompElemConstructor).nodeName!!), `is`("lorem"))
+                }
+
+                @Test
+                @DisplayName("multiple item expression")
+                fun multiple() {
+                    val node = parse<XQueryDirElemConstructor>("element lorem { <ipsum/> , <dolor/> }")[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryCompElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryCompElemConstructor).nodeName!!), `is`("lorem"))
+                }
+
+                @Test
+                @DisplayName("complex expression")
+                fun complex() {
+                    val node = parse<XQueryDirElemConstructor>(
+                        "element lorem { if (true()) then <ipsum/> else () }"
+                    )[0]
+
+                    assertThat(node.parentNode, `is`(nullValue()))
+                }
             }
         }
 
@@ -461,6 +549,123 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 )[0] as XdmElementNode
 
                 assertThat(node.nodeName, `is`(nullValue()))
+            }
+        }
+
+        @Nested
+        @DisplayName("Accessors (5.11) parent")
+        inner class Parent {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
+            inner class DirElemConstructor {
+                @Test
+                @DisplayName("single item expression")
+                fun single() {
+                    val node = parse<XQueryCompElemConstructor>("<lorem>{ element ipsum {} }</lorem>")[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryDirElemConstructor).nodeName!!), `is`("lorem"))
+                }
+
+                @Test
+                @DisplayName("multiple item expression")
+                fun multiple() {
+                    val node = parse<XQueryCompElemConstructor>(
+                        "<lorem>{ element ipsum {} , element dolor {} }</lorem>"
+                    )[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryDirElemConstructor).nodeName!!), `is`("lorem"))
+                }
+
+                @Test
+                @DisplayName("complex expression")
+                fun complex() {
+                    val node = parse<XQueryCompElemConstructor>(
+                        "<lorem>{ if (true()) then element ipsum {} else () }</lorem>"
+                    )[0]
+
+                    assertThat(node.parentNode, `is`(nullValue()))
+                }
+            }
+
+            @Test
+            @DisplayName("expression")
+            fun expression() {
+                val node = parse<XQueryCompElemConstructor>("element lorem { element ipsum {} }")[0]
+                assertThat(node.parentNode, `is`(nullValue()))
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (156) CompDocConstructor")
+            inner class CompDocConstructor {
+                @Test
+                @DisplayName("single item expression")
+                fun single() {
+                    val node = parse<XQueryCompElemConstructor>("document { element ipsum {} }")[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryCompDocConstructor::class.java)))
+                }
+
+                @Test
+                @DisplayName("multiple item expression")
+                fun multiple() {
+                    val node = parse<XQueryCompElemConstructor>(
+                        "document { element ipsum {} , element dolor {} }"
+                    )[0]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryCompDocConstructor::class.java)))
+                }
+
+                @Test
+                @DisplayName("complex expression")
+                fun complex() {
+                    val node = parse<XQueryCompElemConstructor>(
+                        "document { if (true()) then element ipsum {} else () }"
+                    )[0]
+
+                    assertThat(node.parentNode, `is`(nullValue()))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
+            inner class CompElemConstructor {
+                @Test
+                @DisplayName("single item expression")
+                fun single() {
+                    val node = parse<XQueryCompElemConstructor>("element lorem { element ipsum {} }")[1]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryCompElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryCompElemConstructor).nodeName!!), `is`("lorem"))
+                }
+
+                @Test
+                @DisplayName("multiple item expression")
+                fun multiple() {
+                    val node = parse<XQueryCompElemConstructor>(
+                        "element lorem { element ipsum {} , element dolor {} }"
+                    )[1]
+
+                    val parent = node.parentNode
+                    assertThat(parent, `is`(instanceOf(XQueryCompElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryCompElemConstructor).nodeName!!), `is`("lorem"))
+                }
+
+                @Test
+                @DisplayName("complex expression")
+                fun complex() {
+                    val node = parse<XQueryCompElemConstructor>(
+                        "element lorem { if (true()) then element ipsum {} else () }"
+                    )[1]
+
+                    assertThat(node.parentNode, `is`(nullValue()))
+                }
             }
         }
     }
