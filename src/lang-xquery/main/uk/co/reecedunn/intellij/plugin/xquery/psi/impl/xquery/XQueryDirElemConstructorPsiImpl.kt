@@ -15,33 +15,36 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import com.intellij.psi.PsiReferenceService
 import com.intellij.psi.TokenType
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.util.elementType
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.nextSiblingIfSelf
 import uk.co.reecedunn.intellij.plugin.core.psi.prevSiblingIfSelf
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespaceNode
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterExpressions
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
 import uk.co.reecedunn.intellij.plugin.xpath.psi.enclosedExpressionBlocks
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import java.util.*
 
 class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryDirElemConstructor,
     XpmSyntaxValidationElement {
+    companion object {
+        private val STRING_VALUE = Key.create<Optional<String>>("STRING_VALUE")
+    }
     // region HintedReferenceHost
 
     override fun getReference(): PsiReference? {
@@ -78,6 +81,24 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             is XPathExpr -> parent.parent as? XdmNode
             else -> null
         }
+
+    override val stringValue: String?
+        get() = computeUserDataIfAbsent(STRING_VALUE) {
+            val value = StringBuilder()
+            children().forEach { child ->
+                when (child) {
+                    is XdmTextNode -> value.append(child.stringValue ?: "")
+                    is XdmElementNode -> {
+                        val stringValue = child.stringValue ?: return@computeUserDataIfAbsent Optional.empty()
+                        value.append(stringValue)
+                    }
+                    is XpmExpression -> return@computeUserDataIfAbsent Optional.empty()
+                    else -> {
+                    }
+                }
+            }
+            Optional.of(value.toString())
+        }.orElse(null)
 
     override val namespaceAttributes: Sequence<XdmNamespaceNode>
         get() = filterExpressions()

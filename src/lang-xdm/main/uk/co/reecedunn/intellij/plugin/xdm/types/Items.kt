@@ -68,6 +68,8 @@ interface XdmElementNode : XdmNode {
 
     val parentNode: XdmNode?
 
+    val stringValue: String?
+
     val namespaceAttributes: Sequence<XdmNamespaceNode>
 }
 
