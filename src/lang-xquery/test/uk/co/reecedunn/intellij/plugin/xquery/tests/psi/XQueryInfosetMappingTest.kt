@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompNamespaceConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -482,6 +483,78 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 )[0] as XdmAttributeNode
 
                 assertThat(node.nodeName, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (160) CompNamespaceConstructor")
+    inner class CompNamespaceConstructor {
+        @Nested
+        @DisplayName("Accessors (5.10) node-name")
+        internal inner class NodeName {
+            @Test
+            @DisplayName("XPath 3.1 EBNF (123) NCName")
+            fun ncname() {
+                val node = parse<XQueryCompNamespaceConstructor>(
+                    "element a { namespace one { 'urn:test' } }"
+                )[0] as XdmNamespaceNode
+
+                assertThat(node.namespacePrefix?.data, `is`("one"))
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
+            internal inner class StringLiteral {
+                @Test
+                @DisplayName("empty prefix")
+                fun emptyPrefix() {
+                    val node = parse<XQueryCompNamespaceConstructor>(
+                        "element a { namespace { '' } { 'urn:test' } }"
+                    )[0] as XdmNamespaceNode
+
+                    assertThat(node.namespacePrefix?.data, `is`(""))
+                }
+
+                @Test
+                @DisplayName("prefix")
+                fun prefix() {
+                    val node = parse<XQueryCompNamespaceConstructor>(
+                        "element a { namespace { 'one' } { 'urn:test' } }"
+                    )[0] as XdmNamespaceNode
+
+                    assertThat(node.namespacePrefix?.data, `is`("one"))
+                }
+
+                @Test
+                @DisplayName("prefix with whitespace")
+                fun prefixWithWhitespace() {
+                    val node = parse<XQueryCompNamespaceConstructor>(
+                        "element a { namespace { '  one  ' } { 'urn:test' } }"
+                    )[0] as XdmNamespaceNode
+
+                    assertThat(node.namespacePrefix?.data, `is`("one"))
+                }
+            }
+
+            @Test
+            @DisplayName("complex expression")
+            fun complexExpression() {
+                val node = parse<XQueryCompNamespaceConstructor>(
+                    "element a { namespace { 'one' || 'two' } { 'urn:test' } }"
+                )[0] as XdmNamespaceNode
+
+                assertThat(node.namespacePrefix?.data, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("empty expression")
+            fun emptyExpression() {
+                val node = parse<XQueryCompNamespaceConstructor>(
+                    "element a { namespace { } { 'urn:test' } }"
+                )[0] as XdmNamespaceNode
+
+                assertThat(node.namespacePrefix?.data, `is`(""))
             }
         }
     }

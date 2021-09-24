@@ -79,7 +79,9 @@ interface XdmCommentNode : XdmNode
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : namespace-node()
 
-interface XdmNamespaceNode : XdmNode
+interface XdmNamespaceNode : XdmNode {
+    val namespacePrefix: XsNCNameValue?
+}
 
 object XdmNamespaceItem : XdmItemType {
     override val typeName: String = "namespace-node()"

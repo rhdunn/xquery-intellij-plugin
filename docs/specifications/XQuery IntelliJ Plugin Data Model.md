@@ -1175,6 +1175,16 @@ The *typed value* property corresponds to the `dm:typed-value` accessor.
 A *namespace node expression* is a *constructable item* that is used to
 create `namespace-node()` node items.
 
+The *namespace prefix* property is the prefix name that this namespace
+node binds to. This can have one of the following values:
+1. An empty string `xs:NCName` &ndash; This represents an `xmlns` namespace
+   declaration.
+2. A non-empty `xs:NCName` &ndash; This represents an `xmlns:*` namespace
+   declaration.
+3. An empty sequence &ndash; This is for where the namespace prefix cannot
+   be determined, e.g. if evaluating a complex expression statically that
+   is dependent on the dynamic context.
+
 ##### 5.7.3.5 Processing Instruction Nodes
 
 | Symbol              | Interface                      |
