@@ -39,6 +39,13 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryDirElemConstructor,
     XpmSyntaxValidationElement {
+    companion object {
+        private fun isNamespaceDeclaration(nodeName: XsQNameValue?): Boolean = when {
+            nodeName?.prefix?.data == "xmlns" -> true // xmlns:*
+            nodeName?.localName?.data == "xmlns" && nodeName.prefix == null -> true // xmlns
+            else -> false
+        }
+    }
     // region HintedReferenceHost
 
     override fun getReference(): PsiReference? {
@@ -64,10 +71,13 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     // region XdmElementNode
 
     override val attributes: Sequence<XdmAttributeNode>
-        get() = filterExpressions()
+        get() = filterExpressions<XdmAttributeNode>().filter { !isNamespaceDeclaration(it.nodeName) }
 
     override val nodeName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    override val namespaceAttributes: Sequence<XdmAttributeNode>
+        get() = filterExpressions<XdmAttributeNode>().filter { isNamespaceDeclaration(it.nodeName) }
 
     // endregion
     // region XQueryDirElemConstructor

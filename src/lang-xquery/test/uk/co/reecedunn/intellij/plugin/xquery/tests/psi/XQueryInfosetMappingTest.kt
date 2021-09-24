@@ -147,6 +147,35 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
             }
         }
+
+        @Nested
+        @DisplayName("Accessors (6.1) namespace-attributes")
+        internal inner class NamespaceAttributes {
+            @Test
+            @DisplayName("empty")
+            fun empty() {
+                val node = parse<XQueryDirElemConstructor>("<a/>")[0] as XdmElementNode
+
+                assertThat(node.namespaceAttributes.count(), `is`(0))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList ; XQuery IntelliJ Plugin EBNF (2) DirAttribute")
+            fun dirAttribute() {
+                val node = parse<XQueryDirElemConstructor>(
+                    "<test one='1' n:two='2' xmlns:n='urn:number' xmlns='urn:test'/>"
+                )[0]
+                val attributes = node.namespaceAttributes.toList()
+
+                assertThat(qname_presentation(attributes[0].nodeName!!), `is`("xmlns:n"))
+                assertThat(qname_presentation(attributes[1].nodeName!!), `is`("xmlns"))
+
+                assertThat((attributes[0].typedValue as? XsAnyUriValue)?.data, `is`("urn:number"))
+                assertThat((attributes[1].typedValue as? XsAnyUriValue)?.data, `is`("urn:test"))
+
+                assertThat(attributes.size, `is`(2))
+            }
+        }
     }
 
     @Nested

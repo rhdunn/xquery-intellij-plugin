@@ -33,7 +33,7 @@ object XQueryNamespaceProvider : XpmNamespaceProvider {
         return reverse(context.walkTree()).flatMap { node ->
             when (node) {
                 is XpmNamespaceDeclaration -> sequenceOf(node as XpmNamespaceDeclaration)
-                is XQueryDirElemConstructor -> node.attributes.filterIsInstance<XpmNamespaceDeclaration>()
+                is XQueryDirElemConstructor -> node.namespaceAttributes.filterIsInstance<XpmNamespaceDeclaration>()
                 is XQueryProlog -> reverse(node.children()).filterIsInstance<XpmNamespaceDeclaration>()
                 is XQueryModule -> {
                     val staticContext = node.predefinedStaticContext
