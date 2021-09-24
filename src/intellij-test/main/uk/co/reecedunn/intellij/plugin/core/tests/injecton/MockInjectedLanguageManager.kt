@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.injecton
 
+import com.intellij.compat.lang.injection.InjectedLanguageManager
 import com.intellij.injected.editor.DocumentWindow
-import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.injection.MultiHostInjector
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.editor.Document
@@ -61,8 +61,6 @@ class MockInjectedLanguageManager : InjectedLanguageManager() {
     override fun dropFileCaches(file: PsiFile): Unit = TODO()
 
     override fun getNonEditableFragments(window: DocumentWindow): MutableList<TextRange> = TODO()
-
-    override fun registerMultiHostInjector(injector: MultiHostInjector): Unit = TODO()
 
     override fun registerMultiHostInjector(injector: MultiHostInjector, parentDisposable: Disposable): Unit = TODO()
 

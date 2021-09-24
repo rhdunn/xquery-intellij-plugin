@@ -25,7 +25,7 @@ languages that use XPath:
 See https://rhdunn.github.io/xquery-intellij-plugin/ for the plugin documentation
 and tutorials.
 
-The latest development version of this plugin supports IntelliJ 2020.3 &ndash; 2021.2.
+The latest development version of this plugin supports IntelliJ 2020.3 &ndash; 2021.3 EAP.
 Older versions of the plugin are compatible with older versions of IntelliJ.
 
 ### Query Processor and Database Integration
