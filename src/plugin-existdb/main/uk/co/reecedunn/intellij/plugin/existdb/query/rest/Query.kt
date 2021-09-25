@@ -17,10 +17,10 @@ package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import org.w3c.dom.Document
 import org.w3c.dom.Element
-import uk.co.reecedunn.intellij.plugin.core.xml.cdata
-import uk.co.reecedunn.intellij.plugin.core.xml.document
-import uk.co.reecedunn.intellij.plugin.core.xml.element
-import uk.co.reecedunn.intellij.plugin.core.xml.text
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.cdata
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.document
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.element
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.text
 
 private const val EXIST_NAMESPACE = "http://exist.sourceforge.net/NS/exist"
 

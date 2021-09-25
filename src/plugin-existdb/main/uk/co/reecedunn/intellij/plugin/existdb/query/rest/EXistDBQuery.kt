@@ -24,7 +24,7 @@ import org.apache.http.entity.StringEntity
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.core.xml.xml
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.xml
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
