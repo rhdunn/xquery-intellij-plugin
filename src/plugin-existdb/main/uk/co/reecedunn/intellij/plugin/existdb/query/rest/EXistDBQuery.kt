@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,10 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.HttpUriRequest
 import org.apache.http.client.methods.RequestBuilder
-import org.apache.http.entity.StringEntity
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.core.xml.dom.xml
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.httpEntity
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -72,7 +71,7 @@ internal class EXistDBQuery(
     }
 
     override fun request(): HttpUriRequest {
-        builder.entity = StringEntity(exist_query {
+        builder.entity = exist_query {
             exist_text(EXistDBQueries.Run)
             exist_variables {
                 exist_variable("username") { exist_value(settings.username ?: "", "xs:string") }
@@ -81,7 +80,7 @@ internal class EXistDBQuery(
                 exist_variable("vars") { exist_value(variables.toString(), "xs:string") }
                 exist_variable("types") { exist_value(types.toString(), "xs:string") }
             }
-        }.xml)
+        }.httpEntity
         return builder.build()
     }
 

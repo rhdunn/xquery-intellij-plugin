@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.xml.dom
 
+import org.apache.http.HttpEntity
+import org.apache.http.entity.StringEntity
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
@@ -28,6 +30,9 @@ val Document.xml: String
         XmlFormatter.format(DOMSource(this), StreamResult(writer))
         return writer.buffer.toString()
     }
+
+val Document.httpEntity: HttpEntity
+    get() = StringEntity(xml)
 
 fun document(init: Document.() -> Unit): Document {
     val doc = XmlBuilder.newDocument()
