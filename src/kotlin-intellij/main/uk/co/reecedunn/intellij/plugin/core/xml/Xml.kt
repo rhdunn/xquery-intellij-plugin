@@ -19,9 +19,9 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
 import org.w3c.dom.*
 import org.xml.sax.InputSource
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlBuilder
 import java.io.*
 import javax.xml.namespace.QName
-import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.transform.OutputKeys
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
@@ -123,12 +123,6 @@ class XmlDocument internal constructor(val doc: Document, namespaces: Map<String
     }
 
     companion object {
-        internal val builder by lazy {
-            val factory = DocumentBuilderFactory.newInstance()
-            factory.isNamespaceAware = true
-            factory.newDocumentBuilder()
-        }
-
         internal val formatter by lazy {
             val factory = TransformerFactory.newInstance()
             factory.newTransformer()
@@ -146,9 +140,8 @@ class XmlDocument internal constructor(val doc: Document, namespaces: Map<String
             return parse(InputSource(xml), namespaces)
         }
 
-        @Synchronized
         fun parse(xml: InputSource, namespaces: Map<String, String>): XmlDocument {
-            return XmlDocument(builder.parse(xml), namespaces)
+            return XmlDocument(XmlBuilder.parse(xml), namespaces)
         }
     }
 }
@@ -168,7 +161,7 @@ val Document.xml: String
 // region DSL
 
 fun document(init: Document.() -> Unit): Document {
-    val doc = XmlDocument.builder.newDocument()
+    val doc = XmlBuilder.newDocument()
     doc.init()
     return doc
 }
