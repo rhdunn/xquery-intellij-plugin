@@ -20,10 +20,9 @@ import com.intellij.util.text.nullize
 import org.w3c.dom.*
 import org.xml.sax.InputSource
 import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlBuilder
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlFormatter
 import java.io.*
 import javax.xml.namespace.QName
-import javax.xml.transform.OutputKeys
-import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
@@ -91,7 +90,7 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
 
     fun xml(): String {
         val buffer = StringWriter()
-        transformer.transform(DOMSource(element), StreamResult(buffer))
+        XmlFormatter.format(DOMSource(element), StreamResult(buffer), omitXmlDeclaration = true)
         return buffer.toString()
     }
 
@@ -99,17 +98,9 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
         val buffer = StringWriter()
         val result = StreamResult(buffer)
         element.childNodes.asSequence().forEach { node ->
-            transformer.transform(DOMSource(node), result)
+            XmlFormatter.format(DOMSource(node), result, omitXmlDeclaration = true)
         }
         return buffer.toString()
-    }
-
-    companion object {
-        private val transformer by lazy {
-            val transformer = TransformerFactory.newInstance().newTransformer()
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes")
-            transformer
-        }
     }
 }
 
@@ -118,16 +109,11 @@ class XmlDocument internal constructor(val doc: Document, namespaces: Map<String
 
     fun save(file: File) {
         FileWriter(file).use {
-            formatter.transform(DOMSource(doc), StreamResult(it))
+            XmlFormatter.format(DOMSource(doc), StreamResult(it))
         }
     }
 
     companion object {
-        internal val formatter by lazy {
-            val factory = TransformerFactory.newInstance()
-            factory.newTransformer()
-        }
-
         fun parse(xml: String, namespaces: Map<String, String>): XmlDocument {
             return parse(InputSource(StringReader(xml)), namespaces)
         }
@@ -150,11 +136,10 @@ fun Sequence<XmlElement>.children(name: String): Sequence<XmlElement> = this.fla
 
 fun Sequence<XmlElement>.children(name: QName): Sequence<XmlElement> = this.flatMap { it.children(name) }
 
-@get:Synchronized
 val Document.xml: String
     get() {
         val writer = StringWriter()
-        XmlDocument.formatter.transform(DOMSource(this), StreamResult(writer))
+        XmlFormatter.format(DOMSource(this), StreamResult(writer))
         return writer.buffer.toString()
     }
 
