@@ -147,6 +147,8 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                assertThat(node.localName, `is`("test"))
             }
 
             @Test
@@ -158,6 +160,8 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                assertThat(node.localName, `is`("test"))
             }
         }
 
@@ -630,6 +634,8 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                assertThat(node.localName, `is`("test"))
             }
 
             @Test
@@ -643,6 +649,8 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                assertThat(node.localName, `is`("test"))
             }
 
             @Test
@@ -654,6 +662,8 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
                 assertThat(node.nodeName?.namespace?.data, `is`("urn:test"))
                 assertThat(node.nodeName?.isLexicalQName, `is`(false))
+
+                assertThat(node.localName, `is`("test"))
             }
 
             @Test
@@ -664,6 +674,8 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 )[0] as XdmElementNode
 
                 assertThat(node.nodeName, `is`(nullValue()))
+
+                assertThat(node.localName, `is`(nullValue()))
             }
         }
 

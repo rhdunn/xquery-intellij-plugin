@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.optree.item
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 
@@ -28,6 +29,12 @@ val XdmAttributeNode.namespaceUri: String?
     get() = nodeName?.expand()?.firstOrNull()?.namespace?.data
 
 val XdmAttributeNode.localName: String?
+    get() = nodeName?.localName?.data
+
+// endregion
+// region XQuery and XPath 3.1 Data Model (2.7.4) : element()
+
+val XdmElementNode.localName: String?
     get() = nodeName?.localName?.data
 
 // endregion
