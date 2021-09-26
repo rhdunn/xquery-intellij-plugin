@@ -27,6 +27,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.localName
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.namespacePrefix
+import uk.co.reecedunn.intellij.plugin.xpm.optree.item.namespaceUri
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirNamespaceAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
@@ -35,12 +37,19 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompDocConstructo
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompNamespaceConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery Data Model 3.1 (4) Infoset Mapping - XQuery Node Constructors")
 class XQueryInfosetMappingTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryInfosetMappingTest")
+
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
+        XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
+    }
 
     @Nested
     @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
@@ -334,6 +343,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
                 assertThat(node.namespacePrefix, `is`(""))
+                assertThat(node.namespaceUri, `is`(""))
                 assertThat(node.localName, `is`("test"))
             }
 
@@ -348,6 +358,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
                 assertThat(node.namespacePrefix, `is`("t"))
+                assertThat(node.namespaceUri, `is`("urn:test"))
                 assertThat(node.localName, `is`("test"))
             }
         }
@@ -793,6 +804,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
                 assertThat(node.namespacePrefix, `is`(""))
+                assertThat(node.namespaceUri, `is`(""))
                 assertThat(node.localName, `is`("test"))
             }
 
@@ -809,6 +821,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
                 assertThat(node.namespacePrefix, `is`("t"))
+                assertThat(node.namespaceUri, `is`("urn:test"))
                 assertThat(node.localName, `is`("test"))
             }
 
@@ -825,6 +838,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.isLexicalQName, `is`(false))
 
                 assertThat(node.namespacePrefix, `is`(""))
+                assertThat(node.namespaceUri, `is`("urn:test"))
                 assertThat(node.localName, `is`("test"))
             }
 
@@ -838,6 +852,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName, `is`(nullValue()))
 
                 assertThat(node.namespacePrefix, `is`(nullValue()))
+                assertThat(node.namespaceUri, `is`(nullValue()))
                 assertThat(node.localName, `is`(nullValue()))
             }
         }
