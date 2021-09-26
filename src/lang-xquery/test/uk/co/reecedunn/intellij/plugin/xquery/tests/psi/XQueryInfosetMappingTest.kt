@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
+import uk.co.reecedunn.intellij.plugin.xpm.optree.item.localName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirNamespaceAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
@@ -330,6 +331,8 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                assertThat(node.localName, `is`("test"))
             }
 
             @Test
@@ -341,6 +344,8 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                assertThat(node.localName, `is`("test"))
             }
         }
 
@@ -783,6 +788,8 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                assertThat(node.localName, `is`("test"))
             }
 
             @Test
@@ -796,6 +803,8 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                assertThat(node.localName, `is`("test"))
             }
 
             @Test
@@ -809,6 +818,8 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
                 assertThat(node.nodeName?.namespace?.data, `is`("urn:test"))
                 assertThat(node.nodeName?.isLexicalQName, `is`(false))
+
+                assertThat(node.localName, `is`("test"))
             }
 
             @Test
@@ -819,6 +830,8 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 )[0] as XdmAttributeNode
 
                 assertThat(node.nodeName, `is`(nullValue()))
+
+                assertThat(node.localName, `is`(nullValue()))
             }
         }
 

@@ -15,10 +15,21 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.item
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
+
+// region XQuery and XPath 3.1 Data Model (2.7.4) : attribute()
+
+val XdmAttributeNode.localName: String?
+    get() = nodeName?.localName?.data
+
+// endregion
+// region XQuery and XPath 3.1 Data Model (2.7.4) : map(*)
 
 val XpmMapEntry.keyName: String?
     get() = when (val name = keyExpression) {
         is XsNCNameValue -> name.data
         else -> null
     }
+
+// endregion
