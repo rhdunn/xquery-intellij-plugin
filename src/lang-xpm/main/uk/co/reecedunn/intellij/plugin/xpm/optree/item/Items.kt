@@ -37,6 +37,9 @@ val XdmAttributeNode.localName: String?
 val XdmElementNode.namespacePrefix: String?
     get() = nodeName?.let { it.prefix?.data ?: "" }
 
+val XdmElementNode.namespaceUri: String?
+    get() = nodeName?.expand()?.firstOrNull()?.namespace?.data
+
 val XdmElementNode.localName: String?
     get() = nodeName?.localName?.data
 

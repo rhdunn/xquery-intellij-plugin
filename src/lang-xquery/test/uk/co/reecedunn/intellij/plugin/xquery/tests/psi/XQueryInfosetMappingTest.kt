@@ -149,6 +149,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
                 assertThat(node.namespacePrefix, `is`(""))
+                assertThat(node.namespaceUri, `is`(""))
                 assertThat(node.localName, `is`("test"))
             }
 
@@ -163,6 +164,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
                 assertThat(node.namespacePrefix, `is`("t"))
+                assertThat(node.namespaceUri, `is`("urn:test"))
                 assertThat(node.localName, `is`("test"))
             }
         }
@@ -638,6 +640,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
                 assertThat(node.namespacePrefix, `is`(""))
+                assertThat(node.namespaceUri, `is`(""))
                 assertThat(node.localName, `is`("test"))
             }
 
@@ -654,6 +657,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
                 assertThat(node.namespacePrefix, `is`("t"))
+                assertThat(node.namespaceUri, `is`("urn:test"))
                 assertThat(node.localName, `is`("test"))
             }
 
@@ -668,6 +672,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.isLexicalQName, `is`(false))
 
                 assertThat(node.namespacePrefix, `is`(""))
+                assertThat(node.namespaceUri, `is`("urn:test"))
                 assertThat(node.localName, `is`("test"))
             }
 
@@ -681,6 +686,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName, `is`(nullValue()))
 
                 assertThat(node.namespacePrefix, `is`(nullValue()))
+                assertThat(node.namespaceUri, `is`(nullValue()))
                 assertThat(node.localName, `is`(nullValue()))
             }
         }
