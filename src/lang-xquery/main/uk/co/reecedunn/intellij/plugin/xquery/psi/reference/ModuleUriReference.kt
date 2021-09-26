@@ -23,18 +23,18 @@ import com.intellij.psi.xml.XmlTag
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.resolve
 import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
-class ModuleUriReference(element: XmlTag) : PsiReferenceBase<XmlTag>(element) {
-    private val uri: XsAnyUriValue by lazy {
-        XsAnyUri(element.value.text, XdmUriContext.Location, arrayOf(XdmModuleType.XQuery))
-    }
+class ModuleUriReference(element: PsiElement, uriValue: String) : PsiReferenceBase<PsiElement>(element) {
+    private val uri: XsAnyUriValue = XsAnyUri(uriValue, XdmUriContext.Location, XdmModuleType.XQUERY)
 
     private val module: PsiElement? by lazy {
         uri.resolve(element) ?: uri.resolveUri(element.project)
@@ -50,11 +50,18 @@ class ModuleUriReference(element: XmlTag) : PsiReferenceBase<XmlTag>(element) {
 
     companion object : PsiReferenceProvider() {
         override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
-            val tag = element as XmlTag
+            val uriValue = getUriValue(element)
             return when {
-                tag.value.text.isBlank() -> arrayOf()
-                else -> arrayOf(ModuleUriReference(tag))
+                uriValue.isNullOrBlank() -> arrayOf()
+                else -> arrayOf(ModuleUriReference(element, uriValue))
             }
+        }
+
+        private fun getUriValue(element: PsiElement): String? = when (element) {
+            is XmlTag -> element.value.text
+            is XdmAttributeNode -> element.stringValue
+            is XQueryDirAttributeValue -> getUriValue(element.parent)
+            else -> null
         }
     }
 }

@@ -58,9 +58,12 @@ class RewriterEndpoint(val endpoint: XmlTag) :
     // endregion
     // region RewriterEndpoint
 
-    val endpointTarget: ModuleUriReference? = when {
-        endpoint.value.text.isBlank() -> null
-        else -> ModuleUriReference(endpoint)
+    val endpointTarget: ModuleUriReference? = let {
+        val uriValue = endpoint.value.text
+        when {
+            uriValue.isBlank() -> null
+            else -> ModuleUriReference(endpoint, uriValue)
+        }
     }
 
     val path: String?

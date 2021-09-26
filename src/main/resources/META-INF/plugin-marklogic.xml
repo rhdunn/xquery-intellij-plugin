@@ -7,6 +7,9 @@
     <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.RewriterReferenceContributor"/>
     <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.navigation.RewriterLineMarkerProvider"/>
 
+    <!-- Search Options XML -->
+    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomConstraintModuleUriReferenceContributor"/>
+
     <!-- XRay Unit Tests -->
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfigurationType"/>

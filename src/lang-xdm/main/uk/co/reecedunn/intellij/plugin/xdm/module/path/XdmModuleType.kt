@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ enum class XdmModuleType(val extensions: Array<String>) {
         val MODULE_OR_SCHEMA: Array<XdmModuleType> = arrayOf(XQuery, XMLSchema, Java, DotNet)
         val NONE: Array<XdmModuleType> = arrayOf()
         val XPATH_OR_XQUERY: Array<XdmModuleType> = arrayOf(XPath, XQuery)
+        val XQUERY: Array<XdmModuleType> = arrayOf(XQuery)
         val RESOURCE: Array<XdmModuleType> = arrayOf(Resource)
         val SCHEMA: Array<XdmModuleType> = arrayOf(XMLSchema)
         val STYLESHEET: Array<XdmModuleType> = arrayOf(XSLT)
