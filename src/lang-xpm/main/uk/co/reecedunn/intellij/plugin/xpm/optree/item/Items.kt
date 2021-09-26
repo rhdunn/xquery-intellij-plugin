@@ -34,6 +34,9 @@ val XdmAttributeNode.localName: String?
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : element()
 
+val XdmElementNode.namespacePrefix: String?
+    get() = nodeName?.let { it.prefix?.data ?: "" }
+
 val XdmElementNode.localName: String?
     get() = nodeName?.localName?.data
 

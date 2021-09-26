@@ -148,6 +148,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
+                assertThat(node.namespacePrefix, `is`(""))
                 assertThat(node.localName, `is`("test"))
             }
 
@@ -161,6 +162,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
+                assertThat(node.namespacePrefix, `is`("t"))
                 assertThat(node.localName, `is`("test"))
             }
         }
@@ -635,6 +637,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
+                assertThat(node.namespacePrefix, `is`(""))
                 assertThat(node.localName, `is`("test"))
             }
 
@@ -650,6 +653,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
 
+                assertThat(node.namespacePrefix, `is`("t"))
                 assertThat(node.localName, `is`("test"))
             }
 
@@ -663,6 +667,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.namespace?.data, `is`("urn:test"))
                 assertThat(node.nodeName?.isLexicalQName, `is`(false))
 
+                assertThat(node.namespacePrefix, `is`(""))
                 assertThat(node.localName, `is`("test"))
             }
 
@@ -675,6 +680,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
 
                 assertThat(node.nodeName, `is`(nullValue()))
 
+                assertThat(node.namespacePrefix, `is`(nullValue()))
                 assertThat(node.localName, `is`(nullValue()))
             }
         }
