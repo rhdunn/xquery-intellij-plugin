@@ -20,6 +20,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 
 // region XQuery and XPath 3.1 Data Model (2.7.4) : attribute()
 
+val XdmAttributeNode.namespacePrefix: String?
+    get() = nodeName?.let { it.prefix?.data ?: "" }
+
 val XdmAttributeNode.localName: String?
     get() = nodeName?.localName?.data
 
