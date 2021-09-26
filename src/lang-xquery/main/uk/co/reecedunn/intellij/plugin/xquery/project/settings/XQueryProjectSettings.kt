@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,14 @@ import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.openapi.components.StoragePathMacros
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.ModificationTracker
 import com.intellij.util.xmlb.XmlSerializerUtil
 import com.intellij.util.xmlb.annotations.Transient
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import java.util.concurrent.atomic.AtomicLongFieldUpdater
 
 @State(name = "XQueryProjectSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
-class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings> {
+class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, ModificationTracker {
     // region Settings
 
     @Suppress("PrivatePropertyName")
@@ -46,6 +48,7 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings> {
         get() = PRODUCT_VERSION.id
         set(version) {
             PRODUCT_VERSION.id = version
+            incrementModificationCount()
         }
 
     @Suppress("PropertyName")
@@ -68,8 +71,25 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings> {
     override fun loadState(state: XQueryProjectSettings): Unit = XmlSerializerUtil.copyBean(state, this)
 
     // endregion
+    // region ModificationTracker
+
+    @Volatile
+    private var modificationCount: Long = 0
+
+    private fun incrementModificationCount() {
+        UPDATER.incrementAndGet(this)
+    }
+
+    override fun getModificationCount(): Long = modificationCount
+
+    // endregion
 
     companion object {
+        private val UPDATER = AtomicLongFieldUpdater.newUpdater(
+            XQueryProjectSettings::class.java,
+            "modificationCount"
+        )
+
         fun getInstance(project: Project): XQueryProjectSettings {
             return project.getService(XQueryProjectSettings::class.java)
         }
