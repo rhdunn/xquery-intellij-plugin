@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.core.xml
+package uk.co.reecedunn.intellij.plugin.core.xml.psi
 
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
 import javax.xml.namespace.QName
-
-fun Map<String, String>.qname(name: String): QName = when {
-    name.contains(':') -> name.split(":").let { QName(get(it[0]), it[1]) }
-    else -> QName("", name)
-}
 
 fun XmlTag.qname(): QName = QName(namespace, localName)
 

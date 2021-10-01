@@ -25,7 +25,7 @@ import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
 import org.jetbrains.annotations.TestOnly
 import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
-import uk.co.reecedunn.intellij.plugin.core.xml.qname
+import uk.co.reecedunn.intellij.plugin.core.xml.psi.qname
 import javax.xml.namespace.QName
 
 interface XpmShadowPsiElementFactory {
