@@ -16,11 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
 import com.intellij.psi.xml.XmlTag
-import uk.co.reecedunn.intellij.plugin.core.xml.psi.descendants
+import uk.co.reecedunn.intellij.plugin.core.xml.psi.descendant
 
 class RewriterEndpointsGroup(rewriter: XmlTag) {
     val endpoints: List<RewriterEndpoint> =
-        rewriter.descendants(Rewriter.NAMESPACE, Rewriter.ENDPOINT_ELEMENTS).mapTo(mutableListOf()) {
+        rewriter.descendant(Rewriter.NAMESPACE, Rewriter.ENDPOINT_ELEMENTS).mapTo(mutableListOf()) {
             RewriterEndpoint(it)
         }
 }

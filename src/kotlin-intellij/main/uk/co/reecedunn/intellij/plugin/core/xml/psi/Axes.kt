@@ -20,11 +20,11 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 
 // region XPath Axis :: descendant
 
-fun XmlTag.descendants(namespace: String, localName: String): Sequence<XmlTag> {
+fun XmlTag.descendant(namespace: String, localName: String): Sequence<XmlTag> {
     return walkTree().filterIsInstance<XmlTag>().self(namespace, localName)
 }
 
-fun XmlTag.descendants(namespace: String, localName: Set<String>): Sequence<XmlTag> {
+fun XmlTag.descendant(namespace: String, localName: Set<String>): Sequence<XmlTag> {
     return walkTree().filterIsInstance<XmlTag>().self(namespace, localName)
 }
 
