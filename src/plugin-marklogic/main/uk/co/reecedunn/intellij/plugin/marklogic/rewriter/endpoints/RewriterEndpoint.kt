@@ -20,7 +20,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
-import uk.co.reecedunn.intellij.plugin.core.xml.psi.ancestors
+import uk.co.reecedunn.intellij.plugin.core.xml.psi.ancestor
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
@@ -42,7 +42,7 @@ class RewriterEndpoint(val endpoint: XmlTag) :
     // region EndpointMethodPresentation
 
     override val endpointMethod: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-method").firstOrNull()?.getAttributeValue("any-of")
+        get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-method").firstOrNull()?.getAttributeValue("any-of")
 
     override val endpointMethodOrder: Int
         get() = EndpointMethodPresentation.getHttpMethodOrder(endpointMethod?.split("\\s+")?.get(0))
@@ -67,7 +67,7 @@ class RewriterEndpoint(val endpoint: XmlTag) :
     }
 
     val path: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-path").firstOrNull()?.let { matchPath ->
+        get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-path").firstOrNull()?.let { matchPath ->
             val matches = matchPath.getAttributeValue("matches")
             val anyOf = matchPath.getAttributeValue("any-of")?.split("\\s+".toRegex())?.getOrNull(0)
             val prefix = matchPath.getAttributeValue("prefix")
@@ -79,19 +79,19 @@ class RewriterEndpoint(val endpoint: XmlTag) :
 
     @Suppress("unused")
     private val accept: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-accept").firstOrNull()?.getAttributeValue("any-of")
+        get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-accept").firstOrNull()?.getAttributeValue("any-of")
 
     @Suppress("unused")
     private val contentType: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-content-type").firstOrNull()?.getAttributeValue("any-of")
+        get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-content-type").firstOrNull()?.getAttributeValue("any-of")
 
     @Suppress("unused")
     private val cookie: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-cookie").firstOrNull()?.getAttributeValue("name")
+        get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-cookie").firstOrNull()?.getAttributeValue("name")
 
     @Suppress("unused")
     private val executePrivilege: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-execute-privilege").firstOrNull()?.let { privilege ->
+        get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-execute-privilege").firstOrNull()?.let { privilege ->
             val anyOf = privilege.getAttributeValue("any-of")
             val allOf = privilege.getAttributeValue("all-of")
             anyOf ?: allOf
@@ -99,7 +99,7 @@ class RewriterEndpoint(val endpoint: XmlTag) :
 
     @Suppress("unused")
     private val header: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-header").firstOrNull()?.let { matchPath ->
+        get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-header").firstOrNull()?.let { matchPath ->
             val name = matchPath.getAttributeValue("name")
             val matches = matchPath.getAttributeValue("matches")
             name ?: matches
@@ -107,7 +107,7 @@ class RewriterEndpoint(val endpoint: XmlTag) :
 
     @Suppress("unused")
     private val paths: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-path").firstOrNull()?.let { matchPath ->
+        get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-path").firstOrNull()?.let { matchPath ->
             val matches = matchPath.getAttributeValue("matches")
             val anyOf = matchPath.getAttributeValue("any-of")
             val prefix = matchPath.getAttributeValue("prefix")
@@ -116,11 +116,11 @@ class RewriterEndpoint(val endpoint: XmlTag) :
 
     @Suppress("unused")
     private val queryParam: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-query-param").firstOrNull()?.getAttributeValue("name")
+        get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-query-param").firstOrNull()?.getAttributeValue("name")
 
     @Suppress("unused")
     private val role: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-role").firstOrNull()?.let { matchPath ->
+        get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-role").firstOrNull()?.let { matchPath ->
             val anyOf = matchPath.getAttributeValue("any-of")
             val allOf = matchPath.getAttributeValue("all-of")
             anyOf ?: allOf
@@ -128,7 +128,7 @@ class RewriterEndpoint(val endpoint: XmlTag) :
 
     @Suppress("unused")
     private val user: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-user").firstOrNull()?.let { matchPath ->
+        get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-user").firstOrNull()?.let { matchPath ->
             val name = matchPath.getAttributeValue("name")
             val default = matchPath.getAttributeValue("default-user") == "true"
             if (default)

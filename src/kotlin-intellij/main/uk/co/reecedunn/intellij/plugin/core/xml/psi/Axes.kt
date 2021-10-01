@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.core.xml.psi
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 
-// region XPath Selectors :: descendant
+// region XPath Axis :: descendant
 
 fun XmlTag.descendants(namespace: String, localName: String): Sequence<XmlTag> {
     return walkTree().filterIsInstance<XmlTag>().self(namespace, localName)
@@ -29,19 +29,19 @@ fun XmlTag.descendants(namespace: String, localName: Set<String>): Sequence<XmlT
 }
 
 // endregion
-// region XPath Selectors :: ancestor
+// region XPath Axis :: ancestor
 
-fun XmlTag.ancestors(namespace: String, localName: String): Sequence<XmlTag> {
+fun XmlTag.ancestor(namespace: String, localName: String): Sequence<XmlTag> {
     return generateSequence(parentTag) { it.parentTag }.self(namespace, localName)
 }
 
 @Suppress("unused")
-fun XmlTag.ancestors(namespace: String, localName: Set<String>): Sequence<XmlTag> {
+fun XmlTag.ancestor(namespace: String, localName: Set<String>): Sequence<XmlTag> {
     return generateSequence(parentTag) { it.parentTag }.self(namespace, localName)
 }
 
 // endregion
-// region XPath Selectors :: self
+// region XPath Axis :: self
 
 private fun Sequence<XmlTag>.self(namespace: String, localName: String): Sequence<XmlTag> = filter {
     it.namespace == namespace && it.localName == localName
