@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.expath.pkg
 
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 data class EXPathPackageDtd(private val xml: XmlElement) : EXPathPackageComponent {

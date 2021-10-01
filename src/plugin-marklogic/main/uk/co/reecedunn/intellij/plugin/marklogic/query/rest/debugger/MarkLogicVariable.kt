@@ -20,7 +20,7 @@ import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.*
 import com.intellij.xdebugger.frame.presentation.XErrorValuePresentation
 import com.intellij.xdebugger.frame.presentation.XValuePresentation
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.debug.frame.QueryResultsValue
 import uk.co.reecedunn.intellij.plugin.processor.debug.frame.presentation.QueryValuePresentation
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation

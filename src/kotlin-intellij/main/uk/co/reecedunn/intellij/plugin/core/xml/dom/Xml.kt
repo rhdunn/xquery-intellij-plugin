@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.core.xml
+package uk.co.reecedunn.intellij.plugin.core.xml.dom
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
 import org.w3c.dom.*
 import org.xml.sax.InputSource
-import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlBuilder
-import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlFormatter
 import java.io.*
 import javax.xml.namespace.QName
 import javax.xml.transform.dom.DOMSource

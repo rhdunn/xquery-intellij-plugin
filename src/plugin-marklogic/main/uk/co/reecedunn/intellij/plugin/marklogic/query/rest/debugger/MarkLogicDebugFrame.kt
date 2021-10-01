@@ -21,8 +21,8 @@ import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XCompositeNode
 import com.intellij.xdebugger.frame.XNamedValue
 import com.intellij.xdebugger.frame.XStackFrame
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.core.xml.children
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlElement
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.children
 import uk.co.reecedunn.intellij.plugin.processor.debug.frame.ComputeChildren
 import uk.co.reecedunn.intellij.plugin.processor.debug.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.debug.frame.addChildren

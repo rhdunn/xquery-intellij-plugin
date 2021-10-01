@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit
 
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.test.TestAssert
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 

@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.marklogic.profile
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlDocument
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.debug.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport

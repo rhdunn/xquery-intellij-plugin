@@ -22,7 +22,7 @@ import com.intellij.openapi.vfs.VirtualFileSystem
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlDocument
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriPsiElement

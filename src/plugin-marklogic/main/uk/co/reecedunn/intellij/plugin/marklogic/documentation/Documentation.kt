@@ -19,7 +19,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.zip.unzip
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicQueries

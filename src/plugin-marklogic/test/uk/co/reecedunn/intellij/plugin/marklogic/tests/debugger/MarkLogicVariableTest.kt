@@ -29,7 +29,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlDocument
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.MarkLogicVariable
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import javax.swing.Icon

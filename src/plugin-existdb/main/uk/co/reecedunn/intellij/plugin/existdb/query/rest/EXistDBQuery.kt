@@ -22,7 +22,7 @@ import org.apache.http.client.methods.HttpUriRequest
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.dom.httpEntity
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset

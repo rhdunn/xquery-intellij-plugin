@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.w3c.dom.Node
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlDocument
+import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlElement
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.toStreamSource
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
