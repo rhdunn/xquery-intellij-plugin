@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +18,14 @@ package uk.co.reecedunn.intellij.plugin.core.xml.psi
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 
-// region XPath Selectors :: self
+// region XPath Selectors :: descendant
 
-private fun Sequence<XmlTag>.self(namespace: String, localName: String): Sequence<XmlTag> = filter {
-    it.namespace == namespace && it.localName == localName
+fun XmlTag.descendants(namespace: String, localName: String): Sequence<XmlTag> {
+    return walkTree().filterIsInstance<XmlTag>().self(namespace, localName)
 }
 
-private fun Sequence<XmlTag>.self(namespace: String, localName: Set<String>): Sequence<XmlTag> = filter {
-    it.namespace == namespace && localName.contains(it.localName)
+fun XmlTag.descendants(namespace: String, localName: Set<String>): Sequence<XmlTag> {
+    return walkTree().filterIsInstance<XmlTag>().self(namespace, localName)
 }
 
 // endregion
@@ -41,14 +41,14 @@ fun XmlTag.ancestors(namespace: String, localName: Set<String>): Sequence<XmlTag
 }
 
 // endregion
-// region XPath Selectors :: descendant
+// region XPath Selectors :: self
 
-fun XmlTag.descendants(namespace: String, localName: String): Sequence<XmlTag> {
-    return walkTree().filterIsInstance<XmlTag>().self(namespace, localName)
+private fun Sequence<XmlTag>.self(namespace: String, localName: String): Sequence<XmlTag> = filter {
+    it.namespace == namespace && it.localName == localName
 }
 
-fun XmlTag.descendants(namespace: String, localName: Set<String>): Sequence<XmlTag> {
-    return walkTree().filterIsInstance<XmlTag>().self(namespace, localName)
+private fun Sequence<XmlTag>.self(namespace: String, localName: Set<String>): Sequence<XmlTag> = filter {
+    it.namespace == namespace && localName.contains(it.localName)
 }
 
 // endregion
