@@ -24,7 +24,7 @@ import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
+import uk.co.reecedunn.intellij.plugin.core.xml.psi.schemaType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class MethodKeywordAnnotator : Annotator {

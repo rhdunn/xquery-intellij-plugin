@@ -20,7 +20,7 @@ import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlText
 import uk.co.reecedunn.intellij.plugin.core.sequences.contexts
-import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
+import uk.co.reecedunn.intellij.plugin.core.xml.psi.schemaType
 
 abstract class XdmSchemaTypes {
     open val isEnabled: Boolean = true
