@@ -48,8 +48,9 @@ abstract class AnnotatorTestCase<File : PsiFile>(
         }
     }
 
+    @Suppress("UnstableApiUsage", "DEPRECATION")
     protected fun annotateTree(file: File, annotator: Annotator): List<Annotation> {
-        @Suppress("UnstableApiUsage") val annotationHolder = AnnotationHolderImpl(AnnotationSession(file))
+        val annotationHolder = AnnotationHolderImpl(AnnotationSession(file), false)
         annotateTree(file.node, annotationHolder, annotator)
         return annotationHolder
     }
