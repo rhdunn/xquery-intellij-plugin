@@ -52,12 +52,12 @@ class XQueryElemTagTreeHighlightingPass(val file: PsiFile, val editor: EditorEx)
             }
 
             val highlights = ArrayList<HighlightInfo>(tagsToHighlight.size * 2)
-            tagsToHighlight.withIndex().forEach { (index, ranges) ->
-                val color = colors[index % colors.size] ?: return@forEach
-                ranges.first.takeIf { it != null && !it.isEmpty }?.let {
+            tagsToHighlight.forEachIndexed { index, (first, second) ->
+                val color = colors[index % colors.size] ?: return@forEachIndexed
+                first.takeIf { it != null && !it.isEmpty }?.let {
                     highlights.add(createHighlightInfo(color, it))
                 }
-                ranges.second.takeIf { it != null && !it.isEmpty }?.let {
+                second.takeIf { it != null && !it.isEmpty }?.let {
                     highlights.add(createHighlightInfo(color, it))
                 }
             }

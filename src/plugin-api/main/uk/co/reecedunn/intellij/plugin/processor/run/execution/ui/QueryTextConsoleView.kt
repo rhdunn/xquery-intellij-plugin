@@ -135,11 +135,11 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
     override fun onException(e: Throwable) {
         if (e is QueryError) {
             print("$e\n", ConsoleViewContentType.ERROR_OUTPUT)
-            e.value.withIndex().forEach {
-                if (it.index == 0) {
-                    print("  with ${it.value}\n", ConsoleViewContentType.ERROR_OUTPUT)
+            e.value.forEachIndexed { index, value ->
+                if (index == 0) {
+                    print("  with $value\n", ConsoleViewContentType.ERROR_OUTPUT)
                 } else {
-                    print("   and ${it.value}\n", ConsoleViewContentType.ERROR_OUTPUT)
+                    print("   and $value\n", ConsoleViewContentType.ERROR_OUTPUT)
                 }
             }
             e.frames.asSequence().mapNotNull { it.sourcePosition }.forEach { position ->

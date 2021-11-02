@@ -43,11 +43,11 @@ data class QueryError(
     @Suppress("DuplicatedCode")
     override fun printStackTrace(s: PrintStream) {
         s.println(message)
-        value.withIndex().forEach {
-            if (it.index == 0) {
-                s.println("  with ${it.value}")
+        value.forEachIndexed { index, value ->
+            if (index == 0) {
+                s.println("  with $value")
             } else {
-                s.println("   and ${it.value}")
+                s.println("   and $value")
             }
         }
         frames.forEach { frame ->
@@ -63,11 +63,11 @@ data class QueryError(
     @Suppress("DuplicatedCode")
     override fun printStackTrace(s: PrintWriter) {
         s.println(message)
-        value.withIndex().forEach {
-            if (it.index == 0) {
-                s.println("  with ${it.value}")
+        value.forEachIndexed { index, value ->
+            if (index == 0) {
+                s.println("  with $value")
             } else {
-                s.println("   and ${it.value}")
+                s.println("   and $value")
             }
         }
         frames.forEach { frame ->
