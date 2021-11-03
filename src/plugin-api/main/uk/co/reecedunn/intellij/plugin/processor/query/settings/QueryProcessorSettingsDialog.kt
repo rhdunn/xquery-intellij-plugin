@@ -240,12 +240,12 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
                                 else -> file.name == "aws" || file.name == "aws.exe"
                             }
 
-                            override fun isFileSelectable(file: VirtualFile): Boolean {
+                            override fun isFileSelectable(file: VirtualFile?): Boolean {
                                 return super.isFileSelectable(file) || isMacExecutable(file)
                             }
 
-                            fun isMacExecutable(file: VirtualFile): Boolean {
-                                return SystemInfo.isMac && file.isDirectory && "app" == file.extension
+                            fun isMacExecutable(file: VirtualFile?): Boolean {
+                                return SystemInfo.isMac && file?.isDirectory == true && "app" == file.extension
                             }
                         }
                     )
