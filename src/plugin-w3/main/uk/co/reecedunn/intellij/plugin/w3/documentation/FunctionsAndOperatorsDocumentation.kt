@@ -48,7 +48,7 @@ object FunctionsAndOperatorsDocumentation :
     private val doc: Document?
         get() = computeUserDataIfAbsent(DOCUMENT) {
             val file = XQDocDocumentationDownloader.getInstance().load(active, download = true)
-            Optional.ofNullable(file?.let { Jsoup.parse(it.inputStream, null, "") })
+            Optional.ofNullable(file?.let { Jsoup.parse(it.inputStream, null as String?, "") })
         }.orElse(null)
 
     override fun invalidate(source: XpmDocumentationSource) {
