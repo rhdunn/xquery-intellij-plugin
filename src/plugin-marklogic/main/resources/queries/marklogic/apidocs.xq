@@ -37,7 +37,7 @@ declare function local:apidoc-language($doc as element()) as xs:string {
     ($doc/@class, "xquery")[1]
 };
 
-declare function local:prefix($namespaces as map(*), $namespace as xs:string) as xs:string {
+declare function local:prefix($namespaces as map(*), $namespace as xs:string) as xs:string? {
     for $prefix in map:keys($namespaces)
     where map:get($namespaces, $prefix) = $namespace
     return $prefix
