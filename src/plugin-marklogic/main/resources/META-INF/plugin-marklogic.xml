@@ -1,5 +1,7 @@
 <idea-plugin>
   <extensions defaultExtensionNs="com.intellij">
+    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicResourceProvider"/>
+
     <!-- Rewriter XML -->
     <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.Rewriter"/>
     <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.ModelTypeRegexLanguageInjection"/>

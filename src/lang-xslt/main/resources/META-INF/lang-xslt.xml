@@ -1,5 +1,32 @@
 <idea-plugin>
   <extensions defaultExtensionNs="com.intellij">
+    <fileIconPatcher implementation="uk.co.reecedunn.intellij.plugin.xslt.lang.fileTypes.XsltFileIconPatcher"/>
+
+    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.resources.XsltResourceProvider"/>
+
+    <xml.nsColorProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.XsltNSColorProvider"/>
     <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.XPathColorSettingsPage"/>
+
+    <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.lang.spellchecker.XsltBundledDictionaryProvider"/>
+
+    <!-- XSLT Schema Type -->
+
+    <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.xslt.lang.injection.XsltSchemaTypeLanguageInjection"/>
+
+    <lang.parserDefinition language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.EQNamesOrHashedKeywords$ParserDefinition"/>
+
+    <lang.parserDefinition language="xsl:nametests" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.NameTests$ParserDefinition"/>
+    <lang.parserDefinition language="xsl:sequence-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.SequenceType$ParserDefinition"/>
+    <lang.parserDefinition language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.ValueTemplate$ParserDefinition"/>
+
+    <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.SchemaTypeAnnotator"/>
+    <annotator language="xsl:sequence-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.SchemaTypeAnnotator"/>
+
+    <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.MethodKeywordAnnotator"/>
+    <annotator language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.ValueTemplateAnnotator"/>
+  </extensions>
+
+  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <namespaceProvider implementationClass="uk.co.reecedunn.intellij.plugin.xslt.optree.XsltNamespaceProvider" fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>

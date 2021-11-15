@@ -1,0 +1,5 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.saxon.resources.SaxonResourceProvider"/>
+  </extensions>
+</idea-plugin>

@@ -1,0 +1,5 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <xmlStructureViewElementProvider implementation="uk.co.reecedunn.intellij.plugin.xpm.ide.structureView.XmlStructureViewElementProvider" order="last"/>
+  </extensions>
+</idea-plugin>

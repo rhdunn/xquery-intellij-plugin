@@ -134,10 +134,10 @@
   <idea-version since-build="161"/>
 
   <xi:include href="plugin-lang-xpm.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="lang-xpm.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="lang-xpath.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-lang-xquery.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
-  <xi:include href="plugin-lang-xslt.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="lang-xslt.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="lang-xproc.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
@@ -149,6 +149,7 @@
   <xi:include href="plugin-query-processors.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <xi:include href="plugin-marklogic.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="plugin-saxon.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationConfigurable groupId="language" displayName="XQuery and XSLT" id="preferences.xqueryAndXslt"
