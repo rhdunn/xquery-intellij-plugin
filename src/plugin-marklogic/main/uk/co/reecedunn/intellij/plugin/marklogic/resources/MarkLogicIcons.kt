@@ -28,9 +28,9 @@ object MarkLogicIcons {
     val Product: Icon = getIcon("/icons/marklogic.png")
 
     object Markers {
-        val CusomSearchFacetFinish: Icon = getIcon("/icons/searchOptions/finishFacet.svg")
-        val CusomSearchFacetParse: Icon = getIcon("/icons/searchOptions/parse.svg")
-        val CusomSearchFacetStart: Icon = getIcon("/icons/searchOptions/startFacet.svg")
+        val CustomSearchFacetFinish: Icon = getIcon("/icons/searchOptions/finishFacet.svg")
+        val CustomSearchFacetParse: Icon = getIcon("/icons/searchOptions/parse.svg")
+        val CustomSearchFacetStart: Icon = getIcon("/icons/searchOptions/startFacet.svg")
         val Endpoint: Icon = AllIcons.General.Web
     }
 

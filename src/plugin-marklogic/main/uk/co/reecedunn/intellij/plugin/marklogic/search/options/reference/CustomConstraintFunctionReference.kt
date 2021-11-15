@@ -103,10 +103,10 @@ class CustomConstraintFunctionReference(
         }
 
         fun getIcon(referenceType: String?): Icon = when (referenceType) {
-            "parse" -> MarkLogicIcons.Markers.CusomSearchFacetParse
-            "start-facet" -> MarkLogicIcons.Markers.CusomSearchFacetStart
-            "finish-facet" -> MarkLogicIcons.Markers.CusomSearchFacetFinish
-            else -> MarkLogicIcons.Markers.CusomSearchFacetParse
+            "parse" -> MarkLogicIcons.Markers.CustomSearchFacetParse
+            "start-facet" -> MarkLogicIcons.Markers.CustomSearchFacetStart
+            "finish-facet" -> MarkLogicIcons.Markers.CustomSearchFacetFinish
+            else -> MarkLogicIcons.Markers.CustomSearchFacetParse
         }
     }
 }
