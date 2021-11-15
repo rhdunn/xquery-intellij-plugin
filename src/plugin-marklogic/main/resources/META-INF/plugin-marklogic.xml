@@ -40,5 +40,8 @@
 
     <!-- Static Context -->
     <variableProvider implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.model.MarkLogicBuiltInVariableProvider" fieldName="INSTANCE"/>
+
+    <!-- Import Paths : Deprecated by Module Paths -->
+    <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions" fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>

@@ -1,0 +1,9 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <!-- RESTXQ -->
+    <functionDecorator implementationClass="uk.co.reecedunn.intellij.plugin.exquery.restxq.decorator.RestXqFunctionDecorator" fieldName="INSTANCE"/>
+
+    <!-- Import Paths : Deprecated by Module Paths -->
+    <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.exquery.model.BuiltInFunctions" fieldName="INSTANCE"/>
+  </extensions>
+</idea-plugin>

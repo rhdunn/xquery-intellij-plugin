@@ -1,5 +1,80 @@
 <idea-plugin>
+  <extensionPoints>
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.importPathResolver" beanClass="uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolverBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver"/>
+    </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.modulePathFactory" beanClass="uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactoryBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory"/>
+    </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.moduleLoaderFactory" beanClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactoryBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory"/>
+    </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.functionDecorator" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecoratorBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator"/>
+    </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.projectConfigurationFactory" beanClass="uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactoryBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory"/>
+    </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.shadowPsiElementFactory" beanClass="uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactoryBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory"/>
+    </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.namespaceProvider" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProviderBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider"/>
+    </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.variableProvider" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider"/>
+    </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.functionProvider" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProviderBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider"/>
+    </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.semanticHighlighter" beanClass="uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighterBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighter"/>
+    </extensionPoint>
+  </extensionPoints>
+
   <extensions defaultExtensionNs="com.intellij">
+    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath"/>
+    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings"/>
+    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations"/>
+
     <xmlStructureViewElementProvider implementation="uk.co.reecedunn.intellij.plugin.xpm.ide.structureView.XmlStructureViewElementProvider" order="last"/>
+  </extensions>
+
+  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <!-- Module Paths -->
+
+    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmReverseDomainNameModulePath" fieldName="INSTANCE"/>
+    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath$Companion"/>
+    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.java.JavaModulePath$Companion"/>
+    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath$Companion"/>
+    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleUriPath" fieldName="INSTANCE"/>
+
+    <!-- Module Loaders -->
+
+    <moduleLoaderFactory name="fixed" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.FixedModuleLoader$Companion"/>
+    <moduleLoaderFactory name="jar" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JarModuleLoader$Companion"/>
+    <moduleLoaderFactory name="java" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.java.JavaModuleLoader" fieldName="INSTANCE"/>
+    <moduleLoaderFactory name="module" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader$Companion"/>
+    <moduleLoaderFactory name="project" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.ProjectModuleLoader" fieldName="INSTANCE"/>
+    <moduleLoaderFactory name="relative" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader" fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>

@@ -1,0 +1,6 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <!-- Import Paths : Deprecated by Module Paths -->
+    <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.existdb.model.BuiltInFunctions" fieldName="INSTANCE"/>
+  </extensions>
+</idea-plugin>

@@ -28,5 +28,7 @@
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
     <namespaceProvider implementationClass="uk.co.reecedunn.intellij.plugin.xslt.optree.XsltNamespaceProvider" fieldName="INSTANCE"/>
+
+    <shadowPsiElementFactory implementationClass="uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory" fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>

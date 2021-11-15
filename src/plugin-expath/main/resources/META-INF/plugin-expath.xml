@@ -1,0 +1,8 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <moduleLoaderFactory name="package" implementationClass="uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackage$Companion"/>
+
+    <!-- Import Paths : Deprecated by Module Paths -->
+    <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.expath.model.BuiltInFunctions" fieldName="INSTANCE"/>
+  </extensions>
+</idea-plugin>
