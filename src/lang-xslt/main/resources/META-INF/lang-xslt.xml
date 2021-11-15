@@ -1,0 +1,5 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.XPathColorSettingsPage"/>
+  </extensions>
+</idea-plugin>

@@ -9,7 +9,6 @@
     <lang.findUsagesProvider language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.findUsages.XPathFindUsagesProvider"/>
 
     <lang.syntaxHighlighterFactory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSyntaxHighlighter$Factory"/>
-    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.XPathColorSettingsPage"/>
     <annotator language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.QNameAnnotator"/>
 
     <lang.braceMatcher language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.editor.XPathPairedBraceMatcher"/>
