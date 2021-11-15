@@ -1,5 +1,7 @@
 <idea-plugin>
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <documentationSourceProvider implementationClass="uk.co.reecedunn.intellij.plugin.w3.documentation.FunctionsAndOperatorsDocumentation" fieldName="INSTANCE"/>
+
     <!-- Import Paths : Deprecated by Module Paths -->
     <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions" fieldName="INSTANCE"/>
   </extensions>

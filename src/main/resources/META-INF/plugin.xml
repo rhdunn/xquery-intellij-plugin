@@ -134,6 +134,7 @@
   <idea-version since-build="161"/>
 
   <xi:include href="lang-xpm.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="lang-xqdoc.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="lang-xpath.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="lang-xquery.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
@@ -144,7 +145,6 @@
   <xi:include href="plugin-inspections-xpst.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-inspections-xqst.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
-  <xi:include href="plugin-documentation.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-query-processors.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <xi:include href="plugin-expath.xml" xpointer="xpointer(/idea-plugin/*)"/>

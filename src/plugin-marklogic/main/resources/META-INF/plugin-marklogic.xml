@@ -32,6 +32,8 @@
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <documentationSourceProvider implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.documentation.MarkLogicProductDocumentation" fieldName="INSTANCE"/>
+
     <!-- Roxy -->
     <projectConfigurationFactory implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.RoxyProjectConfiguration$Companion"/>
 

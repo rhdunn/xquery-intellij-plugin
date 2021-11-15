@@ -9,9 +9,4 @@
   <extensions defaultExtensionNs="com.intellij">
     <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationDownloader"/>
   </extensions>
-
-  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
-    <documentationSourceProvider implementationClass="uk.co.reecedunn.intellij.plugin.w3.documentation.FunctionsAndOperatorsDocumentation" fieldName="INSTANCE"/>
-    <documentationSourceProvider implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.documentation.MarkLogicProductDocumentation" fieldName="INSTANCE"/>
-  </extensions>
 </idea-plugin>
