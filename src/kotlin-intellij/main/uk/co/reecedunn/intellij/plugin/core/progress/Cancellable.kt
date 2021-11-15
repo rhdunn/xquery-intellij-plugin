@@ -29,3 +29,10 @@ fun <T> Sequence<T>.forEachCancellable(checkEvery: Int, action: (T) -> Unit) {
 }
 
 fun <T> Sequence<T>.forEachCancellable(action: (T) -> Unit): Unit = forEachCancellable(1000, action)
+
+fun waitCancellable(check: () -> Boolean) {
+    while (check()) {
+        ProgressManager.checkCanceled()
+        Thread.sleep(100)
+    }
+}

@@ -26,6 +26,7 @@ import com.intellij.util.io.HttpRequests
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
+import uk.co.reecedunn.intellij.plugin.core.progress.waitCancellable
 import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xqdoc.resources.XQDocBundle
 import java.io.File
@@ -60,13 +61,11 @@ class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentation
         val file = file(source)
         if (download) {
             if (!file.exists() || tasks.isActive(source)) {
-                if (download(source)) {
-                    while (!tasks.isActive(source)) {
-                        Thread.sleep(250)
-                    }
+                if (download(source)) waitCancellable {
+                    !tasks.isActive(source)
                 }
-                while (tasks.isActive(source)) {
-                    Thread.sleep(250)
+                waitCancellable {
+                    tasks.isActive(source)
                 }
             }
         }
