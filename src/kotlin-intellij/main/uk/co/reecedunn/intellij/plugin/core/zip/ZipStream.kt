@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.core.zip
 
 import uk.co.reecedunn.intellij.plugin.core.io.NonClosingInputStream
+import uk.co.reecedunn.intellij.plugin.core.progress.forEachCancellable
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -58,7 +59,7 @@ fun Sequence<Pair<ZipEntry, ByteArray>>.toZipByteArray(): ByteArray = ByteArrayO
 fun InputStream.unzip(f: (ZipEntry, InputStream) -> Unit): Unit = use { stream ->
     ZipInputStream(stream).use { zip ->
         val input = NonClosingInputStream(zip)
-        zip.entries.forEach { entry -> f(entry, input) }
+        zip.entries.forEachCancellable(10) { entry -> f(entry, input) }
     }
 }
 

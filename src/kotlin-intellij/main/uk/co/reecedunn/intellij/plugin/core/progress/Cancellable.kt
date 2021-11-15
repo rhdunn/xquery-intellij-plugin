@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019, 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,15 @@ package uk.co.reecedunn.intellij.plugin.core.progress
 
 import com.intellij.openapi.progress.ProgressManager
 
-inline fun <T> Sequence<T>.forEachCancellable(action: (T) -> Unit) {
+fun <T> Sequence<T>.forEachCancellable(checkEvery: Int, action: (T) -> Unit) {
     var seldomCounter = 0
     for (element in this) {
         seldomCounter++
         action(element)
-        if (seldomCounter % 1000 == 0) {
+        if (seldomCounter % checkEvery == 0) {
             ProgressManager.checkCanceled()
         }
     }
 }
+
+fun <T> Sequence<T>.forEachCancellable(action: (T) -> Unit): Unit = forEachCancellable(1000, action)
