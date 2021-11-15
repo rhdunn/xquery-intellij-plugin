@@ -4,6 +4,12 @@
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <vendor implementationClass="uk.co.reecedunn.intellij.plugin.saxon.lang.Saxonica" fieldName="INSTANCE"/>
+
+    <syntaxValidator implementationClass="uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonSyntaxValidator" fieldName="INSTANCE"/>
+
+    <queryProcessorApi implementationClass="uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonS9API" fieldName="INSTANCE"/>
+
     <!-- Import Paths : Deprecated by Module Paths -->
     <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions" fieldName="INSTANCE"/>
   </extensions>

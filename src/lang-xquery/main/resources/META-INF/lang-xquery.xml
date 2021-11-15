@@ -57,6 +57,10 @@
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings"/>
 
     <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettingsConfigurable"/>
+
+    <!-- Run/Debug Configurations -->
+
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.xquery.lang.configuration.XQueryConfigurationType"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">

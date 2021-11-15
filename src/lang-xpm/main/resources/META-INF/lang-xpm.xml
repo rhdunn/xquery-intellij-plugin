@@ -49,6 +49,16 @@
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.semanticHighlighter" beanClass="uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighterBean" dynamic="true">
       <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighter"/>
     </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.syntaxValidator" beanClass="uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidatorBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator"/>
+    </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.vendor" beanClass="uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorTypeBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType"/>
+    </extensionPoint>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">

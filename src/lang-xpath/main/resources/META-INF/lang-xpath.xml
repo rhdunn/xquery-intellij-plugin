@@ -22,6 +22,10 @@
 
     <completion.contributor language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.XPathCompletionContributor"/>
     <typedHandler implementation="uk.co.reecedunn.intellij.plugin.xpath.completion.XPathTypedHandler"/>
+
+    <!-- Run/Debug Configurations -->
+
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.xpath.lang.configuration.XPathConfigurationType"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">

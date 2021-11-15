@@ -1,5 +1,11 @@
 <idea-plugin>
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <vendor implementationClass="uk.co.reecedunn.intellij.plugin.basex.lang.BaseX" fieldName="INSTANCE"/>
+
+    <syntaxValidator implementationClass="uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator" fieldName="INSTANCE"/>
+
+    <queryProcessorApi implementationClass="uk.co.reecedunn.intellij.plugin.basex.query.session.BaseXSession" fieldName="INSTANCE"/>
+
     <!-- Import Paths : Deprecated by Module Paths -->
     <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions" fieldName="INSTANCE"/>
   </extensions>

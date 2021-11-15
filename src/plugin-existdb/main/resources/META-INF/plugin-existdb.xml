@@ -1,5 +1,9 @@
 <idea-plugin>
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <vendor implementationClass="uk.co.reecedunn.intellij.plugin.existdb.lang.EXistDB" fieldName="INSTANCE"/>
+
+    <queryProcessorApi implementationClass="uk.co.reecedunn.intellij.plugin.existdb.query.rest.EXistDBRest" fieldName="INSTANCE"/>
+
     <!-- Import Paths : Deprecated by Module Paths -->
     <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.existdb.model.BuiltInFunctions" fieldName="INSTANCE"/>
   </extensions>

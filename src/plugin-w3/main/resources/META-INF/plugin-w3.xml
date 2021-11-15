@@ -1,5 +1,8 @@
 <idea-plugin>
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <syntaxValidator implementationClass="uk.co.reecedunn.intellij.plugin.w3.lang.XQuerySyntaxValidator" fieldName="INSTANCE"/>
+    <syntaxValidator implementationClass="uk.co.reecedunn.intellij.plugin.w3.lang.FullTextSyntaxValidator" fieldName="INSTANCE"/>
+
     <documentationSourceProvider implementationClass="uk.co.reecedunn.intellij.plugin.w3.documentation.FunctionsAndOperatorsDocumentation" fieldName="INSTANCE"/>
 
     <!-- Import Paths : Deprecated by Module Paths -->

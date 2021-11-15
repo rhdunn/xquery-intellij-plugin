@@ -1,0 +1,28 @@
+<idea-plugin>
+  <extensionPoints>
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.queryProcessorApi" beanClass="uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApiBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi"/>
+    </extensionPoint>
+  </extensionPoints>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.processor.log.lang.highlighter.QueryLogColorSettings"/>
+
+    <!-- Application / Project Settings -->
+
+    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors"/>
+
+    <!-- Run/Debug Configurations -->
+
+    <executor implementation="uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor"/>
+
+    <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.run.execution.runners.QueryProcessorRunner"/>
+    <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.debug.execution.runners.QueryProcessorDebugger"/>
+    <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.profile.execution.runners.QueryProcessorProfiler"/>
+
+    <!-- Log Viewer -->
+
+    <toolWindow id="Query Log" anchor="bottom" secondary="true" factoryClass="uk.co.reecedunn.intellij.plugin.processor.log.viewer.QueryLogViewer"/>
+  </extensions>
+</idea-plugin>

@@ -1,5 +1,7 @@
 <idea-plugin>
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <syntaxValidator implementationClass="uk.co.reecedunn.intellij.plugin.xijp.lang.XQueryIntelliJPluginSyntaxValidator" fieldName="INSTANCE"/>
+
     <!-- Import Paths : Deprecated by Module Paths -->
     <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.xijp.model.Annotations" fieldName="INSTANCE"/>
   </extensions>

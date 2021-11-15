@@ -29,10 +29,21 @@
     <lang.parserDefinition language="MLErrorLog" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLog$ParserDefinition"/>
     <lang.syntaxHighlighterFactory language="MLErrorLog" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.log.lang.highlighter.MarkLogicErrorLogSyntaxHighlighter$Factory"/>
     <annotator language="MLErrorLog" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.log.annotation.LogLevelAnnotator"/>
+
+    <!-- Run/Debug Configurations -->
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.marklogic.lang.configuration.ServerSideJavaScriptConfigurationType"/>
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.marklogic.lang.configuration.SPARQLConfigurationType"/>
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.marklogic.lang.configuration.SQLConfigurationType"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <vendor implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic" fieldName="INSTANCE"/>
+
+    <syntaxValidator implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator" fieldName="INSTANCE"/>
+
     <documentationSourceProvider implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.documentation.MarkLogicProductDocumentation" fieldName="INSTANCE"/>
+
+    <queryProcessorApi implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest" fieldName="INSTANCE"/>
 
     <!-- Roxy -->
     <projectConfigurationFactory implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy.RoxyProjectConfiguration$Companion"/>

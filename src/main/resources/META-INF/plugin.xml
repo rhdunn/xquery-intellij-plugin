@@ -145,7 +145,7 @@
   <xi:include href="plugin-inspections-xpst.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-inspections-xqst.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
-  <xi:include href="plugin-query-processors.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="plugin-api.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <xi:include href="plugin-expath.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-exquery.xml" xpointer="xpointer(/idea-plugin/*)"/>

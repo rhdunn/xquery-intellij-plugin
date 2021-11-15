@@ -24,6 +24,10 @@
 
     <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.MethodKeywordAnnotator"/>
     <annotator language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.ValueTemplateAnnotator"/>
+
+    <!-- Run/Debug Configurations -->
+
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.xslt.lang.configuration.XsltConfigurationType"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
