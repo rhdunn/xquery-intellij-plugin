@@ -138,7 +138,7 @@
   <xi:include href="plugin-lang-xquery.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <xi:include href="plugin-lang-xslt.xml" xpointer="xpointer(/idea-plugin/*)"/>
-  <xi:include href="plugin-lang-xproc.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="lang-xproc.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <xi:include href="plugin-inspections-ijvs.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-inspections-xpst.xml" xpointer="xpointer(/idea-plugin/*)"/>
