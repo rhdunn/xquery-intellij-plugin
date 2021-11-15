@@ -32,8 +32,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
-import java.io.File
 import java.util.*
+import java.util.zip.ZipException
 
 private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocumentation {
     override val moduleTypes: Array<XdmModuleType> = arrayOf(XdmModuleType.XQuery, XdmModuleType.XPath)
@@ -85,18 +85,23 @@ private data class MarkLogicZippedDocumentation(
 
     private val apidocs: XmlDocument?
         get() = computeUserDataIfAbsent(APIDOCS) {
-            Optional.ofNullable(XQDocDocumentationDownloader.getInstance().load(this, download = true)?.let {
+            val loader = XQDocDocumentationDownloader.getInstance()
+            Optional.ofNullable(loader.load(this, download = true)?.let {
                 val docs = XmlDocument.parse(ML_DOC_TEMPLATE, NAMESPACES)
-                it.inputStream.unzip { entry, stream ->
-                    if (entry.name.contains("pubs/raw/apidoc") && entry.name.endsWith(".xml")) {
-                        val xml = XmlDocument.parse(stream, NAMESPACES)
-                        if (xml.root.`is`("apidoc:module")) {
-                            val node = docs.doc.importNode(xml.root.element, true)
-                            docs.root.appendChild(node)
+                try {
+                    it.inputStream.unzip { entry, stream ->
+                        if (entry.name.contains("pubs/raw/apidoc") && entry.name.endsWith(".xml")) {
+                            val xml = XmlDocument.parse(stream, NAMESPACES)
+                            if (xml.root.`is`("apidoc:module")) {
+                                val node = docs.doc.importNode(xml.root.element, true)
+                                docs.root.appendChild(node)
+                            }
                         }
                     }
+                } catch (e: ZipException) {
+                    loader.file(this).delete() // Retry the download on the next request.
+                    throw e
                 }
-                docs.save(File(it.path.replace("\\.zip$".toRegex(), ".xml")))
                 query.bindContextItem(docs, "document-node()")
                 query.bindVariable("marklogic-version", version, "xs:string")
                 docs
@@ -120,9 +125,15 @@ private data class MarkLogicZippedDocumentation(
 
     fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? = ref.functionName?.let {
         if (isMarkLogicNamespace(it.namespace?.data)) {
-            apidocs // Ensure the apidocs are loaded
+            try {
+                apidocs // Ensure the apidocs are loaded
+            } catch (e: ZipException) {
+                return null
+            }
+
             query.bindVariable("namespace", it.namespace?.data, "xs:string")
             query.bindVariable("local-name", it.localName?.data, "xs:string")
+
             val ret = query.run().results.map { result -> (result.value as String).nullize() }
             ret.takeIf { results -> results.isNotEmpty() }?.let { results ->
                 FunctionDocumentation(results)
