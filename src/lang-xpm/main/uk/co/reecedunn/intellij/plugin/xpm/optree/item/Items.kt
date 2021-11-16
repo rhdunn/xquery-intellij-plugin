@@ -43,6 +43,10 @@ val XdmElementNode.namespaceUri: String?
 val XdmElementNode.localName: String?
     get() = nodeName?.localName?.data
 
+fun XdmElementNode.getAttributeValue(ns: String, localName: String): String? {
+    return attributes.find { it.localName == localName && it.namespaceUri == ns }?.stringValue
+}
+
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : map(*)
 

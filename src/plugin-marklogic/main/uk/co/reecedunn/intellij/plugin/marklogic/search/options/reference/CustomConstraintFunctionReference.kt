@@ -26,8 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.item.getAttributeValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.localName
-import uk.co.reecedunn.intellij.plugin.xpm.optree.item.namespaceUri
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
 import uk.co.reecedunn.intellij.plugin.xquery.model.fileProlog
@@ -44,16 +44,16 @@ class CustomConstraintFunctionReference(
     val referenceType: String
         get() = node.localName ?: ""
 
-    val apply: XdmAttributeNode?
-        get() = node.attributes.find { it.localName == "apply" && it.namespaceUri == "" }
+    val apply: String?
+        get() = node.getAttributeValue("", "apply")
 
     @Suppress("unused")
-    val moduleNamespace: XdmAttributeNode?
-        get() = node.attributes.find { it.localName == "ns" && it.namespaceUri == "" }
+    val moduleNamespace: String?
+        get() = node.getAttributeValue("", "ns")
 
     @Suppress("MemberVisibilityCanBePrivate")
-    val moduleUri: XdmAttributeNode?
-        get() = node.attributes.find { it.localName == "at" && it.namespaceUri == "" }
+    val moduleUri: String?
+        get() = node.getAttributeValue("", "at")
 
     // endregion
     // region function reference
@@ -68,7 +68,7 @@ class CustomConstraintFunctionReference(
         get() {
             val prolog = moduleUriReference?.resolve()?.fileProlog() ?: return null
             return prolog.annotatedDeclarations<XpmFunctionDeclaration>().find { function ->
-                function.functionName?.localName?.data == apply?.stringValue
+                function.functionName?.localName?.data == apply
             }
         }
 
@@ -97,7 +97,7 @@ class CustomConstraintFunctionReference(
         override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference> {
             val ref = create(element, element) ?: return arrayOf()
             return when {
-                ref.apply?.stringValue.isNullOrBlank() -> arrayOf()
+                ref.apply.isNullOrBlank() -> arrayOf()
                 else -> arrayOf(ref)
             }
         }

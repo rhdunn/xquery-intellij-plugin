@@ -102,13 +102,13 @@ class SearchOptions : UserDataHolderBase() {
     fun getCustomConstraintFunctionReferences(function: XpmFunctionDeclaration): List<CustomConstraintFunctionReference> {
         val name = function.functionName ?: return listOf()
         return getCustomConstraintFunctionReferences((name as PsiElement).project).filter { ref ->
-            if (ref.apply?.stringValue != name.localName?.data) return@filter false
+            if (ref.apply != name.localName?.data) return@filter false
 
             val module = name.containingFile as XQueryModule
             val library = module.mainOrLibraryModule as? XQueryLibraryModule ?: return@filter false
             val decl = library.children().filterIsInstance<XQueryModuleDecl>().firstOrNull() ?: return@filter false
 
-            ref.moduleNamespace?.stringValue == decl.namespaceUri?.data
+            ref.moduleNamespace == decl.namespaceUri?.data
         }
     }
 }
