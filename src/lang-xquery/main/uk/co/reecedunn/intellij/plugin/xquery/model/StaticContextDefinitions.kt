@@ -44,6 +44,7 @@ object StaticContextDefinitions {
     private val MODULES = mapOf(
         "urn:static-context:basex" to "static-context/basex.org/xquery.xqy",
         "urn:static-context:exist-db" to "static-context/exist-db.org/xquery.xqy",
+        "urn:static-context:exist-db-5" to "static-context/exist-db.org/exist-db-5.xqy",
         "urn:static-context:marklogic:0.9-ml" to "static-context/marklogic.com/0.9-ml.xqy",
         "urn:static-context:marklogic:1.0" to "static-context/marklogic.com/1.0.xqy",
         "urn:static-context:marklogic:1.0-ml" to "static-context/marklogic.com/1.0-ml.xqy",

@@ -133,13 +133,19 @@ object EXistDB : Implementation("exist-db", "eXist-db", "http://www.exist-db.org
     val VERSION_3_6: Version = ProductVersion("3.6", this, "declare context item")
     val VERSION_4_0: Version = ProductVersion("4.0", this, "XQuery 3.1 REC")
     val VERSION_4_3: Version = ProductVersion("4.3", this, "XMLSchema 1.1")
+    val VERSION_5_0: Version = ProductVersion("5.0", this, "exist 5")
+    val VERSION_5_1: Version = ProductVersion("5.1", this, "Lucene facets and fields")
+    val VERSION_5_3: Version = ProductVersion("5.3", this, "Function types in context item")
 
     override val versions: List<Version> = listOf(
         VERSION_3_0,
         VERSION_3_1,
         VERSION_3_6,
         VERSION_4_0,
-        VERSION_4_3
+        VERSION_4_3,
+        VERSION_5_0,
+        VERSION_5_1,
+        VERSION_5_3
     )
 
     val EXIST_DB: Product = EXistDBProduct("exist-db", "eXist-db", this)
@@ -150,6 +156,7 @@ object EXistDB : Implementation("exist-db", "eXist-db", "http://www.exist-db.org
         dialect === this || dialect === XQuerySpec
 
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
+        if (productVersion >= 5.0) return "urn:static-context:exist-db-5"
         return when (xqueryVersion) {
             XQuerySpec.REC_1_0_20070123, XQuerySpec.REC_1_0_20101214 ->
                 "urn:static-context:exist-db"
