@@ -13,7 +13,8 @@ declare %a:since("exist", "4.4") function util:absolute-resource-id($node-or-pat
 declare %a:since("exist", "4.4") function util:base-to-integer($number as item(), $base as xs:integer) as xs:integer external;
 declare %a:since("exist", "4.4") function util:base64-decode($string as xs:string?) as xs:string? external;
 declare %a:since("exist", "4.4") function util:base64-encode($string as xs:string?) as xs:string? external;
-declare %a:since("exist", "4.4") function util:base64-encode($string as xs:string?, $trim as xs:boolean) as xs:string? external;
+declare %a:since("exist", "5.3") function util:base64-encode-url-safe($string as xs:string?) as xs:string? external;
+declare %a:deprecated("exist", "5.3") %a:since("exist", "4.4") function util:base64-encode($string as xs:string?, $trim as xs:boolean) as xs:string? external;
 declare %a:since("exist", "4.4") function util:binary-doc($binary-resource as xs:string?) as xs:base64Binary? external;
 declare %a:since("exist", "4.4") function util:binary-doc-available($binary-resource as xs:string?) as xs:boolean external;
 declare %a:since("exist", "4.6") function util:binary-doc-content-digest($binary-resource as xs:string?, $algorithm as xs:string) as xs:hexBinary? external;
