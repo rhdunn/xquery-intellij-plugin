@@ -17,8 +17,12 @@ declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("exis
 declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("exist", "4.4", "sm:chmod") function xmldb:chmod-resource($collection as xs:string, $resource as xs:string, $mode as xs:integer) as item() external;
 declare %a:since("exist", "4.4") function xmldb:clear-lock($collection-uri as xs:string, $resource as xs:string) as xs:string? external;
 declare %a:since("exist", "4.4") function xmldb:collection-available($collection-uri as xs:string) as xs:boolean external;
-declare %a:since("exist", "4.4") function xmldb:copy($source-collection-uri as xs:string, $target-collection-uri as xs:string) as item() external;
-declare %a:since("exist", "4.4") function xmldb:copy($source-collection-uri as xs:string, $target-collection-uri as xs:string, $resource as xs:string) as item() external;
+declare %a:deprecated("exist", "5.0") %a:since("exist", "4.4") %a:see-also("exist", "5.0", "xmldb:copyt-resource") %a:see-also("exist", "5.0", "xmldb:copyt-collection") function xmldb:copy($source-collection-uri as xs:string, $target-collection-uri as xs:string) as item() external;
+declare %a:deprecated("exist", "5.0") %a:since("exist", "4.4") %a:see-also("exist", "5.0", "xmldb:copyt-resource") %a:see-also("exist", "5.0", "xmldb:copyt-collection") function xmldb:copy($source-collection-uri as xs:string, $target-collection-uri as xs:string, $resource as xs:string) as item() external;
+declare %a:since("exist", "5.0") function xmldb:copy-collection($source-collection-uri as xs:string, $target-collection-uri as xs:string) as xs:string external;
+declare %a:since("exist", "5.0") function xmldb:copy-collection($source-collection-uri as xs:string, $target-collection-uri as xs:string, $preserve as xs:boolean) as xs:string external;
+declare %a:since("exist", "5.0") function xmldb:copy-resource($source-collection-uri as xs:string, $source-resource-name as xs:string, $target-collection-uri as xs:string, $target-resource-name as xs:string?) as xs:string external;
+declare %a:since("exist", "5.0") function xmldb:copy-resource($source-collection-uri as xs:string, $source-resource-name as xs:string, $target-collection-uri as xs:string, $target-resource-name as xs:string?, $preserve as xs:boolean) as xs:string external;
 declare %a:since("exist", "4.4") function xmldb:create-collection($target-collection-uri as xs:string, $new-collection as xs:string) as xs:string? external;
 declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("exist", "4.4", "sm:create-group") function xmldb:create-group($group as xs:string) as xs:boolean external;
 declare %a:since("exist", "4.4") %a:deprecated("exist", "4.4") %a:see-also("exist", "4.4", "sm:create-group") function xmldb:create-group($group as xs:string, $group-manager-username as xs:string+) as xs:boolean external;
