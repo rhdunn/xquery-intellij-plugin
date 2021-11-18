@@ -156,7 +156,7 @@ object EXistDB : Implementation("exist-db", "eXist-db", "http://www.exist-db.org
         dialect === this || dialect === XQuerySpec
 
     override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
-        if (productVersion >= 5.0) return "urn:static-context:exist-db-5"
+        if (productVersion != null && productVersion.value >= 5.0) return "urn:static-context:exist-db-5"
         return when (xqueryVersion) {
             XQuerySpec.REC_1_0_20070123, XQuerySpec.REC_1_0_20101214 ->
                 "urn:static-context:exist-db"
