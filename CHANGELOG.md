@@ -33,6 +33,11 @@ XPath and XQuery:
 3. Don't generate an error when parsing `?$` and `?($)`, where the `VarName` is missing.
 4. Improve the error message when a `QName` is used in a `DirPIConstructor`.
 
+eXist-db:
+
+1. Update the built-in function definitions to eXist-db 5.3. Thanks to Juri Leino for providing
+   the built-in function definitions.
+
 MarkLogic Rewriter XML Integration:
 
 1. Cache the endpoints to improve the line marker performance when the data has been previously calculated.

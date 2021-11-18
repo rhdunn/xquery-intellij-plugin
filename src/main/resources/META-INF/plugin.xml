@@ -111,6 +111,13 @@
       </li>
       <li>Improve the error message when a <code>QName</code> is used in a <code>DirPIConstructor</code>.</li>
     </ol>
+    <p>eXist-db:</p>
+    <ol>
+      <li>
+        Update the built-in function definitions to eXist-db 5.3. Thanks to Juri Leino for providing
+        the built-in function definitions.
+      </li>
+    </ol>
     <p>MarkLogic Rewriter XML Integration:</p>
     <ol>
       <li>Cache the endpoints to improve the line marker performance when the data has been previously calculated.</li>

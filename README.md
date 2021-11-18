@@ -32,7 +32,7 @@ Older versions of the plugin are compatible with older versions of IntelliJ.
 
 This plugin provides support for the following implementations of XQuery:
 1.  BaseX 7.0 &ndash; 9.3;
-1.  eXist-db 4.4 &ndash; 5.2;
+1.  eXist-db 4.4 &ndash; 5.3;
 1.  FusionDB alpha;
 1.  MarkLogic 8.0 &ndash; 10.0;
 1.  Saxon 9.2 &ndash; 10.0.
