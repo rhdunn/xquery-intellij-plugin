@@ -18,14 +18,22 @@ package uk.co.reecedunn.intellij.plugin.marklogic.configuration.gradle
 import com.intellij.lang.properties.IProperty
 import com.intellij.lang.properties.psi.PropertiesFile
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Key
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiElement
+import com.intellij.psi.util.CachedValue
+import com.intellij.psi.util.CachedValueProvider
+import com.intellij.psi.util.CachedValuesManager
+import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
+import java.util.*
 
 class GradleProjectConfiguration(private val project: Project, override val baseDir: VirtualFile) :
+    UserDataHolderBase(),
     XpmProjectConfiguration {
     // region ml-gradle
 
@@ -36,6 +44,14 @@ class GradleProjectConfiguration(private val project: Project, override val base
 
     private val build: PropertiesFile? = getPropertiesFile("default") // Project-specific properties
     private var env: PropertiesFile? = getPropertiesFile("local") // Environment-specific properties
+
+    private fun <T> cached(key: Key<CachedValue<T>>, compute: () -> Pair<T, PsiElement?>): T {
+        return CachedValuesManager.getManager(project).getCachedValue(this, key, {
+            val (value, context) = compute()
+            val dependencies = listOfNotNull(context, build, env)
+            CachedValueProvider.Result.create(value, dependencies)
+        }, false)
+    }
 
     private fun getProperty(property: String): Sequence<IProperty> = sequenceOf(
         env?.findPropertyByKey(property),
@@ -48,7 +64,9 @@ class GradleProjectConfiguration(private val project: Project, override val base
     // region XpmProjectConfiguration
 
     override val applicationName: String?
-        get() = getPropertyValue(ML_APP_NAME)
+        get() = cached(APPLICATION_NAME) {
+            Optional.ofNullable(getPropertyValue(ML_APP_NAME)) to null
+        }.orElse(null)
 
     override var environmentName: String = "local"
         set(name) {
@@ -57,10 +75,10 @@ class GradleProjectConfiguration(private val project: Project, override val base
         }
 
     override val modulePaths: Sequence<VirtualFile>
-        get() {
+        get() = cached(MODULE_PATHS) {
             val modulePaths = getPropertyValue(ML_MODULE_PATHS) ?: ML_MODULE_PATHS_DEFAULT
-            return modulePaths.split(",").asSequence().mapNotNull { baseDir.findFileByRelativePath("$it/root") }
-        }
+            modulePaths.split(",").mapNotNull { baseDir.findFileByRelativePath("$it/root") } to null
+        }.asSequence()
 
     override val processorId: Int?
         get() = QueryProcessors.getInstance().processors.find {
@@ -68,7 +86,10 @@ class GradleProjectConfiguration(private val project: Project, override val base
         }?.id
 
     override val databaseName: String?
-        get() = getPropertyValue(ML_CONTENT_DATABASE_NAME) ?: applicationName?.let { "$it-content" }
+        get() = cached(DATABASE_NAME) {
+            val name = getPropertyValue(ML_CONTENT_DATABASE_NAME) ?: applicationName?.let { "$it-content" }
+            Optional.ofNullable(name) to null
+        }.orElse(null)
 
     // endregion
     // region XpmProjectConfigurationFactory
@@ -81,11 +102,15 @@ class GradleProjectConfiguration(private val project: Project, override val base
 
         private const val GRADLE_PROPERTIES = "gradle.properties"
 
+        private val APPLICATION_NAME = Key.create<CachedValue<Optional<String>>>("APPLICATION_NAME")
         private const val ML_APP_NAME = "mlAppName"
-        private const val ML_MODULE_PATHS = "mlModulePaths"
-        private const val ML_CONTENT_DATABASE_NAME = "mlContentDatabaseName"
 
+        private val MODULE_PATHS = Key.create<CachedValue<List<VirtualFile>>>("MODULE_PATHS")
+        private const val ML_MODULE_PATHS = "mlModulePaths"
         private const val ML_MODULE_PATHS_DEFAULT = "src/main/ml-modules"
+
+        private val DATABASE_NAME = Key.create<CachedValue<Optional<String>>>("DATABASE_NAME")
+        private const val ML_CONTENT_DATABASE_NAME = "mlContentDatabaseName"
 
         private val LOCALHOST_STRINGS = setOf("localhost", "127.0.0.1")
     }
