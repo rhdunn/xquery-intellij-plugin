@@ -18,15 +18,23 @@ package uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy
 import com.intellij.lang.properties.IProperty
 import com.intellij.lang.properties.psi.PropertiesFile
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Key
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiElement
+import com.intellij.psi.util.CachedValue
+import com.intellij.psi.util.CachedValueProvider
+import com.intellij.psi.util.CachedValuesManager
+import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
+import java.util.*
 
 @Suppress("MemberVisibilityCanBePrivate")
 class RoxyProjectConfiguration(private val project: Project, override val baseDir: VirtualFile) :
+    UserDataHolderBase(),
     XpmProjectConfiguration {
     // region Roxy
 
@@ -39,6 +47,14 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
     private val default: PropertiesFile? = getPropertiesFile("default") // Default roxy properties
     private val build: PropertiesFile? = getPropertiesFile("build") // Project-specific properties
     private var env: PropertiesFile? = getPropertiesFile("local") // Environment-specific properties
+
+    private fun <T> cached(key: Key<CachedValue<T>>, compute: () -> Pair<T, PsiElement?>): T {
+        return CachedValuesManager.getManager(project).getCachedValue(this, key, {
+            val (value, context) = compute()
+            val dependencies = listOfNotNull(context, default, build, env)
+            CachedValueProvider.Result.create(value, dependencies)
+        }, false)
+    }
 
     private fun getProperty(property: String): Sequence<IProperty> = sequenceOf(
         env?.findPropertyByKey(property),
@@ -81,7 +97,9 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
     // region XpmProjectConfiguration
 
     override val applicationName: String?
-        get() = getPropertyValue(APP_NAME)
+        get() = cached(APPLICATION_NAME) {
+            Optional.ofNullable(getPropertyValue(APP_NAME)) to null
+        }.orElse(null)
 
     override var environmentName: String = "local"
         set(name) {
@@ -90,7 +108,9 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         }
 
     override val modulePaths: Sequence<VirtualFile>
-        get() = sequenceOf(getVirtualFile(XQUERY_DIR)).filterNotNull()
+        get() = cached(MODULE_PATHS) {
+            sequenceOf(getVirtualFile(XQUERY_DIR)).filterNotNull().toList() to null
+        }.asSequence()
 
     override val processorId: Int?
         get() = QueryProcessors.getInstance().processors.find {
@@ -98,7 +118,9 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         }?.id
 
     override val databaseName: String?
-        get() = getPropertyValue(CONTENT_DB)
+        get() = cached(DATABASE_NAME) {
+            Optional.ofNullable(getPropertyValue(CONTENT_DB)) to null
+        }.orElse(null)
 
     // endregion
     // region XpmProjectConfigurationFactory
@@ -112,8 +134,13 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
 
         private val ML_COMMAND = setOf("ml", "ml.bat")
 
+        private val APPLICATION_NAME = Key.create<CachedValue<Optional<String>>>("APPLICATION_NAME")
         private const val APP_NAME = "app-name"
+
+        private val MODULE_PATHS = Key.create<CachedValue<List<VirtualFile>>>("MODULE_PATHS")
         private const val XQUERY_DIR = "xquery.dir"
+
+        private val DATABASE_NAME = Key.create<CachedValue<Optional<String>>>("DATABASE_NAME")
         private const val CONTENT_DB = "content-db"
 
         private val LOCALHOST_STRINGS = setOf("localhost", "127.0.0.1")
