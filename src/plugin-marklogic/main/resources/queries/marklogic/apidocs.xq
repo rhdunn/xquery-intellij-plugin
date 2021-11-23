@@ -342,7 +342,7 @@ for $function in $functions
 where $function/@lib = $prefix and $function/@name = $local-name
 return (
     local:function-uri($function),
-    fn:serialize(local:documentation-html($function/apidoc:summary)),
+    fn:serialize(local:documentation-html($function/apidoc:summary[local:apidoc-language(.) = $language])),
     string-join(local:function-html-signatures($function) ! fn:serialize(.), ""),
     fn:serialize(local:function-html-parameters($function)),
     fn:serialize($function/apidoc:privilege ! local:documentation-html(.)),
