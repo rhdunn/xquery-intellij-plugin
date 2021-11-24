@@ -71,6 +71,16 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <ol>
+      <li>In-place rename refactoring support for variables.</li>
+      <li>
+        Support for <code>@apply</code> and <code>@at</code> in MarkLogic search option custom facet
+        extensions within XQuery code.
+      </li>
+      <li>Update the built-in function definitions to eXist-db 5.3.</li>
+      <li>Code folding for the remaining `{...}` constructs.</li>
+      <li>Bug fixes and general improvements.</li>
+    </ol>
     <p>IntelliJ Integration:</p>
     <ol>
       <li>Add paired brace matching for Saxon context item and lambda functions.</li>

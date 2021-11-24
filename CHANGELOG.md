@@ -1,58 +1,8 @@
 # Change Log
 
-## 1.10.0 - (In Development)
-
-IntelliJ Integration:
-
-1. Add paired brace matching for Saxon context item and lambda functions.
-2. Add paired brace matching for XPath expressions.
-3. Add code commenting support for XPath.
-
-Code Folding:
-
-1. Add code folding for XQuery string interpolations.
-2. Add code folding for Full Text, Updating, Scripting, and vendor extension expressions containing braces (`{...}`).
-
-Syntax and Semantic Highlighting:
-
-1. Highlight `=` in XML attributes as attribute values to match IntelliJ's highlighting behaviour.
-2. Highlight direct processing instruction node (`<?xml ...?>`) tokens.
-
-References and Resolving:
-
-1. Fix resolving elements to `xmlns` nodes where the namespace URI is not also bound to a prefix.
-
-Refactoring:
-
-1. Support in-place rename refactoring for variables, except for private variable declarations.
-
-XPath and XQuery:
-
-1. Fix parsing `FTContainsExpr` in the RHS of a `ComparisonExpr` in XPath expressions.
-2. Improve the error message when a `return` is used without a `ForExpr` or `LetExpr` in XPath expressions.
-3. Don't generate an error when parsing `?$` and `?($)`, where the `VarName` is missing.
-4. Improve the error message when a `QName` is used in a `DirPIConstructor`.
-
-eXist-db:
-
-1. Update the built-in function definitions to eXist-db 5.3. Thanks to Juri Leino for providing
-   the built-in function definitions.
-
-MarkLogic Rewriter XML Integration:
-
-1. Cache the endpoints to improve the line marker performance when the data has been previously calculated.
-2. In the Endpoints tool window navigate to the module file, not the rewriter XML element that references it.
-
-MarkLogic Search Options XML Integration:
-
-1. Support resolving `parse/@at`, `start-facet/@at`, and `finish-facet/@at` attribute values in XQuery direct
-   constructors to the XQuery/MJS/SJS file they reference.
-2. Support resolving `parse/@apply`, `start-facet/@apply`, and `finish-facet/@apply` attribute values in XQuery
-   direct constructors to the XQuery function they reference.
-3. Add line markers to functions referenced by custom facets in search options XQuery direct constructors.
-
 ## 2021
 
+*  [1.9.2 - 2021-11-24](docs/_posts/2021-11-24-release-1.9.2.md)
 *  [1.9.1 - 2021-07-23](docs/_posts/2021-07-23-release-1.9.1.md)
 *  [1.9.0 - 2021-03-31](docs/_posts/2021-03-31-release-1.9.0.md)
 
