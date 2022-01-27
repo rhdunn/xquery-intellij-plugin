@@ -22,7 +22,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.ModificationTracker
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.PsiElement
 import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
@@ -45,10 +44,14 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
 
     private val deployDir = baseDir.findChild("deploy")
 
-    private fun getPropertiesFile(name: String, key: Key<CachedValue<Optional<PropertiesFile>>>): PropertiesFile? {
+    private fun getPropertiesFile(
+        name: String,
+        key: Key<CachedValue<Optional<PropertiesFile>>>,
+        modificationTracker: ModificationTracker? = null
+    ): PropertiesFile? {
         return cached(key) {
             val file = deployDir?.findChild("$name.properties")?.toPsiFile(project) as? PropertiesFile
-            Optional.ofNullable(file) to null
+            Optional.ofNullable(file) to modificationTracker
         }.orElse(null)
     }
 
@@ -59,9 +62,9 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         get() = getPropertiesFile("build", BUILD_PROPERTIES) // Project-specific properties
 
     private val env: PropertiesFile?
-        get() = getPropertiesFile("local", ENV_PROPERTIES)
+        get() = getPropertiesFile(environmentName, ENV_PROPERTIES, this)
 
-    private fun <T> cached(key: Key<CachedValue<T>>, compute: () -> Pair<T, PsiElement?>): T {
+    private fun <T> cached(key: Key<CachedValue<T>>, compute: () -> Pair<T, Any?>): T {
         return CachedValuesManager.getManager(project).getCachedValue(this, key, {
             val (value, context) = compute()
             val dependencies = listOfNotNull(context, getModificationTracker(project))
