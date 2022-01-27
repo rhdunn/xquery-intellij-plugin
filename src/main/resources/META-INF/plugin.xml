@@ -74,6 +74,7 @@
     <p>Bug Fixes:</p>
     <ol>
       <li>Fix an exception when trying to display the MarkLogic rewriter endpoint line marker.</li>
+      <li>Fix an exception in the gradle project configuration when there aren't any associated property files.</li>
     </ol>
   ]]></change-notes>
 
