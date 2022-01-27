@@ -43,13 +43,21 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
 
     private val deployDir = baseDir.findChild("deploy")
 
-    private fun getPropertiesFile(name: String): PropertiesFile? {
-        return deployDir?.findChild("$name.properties")?.toPsiFile(project) as? PropertiesFile
+    private fun getPropertiesFile(name: String, key: Key<CachedValue<Optional<PropertiesFile>>>): PropertiesFile? {
+        return cached(key) {
+            val file = deployDir?.findChild("$name.properties")?.toPsiFile(project) as? PropertiesFile
+            Optional.ofNullable(file) to null
+        }.orElse(null)
     }
 
-    private val default: PropertiesFile? = getPropertiesFile("default") // Default roxy properties
-    private val build: PropertiesFile? = getPropertiesFile("build") // Project-specific properties
-    private var env: PropertiesFile? = getPropertiesFile("local") // Environment-specific properties
+    private val default: PropertiesFile?
+        get() = getPropertiesFile("default", DEFAULT_PROPERTIES) // Default roxy properties
+
+    private val build: PropertiesFile?
+        get() = getPropertiesFile("build", BUILD_PROPERTIES) // Project-specific properties
+
+    private val env: PropertiesFile?
+        get() = getPropertiesFile("local", ENV_PROPERTIES)
 
     private fun <T> cached(key: Key<CachedValue<T>>, compute: () -> Pair<T, PsiElement?>): T {
         return CachedValuesManager.getManager(project).getCachedValue(this, key, {
@@ -109,10 +117,6 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         }.orElse(null)
 
     override var environmentName: String = "local"
-        set(name) {
-            field = name
-            env = getPropertiesFile(name)
-        }
 
     override val modulePaths: Sequence<VirtualFile>
         get() = cached(MODULE_PATHS) {
@@ -149,6 +153,10 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
 
         private val DATABASE_NAME = Key.create<CachedValue<Optional<String>>>("DATABASE_NAME")
         private const val CONTENT_DB = "content-db"
+
+        private val DEFAULT_PROPERTIES = Key.create<CachedValue<Optional<PropertiesFile>>>("DEFAULT_PROPERTIES")
+        private val BUILD_PROPERTIES = Key.create<CachedValue<Optional<PropertiesFile>>>("BUILD_PROPERTIES")
+        private val ENV_PROPERTIES = Key.create<CachedValue<Optional<PropertiesFile>>>("ENV_PROPERTIES")
 
         private val LOCALHOST_STRINGS = setOf("localhost", "127.0.0.1")
     }
