@@ -48,6 +48,9 @@ class GradleProjectConfiguration(private val project: Project, override val base
         }.orElse(null)
     }
 
+    private val default: PropertiesFile?
+        get() = getPropertiesFile(null, DEFAULT_PROPERTIES) // Default roxy properties
+
     private val build: PropertiesFile?
         get() = getPropertiesFile("default", BUILD_PROPERTIES) // Project-specific properties
 
@@ -64,7 +67,8 @@ class GradleProjectConfiguration(private val project: Project, override val base
 
     private fun getProperty(property: String): Sequence<IProperty> = sequenceOf(
         env?.findPropertyByKey(property),
-        build?.findPropertyByKey(property)
+        build?.findPropertyByKey(property),
+        default?.findPropertyByKey(property)
     ).filterNotNull()
 
     private fun getPropertyValue(property: String): String? = getProperty(property).firstOrNull()?.value
@@ -123,6 +127,7 @@ class GradleProjectConfiguration(private val project: Project, override val base
 
         private val LOCALHOST_STRINGS = setOf("localhost", "127.0.0.1")
 
+        private val DEFAULT_PROPERTIES = Key.create<CachedValue<Optional<PropertiesFile>>>("DEFAULT_PROPERTIES")
         private val BUILD_PROPERTIES = Key.create<CachedValue<Optional<PropertiesFile>>>("BUILD_PROPERTIES")
         private val ENV_PROPERTIES = Key.create<CachedValue<Optional<PropertiesFile>>>("ENV_PROPERTIES")
     }
