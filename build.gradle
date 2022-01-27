@@ -32,7 +32,7 @@ buildscript {
         return build.readLines()[0].split('\\.')[0]
     }
 
-    ext.idea_version = System.getenv("IDEA_VERSION") ?: '2021.2'
+    ext.idea_version = System.getenv("IDEA_VERSION") ?: '2021.3'
     ext.idea_since_build = ext.since_from_version(ext.idea_version).toInteger()
     ext.idea_type = System.getenv("IDEA_TYPE") ?: 'IC'
 
