@@ -40,13 +40,19 @@ class GradleProjectConfiguration(private val project: Project, override val base
     XpmProjectConfiguration {
     // region ml-gradle
 
-    private fun getPropertiesFile(name: String?): PropertiesFile? {
-        val filename = name?.let { "gradle-${name}.properties" } ?: GRADLE_PROPERTIES
-        return baseDir.findChild(filename)?.toPsiFile(project) as? PropertiesFile
+    private fun getPropertiesFile(name: String?, key: Key<CachedValue<Optional<PropertiesFile>>>): PropertiesFile? {
+        return cached(key) {
+            val filename = name?.let { "gradle-${name}.properties" } ?: GRADLE_PROPERTIES
+            val file = baseDir.findChild(filename)?.toPsiFile(project) as? PropertiesFile
+            Optional.ofNullable(file) to null
+        }.orElse(null)
     }
 
-    private val build: PropertiesFile? = getPropertiesFile("default") // Project-specific properties
-    private var env: PropertiesFile? = getPropertiesFile("local") // Environment-specific properties
+    private val build: PropertiesFile?
+        get() = getPropertiesFile("default", BUILD_PROPERTIES) // Project-specific properties
+
+    private val env: PropertiesFile?
+        get() = getPropertiesFile("local", ENV_PROPERTIES) // Environment-specific properties
 
     private fun <T> cached(key: Key<CachedValue<T>>, compute: () -> Pair<T, PsiElement?>): T {
         return CachedValuesManager.getManager(project).getCachedValue(this, key, {
@@ -76,10 +82,6 @@ class GradleProjectConfiguration(private val project: Project, override val base
         }.orElse(null)
 
     override var environmentName: String = "local"
-        set(name) {
-            field = name
-            env = getPropertiesFile(name)
-        }
 
     override val modulePaths: Sequence<VirtualFile>
         get() = cached(MODULE_PATHS) {
@@ -120,6 +122,9 @@ class GradleProjectConfiguration(private val project: Project, override val base
         private const val ML_CONTENT_DATABASE_NAME = "mlContentDatabaseName"
 
         private val LOCALHOST_STRINGS = setOf("localhost", "127.0.0.1")
+
+        private val BUILD_PROPERTIES = Key.create<CachedValue<Optional<PropertiesFile>>>("BUILD_PROPERTIES")
+        private val ENV_PROPERTIES = Key.create<CachedValue<Optional<PropertiesFile>>>("ENV_PROPERTIES")
     }
 
     // endregion
