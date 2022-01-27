@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.project.configuration
 
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.ModificationTracker
 import com.intellij.openapi.vfs.VirtualFile
 
 interface XpmProjectConfiguration {
+    fun getModificationTracker(project: Project): ModificationTracker
+
     val baseDir: VirtualFile
 
     val applicationName: String?

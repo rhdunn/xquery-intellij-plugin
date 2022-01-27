@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 Reece H. Dunn
+ * Copyright (C) 2020-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,17 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy
 
 import com.intellij.lang.properties.IProperty
+import com.intellij.lang.properties.PropertiesLanguage
 import com.intellij.lang.properties.psi.PropertiesFile
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
+import com.intellij.openapi.util.ModificationTracker
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
+import com.intellij.psi.util.PsiModificationTracker
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
@@ -95,6 +98,10 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
 
     // endregion
     // region XpmProjectConfiguration
+
+    override fun getModificationTracker(project: Project): ModificationTracker {
+        return PsiModificationTracker.SERVICE.getInstance(project).forLanguage(PropertiesLanguage.INSTANCE)
+    }
 
     override val applicationName: String?
         get() = cached(APPLICATION_NAME) {
