@@ -34,10 +34,12 @@ import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 import java.util.*
+import java.util.concurrent.atomic.AtomicLongFieldUpdater
 
 class GradleProjectConfiguration(private val project: Project, override val baseDir: VirtualFile) :
     UserDataHolderBase(),
-    XpmProjectConfiguration {
+    XpmProjectConfiguration,
+    ModificationTracker {
     // region ml-gradle
 
     private fun getPropertiesFile(name: String?, key: Key<CachedValue<Optional<PropertiesFile>>>): PropertiesFile? {
@@ -105,6 +107,18 @@ class GradleProjectConfiguration(private val project: Project, override val base
         }.orElse(null)
 
     // endregion
+    // region ModificationTracker
+
+    @Volatile
+    private var modificationCount: Long = 0
+
+    private fun incrementModificationCount() {
+        UPDATER.incrementAndGet(this)
+    }
+
+    override fun getModificationCount(): Long = modificationCount
+
+    // endregion
     // region XpmProjectConfigurationFactory
 
     companion object : XpmProjectConfigurationFactory {
@@ -130,6 +144,11 @@ class GradleProjectConfiguration(private val project: Project, override val base
         private val DEFAULT_PROPERTIES = Key.create<CachedValue<Optional<PropertiesFile>>>("DEFAULT_PROPERTIES")
         private val BUILD_PROPERTIES = Key.create<CachedValue<Optional<PropertiesFile>>>("BUILD_PROPERTIES")
         private val ENV_PROPERTIES = Key.create<CachedValue<Optional<PropertiesFile>>>("ENV_PROPERTIES")
+
+        private val UPDATER = AtomicLongFieldUpdater.newUpdater(
+            GradleProjectConfiguration::class.java,
+            "modificationCount"
+        )
     }
 
     // endregion
