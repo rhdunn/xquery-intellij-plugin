@@ -22,7 +22,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.ModificationTracker
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.PsiElement
 import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
@@ -42,11 +41,15 @@ class GradleProjectConfiguration(private val project: Project, override val base
     ModificationTracker {
     // region ml-gradle
 
-    private fun getPropertiesFile(name: String?, key: Key<CachedValue<Optional<PropertiesFile>>>): PropertiesFile? {
+    private fun getPropertiesFile(
+        name: String?,
+        key: Key<CachedValue<Optional<PropertiesFile>>>,
+        modificationTracker: ModificationTracker? = null
+    ): PropertiesFile? {
         return cached(key) {
             val filename = name?.let { "gradle-${name}.properties" } ?: GRADLE_PROPERTIES
             val file = baseDir.findChild(filename)?.toPsiFile(project) as? PropertiesFile
-            Optional.ofNullable(file) to null
+            Optional.ofNullable(file) to modificationTracker
         }.orElse(null)
     }
 
@@ -57,9 +60,9 @@ class GradleProjectConfiguration(private val project: Project, override val base
         get() = getPropertiesFile("default", BUILD_PROPERTIES) // Project-specific properties
 
     private val env: PropertiesFile?
-        get() = getPropertiesFile("local", ENV_PROPERTIES) // Environment-specific properties
+        get() = getPropertiesFile("local", ENV_PROPERTIES, this) // Environment-specific properties
 
-    private fun <T> cached(key: Key<CachedValue<T>>, compute: () -> Pair<T, PsiElement?>): T {
+    private fun <T> cached(key: Key<CachedValue<T>>, compute: () -> Pair<T, Any?>): T {
         return CachedValuesManager.getManager(project).getCachedValue(this, key, {
             val (value, context) = compute()
             val dependencies = listOfNotNull(context, getModificationTracker(project))
@@ -88,6 +91,10 @@ class GradleProjectConfiguration(private val project: Project, override val base
         }.orElse(null)
 
     override var environmentName: String = "local"
+        set(value) {
+            field = value
+            incrementModificationCount()
+        }
 
     override val modulePaths: Sequence<VirtualFile>
         get() = cached(MODULE_PATHS) {
