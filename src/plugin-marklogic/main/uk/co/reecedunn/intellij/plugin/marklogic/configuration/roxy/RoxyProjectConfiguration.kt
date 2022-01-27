@@ -34,11 +34,13 @@ import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 import java.util.*
+import java.util.concurrent.atomic.AtomicLongFieldUpdater
 
 @Suppress("MemberVisibilityCanBePrivate")
 class RoxyProjectConfiguration(private val project: Project, override val baseDir: VirtualFile) :
     UserDataHolderBase(),
-    XpmProjectConfiguration {
+    XpmProjectConfiguration,
+    ModificationTracker {
     // region Roxy
 
     private val deployDir = baseDir.findChild("deploy")
@@ -117,6 +119,10 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         }.orElse(null)
 
     override var environmentName: String = "local"
+        set(value) {
+            field = value
+            incrementModificationCount()
+        }
 
     override val modulePaths: Sequence<VirtualFile>
         get() = cached(MODULE_PATHS) {
@@ -132,6 +138,18 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         get() = cached(DATABASE_NAME) {
             Optional.ofNullable(getPropertyValue(CONTENT_DB)) to null
         }.orElse(null)
+
+    // endregion
+    // region ModificationTracker
+
+    @Volatile
+    private var modificationCount: Long = 0
+
+    private fun incrementModificationCount() {
+        UPDATER.incrementAndGet(this)
+    }
+
+    override fun getModificationCount(): Long = modificationCount
 
     // endregion
     // region XpmProjectConfigurationFactory
@@ -159,6 +177,11 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
         private val ENV_PROPERTIES = Key.create<CachedValue<Optional<PropertiesFile>>>("ENV_PROPERTIES")
 
         private val LOCALHOST_STRINGS = setOf("localhost", "127.0.0.1")
+
+        private val UPDATER = AtomicLongFieldUpdater.newUpdater(
+            RoxyProjectConfiguration::class.java,
+            "modificationCount"
+        )
     }
 
     // endregion
