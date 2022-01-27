@@ -2,6 +2,10 @@
 
 ## 1.10.0 - (In Development)
 
+Bug Fixes:
+
+1. Fix an exception when trying to display the MarkLogic rewriter endpoint line marker.
+
 ## 2021
 
 *  [1.9.2 - 2021-11-24](docs/_posts/2021-11-24-release-1.9.2.md)

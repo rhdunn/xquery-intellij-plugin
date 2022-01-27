@@ -71,6 +71,10 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <p>Bug Fixes:</p>
+    <ol>
+      <li>Fix an exception when trying to display the MarkLogic rewriter endpoint line marker.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

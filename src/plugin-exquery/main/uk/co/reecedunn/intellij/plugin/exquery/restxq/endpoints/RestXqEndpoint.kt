@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 Reece H. Dunn
+ * Copyright (C) 2020-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ import javax.swing.Icon
 
 class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
     ItemPresentation,
-    EndpointMethodPresentation,
     DataProvider {
     // region ItemPresentation
 
@@ -39,10 +38,10 @@ class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
     // endregion
     // region EndpointMethodPresentation
 
-    override val endpointMethod: String?
+    val endpointMethod: String?
         get() = rest?.methods?.joinToString(" ")
 
-    override val endpointMethodOrder: Int
+    val endpointMethodOrder: Int
         get() = EndpointMethodPresentation.getHttpMethodOrder(rest?.methods?.firstOrNull())
 
     // endregion
