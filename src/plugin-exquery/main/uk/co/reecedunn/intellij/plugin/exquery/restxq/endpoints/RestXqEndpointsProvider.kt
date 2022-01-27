@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 Reece H. Dunn
+ * Copyright (C) 2020-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.psi.util.PsiModificationTracker
 import uk.co.reecedunn.intellij.microservices.endpoints.*
+import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryBundle
@@ -76,7 +77,7 @@ class RestXqEndpointsProvider :
     }
 
     override fun getEndpointPresentation(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint): ItemPresentation {
-        return endpoint
+        return EndpointMethodPresentation(endpoint, endpoint.endpointMethod, endpoint.endpointMethodOrder)
     }
 
     override fun getEndpoints(group: RestXqEndpointsGroup): Iterable<RestXqEndpoint> {

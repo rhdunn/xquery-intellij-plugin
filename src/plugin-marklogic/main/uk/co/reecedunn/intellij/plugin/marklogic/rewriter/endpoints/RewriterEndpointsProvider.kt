@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 Reece H. Dunn
+ * Copyright (C) 2020-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.ModificationTracker
 import uk.co.reecedunn.intellij.microservices.endpoints.*
+import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 
@@ -47,7 +48,7 @@ class RewriterEndpointsProvider : EndpointsProvider<RewriterEndpointsGroup, Rewr
     }
 
     override fun getEndpointPresentation(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint): ItemPresentation {
-        return endpoint
+        return EndpointMethodPresentation(endpoint, endpoint.endpointMethod, endpoint.endpointMethodOrder)
     }
 
     override fun getEndpoints(group: RewriterEndpointsGroup): Iterable<RewriterEndpoint> {
