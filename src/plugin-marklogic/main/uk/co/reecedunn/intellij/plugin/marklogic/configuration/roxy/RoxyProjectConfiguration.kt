@@ -54,7 +54,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
     private fun <T> cached(key: Key<CachedValue<T>>, compute: () -> Pair<T, PsiElement?>): T {
         return CachedValuesManager.getManager(project).getCachedValue(this, key, {
             val (value, context) = compute()
-            val dependencies = listOfNotNull(context, default, build, env)
+            val dependencies = listOfNotNull(context, getModificationTracker(project))
             CachedValueProvider.Result.create(value, dependencies)
         }, false)
     }
