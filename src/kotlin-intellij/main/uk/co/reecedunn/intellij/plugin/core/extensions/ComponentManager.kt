@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2022 Reece H. Dunn
  * Copyright 2000-2020 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,6 +32,7 @@ fun <T : Any> ComponentManager.registerExtensionPointBean(
     parentDisposable: Disposable
 ) {
     if (!extensionArea.hasExtensionPoint(name)) {
+        @Suppress("DEPRECATION")
         extensionArea.registerExtensionPoint(name.name, aClass.name, ExtensionPoint.Kind.BEAN_CLASS)
         Disposer.register(parentDisposable, Disposable {
             extensionArea.unregisterExtensionPoint(name.name)
@@ -46,6 +47,7 @@ fun ComponentManager.registerExtensionPointBean(
     parentDisposable: Disposable
 ) {
     if (!extensionArea.hasExtensionPoint(name)) {
+        @Suppress("DEPRECATION")
         extensionArea.registerExtensionPoint(name, className, ExtensionPoint.Kind.BEAN_CLASS)
         Disposer.register(parentDisposable, Disposable {
             extensionArea.unregisterExtensionPoint(name)
