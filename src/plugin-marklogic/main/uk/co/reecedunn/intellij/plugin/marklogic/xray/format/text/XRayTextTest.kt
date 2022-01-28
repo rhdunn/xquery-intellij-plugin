@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Reece H. Dunn
+ * Copyright (C) 2021-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ class XRayTextTest(private val test: String) : TestCase {
     override val name: String
         get() = titleParts[0]
 
-    override val result: TestResult by lazy { TestResult.value(titleParts[1].toLowerCase().trim()) }
+    override val result: TestResult by lazy { TestResult.value(titleParts[1].lowercase().trim()) }
 
     override val duration: XsDurationValue? = null
 
