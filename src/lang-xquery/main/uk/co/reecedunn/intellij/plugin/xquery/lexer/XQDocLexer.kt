@@ -167,8 +167,8 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
     private fun stateTaggedContents() {
         var c = mTokenRange.codePoint
-        if (c >= 'a'.toInt() && c <= 'z'.toInt() || c >= 'A'.toInt() && c <= 'Z'.toInt() || c >= '0'.toInt() && c <= '9'.toInt()) {
-            while (c >= 'a'.toInt() && c <= 'z'.toInt() || c >= 'A'.toInt() && c <= 'Z'.toInt() || c >= '0'.toInt() && c <= '9'.toInt()) {
+        if (c in CharacterClass.AlphaNumeric) {
+            while (c in CharacterClass.AlphaNumeric) {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
             }
@@ -246,15 +246,8 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         var c = mTokenRange.codePoint
         when (c) {
             CodePointRange.END_OF_BUFFER -> mType = null
-            '0'.toInt(), '1'.toInt(), '2'.toInt(), '3'.toInt(), '4'.toInt(), '5'.toInt(), '6'.toInt(), '7'.toInt(),
-            '8'.toInt(), '9'.toInt(), 'a'.toInt(), 'b'.toInt(), 'c'.toInt(), 'd'.toInt(), 'e'.toInt(), 'f'.toInt(),
-            'g'.toInt(), 'h'.toInt(), 'i'.toInt(), 'j'.toInt(), 'k'.toInt(), 'l'.toInt(), 'm'.toInt(), 'n'.toInt(),
-            'o'.toInt(), 'p'.toInt(), 'q'.toInt(), 'r'.toInt(), 's'.toInt(), 't'.toInt(), 'u'.toInt(), 'v'.toInt(),
-            'w'.toInt(), 'x'.toInt(), 'y'.toInt(), 'z'.toInt(), 'A'.toInt(), 'B'.toInt(), 'C'.toInt(), 'D'.toInt(),
-            'E'.toInt(), 'F'.toInt(), 'G'.toInt(), 'H'.toInt(), 'I'.toInt(), 'J'.toInt(), 'K'.toInt(), 'L'.toInt(),
-            'M'.toInt(), 'N'.toInt(), 'O'.toInt(), 'P'.toInt(), 'Q'.toInt(), 'R'.toInt(), 'S'.toInt(), 'T'.toInt(),
-            'U'.toInt(), 'V'.toInt(), 'W'.toInt(), 'X'.toInt(), 'Y'.toInt(), 'Z'.toInt() -> {
-                while (c >= 'a'.toInt() && c <= 'z'.toInt() || c >= 'A'.toInt() && c <= 'Z'.toInt() || c >= '0'.toInt() && c <= '9'.toInt()) {
+            in CharacterClass.AlphaNumeric -> {
+                while (c in CharacterClass.AlphaNumeric) {
                     mTokenRange.match()
                     c = mTokenRange.codePoint
                 }

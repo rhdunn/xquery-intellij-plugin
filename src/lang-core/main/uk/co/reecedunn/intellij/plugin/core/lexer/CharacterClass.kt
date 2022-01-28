@@ -156,5 +156,16 @@ object CharacterClass {
         }
     }
 
+    object AlphaNumeric {
+        operator fun contains(c: Int): Boolean {
+            @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
+            return (
+                c >= '0'.toInt() && c <= '9'.toInt() ||
+                c >= 'a'.toInt() && c <= 'z'.toInt() ||
+                c >= 'A'.toInt() && c <= 'z'.toInt()
+            )
+        }
+    }
+
     // endregion
 }
