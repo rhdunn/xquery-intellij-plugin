@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020, 2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,8 @@ class CharacterClassTest {
 
         // ASCII
 
-        assertThat(CharacterClass.getCharClass('\\'.toInt()), `is`(CharacterClass.CHAR))
-        assertThat(CharacterClass.getCharClass('^'.toInt()), `is`(CharacterClass.CHAR))
+        assertThat(CharacterClass.getCharClass('\\'.code), `is`(CharacterClass.CHAR))
+        assertThat(CharacterClass.getCharClass('^'.code), `is`(CharacterClass.CHAR))
 
         // Excludes the surrogate blocks [0xD800-0xDFFF]
 
@@ -61,25 +61,25 @@ class CharacterClassTest {
     @Test
     @DisplayName("XQuery 1.0 EBNF (156) S ; XML 1.0 EBNF (3) S")
     fun testWhitespace() {
-        assertThat(CharacterClass.getCharClass('\t'.toInt()), `is`(CharacterClass.WHITESPACE))
-        assertThat(CharacterClass.getCharClass('\r'.toInt()), `is`(CharacterClass.WHITESPACE))
-        assertThat(CharacterClass.getCharClass('\n'.toInt()), `is`(CharacterClass.WHITESPACE))
-        assertThat(CharacterClass.getCharClass(' '.toInt()), `is`(CharacterClass.WHITESPACE))
+        assertThat(CharacterClass.getCharClass('\t'.code), `is`(CharacterClass.WHITESPACE))
+        assertThat(CharacterClass.getCharClass('\r'.code), `is`(CharacterClass.WHITESPACE))
+        assertThat(CharacterClass.getCharClass('\n'.code), `is`(CharacterClass.WHITESPACE))
+        assertThat(CharacterClass.getCharClass(' '.code), `is`(CharacterClass.WHITESPACE))
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (158) Digits")
     fun testDigit() {
-        assertThat(CharacterClass.getCharClass('0'.toInt()), `is`(CharacterClass.DIGIT))
-        assertThat(CharacterClass.getCharClass('1'.toInt()), `is`(CharacterClass.DIGIT))
-        assertThat(CharacterClass.getCharClass('2'.toInt()), `is`(CharacterClass.DIGIT))
-        assertThat(CharacterClass.getCharClass('3'.toInt()), `is`(CharacterClass.DIGIT))
-        assertThat(CharacterClass.getCharClass('4'.toInt()), `is`(CharacterClass.DIGIT))
-        assertThat(CharacterClass.getCharClass('5'.toInt()), `is`(CharacterClass.DIGIT))
-        assertThat(CharacterClass.getCharClass('6'.toInt()), `is`(CharacterClass.DIGIT))
-        assertThat(CharacterClass.getCharClass('7'.toInt()), `is`(CharacterClass.DIGIT))
-        assertThat(CharacterClass.getCharClass('8'.toInt()), `is`(CharacterClass.DIGIT))
-        assertThat(CharacterClass.getCharClass('9'.toInt()), `is`(CharacterClass.DIGIT))
+        assertThat(CharacterClass.getCharClass('0'.code), `is`(CharacterClass.DIGIT))
+        assertThat(CharacterClass.getCharClass('1'.code), `is`(CharacterClass.DIGIT))
+        assertThat(CharacterClass.getCharClass('2'.code), `is`(CharacterClass.DIGIT))
+        assertThat(CharacterClass.getCharClass('3'.code), `is`(CharacterClass.DIGIT))
+        assertThat(CharacterClass.getCharClass('4'.code), `is`(CharacterClass.DIGIT))
+        assertThat(CharacterClass.getCharClass('5'.code), `is`(CharacterClass.DIGIT))
+        assertThat(CharacterClass.getCharClass('6'.code), `is`(CharacterClass.DIGIT))
+        assertThat(CharacterClass.getCharClass('7'.code), `is`(CharacterClass.DIGIT))
+        assertThat(CharacterClass.getCharClass('8'.code), `is`(CharacterClass.DIGIT))
+        assertThat(CharacterClass.getCharClass('9'.code), `is`(CharacterClass.DIGIT))
     }
 
     @Test
@@ -87,65 +87,65 @@ class CharacterClassTest {
     fun testNameStartChar() {
         // [a-z]
 
-        assertThat(CharacterClass.getCharClass('a'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('b'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('c'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('d'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('e'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('f'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('g'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('h'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('i'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('j'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('k'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('l'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('m'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('n'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('o'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('p'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('q'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('r'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('s'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('t'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('u'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('v'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('w'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('x'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('y'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('z'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('a'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('b'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('c'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('d'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('e'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('f'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('g'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('h'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('i'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('j'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('k'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('l'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('m'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('n'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('o'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('p'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('q'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('r'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('s'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('t'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('u'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('v'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('w'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('x'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('y'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('z'.code), `is`(CharacterClass.NAME_START_CHAR))
 
         // [A-Z]
 
-        assertThat(CharacterClass.getCharClass('A'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('B'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('C'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('D'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('E'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('F'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('G'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('H'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('I'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('J'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('K'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('L'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('M'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('N'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('O'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('P'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('Q'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('R'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('S'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('T'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('U'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('V'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('W'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('X'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('Y'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
-        assertThat(CharacterClass.getCharClass('Z'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('A'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('B'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('C'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('D'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('E'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('F'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('G'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('H'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('I'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('J'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('K'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('L'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('M'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('N'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('O'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('P'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('Q'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('R'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('S'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('T'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('U'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('V'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('W'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('X'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('Y'.code), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('Z'.code), `is`(CharacterClass.NAME_START_CHAR))
 
         // "_"
 
-        assertThat(CharacterClass.getCharClass('_'.toInt()), `is`(CharacterClass.NAME_START_CHAR))
+        assertThat(CharacterClass.getCharClass('_'.code), `is`(CharacterClass.NAME_START_CHAR))
 
         // [#xC0-#xD6] | [#xD8-#xF6] | [#xF8-#x2FF]
 
@@ -251,174 +251,174 @@ class CharacterClassTest {
     @Test
     @DisplayName("U+002E FULL STOP")
     fun testDot() {
-        assertThat(CharacterClass.getCharClass('.'.toInt()), `is`(CharacterClass.DOT))
+        assertThat(CharacterClass.getCharClass('.'.code), `is`(CharacterClass.DOT))
     }
 
     @Test
     @DisplayName("U+0022 QUOTATION MARK")
     fun testQuote() {
-        assertThat(CharacterClass.getCharClass('"'.toInt()), `is`(CharacterClass.QUOTE))
+        assertThat(CharacterClass.getCharClass('"'.code), `is`(CharacterClass.QUOTE))
     }
 
     @Test
     @DisplayName("U+0027 APOSTROPHE")
     fun testApostrophe() {
-        assertThat(CharacterClass.getCharClass('\''.toInt()), `is`(CharacterClass.APOSTROPHE))
+        assertThat(CharacterClass.getCharClass('\''.code), `is`(CharacterClass.APOSTROPHE))
     }
 
     @Test
     @DisplayName("U+003B SEMICOLON")
     fun testSemicolon() {
-        assertThat(CharacterClass.getCharClass(';'.toInt()), `is`(CharacterClass.SEMICOLON))
+        assertThat(CharacterClass.getCharClass(';'.code), `is`(CharacterClass.SEMICOLON))
     }
 
     @Test
     @DisplayName("U+003A COLON")
     fun testColon() {
-        assertThat(CharacterClass.getCharClass(':'.toInt()), `is`(CharacterClass.COLON))
+        assertThat(CharacterClass.getCharClass(':'.code), `is`(CharacterClass.COLON))
     }
 
     @Test
     @DisplayName("U+0023 NUMBER SIGN")
     fun testHash() {
-        assertThat(CharacterClass.getCharClass('#'.toInt()), `is`(CharacterClass.HASH))
+        assertThat(CharacterClass.getCharClass('#'.code), `is`(CharacterClass.HASH))
     }
 
     @Test
     @DisplayName("U+002D HYPHEN-MINUS")
     fun testHyphenMinus() {
-        assertThat(CharacterClass.getCharClass('-'.toInt()), `is`(CharacterClass.HYPHEN_MINUS))
+        assertThat(CharacterClass.getCharClass('-'.code), `is`(CharacterClass.HYPHEN_MINUS))
     }
 
     @Test
     @DisplayName("U+0028 LEFT PARENTHESIS")
     fun testParenthesisOpen() {
-        assertThat(CharacterClass.getCharClass('('.toInt()), `is`(CharacterClass.PARENTHESIS_OPEN))
+        assertThat(CharacterClass.getCharClass('('.code), `is`(CharacterClass.PARENTHESIS_OPEN))
     }
 
     @Test
     @DisplayName("U+0029 RIGHT PARENTHESIS")
     fun testParenthesisClose() {
-        assertThat(CharacterClass.getCharClass(')'.toInt()), `is`(CharacterClass.PARENTHESIS_CLOSE))
+        assertThat(CharacterClass.getCharClass(')'.code), `is`(CharacterClass.PARENTHESIS_CLOSE))
     }
 
     @Test
     @DisplayName("U+0021 EXCLAMATION MARK")
     fun testExclamationMark() {
-        assertThat(CharacterClass.getCharClass('!'.toInt()), `is`(CharacterClass.EXCLAMATION_MARK))
+        assertThat(CharacterClass.getCharClass('!'.code), `is`(CharacterClass.EXCLAMATION_MARK))
     }
 
     @Test
     @DisplayName("U+003D EQUALS SIGN")
     fun testEqual() {
-        assertThat(CharacterClass.getCharClass('='.toInt()), `is`(CharacterClass.EQUAL))
+        assertThat(CharacterClass.getCharClass('='.code), `is`(CharacterClass.EQUAL))
     }
 
     @Test
     @DisplayName("U+0024 DOLLAR SIGN")
     fun testDollar() {
-        assertThat(CharacterClass.getCharClass('$'.toInt()), `is`(CharacterClass.DOLLAR))
+        assertThat(CharacterClass.getCharClass('$'.code), `is`(CharacterClass.DOLLAR))
     }
 
     @Test
     @DisplayName("U+002A ASTERISK")
     fun testAsterisk() {
-        assertThat(CharacterClass.getCharClass('*'.toInt()), `is`(CharacterClass.ASTERISK))
+        assertThat(CharacterClass.getCharClass('*'.code), `is`(CharacterClass.ASTERISK))
     }
 
     @Test
     @DisplayName("U+002B PLUS SIGN")
     fun testPlus() {
-        assertThat(CharacterClass.getCharClass('+'.toInt()), `is`(CharacterClass.PLUS))
+        assertThat(CharacterClass.getCharClass('+'.code), `is`(CharacterClass.PLUS))
     }
 
     @Test
     @DisplayName("U+003C LESS-THAN SIGN")
     fun testLessThan() {
-        assertThat(CharacterClass.getCharClass('<'.toInt()), `is`(CharacterClass.LESS_THAN))
+        assertThat(CharacterClass.getCharClass('<'.code), `is`(CharacterClass.LESS_THAN))
     }
 
     @Test
     @DisplayName("U+003E GREATER-THAN SIGN")
     fun testGreaterThan() {
-        assertThat(CharacterClass.getCharClass('>'.toInt()), `is`(CharacterClass.GREATER_THAN))
+        assertThat(CharacterClass.getCharClass('>'.code), `is`(CharacterClass.GREATER_THAN))
     }
 
     @Test
     @DisplayName("U+002C COMMA")
     fun testComma() {
-        assertThat(CharacterClass.getCharClass(','.toInt()), `is`(CharacterClass.COMMA))
+        assertThat(CharacterClass.getCharClass(','.code), `is`(CharacterClass.COMMA))
     }
 
     @Test
     @DisplayName("U+007B LEFT CURLY BRACE")
     fun testCurlyBraceOpen() {
-        assertThat(CharacterClass.getCharClass('{'.toInt()), `is`(CharacterClass.CURLY_BRACE_OPEN))
+        assertThat(CharacterClass.getCharClass('{'.code), `is`(CharacterClass.CURLY_BRACE_OPEN))
     }
 
     @Test
     @DisplayName("U+007D RIGHT CURLY BRACE")
     fun testCurlyBraceClose() {
-        assertThat(CharacterClass.getCharClass('}'.toInt()), `is`(CharacterClass.CURLY_BRACE_CLOSE))
+        assertThat(CharacterClass.getCharClass('}'.code), `is`(CharacterClass.CURLY_BRACE_CLOSE))
     }
 
     @Test
     @DisplayName("U+003F QUESTION MARK")
     fun testQuestionMark() {
-        assertThat(CharacterClass.getCharClass('?'.toInt()), `is`(CharacterClass.QUESTION_MARK))
+        assertThat(CharacterClass.getCharClass('?'.code), `is`(CharacterClass.QUESTION_MARK))
     }
 
     @Test
     @DisplayName("U+002F SOLIDUS")
     fun testForwardSlash() {
-        assertThat(CharacterClass.getCharClass('/'.toInt()), `is`(CharacterClass.FORWARD_SLASH))
+        assertThat(CharacterClass.getCharClass('/'.code), `is`(CharacterClass.FORWARD_SLASH))
     }
 
     @Test
     @DisplayName("U+0040 COMMERCIAL AT")
     fun testAtSign() {
-        assertThat(CharacterClass.getCharClass('@'.toInt()), `is`(CharacterClass.AT_SIGN))
+        assertThat(CharacterClass.getCharClass('@'.code), `is`(CharacterClass.AT_SIGN))
     }
 
     @Test
     @DisplayName("U+005B LEFT SQUARE BRACE")
     fun testSquareBraceOpen() {
-        assertThat(CharacterClass.getCharClass('['.toInt()), `is`(CharacterClass.SQUARE_BRACE_OPEN))
+        assertThat(CharacterClass.getCharClass('['.code), `is`(CharacterClass.SQUARE_BRACE_OPEN))
     }
 
     @Test
     @DisplayName("U+005D RIGHT SQUARE BRACE")
     fun testSquareBraceClose() {
-        assertThat(CharacterClass.getCharClass(']'.toInt()), `is`(CharacterClass.SQUARE_BRACE_CLOSE))
+        assertThat(CharacterClass.getCharClass(']'.code), `is`(CharacterClass.SQUARE_BRACE_CLOSE))
     }
 
     @Test
     @DisplayName("U+007C VERTICAL LINE")
     fun testVerticalBar() {
-        assertThat(CharacterClass.getCharClass('|'.toInt()), `is`(CharacterClass.VERTICAL_BAR))
+        assertThat(CharacterClass.getCharClass('|'.code), `is`(CharacterClass.VERTICAL_BAR))
     }
 
     @Test
     @DisplayName("U+0025 PERCENT SIGN")
     fun testPercent() {
-        assertThat(CharacterClass.getCharClass('%'.toInt()), `is`(CharacterClass.PERCENT))
+        assertThat(CharacterClass.getCharClass('%'.code), `is`(CharacterClass.PERCENT))
     }
 
     @Test
     @DisplayName("U+0026 AMPERSAND")
     fun testAmpersand() {
-        assertThat(CharacterClass.getCharClass('&'.toInt()), `is`(CharacterClass.AMPERSAND))
+        assertThat(CharacterClass.getCharClass('&'.code), `is`(CharacterClass.AMPERSAND))
     }
 
     @Test
     @DisplayName("U+0060 GRAVE ACCENT")
     fun testBackTick() {
-        assertThat(CharacterClass.getCharClass('`'.toInt()), `is`(CharacterClass.BACK_TICK))
+        assertThat(CharacterClass.getCharClass('`'.code), `is`(CharacterClass.BACK_TICK))
     }
 
     @Test
     @DisplayName("U+007E TILDE")
     fun testTilde() {
-        assertThat(CharacterClass.getCharClass('~'.toInt()), `is`(CharacterClass.TILDE))
+        assertThat(CharacterClass.getCharClass('~'.code), `is`(CharacterClass.TILDE))
     }
 }
