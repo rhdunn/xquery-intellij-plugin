@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2019, 2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ class CodePointRangeTest {
 
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(0))
-        assertThat(range.codePoint, `is`('a'.toInt()))
+        assertThat(range.codePoint, `is`('a'.code))
 
         range.match()
         assertThat(range.start, `is`(0))
