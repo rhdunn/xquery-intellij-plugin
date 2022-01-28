@@ -48,6 +48,7 @@ object FunctionsAndOperatorsDocumentation :
     private val doc: Document?
         get() = computeUserDataIfAbsent(DOCUMENT) {
             val file = XQDocDocumentationDownloader.getInstance().load(active, download = true)
+            @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS") // charsetName can be null
             Optional.ofNullable(file?.let { Jsoup.parse(it.inputStream, null as String?, "") })
         }.orElse(null)
 
