@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2020-2021 Reece H. Dunn
+ * Copyright (C) 2016, 2020-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -140,4 +140,19 @@ object CharacterClass {
             if (c <= 0xEFFFF) NAME_START_CHAR else CHAR
         } else INVALID
     }
+
+    // region Character Class Tests
+
+    object HexDigit {
+        operator fun contains(c: Int): Boolean {
+            @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
+            return (
+                c >= '0'.toInt() && c <= '9'.toInt() ||
+                c >= 'a'.toInt() && c <= 'f'.toInt() ||
+                c >= 'A'.toInt() && c <= 'F'.toInt()
+            )
+        }
+    }
+
+    // endregion
 }

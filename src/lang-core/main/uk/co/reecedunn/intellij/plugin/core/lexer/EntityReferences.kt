@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,15 +29,6 @@ enum class EntityReferenceType {
     Html5EntityReference
 }
 
-@Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-private fun Int.isHexDigit(): Boolean {
-    return (
-        this >= '0'.toInt() && this <= '9'.toInt() ||
-        this >= 'a'.toInt() && this <= 'f'.toInt() ||
-        this >= 'A'.toInt() && this <= 'F'.toInt()
-    )
-}
-
 fun CodePointRange.matchEntityReference(): EntityReferenceType {
     match()
     var cc = CharacterClass.getCharClass(codePoint)
@@ -64,8 +55,8 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
                     match()
                     c = codePoint
                     when {
-                        c.isHexDigit() -> {
-                            while (c.isHexDigit()) {
+                        c in CharacterClass.HexDigit -> {
+                            while (c in CharacterClass.HexDigit) {
                                 match()
                                 c = codePoint
                             }
