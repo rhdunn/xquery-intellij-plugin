@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2020 Reece H. Dunn
+ * Copyright (C) 2017, 2020, 2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ data class XmlChar(val codepoint: Int) {
         // 2. Basic Multilingual Plane Codepoint
         if (codepoint <= 0xFFFF) return codepoint.toChar().toString()
         // 3. Other Codepoint => Surrogate Pair
-        val hi = 0xD800 + floor((codepoint - 0x10000).toDouble() / 0x400)
+        val hi = 0xD800 + floor((codepoint - 0x10000).toDouble() / 0x400).toInt()
         val lo = 0xDC00 + (codepoint - 0x10000) % 0x400
         return hi.toChar().toString() + lo.toChar().toString()
     }
