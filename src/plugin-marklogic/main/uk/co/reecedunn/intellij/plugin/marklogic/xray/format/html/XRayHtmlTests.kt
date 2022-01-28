@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Reece H. Dunn
+ * Copyright (C) 2021-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 
 class XRayHtmlTests(private val tests: Element) : TestSuites {
+    @Suppress("UNNECESSARY_SAFE_CALL") // selectFirst can return null
     private val summary: Map<String, Int> by lazy {
         val summary = tests.selectFirst("footer > p")?.text()?.substringAfter("Summary: ")
             ?: return@lazy mapOf<String, Int>()
