@@ -54,8 +54,8 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
                 c == 'x'.toInt() -> {
                     match()
                     c = codePoint
-                    when {
-                        c in CharacterClass.HexDigit -> {
+                    when (c) {
+                        in CharacterClass.HexDigit -> {
                             while (c in CharacterClass.HexDigit) {
                                 match()
                                 c = codePoint
@@ -67,7 +67,7 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
                                 EntityReferenceType.PartialEntityReference
                             }
                         }
-                        c == ';'.toInt() -> {
+                        ';'.toInt() -> {
                             match()
                             EntityReferenceType.EmptyEntityReference
                         }
