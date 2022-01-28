@@ -63,8 +63,8 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                 } else {
                     mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
                 }
-            } else if (c >= '0'.toInt() && c <= '9'.toInt()) {
-                while (c >= '0'.toInt() && c <= '9'.toInt()) {
+            } else if (c in CharacterClass.Digit) {
+                while (c in CharacterClass.Digit) {
                     mTokenRange.match()
                     c = mTokenRange.codePoint
                 }

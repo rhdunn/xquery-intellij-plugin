@@ -74,8 +74,8 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
                         else -> EntityReferenceType.PartialEntityReference
                     }
                 }
-                c >= '0'.toInt() && c <= '9'.toInt() -> {
-                    while (c >= '0'.toInt() && c <= '9'.toInt()) {
+                c in CharacterClass.Digit -> {
+                    while (c in CharacterClass.Digit) {
                         match()
                         c = codePoint
                     }

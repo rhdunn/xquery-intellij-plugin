@@ -143,6 +143,8 @@ object CharacterClass {
 
     // region Character Class Tests
 
+    val Digit: IntRange = '0'.toInt()..'9'.toInt()
+
     object HexDigit {
         operator fun contains(c: Int): Boolean {
             @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
