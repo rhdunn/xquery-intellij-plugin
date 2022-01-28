@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Reece H. Dunn
+ * Copyright (C) 2016-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,8 +46,8 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             if (c == 'x'.toInt()) {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
-                if (c >= '0'.toInt() && c <= '9'.toInt() || c >= 'a'.toInt() && c <= 'f'.toInt() || c >= 'A'.toInt() && c <= 'F'.toInt()) {
-                    while (c >= '0'.toInt() && c <= '9'.toInt() || c >= 'a'.toInt() && c <= 'f'.toInt() || c >= 'A'.toInt() && c <= 'F'.toInt()) {
+                if (c in CharacterClass.HexDigit) {
+                    while (c in CharacterClass.HexDigit) {
                         mTokenRange.match()
                         c = mTokenRange.codePoint
                     }
