@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Reece H. Dunn
+ * Copyright (C) 2021-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,4 +19,4 @@ import com.intellij.lang.Language
 import com.intellij.psi.tree.IElementType
 
 class ILogLevelElementType(val name: String, language: Language) :
-    IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_${name.toUpperCase()}", language)
+    IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_${name.uppercase()}", language)
