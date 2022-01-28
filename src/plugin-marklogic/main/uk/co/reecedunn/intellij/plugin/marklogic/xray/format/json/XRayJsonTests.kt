@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Reece H. Dunn
+ * Copyright (C) 2021-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,23 +23,23 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 
 class XRayJsonTests(private val tests: JsonObject) : TestSuites {
     override val total: Int by lazy {
-        testSuites.sumBy { (it as TestStatistics).total }
+        testSuites.sumOf { (it as TestStatistics).total }
     }
 
     override val passed: Int by lazy {
-        testSuites.sumBy { (it as TestStatistics).passed }
+        testSuites.sumOf { (it as TestStatistics).passed }
     }
 
     override val ignored: Int by lazy {
-        testSuites.sumBy { (it as TestStatistics).ignored }
+        testSuites.sumOf { (it as TestStatistics).ignored }
     }
 
     override val failed: Int by lazy {
-        testSuites.sumBy { (it as TestStatistics).failed }
+        testSuites.sumOf { (it as TestStatistics).failed }
     }
 
     override val errors: Int by lazy {
-        testSuites.sumBy { (it as TestStatistics).errors }
+        testSuites.sumOf { (it as TestStatistics).errors }
     }
 
     private val testSuitesList by lazy {
