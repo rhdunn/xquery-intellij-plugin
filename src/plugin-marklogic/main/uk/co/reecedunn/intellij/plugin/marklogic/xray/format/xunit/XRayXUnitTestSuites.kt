@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Reece H. Dunn
+ * Copyright (C) 2021-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ class XRayXUnitTestSuites(private val suites: XmlElement) : TestSuites {
         // NOTE: The XRay xunit formatter has a bug where the errors attribute
         // does not match the total from the separate test suites. This is
         // because it includes the error:error element inside a failing xray:test.
-        testSuites.sumBy { (it as TestStatistics).errors }
+        testSuites.sumOf { (it as TestStatistics).errors }
     }
 
     private val testSuitesList by lazy {
