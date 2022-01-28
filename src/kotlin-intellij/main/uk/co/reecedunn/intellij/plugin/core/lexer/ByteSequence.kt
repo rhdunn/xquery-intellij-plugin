@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020, 2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ class ByteSequence private constructor(
             throw IndexOutOfBoundsException(index.toString())
         }
 
-        return (mData[mOffset + index] and 0xFF.toByte()).toChar()
+        return (mData[mOffset + index] and 0xFF.toByte()).toInt().toChar()
     }
 
     override fun subSequence(startIndex: Int, endIndex: Int): CharSequence {
