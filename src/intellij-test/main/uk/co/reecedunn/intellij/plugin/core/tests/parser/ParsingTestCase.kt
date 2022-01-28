@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Reece H. Dunn
+ * Copyright (C) 2016-2022 Reece H. Dunn
  * Copyright 2000-2019 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -214,9 +214,8 @@ abstract class ParsingTestCase<File : PsiFile>(
         return try {
             Class.forName(className).getField("INSTANCE").get(null) as FileType
         } catch (ignored: Exception) {
-            MockLanguageFileType(PlainTextLanguage.INSTANCE, fileTypeName.toLowerCase())
+            MockLanguageFileType(PlainTextLanguage.INSTANCE, fileTypeName.lowercase())
         }
-
     }
 
     // region IntelliJ ParsingTestCase Methods
