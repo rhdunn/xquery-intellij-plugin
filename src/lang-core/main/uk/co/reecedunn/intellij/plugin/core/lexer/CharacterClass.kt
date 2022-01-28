@@ -143,15 +143,15 @@ object CharacterClass {
 
     // region Character Class Tests
 
-    val Digit: IntRange = '0'.toInt()..'9'.toInt()
+    val Digit: IntRange = '0'.code..'9'.code
 
     object HexDigit {
         operator fun contains(c: Int): Boolean {
             @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
             return (
-                c >= '0'.toInt() && c <= '9'.toInt() ||
-                c >= 'a'.toInt() && c <= 'f'.toInt() ||
-                c >= 'A'.toInt() && c <= 'F'.toInt()
+                c >= '0'.code && c <= '9'.code ||
+                c >= 'a'.code && c <= 'f'.code ||
+                c >= 'A'.code && c <= 'F'.code
             )
         }
     }
@@ -160,9 +160,9 @@ object CharacterClass {
         operator fun contains(c: Int): Boolean {
             @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
             return (
-                c >= '0'.toInt() && c <= '9'.toInt() ||
-                c >= 'a'.toInt() && c <= 'z'.toInt() ||
-                c >= 'A'.toInt() && c <= 'z'.toInt()
+                c >= '0'.code && c <= '9'.code ||
+                c >= 'a'.code && c <= 'z'.code ||
+                c >= 'A'.code && c <= 'z'.code
             )
         }
     }
