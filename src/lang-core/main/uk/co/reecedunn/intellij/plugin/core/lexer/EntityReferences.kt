@@ -51,7 +51,7 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
             match()
             var c = codePoint
             when {
-                c == 'x'.toInt() -> {
+                c == 'x'.code -> {
                     match()
                     c = codePoint
                     when (c) {
@@ -60,14 +60,14 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
                                 match()
                                 c = codePoint
                             }
-                            if (c == ';'.toInt()) {
+                            if (c == ';'.code) {
                                 match()
                                 EntityReferenceType.CharacterReference
                             } else {
                                 EntityReferenceType.PartialEntityReference
                             }
                         }
-                        ';'.toInt() -> {
+                        ';'.code -> {
                             match()
                             EntityReferenceType.EmptyEntityReference
                         }
@@ -79,14 +79,14 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
                         match()
                         c = codePoint
                     }
-                    if (c == ';'.toInt()) {
+                    if (c == ';'.code) {
                         match()
                         EntityReferenceType.CharacterReference
                     } else {
                         EntityReferenceType.PartialEntityReference
                     }
                 }
-                c == ';'.toInt() -> {
+                c == ';'.code -> {
                     match()
                     EntityReferenceType.EmptyEntityReference
                 }
