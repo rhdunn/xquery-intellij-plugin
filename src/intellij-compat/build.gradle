@@ -24,7 +24,7 @@ if (ext.intellij_version >= 213) {
 // Microservices
 
 if (ext.intellij_type == 'IU') {
-    sourceSets.main.java.srcDirs += 'src/microservices/203'
+    sourceSets.main.java.srcDirs += 'src/microservices/203/native'
 } else {
-    sourceSets.main.java.srcDirs += 'src/microservices/compat'
+    sourceSets.main.java.srcDirs += 'src/microservices/203/compat'
 }
