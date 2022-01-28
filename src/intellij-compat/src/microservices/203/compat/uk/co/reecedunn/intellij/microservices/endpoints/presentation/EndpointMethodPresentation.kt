@@ -24,6 +24,7 @@ data class EndpointMethodPresentation(
     val endpointMethodOrder: Int
 ) : ItemPresentation {
     companion object {
+        @Suppress("UNUSED_PARAMETER")
         fun getHttpMethodOrder(method: String?): Int = 0
     }
     // region ItemPresentation
