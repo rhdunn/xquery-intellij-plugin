@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 Reece H. Dunn
+ * Copyright (C) 2020-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,9 +30,9 @@ class XsltValueTemplateLexer : XPathLexer() {
             CodePointRange.END_OF_BUFFER -> {
                 mType = null
             }
-            '{'.toInt() -> {
+            '{'.code -> {
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '{'.toInt()) {
+                if (mTokenRange.codePoint == '{'.code) {
                     mTokenRange.match()
                     mType = ValueTemplate.ESCAPED_CHARACTER
                 } else {
@@ -40,9 +40,9 @@ class XsltValueTemplateLexer : XPathLexer() {
                     pushState(STATE_VALUE_TEMPLATE_EXPRESSION)
                 }
             }
-            '}'.toInt() -> {
+            '}'.code -> {
                 mTokenRange.match()
-                mType = if (mTokenRange.codePoint == '}'.toInt()) {
+                mType = if (mTokenRange.codePoint == '}'.code) {
                     mTokenRange.match()
                     ValueTemplate.ESCAPED_CHARACTER
                 } else {
@@ -51,7 +51,7 @@ class XsltValueTemplateLexer : XPathLexer() {
             }
             else -> while (true) {
                 when (c) {
-                    CodePointRange.END_OF_BUFFER, '{'.toInt(), '}'.toInt() -> {
+                    CodePointRange.END_OF_BUFFER, '{'.code, '}'.code -> {
                         mType = ValueTemplate.VALUE_CONTENTS
                         return
                     }
