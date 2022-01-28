@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2020, 2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ class CodePointRangeImpl : CodePointRange {
                     return Character.toCodePoint(high, low)
                 }
             }
-            return high.toInt()
+            return high.code
         }
 
     override fun start(buffer: CharSequence, startOffset: Int, endOffset: Int) {
