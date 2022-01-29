@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Reece H. Dunn
+ * Copyright (C) 2021-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.search.options.navigation
 import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
+import com.intellij.compat.codeInsight.navigation.setCellRendererEx
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomConstraintFunctionReference
@@ -40,7 +41,7 @@ class CustomConstraintLineMarkerProvider : LineMarkerProvider {
         return NavigationGutterIconBuilder.create(CustomConstraintFunctionReference.getIcon(facets[0].referenceType))
             .setTargets(facets.map { it.element })
             .setTooltipText(PluginApiBundle.message("line-marker.search-constraint.tooltip-text"))
-            .setCellRenderer(CustomConstraintListCellRenderer(facets))
+            .setCellRendererEx { CustomConstraintListCellRenderer(facets) }
             .createLineMarkerInfo(element)
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 Reece H. Dunn
+ * Copyright (C) 2020-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.navigation
 import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
+import com.intellij.compat.codeInsight.navigation.setCellRendererEx
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafElement
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
@@ -37,7 +38,7 @@ class RewriterLineMarkerProvider : LineMarkerProvider {
         return NavigationGutterIconBuilder.create(MarkLogicIcons.Markers.Endpoint)
             .setTargets(endpoints.map { it.endpoint })
             .setTooltipText(PluginApiBundle.message("line-marker.rewriter-endpoint.tooltip-text"))
-            .setCellRenderer(RewriterListCellRenderer(endpoints))
+            .setCellRendererEx { RewriterListCellRenderer(endpoints) }
             .createLineMarkerInfo(element)
     }
 
