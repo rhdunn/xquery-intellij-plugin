@@ -47,7 +47,7 @@ class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
             when (type) {
                 QueryProcessorDataSourceType.LocalFile -> localFilePath.textField.text = value ?: ""
                 QueryProcessorDataSourceType.DatabaseModule -> databaseModulePath.text = value ?: ""
-                QueryProcessorDataSourceType.ActiveEditorFile -> {
+                QueryProcessorDataSourceType.ActiveEditorFile, null -> {
                 }
             }
         }
