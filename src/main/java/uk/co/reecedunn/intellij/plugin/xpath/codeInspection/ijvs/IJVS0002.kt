@@ -165,7 +165,7 @@ class IJVS0002 : Inspection("ijvs/IJVS0002.md", IJVS0002::class.java.classLoader
                         )
                     )
                 }
-                IKeywordOrNCNameType.KeywordType.KEYWORD -> {
+                IKeywordOrNCNameType.KeywordType.KEYWORD, null -> {
                 }
             }
         }
