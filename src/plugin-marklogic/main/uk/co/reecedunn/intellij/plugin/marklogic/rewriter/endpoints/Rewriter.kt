@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 Reece H. Dunn
+ * Copyright (C) 2020-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,22 +26,21 @@ import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.psi.util.PsiModificationTracker
 import com.intellij.psi.xml.XmlFile
-import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 
-class Rewriter : UserDataHolderBase() {
+class Rewriter {
     companion object {
         const val NAMESPACE: String = "http://marklogic.com/xdmp/rewriter"
 
         val ENDPOINT_ELEMENTS: Set<String> = setOf("dispatch", "set-error-handler", "set-path")
 
-        val GROUPS: Key<CachedValue<List<RewriterEndpointsGroup>>> = Key.create("GROUPS")
+        val GROUPS: Key<CachedValue<List<RewriterEndpointsGroup>>> = Key.create("XIJP_MARKLOGIC_REWRITER_GROUPS")
 
         fun getInstance(): Rewriter = ApplicationManager.getApplication().getService(Rewriter::class.java)
     }
 
     fun getEndpointGroups(project: Project): List<RewriterEndpointsGroup> {
-        return CachedValuesManager.getManager(project).getCachedValue(this, GROUPS, {
+        return CachedValuesManager.getManager(project).getCachedValue(project, GROUPS, {
             val groups = ArrayList<RewriterEndpointsGroup>()
             ProjectRootManager.getInstance(project).fileIndex.iterateContent {
                 val file = it.toPsiFile(project) as? XmlFile ?: return@iterateContent true
