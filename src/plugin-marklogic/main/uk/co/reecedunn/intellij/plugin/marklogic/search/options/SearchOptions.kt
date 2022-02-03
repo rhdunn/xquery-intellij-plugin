@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Reece H. Dunn
+ * Copyright (C) 2021-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.ModificationTracker
-import com.intellij.openapi.util.UserDataHolderBase
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
@@ -38,14 +37,14 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.item.namespaceUri
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
-class SearchOptions : UserDataHolderBase() {
+class SearchOptions {
     companion object {
         const val NAMESPACE: String = "http://marklogic.com/appservices/search"
 
-        private val OPTIONS = Key.create<CachedValue<List<PsiElement>>>("OPTIONS")
+        private val OPTIONS = Key.create<CachedValue<List<PsiElement>>>("XIJP_MARKLOGIC_SEARCH_OPTIONS")
 
         private val CUSTOM_FACET_REFS =
-            Key.create<CachedValue<List<CustomConstraintFunctionReference>>>("CUSTOM_FACET_REFS")
+            Key.create<CachedValue<List<CustomConstraintFunctionReference>>>("XIJP_MARKLOGIC_SEARCH_OPTIONS_CUSTOM_FACET_REFS")
 
         fun getInstance(): SearchOptions = ApplicationManager.getApplication().getService(SearchOptions::class.java)
     }
@@ -57,7 +56,7 @@ class SearchOptions : UserDataHolderBase() {
     }
 
     private fun getSearchOptions(project: Project): List<PsiElement> {
-        return CachedValuesManager.getManager(project).getCachedValue(this, OPTIONS, {
+        return CachedValuesManager.getManager(project).getCachedValue(project, OPTIONS, {
             val options = ArrayList<PsiElement>()
             ProjectRootManager.getInstance(project).fileIndex.iterateContent {
                 when (val file = it.toPsiFile(project)) {
@@ -84,7 +83,7 @@ class SearchOptions : UserDataHolderBase() {
 
     @Suppress("MemberVisibilityCanBePrivate")
     fun getCustomConstraintFunctionReferences(project: Project): List<CustomConstraintFunctionReference> {
-        return CachedValuesManager.getManager(project).getCachedValue(this, CUSTOM_FACET_REFS, {
+        return CachedValuesManager.getManager(project).getCachedValue(project, CUSTOM_FACET_REFS, {
             val refs = ArrayList<CustomConstraintFunctionReference>()
             getSearchOptions(project).map { node ->
                 when (node) {

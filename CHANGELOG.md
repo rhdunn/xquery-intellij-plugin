@@ -6,6 +6,7 @@ Bug Fixes:
 
 1. Fix an exception when trying to display the MarkLogic rewriter endpoint line marker.
 2. Fix an exception in the roxy project configuration when there aren't any associated property files.
+3. Fix hangs during the Analyze phase when switching projects.
 
 Gradle Project Configuration:
 
