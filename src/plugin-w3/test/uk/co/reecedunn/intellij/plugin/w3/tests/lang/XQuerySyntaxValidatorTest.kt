@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Reece H. Dunn
+ * Copyright (C) 2021-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -134,6 +134,58 @@ class XQuerySyntaxValidatorTest :
         @DisplayName("encoding only; XQuery >= 3.0")
         fun encoding_supported() {
             val file = parse<XQueryModule>("xquery encoding \"latin1\"; 2")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (18) DecimalFormatDecl")
+    internal inner class DecimalFormatDecl {
+        @Test
+        @DisplayName("XQuery < 3.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("declare decimal-format test; 2")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`(
+                    """
+                    E XPST0003(8:22): XQuery version string '1.0' does not support XQuery 3.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery >= 3.0")
+        fun supported() {
+            val file = parse<XQueryModule>("declare decimal-format test; 2")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("all properties")
+        fun allProperties() {
+            val file = parse<XQueryModule>(
+                """
+                declare decimal-format test decimal-separator = "."
+                                            grouping-separator = "#"
+                                            infinity = "INF"
+                                            minus-sign = "-"
+                                            NaN = "NaN"
+                                            percent = "%"
+                                            per-mille = ","
+                                            zero-digit = "0"
+                                            digit = "1"
+                                            pattern-separator = "|";
+                2
+                """.trimIndent()
+            )[0]
             validator.configuration = XQUERY_3_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
@@ -1065,6 +1117,35 @@ class XQuerySyntaxValidatorTest :
         fun supported() {
             val file = parse<XQueryModule>("Q{http://www.example.com}test")[0]
             validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (18) DecimalFormatDecl")
+    internal inner class DecimalFormatDecl_XQuery31 {
+        @Test
+        @DisplayName("XQuery < 3.1")
+        fun notSupported() {
+            val file = parse<XQueryModule>("declare decimal-format test exponent-separator = \"e\"; 2")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`(
+                    """
+                    E XPST0003(28:46): XQuery version string '3.0' does not support XQuery 3.1 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery >= 3.1")
+        fun supported() {
+            val file = parse<XQueryModule>("declare decimal-format test exponent-separator = \"e\"; 2")[0]
+            validator.configuration = XQUERY_3_1
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }

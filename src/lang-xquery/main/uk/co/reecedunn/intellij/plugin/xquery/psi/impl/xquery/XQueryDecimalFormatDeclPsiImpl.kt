@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,20 +20,14 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDFPropertyName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDecimalFormatDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408)
-private val XQUERY31: List<Version> = listOf(XQuerySpec.REC_3_1_20170321)
-
 class XQueryDecimalFormatDeclPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQueryDecimalFormatDecl, VersionConformance {
-    override val requiresConformance: List<Version>
-        get() = if (conformanceElement is XQueryDFPropertyName) XQUERY31 else XQUERY30
+    ASTWrapperPsiElement(node), XQueryDecimalFormatDecl, XpmSyntaxValidationElement {
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() {
@@ -41,4 +35,6 @@ class XQueryDecimalFormatDeclPsiImpl(node: ASTNode) :
                 e.firstChild.elementType === XQueryTokenType.K_EXPONENT_SEPARATOR
             }.firstOrNull() ?: (findChildByType(XQueryTokenType.K_DECIMAL_FORMAT) ?: this)
         }
+
+    // endregion
 }
