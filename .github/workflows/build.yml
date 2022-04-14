@@ -15,6 +15,7 @@ jobs:
             IC-2021.1,
             IC-2021.2,
             IC-2021.3,
+            IC-2022.1,
             LATEST-EAP-SNAPSHOT
         ]
         include:
@@ -34,6 +35,10 @@ jobs:
           - os: ubuntu-latest
             java-version: 11
             idea-version: IC-2021.3
+
+          - os: ubuntu-latest
+            java-version: 11
+            idea-version: IC-2022.1
 
           - os: ubuntu-latest
             java-version: 11
