@@ -28,4 +28,5 @@ declare %a:since("exist", "4.4") function file:serialize($node-set as node()*, $
 declare %a:since("exist", "4.4") function file:serialize($node-set as node()*, $path as item(), $parameters as item()*, $append as xs:boolean) as xs:boolean? external;
 declare %a:since("exist", "4.4") function file:serialize-binary($binarydata as xs:base64Binary, $path as item()) as xs:boolean external;
 declare %a:since("exist", "4.4") function file:serialize-binary($binarydata as xs:base64Binary, $path as item(), $append as xs:boolean) as xs:boolean external;
-declare %a:since("exist", "4.4") function file:sync($collection as xs:string, $targetPath as item(), $dateTime as xs:dateTime?) as xs:boolean external;
+declare %a:since("exist", "4.4") %a:deprecated("exist", "5.4") function file:sync($collection as xs:string, $targetPath as item(), $dateTime as xs:dateTime?) as document-node() external;
+declare %a:since("exist", "5.4") function file:sync($collection as xs:string, $targetPath as item(), $dateTimeOrOptionsMap as item()?) as document-node() external;
