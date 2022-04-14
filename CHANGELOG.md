@@ -2,17 +2,6 @@
 
 ## 1.10.0 - (In Development)
 
-Bug Fixes:
-
-1. Fix an exception when trying to display the MarkLogic rewriter endpoint line marker.
-2. Fix an exception in the roxy project configuration when there aren't any associated property files.
-3. Fix hangs during the Analyze phase when switching projects.
-
-Gradle Project Configuration:
-
-1. Support reading properties from `gradle.properties`.
-2. Fix an exception in the gradle project configuration when there aren't any associated property files.
-
 ## 2021
 
 *  [1.9.2 - 2021-11-24](docs/_posts/2021-11-24-release-1.9.2.md)
