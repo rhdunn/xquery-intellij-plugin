@@ -24,3 +24,6 @@ declare %a:since("basex", "7.6") function xslt:transform-text($input as item(), 
 declare %a:restrict-until("$params", "basex", "9.0", "map(xs:string, xs:string)")
         %a:since("basex", "7.6") function xslt:transform-text($input as item(), $stylesheet as item(), $params as map(*)?) as xs:string external;
 declare %a:since("basex", "9.0") function xslt:transform-text($input as item(), $stylesheet as item(), $params as map(*)?, $options as map(*)?) as xs:string external;
+declare %a:since("basex", "9.7") function xslt:transform-report($input as item(), $stylesheet as item()) as xs:string external;
+declare %a:since("basex", "9.7") function xslt:transform-report($input as item(), $stylesheet as item(), $params as map(*)?) as xs:string external;
+declare %a:since("basex", "9.7") function xslt:transform-report($input as item(), $stylesheet as item(), $params as map(*)?, $options as map(*)?) as xs:string external;
