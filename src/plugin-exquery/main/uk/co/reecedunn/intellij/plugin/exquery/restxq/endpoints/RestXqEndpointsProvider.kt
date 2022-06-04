@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
+import com.intellij.compat.psi.util.PsiModificationTracker
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
@@ -23,7 +24,6 @@ import com.intellij.openapi.util.ModificationTracker
 import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
-import com.intellij.psi.util.PsiModificationTracker
 import uk.co.reecedunn.intellij.microservices.endpoints.*
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
@@ -85,7 +85,7 @@ class RestXqEndpointsProvider :
     }
 
     override fun getModificationTracker(project: Project): ModificationTracker {
-        return PsiModificationTracker.SERVICE.getInstance(project).forLanguage(XQuery)
+        return PsiModificationTracker.getInstance(project).forLanguage(XQuery)
     }
 
     override fun getStatus(project: Project): EndpointsProviderStatus = when {
