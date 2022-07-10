@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 Reece H. Dunn
+ * Copyright (C) 2020-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,6 +43,7 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
         is PluginLambdaFunctionExpr -> reporter.requires(element, SAXON_PE_10)
         is XPathOtherwiseExpr -> reporter.requires(element, SAXON_PE_10)
         is PluginParamRef -> reporter.requires(element, SAXON_PE_10)
+        is XPathAnyMapTest -> reporter.requires(element, SAXON_PE_9_4)
         is XPathSimpleForClause -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_MEMBER -> reporter.requires(element, SAXON_PE_10)
             else -> {
@@ -108,6 +109,11 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
         else -> {
         }
     }
+
+    private val SAXON_PE_9_4 = XpmRequiresAny(
+        XpmRequiresProductVersion.since(SaxonPE.VERSION_9_4),
+        XpmRequiresProductVersion.since(SaxonEE.VERSION_9_4)
+    )
 
     private val SAXON_PE_9_8 = XpmRequiresAny(
         XpmRequiresProductVersion.since(SaxonPE.VERSION_9_8),

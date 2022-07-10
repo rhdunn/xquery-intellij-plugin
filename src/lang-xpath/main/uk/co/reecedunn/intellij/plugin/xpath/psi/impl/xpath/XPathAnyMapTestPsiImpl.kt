@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2019-2020 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmMap
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyMapTest
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-class XPathAnyMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAnyMapTest, VersionConformance {
+class XPathAnyMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAnyMapTest, XpmSyntaxValidationElement {
     // region XdmSequenceType
 
     override val typeName: String = "map(*)"
@@ -44,10 +41,7 @@ class XPathAnyMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathA
     override val typeClass: Class<*> = XdmMap::class.java
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance: List<Version>
-        get() = listOf(XQuerySpec.REC_3_1_20170321, Saxon.VERSION_9_4)
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = firstChild

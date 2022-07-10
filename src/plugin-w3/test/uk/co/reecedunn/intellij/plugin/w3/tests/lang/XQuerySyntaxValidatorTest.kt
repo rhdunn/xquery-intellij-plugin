@@ -1701,6 +1701,31 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (211) AnyMapTest")
+    internal inner class AnyMapTest {
+        @Test
+        @DisplayName("XQuery >= 3.1")
+        fun supported() {
+            val file = parse<XQueryModule>("1 instance of map(*)")[0]
+            validator.configuration = XQUERY_3_1
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("XQuery < 3.1")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1 instance of map(*)")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(14:17): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (214) AnyArrayTest")
     internal inner class AnyArrayTest {
         @Test
