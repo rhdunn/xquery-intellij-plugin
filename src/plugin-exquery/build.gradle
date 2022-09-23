@@ -2,6 +2,8 @@ sourceSets.main.java.srcDirs += 'main'
 sourceSets.main.resources.srcDirs += 'main/resources'
 
 dependencies {
+    implementation project(':src:intellij-compat')
     implementation project(':src:kotlin-intellij')
+    implementation project(':src:lang-xdm')
     compile project(':src:lang-xquery')
 }

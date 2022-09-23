@@ -6,11 +6,10 @@ sourceSets.test.resources.srcDirs += 'test/resources'
 
 dependencies {
     implementation project(':src:kotlin-intellij')
+    implementation project(':src:lang-xdm')
     implementation project(':src:lang-xpm')
     compile project(':src:lang-xpath')
 
     testCompile project(':src:intellij-test')
     testCompile project(':src:kotlin-hamcrest')
-
-    testImplementation project(':src:lang-xdm')
 }

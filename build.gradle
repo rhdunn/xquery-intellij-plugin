@@ -140,6 +140,7 @@ dependencies {
     compile project(':src:plugin-xijp')
 
     implementation project(':src:lang-core')
+    implementation project(':src:lang-xdm')
     compile project(':src:lang-xproc')
     compile project(':src:lang-java')
 

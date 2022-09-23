@@ -17,6 +17,7 @@ dependencies {
     implementation project(':src:lang-xqdoc')
     implementation project(':src:plugin-api')
 
+    testImplementation project(':src:intellij-compat')
     testImplementation project(':src:intellij-test')
     testImplementation project(':src:kotlin-hamcrest')
 }
