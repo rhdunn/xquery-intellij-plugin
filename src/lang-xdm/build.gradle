@@ -11,5 +11,7 @@ dependencies {
 
     testImplementation project(':src:intellij-test')
     testImplementation project(':src:kotlin-hamcrest')
+    testImplementation project(':src:lang-xpm')
+    testImplementation project(':src:lang-xpath')
     testImplementation project(':src:lang-xquery')
 }
