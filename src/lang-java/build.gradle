@@ -12,9 +12,9 @@ if (ext.idea_version >= 192) {
 
 dependencies {
     implementation project(':src:kotlin-intellij')
-    compile project(':src:lang-xdm')
-    compile project(':src:lang-xpm')
+    implementation project(':src:lang-xdm')
+    implementation project(':src:lang-xpm')
 
-    testCompile project(':src:intellij-test')
-    testCompile project(':src:kotlin-hamcrest')
+    testImplementation project(':src:intellij-test')
+    testImplementation project(':src:kotlin-hamcrest')
 }
