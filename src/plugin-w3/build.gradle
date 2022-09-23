@@ -5,9 +5,11 @@ sourceSets.test.java.srcDirs += 'test'
 sourceSets.test.resources.srcDirs += 'test/resources'
 
 dependencies {
+    implementation project(':src:kotlin-intellij')
     compile project(':src:lang-xquery')
     compile project(':src:lang-xslt')
     compile project(':src:lang-xpm')
+    implementation project(':src:lang-xqdoc')
 
     testCompile project(':src:intellij-test')
     testCompile project(':src:kotlin-hamcrest')

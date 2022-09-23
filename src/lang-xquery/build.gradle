@@ -11,9 +11,13 @@ processResources {
 }
 
 dependencies {
+    implementation project(':src:kotlin-intellij')
+    implementation project(':src:lang-core')
     compile project(':src:lang-xpath')
     compile project(':src:lang-java')
     compile project(':src:lang-xpm')
+    implementation project(':src:lang-xqdoc')
+    implementation project(':src:plugin-api')
 
     testCompile project(':src:intellij-test')
     testCompile project(':src:kotlin-hamcrest')

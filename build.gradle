@@ -131,12 +131,15 @@ configure(allprojects - project(':src')) {
 }
 
 dependencies {
+    implementation project(':src:kotlin-intellij')
+
     compile project(':src:plugin-basex')
     compile project(':src:plugin-existdb')
     compile project(':src:plugin-marklogic')
     compile project(':src:plugin-saxon')
     compile project(':src:plugin-xijp')
 
+    implementation project(':src:lang-core')
     compile project(':src:lang-xproc')
     compile project(':src:lang-java')
 

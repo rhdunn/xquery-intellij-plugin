@@ -8,6 +8,7 @@ dependencies {
     compile project(':src:lang-xslt')
     compile project(':src:lang-xpm')
 
+    testImplementation project(':src:kotlin-intellij')
     testCompile project(':src:intellij-test')
     testCompile project(':src:kotlin-hamcrest')
 }

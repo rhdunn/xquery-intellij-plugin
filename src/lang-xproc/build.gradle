@@ -6,6 +6,8 @@ sourceSets.test.resources.srcDirs += 'test/resources'
 
 dependencies {
     compile project(':src:intellij-compat')
+    implementation project(':src:kotlin-intellij')
+    implementation project(':src:lang-xdm')
     compile project(':src:lang-xslt')
 
     testCompile project(':src:kotlin-hamcrest')

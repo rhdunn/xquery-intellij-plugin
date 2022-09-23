@@ -13,10 +13,10 @@ processResources {
 intellij.plugins = ['org.intellij.intelliLang']
 
 dependencies {
-    compile project(':src:lang-xpm')
-    compile project(':src:lang-xqdoc')
-    compile project(':src:plugin-api')
+    implementation project(':src:lang-xpm')
+    implementation project(':src:lang-xqdoc')
+    implementation project(':src:plugin-api')
 
-    testCompile project(':src:intellij-test')
-    testCompile project(':src:kotlin-hamcrest')
+    testImplementation project(':src:intellij-test')
+    testImplementation project(':src:kotlin-hamcrest')
 }
