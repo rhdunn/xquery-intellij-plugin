@@ -44,12 +44,12 @@ buildscript {
     ext.kotlin_stdlib = "kotlin-stdlib"
     ext.java_version = "11"
 
-    ext.plugin_version = '1.9.3'
+    ext.plugin_version = '1.10.0'
     // Suffix ordering:
     //    `'-snapshot'` -- for development builds
     //    `'-eap-###'`  -- for early access preview builds (`-eap-1`, `-eap-2`, `-eap-3`, etc.)
     //    `''`          -- for release builds
-    ext.suffix = ''
+    ext.suffix = '-snapshot'
 
     repositories {
         mavenCentral()
