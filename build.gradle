@@ -103,12 +103,12 @@ configure(allprojects - project(':src')) {
     }
 
     dependencies {
-        compile "org.jetbrains.kotlin:$kotlin_stdlib:$kotlin_version"
+        implementation "org.jetbrains.kotlin:$kotlin_stdlib:$kotlin_version"
 
-        testCompile "org.junit.jupiter:junit-jupiter-api:5.7.0"
+        testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.0"
 
-        testRuntime("org.junit.platform:junit-platform-launcher:1.7.0")
-        testRuntime("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+        testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.7.0"
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.0"
     }
 
     tasks {
