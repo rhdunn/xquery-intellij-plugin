@@ -133,26 +133,26 @@ configure(allprojects - project(':src')) {
 dependencies {
     implementation project(':src:kotlin-intellij')
 
-    compile project(':src:plugin-basex')
-    compile project(':src:plugin-existdb')
-    compile project(':src:plugin-marklogic')
-    compile project(':src:plugin-saxon')
-    compile project(':src:plugin-xijp')
+    implementation project(':src:plugin-basex')
+    implementation project(':src:plugin-existdb')
+    implementation project(':src:plugin-marklogic')
+    implementation project(':src:plugin-saxon')
+    implementation project(':src:plugin-xijp')
 
     implementation project(':src:lang-core')
     implementation project(':src:lang-xdm')
     implementation project(':src:lang-xpm')
     implementation project(':src:lang-xpath')
     implementation project(':src:lang-xquery')
-    compile project(':src:lang-xproc')
-    compile project(':src:lang-java')
+    implementation project(':src:lang-xproc')
+    implementation project(':src:lang-java')
 
-    compile project(':src:plugin-expath')
-    compile project(':src:plugin-exquery')
-    compile project(':src:plugin-w3')
+    implementation project(':src:plugin-expath')
+    implementation project(':src:plugin-exquery')
+    implementation project(':src:plugin-w3')
 
-    testCompile project(':src:kotlin-hamcrest')
-    testCompile project(':src:intellij-test')
+    testImplementation project(':src:kotlin-hamcrest')
+    testImplementation project(':src:intellij-test')
 }
 
 intellij.plugins = [
