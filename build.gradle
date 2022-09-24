@@ -160,12 +160,20 @@ dependencies {
     testImplementation project(':src:intellij-test')
 }
 
-intellij.plugins = [
-    'coverage',
-    'com.intellij.properties',
-    'org.intellij.intelliLang',
-    'java'
-]
+if (ext.idea_since_build >= 223) {
+    intellij.plugins = [
+        'com.intellij.properties',
+        'org.intellij.intelliLang',
+        'java'
+    ]
+} else {
+    intellij.plugins = [
+        'coverage',
+        'com.intellij.properties',
+        'org.intellij.intelliLang',
+        'java'
+    ]
+}
 
 if (idea_type == 'IU') {
     if (idea_since_build >= 193) {
