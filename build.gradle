@@ -36,13 +36,17 @@ buildscript {
     ext.idea_since_build = ext.since_from_version(ext.idea_version).toInteger()
     ext.idea_type = System.getenv("IDEA_TYPE") ?: 'IC'
 
-    if (ext.idea_since_build >= 221) {
+    if (ext.idea_since_build >= 223) {
         ext.kotlin_version = "1.6.10"
+        ext.java_version = "17"
+    } else if (ext.idea_since_build >= 221) {
+        ext.kotlin_version = "1.6.10"
+        ext.java_version = "11"
     } else {
         ext.kotlin_version = "1.5.32"
+        ext.java_version = "11"
     }
     ext.kotlin_stdlib = "kotlin-stdlib"
-    ext.java_version = "11"
 
     ext.saxon_version = "9.9.1-7"
     ext.jsoup_version = "1.15.3"

@@ -46,7 +46,7 @@ jobs:
             idea-version: IC-2022.2
 
           - os: ubuntu-latest
-            java-version: 11
+            java-version: 17
             idea-version: LATEST-EAP-SNAPSHOT
 
     runs-on: ${{ matrix.os }}
