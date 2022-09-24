@@ -44,6 +44,8 @@ buildscript {
     ext.kotlin_stdlib = "kotlin-stdlib"
     ext.java_version = "11"
 
+    ext.saxon_version = "9.9.1-7"
+
     ext.plugin_version = '1.10.0'
     // Suffix ordering:
     //    `'-snapshot'` -- for development builds
@@ -102,7 +104,6 @@ configure(allprojects - project(':src')) {
     dependencies {
         compile "org.jetbrains.kotlin:$kotlin_stdlib:$kotlin_version"
         compile "org.jsoup:jsoup:1.12.1"
-        compile "net.sf.saxon:Saxon-HE:9.9.1-7"
 
         testCompile "org.junit.jupiter:junit-jupiter-api:5.7.0"
 

@@ -20,4 +20,7 @@ dependencies {
 
     testImplementation project(':src:intellij-test')
     testImplementation project(':src:kotlin-hamcrest')
+
+    // Saxon HE
+    runtimeOnly "net.sf.saxon:Saxon-HE:$saxon_version"
 }
