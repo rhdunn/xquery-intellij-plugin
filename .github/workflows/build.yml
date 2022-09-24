@@ -63,8 +63,9 @@ jobs:
           java-version: ${{ matrix.java-version }}
 
       - name: Create a Gradle Wrapper
-        # Use a null gradle file so gradle < 4.6 does not fail parsing 'useJUnitPlatform()'.
-        run: touch null.gradle ; gradle -b null.gradle wrapper --gradle-version 6.7 ; rm null.gradle
+        # Use a null gradle file so that if the gradle version cannot parse this gradle
+        # file it will be able to run and generate the gradle wrapper.
+        run: touch null.gradle ; gradle -b null.gradle wrapper --gradle-version 7.5 ; rm null.gradle
 
       - name: Cache Gradle Packages
         uses: actions/cache@v2
