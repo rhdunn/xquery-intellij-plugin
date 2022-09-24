@@ -15,6 +15,7 @@ dependencies {
     implementation project(':src:lang-core')
     implementation project(':src:lang-xpath')
     implementation project(':src:lang-java')
+    implementation project(':src:lang-xdm')
     implementation project(':src:lang-xpm')
     implementation project(':src:lang-xqdoc')
     implementation project(':src:plugin-api')
