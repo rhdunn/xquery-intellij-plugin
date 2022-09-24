@@ -45,7 +45,7 @@ buildscript {
     ext.java_version = "11"
 
     ext.saxon_version = "9.9.1-7"
-    ext.jsoup_version = "1.12.1"
+    ext.jsoup_version = "1.15.3"
 
     ext.junit5_version = "5.9.1"
     ext.junit_platform_version = "1.9.1"
