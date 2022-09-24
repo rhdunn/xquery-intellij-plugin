@@ -6,12 +6,12 @@ sourceSets.test.java.srcDirs += 'test'
 dependencies {
     implementation project(':src:kotlin-intellij')
     implementation project(':src:lang-core')
-    compile project(':src:lang-xquery')
-    compile project(':src:lang-xslt')
+    implementation project(':src:lang-xquery')
+    implementation project(':src:lang-xslt')
     implementation project(':src:lang-xdm')
-    compile project(':src:lang-xpm')
+    implementation project(':src:lang-xpm')
     implementation project(':src:plugin-api')
 
-    testCompile project(':src:kotlin-hamcrest')
-    testCompile project(':src:intellij-test')
+    testImplementation project(':src:kotlin-hamcrest')
+    testImplementation project(':src:intellij-test')
 }
