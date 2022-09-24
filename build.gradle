@@ -47,6 +47,9 @@ buildscript {
     ext.saxon_version = "9.9.1-7"
     ext.jsoup_version = "1.12.1"
 
+    ext.junit5_version = "5.9.1"
+    ext.junit_platform_version = "1.9.1"
+
     ext.plugin_version = '1.10.0'
     // Suffix ordering:
     //    `'-snapshot'` -- for development builds
@@ -105,10 +108,10 @@ configure(allprojects - project(':src')) {
     dependencies {
         implementation "org.jetbrains.kotlin:$kotlin_stdlib:$kotlin_version"
 
-        testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.0"
+        testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5_version"
 
-        testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.7.0"
-        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.0"
+        testRuntimeOnly "org.junit.platform:junit-platform-launcher:$junit_platform_version"
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
     }
 
     tasks {
