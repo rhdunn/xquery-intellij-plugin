@@ -64,7 +64,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.intellij" version "1.6.0"
+    id "org.jetbrains.intellij" version "1.9.0"
 }
 
 configure(allprojects - project(':src')) {
@@ -163,9 +163,6 @@ intellij.plugins = [
     'java'
 ]
 
-if (idea_since_build >= 203) {
-    compileKotlin.kotlinOptions.useIR = true
-}
 if (idea_type == 'IU') {
     if (idea_since_build >= 193) {
         sourceSets.main.resources.srcDirs += 'src/main/resources-microservices/193'
