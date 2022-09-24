@@ -186,6 +186,11 @@ abstract class ParsingTestCase<File : PsiFile>(
             CodeStyleSettingsProvider.EXTENSION_POINT_NAME, CodeStyleSettingsProvider::class.java, pluginDisposable
         )
         app.registerExtensionPointBean(
+            "com.intellij.langCodeStyleSettingsContributor",
+            "com.intellij.psi.codeStyle.LanguageCodeStyleSettingsContributor",
+            pluginDisposable
+        )
+        app.registerExtensionPointBean(
             LanguageCodeStyleSettingsProvider.EP_NAME, LanguageCodeStyleSettingsProvider::class.java, pluginDisposable
         )
         app.registerExtensionPointBean(
