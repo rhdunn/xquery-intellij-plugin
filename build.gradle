@@ -49,6 +49,7 @@ buildscript {
 
     ext.junit5_version = "5.9.1"
     ext.junit_platform_version = "1.9.1"
+    ext.jacoco_version = '0.8.8'
 
     ext.plugin_version = '1.10.0'
     // Suffix ordering:
@@ -201,7 +202,7 @@ patchPluginXml {
 }
 
 jacoco {
-    toolVersion = '0.8.7'
+    toolVersion = jacoco_version
 }
 
 jacocoTestReport {
