@@ -5,6 +5,7 @@ sourceSets.test.java.srcDirs += 'test'
 
 dependencies {
     implementation project(':src:lang-core')
+    implementation project(':src:lang-xpath')
     compile project(':src:lang-xquery')
     compile project(':src:lang-xslt')
     compile project(':src:lang-xpm')

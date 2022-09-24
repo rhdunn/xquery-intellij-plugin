@@ -15,10 +15,10 @@ dependencies {
     implementation project(':src:lang-core')
     implementation project(':src:lang-xdm')
     implementation project(':src:lang-xpm')
-    compile project(':src:lang-xpath')
+    implementation project(':src:lang-xpath')
     implementation project(':src:plugin-api')
 
     testImplementation project(':src:intellij-compat')
-    testCompile project(':src:intellij-test')
-    testCompile project(':src:kotlin-hamcrest')
+    testImplementation project(':src:intellij-test')
+    testImplementation project(':src:kotlin-hamcrest')
 }

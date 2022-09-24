@@ -8,6 +8,7 @@ dependencies {
     implementation project(':src:kotlin-intellij')
     implementation project(':src:lang-core')
     implementation project(':src:lang-xdm')
+    implementation project(':src:lang-xpath')
     compile project(':src:lang-xquery')
     compile project(':src:lang-xslt')
     compile project(':src:lang-xpm')

@@ -8,6 +8,7 @@ dependencies {
     compile project(':src:lang-xquery')
     compile project(':src:lang-xslt')
     compile project(':src:lang-xpm')
+    implementation project(':src:lang-xpath')
     implementation project(':src:plugin-api')
 
     testCompile project(':src:intellij-test')
