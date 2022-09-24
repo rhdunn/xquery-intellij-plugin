@@ -6,5 +6,5 @@ dependencies {
     implementation project(':src:kotlin-intellij')
     implementation project(':src:lang-xdm')
     implementation project(':src:lang-xpm')
-    compile project(':src:lang-xquery')
+    implementation project(':src:lang-xquery')
 }
