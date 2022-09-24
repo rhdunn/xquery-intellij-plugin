@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
 
 class XRayHtmlTest(private val test: Element) : TestCase {
-    private val titleParts by lazy { test.selectFirst("a").text().split(" -- ") }
+    private val titleParts by lazy { test.selectFirst("a")!!.text().split(" -- ") }
 
     override val name: String
         get() = titleParts[0]

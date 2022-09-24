@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 
 class XRayHtmlTestModule(private val module: Element) : TestSuite {
-    override val name: String by lazy { module.selectFirst("summary > a").text() }
+    override val name: String by lazy { module.selectFirst("summary > a")!!.text() }
 
     private val testCasesList by lazy {
         module.select("h4").map { XRayHtmlTest(it) }

@@ -14,4 +14,7 @@ dependencies {
 
     testImplementation project(':src:kotlin-hamcrest')
     testImplementation project(':src:intellij-test')
+
+    // JSoup
+    implementation "org.jsoup:jsoup:$jsoup_version"
 }

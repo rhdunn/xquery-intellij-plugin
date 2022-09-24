@@ -23,4 +23,7 @@ dependencies {
 
     // Saxon HE
     runtimeOnly "net.sf.saxon:Saxon-HE:$saxon_version"
+
+    // JSoup
+    implementation "org.jsoup:jsoup:$jsoup_version"
 }
