@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.lexer
 
 import com.google.gson.JsonParser
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import xqt.platform.xml.lexer.Digit
 import java.io.InputStreamReader
 
 enum class EntityReferenceType {
@@ -74,8 +75,8 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
                         else -> EntityReferenceType.PartialEntityReference
                     }
                 }
-                c in CharacterClass.Digit -> {
-                    while (c in CharacterClass.Digit) {
+                c in Digit -> {
+                    while (c in Digit) {
                         match()
                         c = codePoint
                     }

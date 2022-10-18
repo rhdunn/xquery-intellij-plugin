@@ -19,6 +19,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
+import xqt.platform.xml.lexer.Digit
 
 @Suppress("DuplicatedCode")
 class XQDocLexer : LexerImpl(STATE_CONTENTS) {
@@ -63,8 +64,8 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                 } else {
                     mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
                 }
-            } else if (c in CharacterClass.Digit) {
-                while (c in CharacterClass.Digit) {
+            } else if (c in Digit) {
+                while (c in Digit) {
                     mTokenRange.match()
                     c = mTokenRange.codePoint
                 }
