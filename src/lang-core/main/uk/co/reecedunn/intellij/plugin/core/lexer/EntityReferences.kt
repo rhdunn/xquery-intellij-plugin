@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.core.lexer
 import com.google.gson.JsonParser
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import xqt.platform.xml.lexer.Digit
+import xqt.platform.xml.lexer.HexDigit
 import java.io.InputStreamReader
 
 enum class EntityReferenceType {
@@ -56,8 +57,8 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
                     match()
                     c = codePoint
                     when (c) {
-                        in CharacterClass.HexDigit -> {
-                            while (c in CharacterClass.HexDigit) {
+                        in HexDigit -> {
+                            while (c in HexDigit) {
                                 match()
                                 c = codePoint
                             }

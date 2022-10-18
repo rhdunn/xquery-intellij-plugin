@@ -143,17 +143,6 @@ object CharacterClass {
 
     // region Character Class Tests
 
-    object HexDigit {
-        operator fun contains(c: Int): Boolean {
-            @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-            return (
-                c >= '0'.code && c <= '9'.code ||
-                c >= 'a'.code && c <= 'f'.code ||
-                c >= 'A'.code && c <= 'F'.code
-            )
-        }
-    }
-
     object AlphaNumeric {
         operator fun contains(c: Int): Boolean {
             @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
