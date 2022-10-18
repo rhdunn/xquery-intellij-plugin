@@ -19,9 +19,9 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
-import uk.co.reecedunn.intellij.plugin.core.lexer.XmlChar
 import uk.co.reecedunn.intellij.plugin.core.lexer.entityReferenceCodePoint
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
+import xqt.platform.xml.model.XmlChar
 
 class XQueryCharRefImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text), XQueryCharRef, PsiElementTextDecoder {

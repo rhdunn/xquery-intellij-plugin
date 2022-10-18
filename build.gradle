@@ -48,6 +48,7 @@ buildscript {
     }
     ext.kotlin_stdlib = "kotlin-stdlib"
 
+    ext.xqt_version = "0.1-SNAPSHOT"
     ext.saxon_version = "9.9.1-7"
     ext.jsoup_version = "1.15.3"
 
