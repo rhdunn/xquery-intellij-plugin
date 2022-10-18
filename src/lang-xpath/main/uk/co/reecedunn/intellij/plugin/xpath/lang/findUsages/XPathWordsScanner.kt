@@ -19,11 +19,13 @@ import com.intellij.lang.cacheBuilder.WordsScanner
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.lexer.Lexer
 import com.intellij.util.Processor
-import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import xqt.platform.xml.lexer.Colon
+import xqt.platform.xml.lexer.NameChar
+import xqt.platform.xml.lexer.NameStartChar
 
 open class XPathWordsScanner(protected val mLexer: Lexer = XPathLexer()) : WordsScanner {
     protected val mOccurrence: WordOccurrence = WordOccurrence(null, 0, 0, null)
@@ -53,22 +55,24 @@ open class XPathWordsScanner(protected val mLexer: Lexer = XPathLexer()) : Words
     protected fun processToken(processor: Processor<in WordOccurrence>, kind: WordOccurrence.Kind): Boolean {
         var inWord = false
         while (true)
-            when (CharacterClass.getCharClass(mRange.codePoint.codepoint)) {
-                CharacterClass.NAME_START_CHAR -> {
-                    if (!inWord) {
+            when (mRange.codePoint) {
+                in NameStartChar -> {
+                    if (!inWord && mRange.codePoint != Colon) {
                         inWord = true
                         mRange.flush()
                     }
                     mRange.match()
                 }
-                CharacterClass.END_OF_BUFFER -> {
+
+                CodePointRange.END_OF_BUFFER -> {
                     if (inWord) {
                         mOccurrence.init(mRange.bufferSequence, mRange.start, mRange.end, kind)
                         return processor.process(mOccurrence)
                     }
                     return true
                 }
-                CharacterClass.DIGIT, CharacterClass.DOT, CharacterClass.HYPHEN_MINUS, CharacterClass.NAME_CHAR -> mRange.match()
+
+                in NameChar -> mRange.match()
                 else -> {
                     if (inWord) {
                         mOccurrence.init(mRange.bufferSequence, mRange.start, mRange.end, kind)
