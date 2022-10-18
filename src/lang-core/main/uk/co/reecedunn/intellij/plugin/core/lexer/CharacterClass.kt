@@ -140,19 +140,4 @@ object CharacterClass {
             if (c <= 0xEFFFF) NAME_START_CHAR else CHAR
         } else INVALID
     }
-
-    // region Character Class Tests
-
-    object AlphaNumeric {
-        operator fun contains(c: Int): Boolean {
-            @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-            return (
-                c >= '0'.code && c <= '9'.code ||
-                c >= 'a'.code && c <= 'z'.code ||
-                c >= 'A'.code && c <= 'z'.code
-            )
-        }
-    }
-
-    // endregion
 }

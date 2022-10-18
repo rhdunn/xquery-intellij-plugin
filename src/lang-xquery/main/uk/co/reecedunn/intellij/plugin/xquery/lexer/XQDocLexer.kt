@@ -19,6 +19,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
+import xqt.platform.xml.lexer.AlphaNumeric
 import xqt.platform.xml.lexer.Digit
 import xqt.platform.xml.lexer.HexDigit
 
@@ -169,8 +170,8 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
     private fun stateTaggedContents() {
         var c = mTokenRange.codePoint
-        if (c in CharacterClass.AlphaNumeric) {
-            while (c in CharacterClass.AlphaNumeric) {
+        if (c in AlphaNumeric) {
+            while (c in AlphaNumeric) {
                 mTokenRange.match()
                 c = mTokenRange.codePoint
             }
@@ -248,8 +249,8 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         var c = mTokenRange.codePoint
         when (c) {
             CodePointRange.END_OF_BUFFER -> mType = null
-            in CharacterClass.AlphaNumeric -> {
-                while (c in CharacterClass.AlphaNumeric) {
+            in AlphaNumeric -> {
+                while (c in AlphaNumeric) {
                     mTokenRange.match()
                     c = mTokenRange.codePoint
                 }
