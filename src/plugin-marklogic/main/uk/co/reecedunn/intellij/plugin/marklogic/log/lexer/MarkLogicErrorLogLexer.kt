@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Reece H. Dunn
+ * Copyright (C) 2021-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,51 +20,9 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLogFormat
+import xqt.platform.xml.lexer.*
 
 class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(STATE_DEFAULT) {
-    // region Character Classes
-
-    companion object {
-        private const val END_OF_BUFFER: Int = -1
-        private const val MESSAGE: Int = -2
-        private const val NEW_LINE: Int = -3
-        private const val DIGIT: Int = -4
-        private const val WHITE_SPACE: Int = -5
-
-        private const val HYPHEN_MINUS: Int = 1
-        private const val DOT: Int = 2
-        private const val COLON: Int = 3
-        private const val PLUS: Int = 4
-
-        private const val CLN = COLON
-        private const val DIG = DIGIT
-        private const val MIN = HYPHEN_MINUS
-        private const val MSG = MESSAGE
-        private const val NEL = NEW_LINE
-        private const val PLS = PLUS
-        private const val WSP = WHITE_SPACE
-
-        private val characterClasses = intArrayOf(
-            //////// x0   x1   x2   x3   x4   x5   x6   x7   x8   x9   xA   xB   xC   xD   xE   xF
-            /* 0x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, WSP, NEL, MSG, MSG, NEL, MSG, MSG,
-            /* 1x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
-            /* 2x */ WSP, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, PLS, MSG, MIN, DOT, MSG,
-            /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, CLN, MSG, MSG, MSG, MSG, MSG,
-            /* 4x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
-            /* 5x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
-            /* 6x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
-            /* 7x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG
-        )
-
-        fun getCharacterClass(c: Int): Int {
-            if (c < characterClasses.size) { // 0x0000-0x0079
-                return if (c == CodePointRange.END_OF_BUFFER.codepoint) END_OF_BUFFER else characterClasses[c]
-            }
-            return MESSAGE
-        }
-    }
-
-    // endregion
     // region States
 
     object State {
@@ -77,28 +35,28 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
     }
 
     private fun stateDefault(): IElementType? {
-        var cc = getCharacterClass(mTokenRange.codePoint.codepoint)
-        return when (cc) {
-            END_OF_BUFFER -> null
-            NEW_LINE -> {
-                while (cc == NEW_LINE) {
+        return when (mTokenRange.codePoint) {
+            CodePointRange.END_OF_BUFFER -> null
+            LineFeed, CarriageReturn -> {
+                while (mTokenRange.codePoint == LineFeed || mTokenRange.codePoint == CarriageReturn) {
                     mTokenRange.match()
-                    cc = getCharacterClass(mTokenRange.codePoint.codepoint)
                 }
                 MarkLogicErrorLogTokenType.WHITE_SPACE
             }
-            DIGIT -> {
-                while (cc == DIGIT || cc == HYPHEN_MINUS) {
+
+            in Digit -> {
+                while (mTokenRange.codePoint in Digit || mTokenRange.codePoint == HyphenMinus) {
                     mTokenRange.match()
-                    cc = getCharacterClass(mTokenRange.codePoint.codepoint)
                 }
                 pushState(State.Time)
                 MarkLogicErrorLogTokenType.DATE
             }
-            WHITE_SPACE -> {
+
+            Space, CharacterTabulation -> {
                 pushState(State.SimpleMessage)
                 return stateLogLevelOrServer(State.SimpleMessage)
             }
+
             else -> {
                 pushState(State.Message)
                 return stateLogLevelOrServer(State.Default)
@@ -107,29 +65,31 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
     }
 
     private fun stateTime(): IElementType? {
-        var cc = getCharacterClass(mTokenRange.codePoint.codepoint)
-        return when (cc) {
-            END_OF_BUFFER -> null
-            NEW_LINE -> {
+        return when (mTokenRange.codePoint) {
+            CodePointRange.END_OF_BUFFER -> null
+            LineFeed, CarriageReturn -> {
                 popState()
                 stateDefault()
             }
-            WHITE_SPACE -> {
-                while (cc == WHITE_SPACE) {
+
+            Space, CharacterTabulation -> {
+                while (mTokenRange.codePoint == Space || mTokenRange.codePoint == CharacterTabulation) {
                     mTokenRange.match()
-                    cc = getCharacterClass(mTokenRange.codePoint.codepoint)
                 }
                 MarkLogicErrorLogTokenType.WHITE_SPACE
             }
-            DIGIT -> {
-                while (cc == DIGIT || cc == COLON || cc == DOT) {
+
+            in Digit -> {
+                var c = mTokenRange.codePoint
+                while (c in Digit || c == Colon || c == FullStop) {
                     mTokenRange.match()
-                    cc = getCharacterClass(mTokenRange.codePoint.codepoint)
+                    c = mTokenRange.codePoint
                 }
                 popState()
                 pushState(State.LogLevel)
                 MarkLogicErrorLogTokenType.TIME
             }
+
             else -> {
                 popState()
                 stateDefault()
@@ -138,45 +98,50 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
     }
 
     private fun stateLogLevelOrServer(state: Int): IElementType? {
-        var cc = getCharacterClass(mTokenRange.codePoint.codepoint)
+        var c = mTokenRange.codePoint
         return when {
-            cc == END_OF_BUFFER -> null
-            cc == NEW_LINE -> {
+            c == CodePointRange.END_OF_BUFFER -> null
+            c == LineFeed || c == CarriageReturn -> {
                 popState()
                 stateDefault()
             }
-            cc == WHITE_SPACE && state != State.SimpleMessage -> {
-                while (cc == WHITE_SPACE) {
+
+            (c == Space || c == CharacterTabulation) && state != State.SimpleMessage -> {
+                while (c == Space || c == CharacterTabulation) {
                     mTokenRange.match()
-                    cc = getCharacterClass(mTokenRange.codePoint.codepoint)
+                    c = mTokenRange.codePoint
                 }
                 MarkLogicErrorLogTokenType.WHITE_SPACE
             }
-            cc == COLON -> {
+
+            c == Colon -> {
                 mTokenRange.match()
                 MarkLogicErrorLogTokenType.COLON
             }
-            cc == PLUS -> {
+
+            c == PlusSign -> {
                 mTokenRange.match()
                 MarkLogicErrorLogTokenType.CONTINUATION
             }
+
             else -> {
                 var seenWhitespace = false
-                while (cc != NEW_LINE && cc != END_OF_BUFFER) {
-                    when (cc) {
-                        COLON -> if (!seenWhitespace) {
+                while (c != LineFeed && c != CarriageReturn && c != CodePointRange.END_OF_BUFFER) {
+                    when (c) {
+                        Colon -> if (!seenWhitespace) {
                             mTokenRange.save()
                             mTokenRange.match()
-                            cc = getCharacterClass(mTokenRange.codePoint.codepoint)
+                            c = mTokenRange.codePoint
                             mTokenRange.restore()
                             when {
-                                cc != WHITE_SPACE && cc != PLUS -> seenWhitespace = true
+                                c != Space && c != CharacterTabulation && c != PlusSign -> seenWhitespace = true
                                 state == State.Default -> {
                                     val text = mTokenRange.bufferSequence.substring(mTokenRange.start, mTokenRange.end)
                                     if (text == "WARNING") {
                                         return MarkLogicErrorLogTokenType.LogLevel.WARNING
                                     }
                                 }
+
                                 state == State.LogLevel -> {
                                     popState()
                                     pushState(if (format.haveServer) State.Server else State.Message)
@@ -184,21 +149,24 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
                                     val text = mTokenRange.bufferSequence.substring(mTokenRange.start, mTokenRange.end)
                                     return MarkLogicErrorLogTokenType.LogLevel.token(text)
                                 }
+
                                 state == State.Server -> {
                                     popState()
                                     pushState(State.Message)
                                     return MarkLogicErrorLogTokenType.SERVER
                                 }
+
                                 else -> {
                                 }
                             }
                         }
-                        WHITE_SPACE -> seenWhitespace = true
+
+                        Space, CharacterTabulation -> seenWhitespace = true
                         else -> {
                         }
                     }
                     mTokenRange.match()
-                    cc = getCharacterClass(mTokenRange.codePoint.codepoint)
+                    c = mTokenRange.codePoint
                 }
                 MarkLogicErrorLogTokenType.MESSAGE
             }
