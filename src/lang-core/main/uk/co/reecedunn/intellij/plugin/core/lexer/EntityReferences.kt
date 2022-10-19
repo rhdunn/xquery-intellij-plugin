@@ -17,8 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.lexer
 
 import com.google.gson.JsonParser
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import xqt.platform.xml.lexer.Digit
-import xqt.platform.xml.lexer.HexDigit
+import xqt.platform.xml.lexer.*
 import java.io.InputStreamReader
 
 enum class EntityReferenceType {
@@ -33,72 +32,73 @@ enum class EntityReferenceType {
 
 fun CodePointRange.matchEntityReference(): EntityReferenceType {
     match()
-    var cc = CharacterClass.getCharClass(codePoint.codepoint)
-    return when (cc) {
-        CharacterClass.NAME_START_CHAR -> {
+    return when (codePoint) {
+        in NameStartChar -> {
             match()
-            cc = CharacterClass.getCharClass(codePoint.codepoint)
-            while (cc == CharacterClass.NAME_START_CHAR || cc == CharacterClass.DIGIT) {
+            while (codePoint in NameChar) {
                 match()
-                cc = CharacterClass.getCharClass(codePoint.codepoint)
             }
-            if (cc == CharacterClass.SEMICOLON) {
+            if (codePoint == Semicolon) {
                 match()
                 EntityReferenceType.PredefinedEntityReference
             } else {
                 EntityReferenceType.PartialEntityReference
             }
         }
-        CharacterClass.HASH -> {
+
+        NumberSign -> {
             match()
-            var c = codePoint.codepoint
-            when {
-                c == 'x'.code -> {
+            when (codePoint) {
+                LatinSmallLetterX -> {
                     match()
-                    c = codePoint.codepoint
-                    when (c) {
+                    when (codePoint) {
                         in HexDigit -> {
-                            while (c in HexDigit) {
+                            while (codePoint in HexDigit) {
                                 match()
-                                c = codePoint.codepoint
                             }
-                            if (c == ';'.code) {
+                            if (codePoint == Semicolon) {
                                 match()
                                 EntityReferenceType.CharacterReference
                             } else {
                                 EntityReferenceType.PartialEntityReference
                             }
                         }
-                        ';'.code -> {
+
+                        Semicolon -> {
                             match()
                             EntityReferenceType.EmptyEntityReference
                         }
+
                         else -> EntityReferenceType.PartialEntityReference
                     }
                 }
-                c in Digit -> {
-                    while (c in Digit) {
+
+                in Digit -> {
+                    while (codePoint in Digit) {
                         match()
-                        c = codePoint.codepoint
                     }
-                    if (c == ';'.code) {
+                    if (codePoint == Semicolon) {
                         match()
                         EntityReferenceType.CharacterReference
                     } else {
                         EntityReferenceType.PartialEntityReference
                     }
                 }
-                c == ';'.code -> {
+
+                Semicolon -> {
                     match()
                     EntityReferenceType.EmptyEntityReference
                 }
+
                 else -> EntityReferenceType.PartialEntityReference
             }
         }
-        CharacterClass.SEMICOLON -> {
+
+        Semicolon -> {
             match()
             EntityReferenceType.EmptyEntityReference
         }
+
         else -> EntityReferenceType.PartialEntityReference
     }
 }
@@ -109,9 +109,11 @@ fun CharSequence.entityReferenceCodePoint(): Int = when {
     startsWith("&#x") -> { // `&#x...;` hexadecimal character reference
         subSequence(3, length - 1).toString().toInt(radix = 16)
     }
+
     startsWith("&#") -> { // `&#...;` decimal character reference
         subSequence(2, length - 1).toString().toInt(radix = 10)
     }
+
     else -> 0xFFFE
 }
 
