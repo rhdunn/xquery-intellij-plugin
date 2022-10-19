@@ -29,23 +29,23 @@ class XQueryLexer : XPathLexer() {
     }
 
     override fun stateDefault(state: Int) {
-        var c = mTokenRange.codePoint
+        var c = mTokenRange.codePoint.codepoint
         var cc = CharacterClass.getCharClass(c)
         when (cc) {
             CharacterClass.WHITESPACE -> {
                 mTokenRange.match()
-                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
+                while (CharacterClass.getCharClass(mTokenRange.codePoint.codepoint) == CharacterClass.WHITESPACE)
                     mTokenRange.match()
                 mType = XPathTokenType.WHITE_SPACE
             }
             CharacterClass.DOT -> {
                 mTokenRange.save()
                 mTokenRange.match()
-                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
                 when {
                     cc == CharacterClass.DOT -> {
                         mTokenRange.match()
-                        mType = if (mTokenRange.codePoint == '.'.code) {
+                        mType = if (mTokenRange.codePoint.codepoint == '.'.code) {
                             mTokenRange.match()
                             XPathTokenType.ELLIPSIS
                         } else {
@@ -68,20 +68,20 @@ class XQueryLexer : XPathLexer() {
                     }
                 }
                 mTokenRange.match()
-                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
+                while (CharacterClass.getCharClass(mTokenRange.codePoint.codepoint) == CharacterClass.DIGIT)
                     mTokenRange.match()
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
                 if (c == 'e'.code || c == 'E'.code) {
                     mTokenRange.save()
                     mTokenRange.match()
-                    c = mTokenRange.codePoint
+                    c = mTokenRange.codePoint.codepoint
                     if (c == '+'.code || c == '-'.code) {
                         mTokenRange.match()
-                        c = mTokenRange.codePoint
+                        c = mTokenRange.codePoint.codepoint
                     }
                     if (CharacterClass.getCharClass(c) == CharacterClass.DIGIT) {
                         mTokenRange.match()
-                        while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
+                        while (CharacterClass.getCharClass(mTokenRange.codePoint.codepoint) == CharacterClass.DIGIT)
                             mTokenRange.match()
                         mType = XPathTokenType.DOUBLE_LITERAL
                     } else {
@@ -92,28 +92,28 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.DIGIT -> {
                 mTokenRange.match()
-                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
+                while (CharacterClass.getCharClass(mTokenRange.codePoint.codepoint) == CharacterClass.DIGIT)
                     mTokenRange.match()
-                mType = if (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DOT) {
+                mType = if (CharacterClass.getCharClass(mTokenRange.codePoint.codepoint) == CharacterClass.DOT) {
                     mTokenRange.match()
-                    while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
+                    while (CharacterClass.getCharClass(mTokenRange.codePoint.codepoint) == CharacterClass.DIGIT)
                         mTokenRange.match()
                     XPathTokenType.DECIMAL_LITERAL
                 } else {
                     XPathTokenType.INTEGER_LITERAL
                 }
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
                 if (c == 'e'.code || c == 'E'.code) {
                     mTokenRange.save()
                     mTokenRange.match()
-                    c = mTokenRange.codePoint
+                    c = mTokenRange.codePoint.codepoint
                     if (c == '+'.code || c == '-'.code) {
                         mTokenRange.match()
-                        c = mTokenRange.codePoint
+                        c = mTokenRange.codePoint.codepoint
                     }
                     if (CharacterClass.getCharClass(c) == CharacterClass.DIGIT) {
                         mTokenRange.match()
-                        while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
+                        while (CharacterClass.getCharClass(mTokenRange.codePoint.codepoint) == CharacterClass.DIGIT)
                             mTokenRange.match()
                         mType = XPathTokenType.DOUBLE_LITERAL
                     } else {
@@ -130,7 +130,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.NAME_START_CHAR -> {
                 mTokenRange.match()
-                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
                 if (c == 'Q'.code && cc == CharacterClass.CURLY_BRACE_OPEN) {
                     mTokenRange.match()
                     mType = XPathTokenType.BRACED_URI_LITERAL_START
@@ -147,14 +147,14 @@ class XQueryLexer : XPathLexer() {
                         cc == CharacterClass.NAME_CHAR
                     ) {
                         mTokenRange.match()
-                        cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                        cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
                     }
                     mType = ncnameToKeyword(tokenText) ?: XPathTokenType.NCNAME
                 }
             }
             CharacterClass.PARENTHESIS_OPEN -> {
                 mTokenRange.match()
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
                 when (c) {
                     ':'.code -> {
                         mTokenRange.match()
@@ -175,7 +175,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.COLON -> {
                 mTokenRange.match()
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
                 mType = when (c) {
                     ')'.code -> {
                         mTokenRange.match()
@@ -194,7 +194,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.HASH -> {
                 mTokenRange.match()
-                mType = if (mTokenRange.codePoint == ')'.code) {
+                mType = if (mTokenRange.codePoint.codepoint == ')'.code) {
                     mTokenRange.match()
                     XPathTokenType.PRAGMA_END
                 } else {
@@ -203,7 +203,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.EXCLAMATION_MARK -> {
                 mTokenRange.match()
-                mType = when (mTokenRange.codePoint) {
+                mType = when (mTokenRange.codePoint.codepoint) {
                     '='.code -> {
                         mTokenRange.match()
                         XPathTokenType.NOT_EQUAL
@@ -233,11 +233,11 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.HYPHEN_MINUS -> {
                 mTokenRange.match()
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
                 mType = if (c == '-'.code) {
                     mTokenRange.save()
                     mTokenRange.match()
-                    if (mTokenRange.codePoint == '>'.code) {
+                    if (mTokenRange.codePoint.codepoint == '>'.code) {
                         mTokenRange.match()
                         XQueryTokenType.XML_COMMENT_END_TAG
                     } else {
@@ -257,7 +257,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.LESS_THAN -> {
                 mTokenRange.match()
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
                 if (c == '/'.code) {
                     mTokenRange.match()
                     mType = XQueryTokenType.CLOSE_XML_TAG
@@ -283,28 +283,28 @@ class XQueryLexer : XPathLexer() {
                     pushState(STATE_PROCESSING_INSTRUCTION)
                 } else if (c == '!'.code) {
                     mTokenRange.match()
-                    if (mTokenRange.codePoint == '-'.code) {
+                    if (mTokenRange.codePoint.codepoint == '-'.code) {
                         mTokenRange.match()
-                        if (mTokenRange.codePoint == '-'.code) {
+                        if (mTokenRange.codePoint.codepoint == '-'.code) {
                             mTokenRange.match()
                             mType = XQueryTokenType.XML_COMMENT_START_TAG
                             pushState(STATE_XML_COMMENT)
                         } else {
                             mType = XQueryTokenType.INVALID
                         }
-                    } else if (mTokenRange.codePoint == '['.code) {
+                    } else if (mTokenRange.codePoint.codepoint == '['.code) {
                         mTokenRange.match()
-                        if (mTokenRange.codePoint == 'C'.code) {
+                        if (mTokenRange.codePoint.codepoint == 'C'.code) {
                             mTokenRange.match()
-                            if (mTokenRange.codePoint == 'D'.code) {
+                            if (mTokenRange.codePoint.codepoint == 'D'.code) {
                                 mTokenRange.match()
-                                if (mTokenRange.codePoint == 'A'.code) {
+                                if (mTokenRange.codePoint.codepoint == 'A'.code) {
                                     mTokenRange.match()
-                                    if (mTokenRange.codePoint == 'T'.code) {
+                                    if (mTokenRange.codePoint.codepoint == 'T'.code) {
                                         mTokenRange.match()
-                                        if (mTokenRange.codePoint == 'A'.code) {
+                                        if (mTokenRange.codePoint.codepoint == 'A'.code) {
                                             mTokenRange.match()
-                                            if (mTokenRange.codePoint == '['.code) {
+                                            if (mTokenRange.codePoint.codepoint == '['.code) {
                                                 mTokenRange.match()
                                                 mType = XQueryTokenType.CDATA_SECTION_START_TAG
                                                 pushState(STATE_CDATA_SECTION)
@@ -339,7 +339,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.GREATER_THAN -> {
                 mTokenRange.match()
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
                 mType = when (c) {
                     '>'.code -> {
                         mTokenRange.match()
@@ -354,7 +354,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.EQUAL -> {
                 mTokenRange.match()
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
                 mType = if (c == '>'.code) {
                     mTokenRange.match()
                     XPathTokenType.ARROW
@@ -369,7 +369,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.CURLY_BRACE_CLOSE -> {
                 mTokenRange.match()
-                mType = if (mTokenRange.codePoint == '`'.code && state == STATE_DEFAULT_STRING_INTERPOLATION) {
+                mType = if (mTokenRange.codePoint.codepoint == '`'.code && state == STATE_DEFAULT_STRING_INTERPOLATION) {
                     mTokenRange.match()
                     XQueryTokenType.STRING_INTERPOLATION_CLOSE
                 } else {
@@ -379,7 +379,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.VERTICAL_BAR -> {
                 mTokenRange.match()
-                mType = if (mTokenRange.codePoint == '|'.code) {
+                mType = if (mTokenRange.codePoint.codepoint == '|'.code) {
                     mTokenRange.match()
                     XPathTokenType.CONCATENATION
                 } else {
@@ -388,7 +388,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.FORWARD_SLASH -> {
                 mTokenRange.match()
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
                 mType = when (c) {
                     '/'.code -> {
                         mTokenRange.match()
@@ -411,12 +411,12 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.SQUARE_BRACE_CLOSE -> {
                 mTokenRange.match()
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
                 when (c) {
                     ']'.code -> {
                         mTokenRange.save()
                         mTokenRange.match()
-                        mType = if (mTokenRange.codePoint == '>'.code) {
+                        mType = if (mTokenRange.codePoint.codepoint == '>'.code) {
                             mTokenRange.match()
                             XQueryTokenType.CDATA_SECTION_END_TAG
                         } else {
@@ -426,7 +426,7 @@ class XQueryLexer : XPathLexer() {
                     }
                     '`'.code -> {
                         mTokenRange.match()
-                        mType = if (mTokenRange.codePoint == '`'.code) {
+                        mType = if (mTokenRange.codePoint.codepoint == '`'.code) {
                             mTokenRange.match()
                             XQueryTokenType.STRING_CONSTRUCTOR_END
                         } else {
@@ -438,7 +438,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.QUESTION_MARK -> {
                 mTokenRange.match()
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
                 mType = when (c) {
                     '>'.code -> {
                         mTokenRange.match()
@@ -465,10 +465,10 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.BACK_TICK -> {
                 mTokenRange.match()
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
                 if (c == '`'.code) {
                     mTokenRange.match()
-                    if (mTokenRange.codePoint == '['.code) {
+                    if (mTokenRange.codePoint.codepoint == '['.code) {
                         mTokenRange.match()
                         mType = XQueryTokenType.STRING_CONSTRUCTOR_START
                         pushState(STATE_STRING_CONSTRUCTOR_CONTENTS)
@@ -491,10 +491,10 @@ class XQueryLexer : XPathLexer() {
     }
 
     override fun stateStringLiteral(type: Char) {
-        var c = mTokenRange.codePoint
+        var c = mTokenRange.codePoint.codepoint
         if (c == type.code) {
             mTokenRange.match()
-            if (mTokenRange.codePoint == type.code && type != '}') {
+            if (mTokenRange.codePoint.codepoint == type.code && type != '}') {
                 mTokenRange.match()
                 mType = XPathTokenType.ESCAPED_CHARACTER
             } else {
@@ -511,23 +511,23 @@ class XQueryLexer : XPathLexer() {
         } else {
             while (c != type.code && c != CodePointRange.END_OF_BUFFER && c != '&'.code && !(type == '}' && c == '{'.code)) {
                 mTokenRange.match()
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
             }
             mType = XPathTokenType.STRING_LITERAL_CONTENTS
         }
     }
 
     private fun stateXmlComment() {
-        var c = mTokenRange.codePoint
+        var c = mTokenRange.codePoint.codepoint
         if (c == CodePointRange.END_OF_BUFFER) {
             mType = null
             return
         } else if (c == '-'.code) {
             mTokenRange.save()
             mTokenRange.match()
-            if (mTokenRange.codePoint == '-'.code) {
+            if (mTokenRange.codePoint.codepoint == '-'.code) {
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '>'.code) {
+                if (mTokenRange.codePoint.codepoint == '>'.code) {
                     mTokenRange.match()
                     mType = XQueryTokenType.XML_COMMENT_END_TAG
                     popState()
@@ -550,9 +550,9 @@ class XQueryLexer : XPathLexer() {
             } else if (c == '-'.code) {
                 mTokenRange.save()
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '-'.code) {
+                if (mTokenRange.codePoint.codepoint == '-'.code) {
                     mTokenRange.match()
-                    if (mTokenRange.codePoint == '>'.code) {
+                    if (mTokenRange.codePoint.codepoint == '>'.code) {
                         mTokenRange.restore()
                         mType = XQueryTokenType.XML_COMMENT
                         return
@@ -561,21 +561,21 @@ class XQueryLexer : XPathLexer() {
             } else {
                 mTokenRange.match()
             }
-            c = mTokenRange.codePoint
+            c = mTokenRange.codePoint.codepoint
         }
     }
 
     private fun stateCDataSection() {
-        var c = mTokenRange.codePoint
+        var c = mTokenRange.codePoint.codepoint
         if (c == CodePointRange.END_OF_BUFFER) {
             mType = null
             return
         } else if (c == ']'.code) {
             mTokenRange.save()
             mTokenRange.match()
-            if (mTokenRange.codePoint == ']'.code) {
+            if (mTokenRange.codePoint.codepoint == ']'.code) {
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '>'.code) {
+                if (mTokenRange.codePoint.codepoint == '>'.code) {
                     mTokenRange.match()
                     mType = XQueryTokenType.CDATA_SECTION_END_TAG
                     popState()
@@ -598,9 +598,9 @@ class XQueryLexer : XPathLexer() {
             } else if (c == ']'.code) {
                 mTokenRange.save()
                 mTokenRange.match()
-                if (mTokenRange.codePoint == ']'.code) {
+                if (mTokenRange.codePoint.codepoint == ']'.code) {
                     mTokenRange.match()
-                    if (mTokenRange.codePoint == '>'.code) {
+                    if (mTokenRange.codePoint.codepoint == '>'.code) {
                         mTokenRange.restore()
                         mType = XQueryTokenType.CDATA_SECTION
                         return
@@ -609,17 +609,17 @@ class XQueryLexer : XPathLexer() {
             } else {
                 mTokenRange.match()
             }
-            c = mTokenRange.codePoint
+            c = mTokenRange.codePoint.codepoint
         }
     }
 
     private fun stateDirElemConstructor(state: Int) {
-        var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+        var cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
         val c: Int
         when (cc) {
             CharacterClass.WHITESPACE -> {
                 mTokenRange.match()
-                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
+                while (CharacterClass.getCharClass(mTokenRange.codePoint.codepoint) == CharacterClass.WHITESPACE)
                     mTokenRange.match()
                 mType = XQueryTokenType.XML_WHITE_SPACE
                 if (state == STATE_DIR_ELEM_CONSTRUCTOR) {
@@ -636,7 +636,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.NAME_START_CHAR -> {
                 mTokenRange.match()
-                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
                 while (
                     cc == CharacterClass.NAME_START_CHAR ||
                     cc == CharacterClass.DIGIT ||
@@ -645,7 +645,7 @@ class XQueryLexer : XPathLexer() {
                     cc == CharacterClass.NAME_CHAR
                 ) {
                     mTokenRange.match()
-                    cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                    cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
                 }
                 mType = if (state == STATE_DIR_ATTRIBUTE_LIST)
                     if (tokenText == "xmlns")
@@ -665,7 +665,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.FORWARD_SLASH -> {
                 mTokenRange.match()
-                c = mTokenRange.codePoint
+                c = mTokenRange.codePoint.codepoint
                 if (c == '>'.code) {
                     mTokenRange.match()
                     mType = XQueryTokenType.SELF_CLOSING_XML_TAG
@@ -692,10 +692,10 @@ class XQueryLexer : XPathLexer() {
     }
 
     private fun stateDirAttributeValue(type: Char) {
-        var c = mTokenRange.codePoint
+        var c = mTokenRange.codePoint.codepoint
         if (c == type.code) {
             mTokenRange.match()
-            if (mTokenRange.codePoint == type.code) {
+            if (mTokenRange.codePoint.codepoint == type.code) {
                 mTokenRange.match()
                 mType = XQueryTokenType.XML_ESCAPED_CHARACTER
             } else {
@@ -704,7 +704,7 @@ class XQueryLexer : XPathLexer() {
             }
         } else if (c == '{'.code) {
             mTokenRange.match()
-            if (mTokenRange.codePoint == '{'.code) {
+            if (mTokenRange.codePoint.codepoint == '{'.code) {
                 mTokenRange.match()
                 mType = XQueryTokenType.XML_ESCAPED_CHARACTER
             } else {
@@ -713,7 +713,7 @@ class XQueryLexer : XPathLexer() {
             }
         } else if (c == '}'.code) {
             mTokenRange.match()
-            mType = if (mTokenRange.codePoint == '}'.code) {
+            mType = if (mTokenRange.codePoint.codepoint == '}'.code) {
                 mTokenRange.match()
                 XQueryTokenType.XML_ESCAPED_CHARACTER
             } else {
@@ -738,7 +738,7 @@ class XQueryLexer : XPathLexer() {
                         return
                     } else {
                         mTokenRange.match()
-                        c = mTokenRange.codePoint
+                        c = mTokenRange.codePoint.codepoint
                     }
                 }
             }
@@ -746,10 +746,10 @@ class XQueryLexer : XPathLexer() {
     }
 
     private fun stateDirElemContent() {
-        var c = mTokenRange.codePoint
+        var c = mTokenRange.codePoint.codepoint
         if (c == '{'.code) {
             mTokenRange.match()
-            if (mTokenRange.codePoint == '{'.code) {
+            if (mTokenRange.codePoint.codepoint == '{'.code) {
                 mTokenRange.match()
                 mType = XPathTokenType.ESCAPED_CHARACTER
             } else {
@@ -758,7 +758,7 @@ class XQueryLexer : XPathLexer() {
             }
         } else if (c == '}'.code) {
             mTokenRange.match()
-            mType = if (mTokenRange.codePoint == '}'.code) {
+            mType = if (mTokenRange.codePoint.codepoint == '}'.code) {
                 mTokenRange.match()
                 XPathTokenType.ESCAPED_CHARACTER
             } else {
@@ -766,13 +766,13 @@ class XQueryLexer : XPathLexer() {
             }
         } else if (c == '<'.code) {
             mTokenRange.match()
-            c = mTokenRange.codePoint
+            c = mTokenRange.codePoint.codepoint
             if (c == '/'.code) {
                 mTokenRange.match()
                 mType = XQueryTokenType.CLOSE_XML_TAG
                 popState()
                 pushState(STATE_DIR_ELEM_CONSTRUCTOR_CLOSING)
-            } else if (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.NAME_START_CHAR) {
+            } else if (CharacterClass.getCharClass(mTokenRange.codePoint.codepoint) == CharacterClass.NAME_START_CHAR) {
                 mType = XQueryTokenType.OPEN_XML_TAG
                 pushState(STATE_DIR_ELEM_CONSTRUCTOR)
             } else if (c == '?'.code) {
@@ -781,28 +781,28 @@ class XQueryLexer : XPathLexer() {
                 pushState(STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT)
             } else if (c == '!'.code) {
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '-'.code) {
+                if (mTokenRange.codePoint.codepoint == '-'.code) {
                     mTokenRange.match()
-                    if (mTokenRange.codePoint == '-'.code) {
+                    if (mTokenRange.codePoint.codepoint == '-'.code) {
                         mTokenRange.match()
                         mType = XQueryTokenType.XML_COMMENT_START_TAG
                         pushState(STATE_XML_COMMENT_ELEM_CONTENT)
                     } else {
                         mType = XQueryTokenType.INVALID
                     }
-                } else if (mTokenRange.codePoint == '['.code) {
+                } else if (mTokenRange.codePoint.codepoint == '['.code) {
                     mTokenRange.match()
-                    if (mTokenRange.codePoint == 'C'.code) {
+                    if (mTokenRange.codePoint.codepoint == 'C'.code) {
                         mTokenRange.match()
-                        if (mTokenRange.codePoint == 'D'.code) {
+                        if (mTokenRange.codePoint.codepoint == 'D'.code) {
                             mTokenRange.match()
-                            if (mTokenRange.codePoint == 'A'.code) {
+                            if (mTokenRange.codePoint.codepoint == 'A'.code) {
                                 mTokenRange.match()
-                                if (mTokenRange.codePoint == 'T'.code) {
+                                if (mTokenRange.codePoint.codepoint == 'T'.code) {
                                     mTokenRange.match()
-                                    if (mTokenRange.codePoint == 'A'.code) {
+                                    if (mTokenRange.codePoint.codepoint == 'A'.code) {
                                         mTokenRange.match()
-                                        if (mTokenRange.codePoint == '['.code) {
+                                        if (mTokenRange.codePoint.codepoint == '['.code) {
                                             mTokenRange.match()
                                             mType = XQueryTokenType.CDATA_SECTION_START_TAG
                                             pushState(STATE_CDATA_SECTION_ELEM_CONTENT)
@@ -843,7 +843,7 @@ class XQueryLexer : XPathLexer() {
                     }
                     else -> {
                         mTokenRange.match()
-                        c = mTokenRange.codePoint
+                        c = mTokenRange.codePoint.codepoint
                     }
                 }
             }
@@ -851,11 +851,11 @@ class XQueryLexer : XPathLexer() {
     }
 
     private fun stateProcessingInstruction(state: Int) {
-        var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+        var cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
         when (cc) {
             CharacterClass.WHITESPACE -> {
                 mTokenRange.match()
-                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
+                while (CharacterClass.getCharClass(mTokenRange.codePoint.codepoint) == CharacterClass.WHITESPACE)
                     mTokenRange.match()
                 mType = XQueryTokenType.XML_WHITE_SPACE
                 popState()
@@ -863,7 +863,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.NAME_START_CHAR -> {
                 mTokenRange.match()
-                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
                 while (
                     cc == CharacterClass.NAME_START_CHAR ||
                     cc == CharacterClass.DIGIT ||
@@ -872,7 +872,7 @@ class XQueryLexer : XPathLexer() {
                     cc == CharacterClass.NAME_CHAR
                 ) {
                     mTokenRange.match()
-                    cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+                    cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
                 }
                 mType = XQueryTokenType.XML_PI_TARGET_NCNAME
             }
@@ -882,7 +882,7 @@ class XQueryLexer : XPathLexer() {
             }
             CharacterClass.QUESTION_MARK -> {
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '>'.code) {
+                if (mTokenRange.codePoint.codepoint == '>'.code) {
                     mTokenRange.match()
                     mType = XQueryTokenType.PROCESSING_INSTRUCTION_END
                     popState()
@@ -899,14 +899,14 @@ class XQueryLexer : XPathLexer() {
     }
 
     private fun stateProcessingInstructionContents() {
-        var c = mTokenRange.codePoint
+        var c = mTokenRange.codePoint.codepoint
         if (c == CodePointRange.END_OF_BUFFER) {
             mType = null
             return
         } else if (c == '?'.code) {
             mTokenRange.save()
             mTokenRange.match()
-            if (mTokenRange.codePoint == '>'.code) {
+            if (mTokenRange.codePoint.codepoint == '>'.code) {
                 mTokenRange.match()
                 mType = XQueryTokenType.PROCESSING_INSTRUCTION_END
                 popState()
@@ -926,7 +926,7 @@ class XQueryLexer : XPathLexer() {
             } else if (c == '?'.code) {
                 mTokenRange.save()
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '>'.code) {
+                if (mTokenRange.codePoint.codepoint == '>'.code) {
                     mTokenRange.restore()
                     mType = XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS
                     return
@@ -934,16 +934,16 @@ class XQueryLexer : XPathLexer() {
             } else {
                 mTokenRange.match()
             }
-            c = mTokenRange.codePoint
+            c = mTokenRange.codePoint.codepoint
         }
     }
 
     private fun stateStringConstructorContents() {
-        var c = mTokenRange.codePoint
+        var c = mTokenRange.codePoint.codepoint
         if (c == '`'.code) {
             mTokenRange.save()
             mTokenRange.match()
-            if (mTokenRange.codePoint == '{'.code) {
+            if (mTokenRange.codePoint.codepoint == '{'.code) {
                 mTokenRange.match()
                 pushState(STATE_DEFAULT_STRING_INTERPOLATION)
                 mType = XQueryTokenType.STRING_INTERPOLATION_OPEN
@@ -956,9 +956,9 @@ class XQueryLexer : XPathLexer() {
             if (c == ']'.code) {
                 mTokenRange.save()
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '`'.code) {
+                if (mTokenRange.codePoint.codepoint == '`'.code) {
                     mTokenRange.match()
-                    if (mTokenRange.codePoint == '`'.code) {
+                    if (mTokenRange.codePoint.codepoint == '`'.code) {
                         mTokenRange.restore()
                         popState()
                         mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
@@ -968,7 +968,7 @@ class XQueryLexer : XPathLexer() {
             } else if (c == '`'.code) {
                 mTokenRange.save()
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '{'.code) {
+                if (mTokenRange.codePoint.codepoint == '{'.code) {
                     mTokenRange.restore()
                     mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
                     return
@@ -977,7 +977,7 @@ class XQueryLexer : XPathLexer() {
                 }
             }
             mTokenRange.match()
-            c = mTokenRange.codePoint
+            c = mTokenRange.codePoint.codepoint
         }
         popState()
         pushState(STATE_UNEXPECTED_END_OF_BLOCK)
@@ -985,11 +985,11 @@ class XQueryLexer : XPathLexer() {
     }
 
     private fun stateStartDirElemConstructor() {
-        when (CharacterClass.getCharClass(mTokenRange.codePoint)) {
+        when (CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)) {
             CharacterClass.LESS_THAN -> {
                 mTokenRange.match()
                 mType = XQueryTokenType.OPEN_XML_TAG
-                if (CharacterClass.getCharClass(mTokenRange.codePoint) != CharacterClass.WHITESPACE) {
+                if (CharacterClass.getCharClass(mTokenRange.codePoint.codepoint) != CharacterClass.WHITESPACE) {
                     popState()
                     pushState(STATE_DIR_ELEM_CONSTRUCTOR)
                 }
@@ -1007,7 +1007,7 @@ class XQueryLexer : XPathLexer() {
     // region Helper Functions
 
     private fun matchNCName(): Boolean {
-        var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+        var cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
         if (cc != CharacterClass.NAME_START_CHAR)
             return false
 
@@ -1019,7 +1019,7 @@ class XQueryLexer : XPathLexer() {
             cc == CharacterClass.NAME_CHAR
         ) {
             mTokenRange.match()
-            cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+            cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
         }
         return true
     }
@@ -1028,7 +1028,7 @@ class XQueryLexer : XPathLexer() {
         if (!matchNCName())
             return false
 
-        if (mTokenRange.codePoint == ':'.code) {
+        if (mTokenRange.codePoint.codepoint == ':'.code) {
             mTokenRange.match()
             matchNCName()
         }
@@ -1036,10 +1036,10 @@ class XQueryLexer : XPathLexer() {
     }
 
     private fun matchWhiteSpace() {
-        var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+        var cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
         while (cc == CharacterClass.WHITESPACE) {
             mTokenRange.match()
-            cc = CharacterClass.getCharClass(mTokenRange.codePoint)
+            cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
         }
     }
 
@@ -1058,11 +1058,11 @@ class XQueryLexer : XPathLexer() {
         mType = XQueryTokenType.DIRELEM_OPEN_XML_TAG
         matchWhiteSpace()
 
-        when (CharacterClass.getCharClass(mTokenRange.codePoint)) {
+        when (CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)) {
             CharacterClass.FORWARD_SLASH -> {
                 mTokenRange.save()
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '>'.code) {
+                if (mTokenRange.codePoint.codepoint == '>'.code) {
                     mTokenRange.match()
                     return
                 }

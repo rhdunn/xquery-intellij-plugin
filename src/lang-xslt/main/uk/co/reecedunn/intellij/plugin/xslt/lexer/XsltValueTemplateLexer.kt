@@ -25,14 +25,14 @@ class XsltValueTemplateLexer : XPathLexer() {
     // region States
 
     fun stateDefault() {
-        var c = mTokenRange.codePoint
+        var c = mTokenRange.codePoint.codepoint
         when (c) {
             CodePointRange.END_OF_BUFFER -> {
                 mType = null
             }
             '{'.code -> {
                 mTokenRange.match()
-                if (mTokenRange.codePoint == '{'.code) {
+                if (mTokenRange.codePoint.codepoint == '{'.code) {
                     mTokenRange.match()
                     mType = ValueTemplate.ESCAPED_CHARACTER
                 } else {
@@ -42,7 +42,7 @@ class XsltValueTemplateLexer : XPathLexer() {
             }
             '}'.code -> {
                 mTokenRange.match()
-                mType = if (mTokenRange.codePoint == '}'.code) {
+                mType = if (mTokenRange.codePoint.codepoint == '}'.code) {
                     mTokenRange.match()
                     ValueTemplate.ESCAPED_CHARACTER
                 } else {
@@ -57,7 +57,7 @@ class XsltValueTemplateLexer : XPathLexer() {
                     }
                     else -> {
                         mTokenRange.match()
-                        c = mTokenRange.codePoint
+                        c = mTokenRange.codePoint.codepoint
                     }
                 }
             }

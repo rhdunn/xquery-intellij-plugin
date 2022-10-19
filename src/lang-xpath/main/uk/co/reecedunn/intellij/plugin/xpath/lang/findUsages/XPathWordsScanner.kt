@@ -53,7 +53,7 @@ open class XPathWordsScanner(protected val mLexer: Lexer = XPathLexer()) : Words
     protected fun processToken(processor: Processor<in WordOccurrence>, kind: WordOccurrence.Kind): Boolean {
         var inWord = false
         while (true)
-            when (CharacterClass.getCharClass(mRange.codePoint)) {
+            when (CharacterClass.getCharClass(mRange.codePoint.codepoint)) {
                 CharacterClass.NAME_START_CHAR -> {
                     if (!inWord) {
                         inWord = true

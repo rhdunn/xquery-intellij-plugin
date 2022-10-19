@@ -77,20 +77,20 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
     }
 
     private fun stateDefault(): IElementType? {
-        var cc = getCharacterClass(mTokenRange.codePoint)
+        var cc = getCharacterClass(mTokenRange.codePoint.codepoint)
         return when (cc) {
             END_OF_BUFFER -> null
             NEW_LINE -> {
                 while (cc == NEW_LINE) {
                     mTokenRange.match()
-                    cc = getCharacterClass(mTokenRange.codePoint)
+                    cc = getCharacterClass(mTokenRange.codePoint.codepoint)
                 }
                 MarkLogicErrorLogTokenType.WHITE_SPACE
             }
             DIGIT -> {
                 while (cc == DIGIT || cc == HYPHEN_MINUS) {
                     mTokenRange.match()
-                    cc = getCharacterClass(mTokenRange.codePoint)
+                    cc = getCharacterClass(mTokenRange.codePoint.codepoint)
                 }
                 pushState(State.Time)
                 MarkLogicErrorLogTokenType.DATE
@@ -107,7 +107,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
     }
 
     private fun stateTime(): IElementType? {
-        var cc = getCharacterClass(mTokenRange.codePoint)
+        var cc = getCharacterClass(mTokenRange.codePoint.codepoint)
         return when (cc) {
             END_OF_BUFFER -> null
             NEW_LINE -> {
@@ -117,14 +117,14 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
             WHITE_SPACE -> {
                 while (cc == WHITE_SPACE) {
                     mTokenRange.match()
-                    cc = getCharacterClass(mTokenRange.codePoint)
+                    cc = getCharacterClass(mTokenRange.codePoint.codepoint)
                 }
                 MarkLogicErrorLogTokenType.WHITE_SPACE
             }
             DIGIT -> {
                 while (cc == DIGIT || cc == COLON || cc == DOT) {
                     mTokenRange.match()
-                    cc = getCharacterClass(mTokenRange.codePoint)
+                    cc = getCharacterClass(mTokenRange.codePoint.codepoint)
                 }
                 popState()
                 pushState(State.LogLevel)
@@ -138,7 +138,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
     }
 
     private fun stateLogLevelOrServer(state: Int): IElementType? {
-        var cc = getCharacterClass(mTokenRange.codePoint)
+        var cc = getCharacterClass(mTokenRange.codePoint.codepoint)
         return when {
             cc == END_OF_BUFFER -> null
             cc == NEW_LINE -> {
@@ -148,7 +148,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
             cc == WHITE_SPACE && state != State.SimpleMessage -> {
                 while (cc == WHITE_SPACE) {
                     mTokenRange.match()
-                    cc = getCharacterClass(mTokenRange.codePoint)
+                    cc = getCharacterClass(mTokenRange.codePoint.codepoint)
                 }
                 MarkLogicErrorLogTokenType.WHITE_SPACE
             }
@@ -167,7 +167,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
                         COLON -> if (!seenWhitespace) {
                             mTokenRange.save()
                             mTokenRange.match()
-                            cc = getCharacterClass(mTokenRange.codePoint)
+                            cc = getCharacterClass(mTokenRange.codePoint.codepoint)
                             mTokenRange.restore()
                             when {
                                 cc != WHITE_SPACE && cc != PLUS -> seenWhitespace = true
@@ -198,7 +198,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
                         }
                     }
                     mTokenRange.match()
-                    cc = getCharacterClass(mTokenRange.codePoint)
+                    cc = getCharacterClass(mTokenRange.codePoint.codepoint)
                 }
                 MarkLogicErrorLogTokenType.MESSAGE
             }

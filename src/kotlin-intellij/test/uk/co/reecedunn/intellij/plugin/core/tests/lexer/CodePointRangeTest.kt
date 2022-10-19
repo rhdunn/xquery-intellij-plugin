@@ -47,27 +47,27 @@ class CodePointRangeTest {
 
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(0))
-        assertThat(range.codePoint, `is`('a'.code))
+        assertThat(range.codePoint.codepoint, `is`('a'.code))
 
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(1))
-        assertThat(range.codePoint, `is`(0x1255))
+        assertThat(range.codePoint.codepoint, `is`(0x1255))
 
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(2))
-        assertThat(range.codePoint, `is`(0xD392))
+        assertThat(range.codePoint.codepoint, `is`(0xD392))
 
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(3))
-        assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
+        assertThat(range.codePoint.codepoint, `is`(CodePointRange.END_OF_BUFFER))
 
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(3))
-        assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
+        assertThat(range.codePoint.codepoint, `is`(CodePointRange.END_OF_BUFFER))
     }
 
     @Test
@@ -80,17 +80,17 @@ class CodePointRangeTest {
 
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(0))
-        assertThat(range.codePoint, `is`(0xD802))
+        assertThat(range.codePoint.codepoint, `is`(0xD802))
 
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(1))
-        assertThat(range.codePoint, `is`(0xD803))
+        assertThat(range.codePoint.codepoint, `is`(0xD803))
 
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(2))
-        assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
+        assertThat(range.codePoint.codepoint, `is`(CodePointRange.END_OF_BUFFER))
     }
 
     @Test
@@ -103,27 +103,27 @@ class CodePointRangeTest {
 
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(0))
-        assertThat(range.codePoint, `is`(0x10907))
+        assertThat(range.codePoint.codepoint, `is`(0x10907))
 
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(2))
-        assertThat(range.codePoint, `is`(0x109A3))
+        assertThat(range.codePoint.codepoint, `is`(0x109A3))
 
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(4))
-        assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
+        assertThat(range.codePoint.codepoint, `is`(CodePointRange.END_OF_BUFFER))
 
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(4))
-        assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
+        assertThat(range.codePoint.codepoint, `is`(CodePointRange.END_OF_BUFFER))
 
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(4))
-        assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
+        assertThat(range.codePoint.codepoint, `is`(CodePointRange.END_OF_BUFFER))
     }
 
     @Test

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Reece H. Dunn
+ * Copyright (C) 2016, 2019, 2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.lexer
 
+import xqt.platform.xml.model.XmlChar
+
 interface CodePointRange {
     val bufferSequence: CharSequence
 
@@ -24,7 +26,7 @@ interface CodePointRange {
 
     val bufferEnd: Int
 
-    val codePoint: Int
+    val codePoint: XmlChar
 
     fun start(buffer: CharSequence, startOffset: Int, endOffset: Int)
 

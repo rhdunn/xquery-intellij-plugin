@@ -7,6 +7,8 @@ sourceSets.test.resources.srcDirs += 'test/resources'
 intellij.plugins = ['com.intellij.properties']
 
 dependencies {
+    implementation "xqt-platform:xqt-platform-xml:$xqt_version"
+
     implementation project(':src:intellij-compat')
     implementation project(':src:kotlin-intellij')
     implementation project(':src:lang-core')

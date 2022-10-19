@@ -33,14 +33,14 @@ enum class EntityReferenceType {
 
 fun CodePointRange.matchEntityReference(): EntityReferenceType {
     match()
-    var cc = CharacterClass.getCharClass(codePoint)
+    var cc = CharacterClass.getCharClass(codePoint.codepoint)
     return when (cc) {
         CharacterClass.NAME_START_CHAR -> {
             match()
-            cc = CharacterClass.getCharClass(codePoint)
+            cc = CharacterClass.getCharClass(codePoint.codepoint)
             while (cc == CharacterClass.NAME_START_CHAR || cc == CharacterClass.DIGIT) {
                 match()
-                cc = CharacterClass.getCharClass(codePoint)
+                cc = CharacterClass.getCharClass(codePoint.codepoint)
             }
             if (cc == CharacterClass.SEMICOLON) {
                 match()
@@ -51,16 +51,16 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
         }
         CharacterClass.HASH -> {
             match()
-            var c = codePoint
+            var c = codePoint.codepoint
             when {
                 c == 'x'.code -> {
                     match()
-                    c = codePoint
+                    c = codePoint.codepoint
                     when (c) {
                         in HexDigit -> {
                             while (c in HexDigit) {
                                 match()
-                                c = codePoint
+                                c = codePoint.codepoint
                             }
                             if (c == ';'.code) {
                                 match()
@@ -79,7 +79,7 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
                 c in Digit -> {
                     while (c in Digit) {
                         match()
-                        c = codePoint
+                        c = codePoint.codepoint
                     }
                     if (c == ';'.code) {
                         match()

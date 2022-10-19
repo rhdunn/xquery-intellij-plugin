@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.lexer
 
+import xqt.platform.xml.model.XmlChar
+
 class CodePointRangeImpl : CodePointRange {
     override var bufferSequence: CharSequence = ""
         private set
@@ -30,18 +32,18 @@ class CodePointRangeImpl : CodePointRange {
     override var bufferEnd: Int = 0
         private set
 
-    override val codePoint: Int
+    override val codePoint: XmlChar
         get() {
             if (end == bufferEnd)
-                return CodePointRange.END_OF_BUFFER
+                return XmlChar(CodePointRange.END_OF_BUFFER)
             val high = bufferSequence[end]
             if (Character.isHighSurrogate(high) && end + 1 != bufferEnd) {
                 val low = bufferSequence[end + 1]
                 if (Character.isLowSurrogate(low)) {
-                    return Character.toCodePoint(high, low)
+                    return XmlChar(high, low)
                 }
             }
-            return high.code
+            return XmlChar(high)
         }
 
     override fun start(buffer: CharSequence, startOffset: Int, endOffset: Int) {
