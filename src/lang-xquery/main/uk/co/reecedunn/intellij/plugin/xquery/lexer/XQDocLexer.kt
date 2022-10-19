@@ -15,79 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
+import uk.co.reecedunn.intellij.plugin.core.lexer.*
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
-import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
-import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
-import xqt.platform.xml.lexer.AlphaNumeric
-import xqt.platform.xml.lexer.Digit
-import xqt.platform.xml.lexer.HexDigit
+import xqt.platform.xml.lexer.*
 
 @Suppress("DuplicatedCode")
 class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     // region States
 
     private fun matchEntityReference() {
-        mTokenRange.match()
-        var cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
-        if (cc == CharacterClass.NAME_START_CHAR) {
-            mTokenRange.match()
-            cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
-            while (cc == CharacterClass.NAME_START_CHAR || cc == CharacterClass.DIGIT) {
-                mTokenRange.match()
-                cc = CharacterClass.getCharClass(mTokenRange.codePoint.codepoint)
-            }
-            mType = if (cc == CharacterClass.SEMICOLON) {
-                mTokenRange.match()
-                XQDocTokenType.PREDEFINED_ENTITY_REFERENCE
-            } else {
-                XQDocTokenType.PARTIAL_ENTITY_REFERENCE
-            }
-        } else if (cc == CharacterClass.HASH) {
-            mTokenRange.match()
-            var c = mTokenRange.codePoint.codepoint
-            if (c == 'x'.code) {
-                mTokenRange.match()
-                c = mTokenRange.codePoint.codepoint
-                if (c in HexDigit) {
-                    while (c in HexDigit) {
-                        mTokenRange.match()
-                        c = mTokenRange.codePoint.codepoint
-                    }
-                    mType = if (c == ';'.code) {
-                        mTokenRange.match()
-                        XQDocTokenType.CHARACTER_REFERENCE
-                    } else {
-                        XQDocTokenType.PARTIAL_ENTITY_REFERENCE
-                    }
-                } else if (c == ';'.code) {
-                    mTokenRange.match()
-                    mType = XQDocTokenType.EMPTY_ENTITY_REFERENCE
-                } else {
-                    mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
-                }
-            } else if (c in Digit) {
-                while (c in Digit) {
-                    mTokenRange.match()
-                    c = mTokenRange.codePoint.codepoint
-                }
-                mType = if (c == ';'.code) {
-                    mTokenRange.match()
-                    XQDocTokenType.CHARACTER_REFERENCE
-                } else {
-                    XQDocTokenType.PARTIAL_ENTITY_REFERENCE
-                }
-            } else if (c == ';'.code) {
-                mTokenRange.match()
-                mType = XQDocTokenType.EMPTY_ENTITY_REFERENCE
-            } else {
-                mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
-            }
-        } else if (cc == CharacterClass.SEMICOLON) {
-            mTokenRange.match()
-            mType = XQDocTokenType.EMPTY_ENTITY_REFERENCE
-        } else {
-            mType = XQDocTokenType.PARTIAL_ENTITY_REFERENCE
+        mType = when (mTokenRange.matchEntityReference()) {
+            EntityReferenceType.EmptyEntityReference -> XQDocTokenType.EMPTY_ENTITY_REFERENCE
+            EntityReferenceType.PartialEntityReference -> XQDocTokenType.PARTIAL_ENTITY_REFERENCE
+            EntityReferenceType.CharacterReference -> XQDocTokenType.CHARACTER_REFERENCE
+            else -> XQDocTokenType.PREDEFINED_ENTITY_REFERENCE
         }
     }
 
