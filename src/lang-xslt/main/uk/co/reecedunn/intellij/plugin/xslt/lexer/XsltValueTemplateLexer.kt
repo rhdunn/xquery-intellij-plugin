@@ -20,19 +20,21 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.ValueTemplate
+import xqt.platform.xml.lexer.LeftCurlyBracket
+import xqt.platform.xml.lexer.RightCurlyBracket
 
 class XsltValueTemplateLexer : XPathLexer() {
     // region States
 
-    fun stateDefault() {
-        var c = mTokenRange.codePoint.codepoint
-        when (c) {
-            CodePointRange.END_OF_BUFFER.codepoint -> {
+    private fun stateDefault() {
+        when (mTokenRange.codePoint) {
+            CodePointRange.END_OF_BUFFER -> {
                 mType = null
             }
-            '{'.code -> {
+
+            LeftCurlyBracket -> {
                 mTokenRange.match()
-                if (mTokenRange.codePoint.codepoint == '{'.code) {
+                if (mTokenRange.codePoint == LeftCurlyBracket) {
                     mTokenRange.match()
                     mType = ValueTemplate.ESCAPED_CHARACTER
                 } else {
@@ -40,24 +42,26 @@ class XsltValueTemplateLexer : XPathLexer() {
                     pushState(STATE_VALUE_TEMPLATE_EXPRESSION)
                 }
             }
-            '}'.code -> {
+
+            RightCurlyBracket -> {
                 mTokenRange.match()
-                mType = if (mTokenRange.codePoint.codepoint == '}'.code) {
+                mType = if (mTokenRange.codePoint == RightCurlyBracket) {
                     mTokenRange.match()
                     ValueTemplate.ESCAPED_CHARACTER
                 } else {
                     XPathTokenType.BLOCK_CLOSE
                 }
             }
+
             else -> while (true) {
-                when (c) {
-                    CodePointRange.END_OF_BUFFER.codepoint, '{'.code, '}'.code -> {
+                when (mTokenRange.codePoint) {
+                    CodePointRange.END_OF_BUFFER, LeftCurlyBracket, RightCurlyBracket -> {
                         mType = ValueTemplate.VALUE_CONTENTS
                         return
                     }
+
                     else -> {
                         mTokenRange.match()
-                        c = mTokenRange.codePoint.codepoint
                     }
                 }
             }
