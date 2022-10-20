@@ -19,6 +19,9 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import xqt.platform.xml.lexer.QuotationMark
+import xqt.platform.xml.lexer.RightCurlyBracket
+import xqt.platform.xml.model.XmlChar
 
 @Suppress("DuplicatedCode")
 class XQueryLexer : XPathLexer() {
@@ -490,26 +493,26 @@ class XQueryLexer : XPathLexer() {
         }
     }
 
-    override fun stateStringLiteral(type: Char) {
+    override fun stateStringLiteral(type: XmlChar) {
         var c = mTokenRange.codePoint.codepoint
-        if (c == type.code) {
+        if (c == type.codepoint) {
             mTokenRange.match()
-            if (mTokenRange.codePoint.codepoint == type.code && type != '}') {
+            if (mTokenRange.codePoint.codepoint == type.codepoint && type != RightCurlyBracket) {
                 mTokenRange.match()
                 mType = XPathTokenType.ESCAPED_CHARACTER
             } else {
-                mType = if (type == '}') XPathTokenType.BRACED_URI_LITERAL_END else XPathTokenType.STRING_LITERAL_END
+                mType = if (type == RightCurlyBracket) XPathTokenType.BRACED_URI_LITERAL_END else XPathTokenType.STRING_LITERAL_END
                 popState()
             }
         } else if (c == '&'.code) {
-            matchEntityReference(if (type == '"') STATE_STRING_LITERAL_QUOTE else STATE_STRING_LITERAL_APOSTROPHE)
-        } else if (c == '{'.code && type == '}') {
+            matchEntityReference(if (type == QuotationMark) STATE_STRING_LITERAL_QUOTE else STATE_STRING_LITERAL_APOSTROPHE)
+        } else if (c == '{'.code && type == RightCurlyBracket) {
             mTokenRange.match()
             mType = XPathTokenType.BAD_CHARACTER
         } else if (c == CodePointRange.END_OF_BUFFER.codepoint) {
             mType = null
         } else {
-            while (c != type.code && c != CodePointRange.END_OF_BUFFER.codepoint && c != '&'.code && !(type == '}' && c == '{'.code)) {
+            while (c != type.codepoint && c != CodePointRange.END_OF_BUFFER.codepoint && c != '&'.code && !(type == RightCurlyBracket && c == '{'.code)) {
                 mTokenRange.match()
                 c = mTokenRange.codePoint.codepoint
             }
