@@ -58,7 +58,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
 
         fun getCharacterClass(c: Int): Int {
             if (c < characterClasses.size) { // 0x0000-0x0079
-                return if (c == CodePointRange.END_OF_BUFFER) END_OF_BUFFER else characterClasses[c]
+                return if (c == CodePointRange.END_OF_BUFFER.codepoint) END_OF_BUFFER else characterClasses[c]
             }
             return MESSAGE
         }

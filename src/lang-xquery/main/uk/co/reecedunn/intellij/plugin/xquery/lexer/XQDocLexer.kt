@@ -93,7 +93,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
     private fun stateDefault() {
         when (mTokenRange.codePoint.codepoint) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            CodePointRange.END_OF_BUFFER.codepoint -> mType = null
             '~'.code -> {
                 mTokenRange.match()
                 mType = XQDocTokenType.XQDOC_COMMENT_MARKER
@@ -111,7 +111,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     private fun stateContents() {
         var c = mTokenRange.codePoint.codepoint
         when (c) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            CodePointRange.END_OF_BUFFER.codepoint -> mType = null
             '<'.code -> {
                 mTokenRange.match()
                 mType = XQDocTokenType.OPEN_XML_TAG
@@ -129,7 +129,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                         mType = XQDocTokenType.CONTENTS
                         return
                     }
-                    CodePointRange.END_OF_BUFFER, '<'.code, '&'.code -> {
+                    CodePointRange.END_OF_BUFFER.codepoint, '<'.code, '&'.code -> {
                         mType = XQDocTokenType.CONTENTS
                         return
                     }
@@ -144,7 +144,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     private fun stateXQueryContents() {
         var c = mTokenRange.codePoint.codepoint
         when (c) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            CodePointRange.END_OF_BUFFER.codepoint -> mType = null
             '\n'.code, '\r'.code -> { // U+000A, U+000D
                 pushState(STATE_XQUERY_CONTENTS_TRIM)
                 stateTrim(STATE_XQUERY_CONTENTS_TRIM)
@@ -156,7 +156,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                         mType = XQDocTokenType.CONTENTS
                         return
                     }
-                    CodePointRange.END_OF_BUFFER -> {
+                    CodePointRange.END_OF_BUFFER.codepoint -> {
                         mType = XQDocTokenType.CONTENTS
                         return
                     }
@@ -248,7 +248,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     private fun stateElemConstructor(state: Int) {
         var c = mTokenRange.codePoint.codepoint
         when (c) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            CodePointRange.END_OF_BUFFER.codepoint -> mType = null
             in AlphaNumeric -> {
                 while (c in AlphaNumeric) {
                     mTokenRange.match()
@@ -305,7 +305,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     private fun stateElemContents() {
         var c = mTokenRange.codePoint.codepoint
         when (c) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            CodePointRange.END_OF_BUFFER.codepoint -> mType = null
             '<'.code -> {
                 mTokenRange.match()
                 if (mTokenRange.codePoint.codepoint == '/'.code) {
@@ -324,7 +324,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                 c = mTokenRange.codePoint.codepoint
                 while (true)
                     when (c) {
-                        CodePointRange.END_OF_BUFFER, '<'.code, '&'.code -> {
+                        CodePointRange.END_OF_BUFFER.codepoint, '<'.code, '&'.code -> {
                             mType = XQDocTokenType.XML_ELEMENT_CONTENTS
                             return
                         }
@@ -340,14 +340,14 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     private fun stateAttributeValue(endChar: Int) {
         var c = mTokenRange.codePoint.codepoint
         when (c) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            CodePointRange.END_OF_BUFFER.codepoint -> mType = null
             endChar -> {
                 mTokenRange.match()
                 mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_END
                 popState()
             }
             else -> {
-                while (c != CodePointRange.END_OF_BUFFER && c != endChar) {
+                while (c != CodePointRange.END_OF_BUFFER.codepoint && c != endChar) {
                     mTokenRange.match()
                     c = mTokenRange.codePoint.codepoint
                 }
@@ -359,7 +359,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     private fun stateTrim(state: Int) {
         var c = mTokenRange.codePoint.codepoint
         when (c) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            CodePointRange.END_OF_BUFFER.codepoint -> mType = null
             ' '.code, '\t'.code -> {
                 while (c == ' '.code || c == '\t'.code) {
                     mTokenRange.match()

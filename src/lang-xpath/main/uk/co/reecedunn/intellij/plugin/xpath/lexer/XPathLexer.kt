@@ -362,10 +362,10 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         } else if (c == '{'.code && type == '}') {
             mTokenRange.match()
             mType = XPathTokenType.BAD_CHARACTER
-        } else if (c == CodePointRange.END_OF_BUFFER) {
+        } else if (c == CodePointRange.END_OF_BUFFER.codepoint) {
             mType = null
         } else {
-            while (c != type.code && c != CodePointRange.END_OF_BUFFER && !(type == '}' && c == '{'.code)) {
+            while (c != type.code && c != CodePointRange.END_OF_BUFFER.codepoint && !(type == '}' && c == '{'.code)) {
                 mTokenRange.match()
                 c = mTokenRange.codePoint.codepoint
             }
@@ -385,7 +385,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
     private fun stateXQueryComment() {
         var c = mTokenRange.codePoint.codepoint
-        if (c == CodePointRange.END_OF_BUFFER) {
+        if (c == CodePointRange.END_OF_BUFFER.codepoint) {
             mType = null
             return
         } else if (c == ':'.code) {
@@ -403,7 +403,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
         var depth = 1
         while (true) {
-            if (c == CodePointRange.END_OF_BUFFER) {
+            if (c == CodePointRange.END_OF_BUFFER.codepoint) {
                 mTokenRange.match()
                 mType = XPathTokenType.COMMENT
                 popState()
@@ -523,7 +523,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
     private fun statePragmaContents() {
         var c = mTokenRange.codePoint.codepoint
-        if (c == CodePointRange.END_OF_BUFFER) {
+        if (c == CodePointRange.END_OF_BUFFER.codepoint) {
             mType = null
             return
         } else if (c == '#'.code) {
@@ -540,7 +540,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         }
 
         while (true) {
-            if (c == CodePointRange.END_OF_BUFFER) {
+            if (c == CodePointRange.END_OF_BUFFER.codepoint) {
                 mTokenRange.match()
                 mType = XPathTokenType.PRAGMA_CONTENTS
                 popState()

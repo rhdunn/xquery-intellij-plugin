@@ -35,7 +35,7 @@ class CodePointRangeImpl : CodePointRange {
     override val codePoint: XmlChar
         get() {
             if (end == bufferEnd)
-                return XmlChar(CodePointRange.END_OF_BUFFER)
+                return CodePointRange.END_OF_BUFFER
             val high = bufferSequence[end]
             if (Character.isHighSurrogate(high) && end + 1 != bufferEnd) {
                 val low = bufferSequence[end + 1]

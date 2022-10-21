@@ -108,7 +108,7 @@ object CharacterClass {
 
     fun getCharClass(c: Int): Int {
         if (c < mCharacterClasses.size) { // 0x0000-0x0079
-            return if (c == CodePointRange.END_OF_BUFFER) END_OF_BUFFER else mCharacterClasses[c]
+            return if (c == CodePointRange.END_OF_BUFFER.codepoint) END_OF_BUFFER else mCharacterClasses[c]
         }
         if (c <= 0xD7FF) { // 0x0080-0xD7FF
             if (c == 0xB7)

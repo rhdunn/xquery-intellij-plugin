@@ -27,7 +27,7 @@ class XsltValueTemplateLexer : XPathLexer() {
     fun stateDefault() {
         var c = mTokenRange.codePoint.codepoint
         when (c) {
-            CodePointRange.END_OF_BUFFER -> {
+            CodePointRange.END_OF_BUFFER.codepoint -> {
                 mType = null
             }
             '{'.code -> {
@@ -51,7 +51,7 @@ class XsltValueTemplateLexer : XPathLexer() {
             }
             else -> while (true) {
                 when (c) {
-                    CodePointRange.END_OF_BUFFER, '{'.code, '}'.code -> {
+                    CodePointRange.END_OF_BUFFER.codepoint, '{'.code, '}'.code -> {
                         mType = ValueTemplate.VALUE_CONTENTS
                         return
                     }

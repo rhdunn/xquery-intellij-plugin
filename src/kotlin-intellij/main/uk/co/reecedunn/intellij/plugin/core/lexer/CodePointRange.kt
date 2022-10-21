@@ -41,6 +41,6 @@ interface CodePointRange {
     fun restore()
 
     companion object {
-        const val END_OF_BUFFER: Int = -1
+        val END_OF_BUFFER: XmlChar = XmlChar(-1)
     }
 }
