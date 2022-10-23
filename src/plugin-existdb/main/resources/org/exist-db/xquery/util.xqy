@@ -40,7 +40,7 @@ declare %a:since("exist", "4.4") function util:enable-profiling($verbosity as xs
 declare %a:since("exist", "4.4") function util:eval($expression as item()) as node()* external;
 declare %a:since("exist", "4.4") function util:eval($expression as item(), $cache-flag as xs:boolean) as node()* external;
 declare %a:since("exist", "4.4") function util:eval($expression as item(), $cache-flag as xs:boolean, $external-variable as xs:anyType*) as node()* external;
-declare %a:since("exist", "4.4") function util:eval($expression as item()) as node()* external;
+declare %a:since("exist", "5.3") function util:eval($expression as item(), $cache-flag as xs:boolean, $external-variable as xs:anyType*, $pass as xs:boolean) as node()* external;
 declare %a:since("exist", "4.6") function util:eval-and-serialize($expression as item(), $default-serialization-params as item()?) as node()* external;
 declare %a:since("exist", "4.6") function util:eval-and-serialize($expression as item(), $default-serialization-params as item()?, $starting-loc as xs:double) as node()* external;
 declare %a:since("exist", "4.6") function util:eval-and-serialize($expression as item(), $default-serialization-params as item()?, $starting-loc as xs:double, $length as xs:double) as node()* external;
