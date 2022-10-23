@@ -16,69 +16,51 @@
 package uk.co.reecedunn.intellij.plugin.core.lexer
 
 import xqt.platform.xml.model.XmlChar
+import xqt.platform.xml.model.XmlCharReader
 
 class CodePointRange {
-    var bufferSequence: CharSequence = ""
-        private set
+    private val characters = XmlCharReader()
+
+    val bufferSequence: CharSequence
+        get() = characters.buffer
 
     var start: Int = 0
         private set
 
-    var end: Int = 0
-        private set
+    val end: Int
+        get() = characters.currentOffset
 
     private var mSaved: Int = 0
 
-    var bufferEnd: Int = 0
-        private set
+    val bufferEnd: Int
+        get() = characters.bufferEndOffset
 
     val codePoint: XmlChar
-        get() {
-            if (end == bufferEnd)
-                return END_OF_BUFFER
-            val high = bufferSequence[end]
-            if (Character.isHighSurrogate(high) && end + 1 != bufferEnd) {
-                val low = bufferSequence[end + 1]
-                if (Character.isLowSurrogate(low)) {
-                    return XmlChar(high, low)
-                }
-            }
-            return XmlChar(high)
-        }
+        get() = characters.currentChar
 
     fun start(buffer: CharSequence, startOffset: Int, endOffset: Int) {
-        bufferSequence = buffer
-        end = startOffset
-        start = end
-        bufferEnd = endOffset
+        characters.reset(buffer, startOffset, endOffset)
+        start = characters.currentOffset
     }
 
     fun flush() {
-        start = end
+        start = characters.currentOffset
     }
 
     fun match() {
-        if (end != bufferEnd) {
-            if (Character.isHighSurrogate(bufferSequence[end])) {
-                end += 1
-                if (end != bufferEnd && Character.isLowSurrogate(bufferSequence[end]))
-                    end += 1
-            } else {
-                end += 1
-            }
-        }
+        characters.advance()
     }
 
     fun seek(position: Int) {
-        end = position
+        characters.currentOffset = position
     }
 
     fun save() {
-        mSaved = end
+        mSaved = characters.currentOffset
     }
 
     fun restore() {
-        end = mSaved
+        characters.currentOffset = mSaved
     }
 
     companion object {
