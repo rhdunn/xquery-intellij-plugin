@@ -67,13 +67,6 @@ jobs:
         # file it will be able to run and generate the gradle wrapper.
         run: touch null.gradle ; gradle -b null.gradle wrapper --gradle-version 7.5 ; rm null.gradle
 
-      - name: Cache Gradle Packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.gradle/caches ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ matrix.idea-version }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-${{ matrix.idea-version }}-
-
       - name: Gradle Version
         run: ./gradlew --version
 
@@ -82,10 +75,3 @@ jobs:
 
       - name: Run Tests
         run: ./gradlew test
-
-      - name: Cleanup Gradle Cache
-        # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
-        # Restoring these files from a GitHub Actions cache might cause problems for future builds.
-        run: |
-          rm -f ~/.gradle/caches/modules-2/modules-2.lock
-          rm -f ~/.gradle/caches/modules-2/gc.properties
