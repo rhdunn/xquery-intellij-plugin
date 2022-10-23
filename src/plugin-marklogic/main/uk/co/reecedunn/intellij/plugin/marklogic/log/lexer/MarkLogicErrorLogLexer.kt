@@ -136,8 +136,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
                             when {
                                 c != Space && c != CharacterTabulation && c != PlusSign -> seenWhitespace = true
                                 state == State.Default -> {
-                                    val text = mTokenRange.bufferSequence.substring(mTokenRange.start, mTokenRange.end)
-                                    if (text == "WARNING") {
+                                    if (tokenSequence == "WARNING") {
                                         return MarkLogicErrorLogTokenType.LogLevel.WARNING
                                     }
                                 }
@@ -145,9 +144,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
                                 state == State.LogLevel -> {
                                     popState()
                                     pushState(if (format.haveServer) State.Server else State.Message)
-
-                                    val text = mTokenRange.bufferSequence.substring(mTokenRange.start, mTokenRange.end)
-                                    return MarkLogicErrorLogTokenType.LogLevel.token(text)
+                                    return MarkLogicErrorLogTokenType.LogLevel.token(tokenSequence)
                                 }
 
                                 state == State.Server -> {
