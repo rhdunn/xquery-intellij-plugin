@@ -22,7 +22,7 @@ import java.util.*
 const val STATE_DEFAULT: Int = 0
 
 abstract class LexerImpl(private val baseState: Int) : LexerBase() {
-    protected val mTokenRange: CodePointRange = CodePointRangeImpl()
+    protected val mTokenRange: CodePointRange = CodePointRange()
     protected var mType: IElementType? = null
 
     // region States

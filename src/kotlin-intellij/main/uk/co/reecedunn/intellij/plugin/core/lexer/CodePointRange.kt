@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019, 2022 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2020, 2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,28 +17,69 @@ package uk.co.reecedunn.intellij.plugin.core.lexer
 
 import xqt.platform.xml.model.XmlChar
 
-interface CodePointRange {
-    val bufferSequence: CharSequence
+class CodePointRange {
+    var bufferSequence: CharSequence = ""
+        private set
 
-    val start: Int
+    var start: Int = 0
+        private set
 
-    val end: Int
+    var end: Int = 0
+        private set
 
-    val bufferEnd: Int
+    private var mSaved: Int = 0
+
+    var bufferEnd: Int = 0
+        private set
 
     val codePoint: XmlChar
+        get() {
+            if (end == bufferEnd)
+                return END_OF_BUFFER
+            val high = bufferSequence[end]
+            if (Character.isHighSurrogate(high) && end + 1 != bufferEnd) {
+                val low = bufferSequence[end + 1]
+                if (Character.isLowSurrogate(low)) {
+                    return XmlChar(high, low)
+                }
+            }
+            return XmlChar(high)
+        }
 
-    fun start(buffer: CharSequence, startOffset: Int, endOffset: Int)
+    fun start(buffer: CharSequence, startOffset: Int, endOffset: Int) {
+        bufferSequence = buffer
+        end = startOffset
+        start = end
+        bufferEnd = endOffset
+    }
 
-    fun flush()
+    fun flush() {
+        start = end
+    }
 
-    fun match()
+    fun match() {
+        if (end != bufferEnd) {
+            if (Character.isHighSurrogate(bufferSequence[end])) {
+                end += 1
+                if (end != bufferEnd && Character.isLowSurrogate(bufferSequence[end]))
+                    end += 1
+            } else {
+                end += 1
+            }
+        }
+    }
 
-    fun seek(position: Int)
+    fun seek(position: Int) {
+        end = position
+    }
 
-    fun save()
+    fun save() {
+        mSaved = end
+    }
 
-    fun restore()
+    fun restore() {
+        end = mSaved
+    }
 
     companion object {
         val END_OF_BUFFER: XmlChar = XmlChar(-1)

@@ -19,7 +19,6 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 @DisplayName("IntelliJ - Custom Language Support - Implementing Lexer - CodePointRange")
@@ -27,7 +26,7 @@ class CodePointRangeTest {
     @Test
     @DisplayName("empty buffer")
     fun testEmptyBuffer() {
-        val range: CodePointRange = CodePointRangeImpl()
+        val range: CodePointRange = CodePointRange()
 
         val sequence = ""
         range.start(sequence, 0, 0)
@@ -40,7 +39,7 @@ class CodePointRangeTest {
     @Test
     @DisplayName("basic multiplane codepoints")
     fun testMatchingCodePoints() {
-        val range: CodePointRange = CodePointRangeImpl()
+        val range: CodePointRange = CodePointRange()
 
         range.start("a\u1255\uD392", 0, 3)
         assertThat(range.bufferEnd, `is`(3))
@@ -73,7 +72,7 @@ class CodePointRangeTest {
     @Test
     @DisplayName("incomplete surrogate pairs")
     fun testMatchingIncompleteSurrogatePairs() {
-        val range: CodePointRange = CodePointRangeImpl()
+        val range: CodePointRange = CodePointRange()
 
         range.start("\uD802\uD803", 0, 2)
         assertThat(range.bufferEnd, `is`(2))
@@ -96,7 +95,7 @@ class CodePointRangeTest {
     @Test
     @DisplayName("surrogate pairs")
     fun testMatchingSurrogatePairs() {
-        val range: CodePointRange = CodePointRangeImpl()
+        val range: CodePointRange = CodePointRange()
 
         range.start("\uD802\uDD07\uD802\uDDA3", 0, 4)
         assertThat(range.bufferEnd, `is`(4))
@@ -129,7 +128,7 @@ class CodePointRangeTest {
     @Test
     @DisplayName("flush")
     fun testFlush() {
-        val range: CodePointRange = CodePointRangeImpl()
+        val range: CodePointRange = CodePointRange()
 
         range.start("abcd", 0, 4)
         range.match()
@@ -149,7 +148,7 @@ class CodePointRangeTest {
     @Test
     @DisplayName("save and restore")
     fun testSaveRestore() {
-        val range: CodePointRange = CodePointRangeImpl()
+        val range: CodePointRange = CodePointRange()
 
         range.start("abcd", 0, 4)
         range.match()
