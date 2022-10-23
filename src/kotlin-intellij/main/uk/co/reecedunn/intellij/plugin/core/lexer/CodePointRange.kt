@@ -18,9 +18,7 @@ package uk.co.reecedunn.intellij.plugin.core.lexer
 import xqt.platform.xml.model.XmlChar
 import xqt.platform.xml.model.XmlCharReader
 
-class CodePointRange {
-    private val characters = XmlCharReader()
-
+class CodePointRange(private val characters: XmlCharReader = XmlCharReader()) {
     val bufferSequence: CharSequence
         get() = characters.buffer
 

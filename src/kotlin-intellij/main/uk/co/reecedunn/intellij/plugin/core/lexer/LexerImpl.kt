@@ -17,12 +17,14 @@ package uk.co.reecedunn.intellij.plugin.core.lexer
 
 import com.intellij.lexer.LexerBase
 import com.intellij.psi.tree.IElementType
+import xqt.platform.xml.model.XmlCharReader
 import java.util.*
 
 const val STATE_DEFAULT: Int = 0
 
 abstract class LexerImpl(private val baseState: Int) : LexerBase() {
-    protected val mTokenRange: CodePointRange = CodePointRange()
+    protected val characters = XmlCharReader()
+    protected val mTokenRange: CodePointRange = CodePointRange(characters)
     protected var mType: IElementType? = null
 
     // region States
