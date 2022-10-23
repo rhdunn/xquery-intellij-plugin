@@ -70,8 +70,17 @@ jobs:
       - name: Gradle Version
         run: ./gradlew --version
 
-      - name: Build with Gradle
+      - name: Build
         run: ./gradlew :assemble
 
       - name: Run Tests
         run: ./gradlew test
+
+      - name: Build Plugin
+        run: ./gradlew buildPlugin
+
+      - name: Upload Plugin Jar
+        uses: actions/upload-artifact@v3
+        with:
+          name: xquery-intellij-plugin-${{ matrix.idea-version }}
+          path: build/distributions/xquery-intellij-plugin-*.zip
