@@ -28,32 +28,32 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
     protected open fun ncnameToKeyword(name: CharSequence): IKeywordOrNCNameType? = KEYWORDS[name]
 
     protected open fun stateDefault(state: Int) {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             Asterisk -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.STAR
             }
 
             CommercialAt -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.ATTRIBUTE_SELECTOR
             }
 
             Colon -> {
-                mTokenRange.match()
-                mType = when (mTokenRange.codePoint) {
+                characters.advance()
+                mType = when (characters.currentChar) {
                     RightParenthesis -> {
-                        mTokenRange.match()
+                        characters.advance()
                         XPathTokenType.COMMENT_END_TAG
                     }
 
                     Colon -> {
-                        mTokenRange.match()
+                        characters.advance()
                         XPathTokenType.AXIS_SEPARATOR
                     }
 
                     EqualsSign -> {
-                        mTokenRange.match()
+                        characters.advance()
                         XPathTokenType.ASSIGN_EQUAL
                     }
 
@@ -62,65 +62,65 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             Comma -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.COMMA
             }
 
             RightCurlyBracket -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.BLOCK_CLOSE
                 popState()
             }
 
             LeftCurlyBracket -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.BLOCK_OPEN
                 pushState(state)
             }
 
             in Digit -> {
-                mTokenRange.match()
-                while (mTokenRange.codePoint in Digit)
-                    mTokenRange.match()
-                mType = if (mTokenRange.codePoint == FullStop) {
-                    mTokenRange.match()
-                    while (mTokenRange.codePoint in Digit)
-                        mTokenRange.match()
+                characters.advance()
+                while (characters.currentChar in Digit)
+                    characters.advance()
+                mType = if (characters.currentChar == FullStop) {
+                    characters.advance()
+                    while (characters.currentChar in Digit)
+                        characters.advance()
                     XPathTokenType.DECIMAL_LITERAL
                 } else {
                     XPathTokenType.INTEGER_LITERAL
                 }
-                if (mTokenRange.codePoint == LatinSmallLetterE || mTokenRange.codePoint == LatinCapitalLetterE) {
-                    mTokenRange.save()
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == PlusSign || mTokenRange.codePoint == HyphenMinus) {
-                        mTokenRange.match()
+                if (characters.currentChar == LatinSmallLetterE || characters.currentChar == LatinCapitalLetterE) {
+                    val savedOffset = characters.currentOffset
+                    characters.advance()
+                    if (characters.currentChar == PlusSign || characters.currentChar == HyphenMinus) {
+                        characters.advance()
                     }
-                    if (mTokenRange.codePoint in Digit) {
-                        mTokenRange.match()
-                        while (mTokenRange.codePoint in Digit)
-                            mTokenRange.match()
+                    if (characters.currentChar in Digit) {
+                        characters.advance()
+                        while (characters.currentChar in Digit)
+                            characters.advance()
                         mType = XPathTokenType.DOUBLE_LITERAL
                     } else {
                         pushState(STATE_DOUBLE_EXPONENT)
-                        mTokenRange.restore()
+                        characters.currentOffset = savedOffset
                     }
                 }
             }
 
             DollarSign -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.VARIABLE_INDICATOR
             }
 
             FullStop -> {
-                mTokenRange.save()
-                mTokenRange.match()
-                when (mTokenRange.codePoint) {
+                var savedOffset = characters.currentOffset
+                characters.advance()
+                when (characters.currentChar) {
                     FullStop -> {
-                        mTokenRange.match()
-                        mType = if (mTokenRange.codePoint == FullStop) {
-                            mTokenRange.match()
+                        characters.advance()
+                        mType = if (characters.currentChar == FullStop) {
+                            characters.advance()
                             XPathTokenType.ELLIPSIS
                         } else {
                             XPathTokenType.PARENT_SELECTOR
@@ -129,12 +129,12 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                     }
 
                     in Digit -> {
-                        mTokenRange.restore()
+                        characters.currentOffset = savedOffset
                         mType = XPathTokenType.DECIMAL_LITERAL
                     }
 
                     LeftCurlyBracket -> {
-                        mTokenRange.match()
+                        characters.advance()
                         mType = XPathTokenType.CONTEXT_FUNCTION
                         return
                     }
@@ -145,32 +145,32 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                     }
                 }
 
-                mTokenRange.match()
-                while (mTokenRange.codePoint in Digit)
-                    mTokenRange.match()
+                characters.advance()
+                while (characters.currentChar in Digit)
+                    characters.advance()
                 mType = XPathTokenType.DECIMAL_LITERAL
-                if (mTokenRange.codePoint == LatinSmallLetterE || mTokenRange.codePoint == LatinCapitalLetterE) {
-                    mTokenRange.save()
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == PlusSign || mTokenRange.codePoint == HyphenMinus) {
-                        mTokenRange.match()
+                if (characters.currentChar == LatinSmallLetterE || characters.currentChar == LatinCapitalLetterE) {
+                    savedOffset = characters.currentOffset
+                    characters.advance()
+                    if (characters.currentChar == PlusSign || characters.currentChar == HyphenMinus) {
+                        characters.advance()
                     }
-                    if (mTokenRange.codePoint in Digit) {
-                        mTokenRange.match()
-                        while (mTokenRange.codePoint in Digit)
-                            mTokenRange.match()
+                    if (characters.currentChar in Digit) {
+                        characters.advance()
+                        while (characters.currentChar in Digit)
+                            characters.advance()
                         mType = XPathTokenType.DOUBLE_LITERAL
                     } else {
                         pushState(STATE_DOUBLE_EXPONENT)
-                        mTokenRange.restore()
+                        characters.currentOffset = savedOffset
                     }
                 }
             }
 
             EqualsSign -> {
-                mTokenRange.match()
-                mType = if (mTokenRange.codePoint == GreaterThanSign) {
-                    mTokenRange.match()
+                characters.advance()
+                mType = if (characters.currentChar == GreaterThanSign) {
+                    characters.advance()
                     XPathTokenType.ARROW
                 } else {
                     XPathTokenType.EQUAL
@@ -178,15 +178,15 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             ExclamationMark -> {
-                mTokenRange.match()
-                mType = when (mTokenRange.codePoint) {
+                characters.advance()
+                mType = when (characters.currentChar) {
                     EqualsSign -> {
-                        mTokenRange.match()
+                        characters.advance()
                         XPathTokenType.NOT_EQUAL
                     }
 
                     ExclamationMark -> {
-                        mTokenRange.match()
+                        characters.advance()
                         XPathTokenType.TERNARY_ELSE // EXPath XPath/XQuery NG Proposal
                     }
 
@@ -195,9 +195,9 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             Solidus -> {
-                mTokenRange.match()
-                mType = if (mTokenRange.codePoint == Solidus) {
-                    mTokenRange.match()
+                characters.advance()
+                mType = if (characters.currentChar == Solidus) {
+                    characters.advance()
                     XPathTokenType.ALL_DESCENDANTS_PATH
                 } else {
                     XPathTokenType.DIRECT_DESCENDANTS_PATH
@@ -205,15 +205,15 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             GreaterThanSign -> {
-                mTokenRange.match()
-                mType = when (mTokenRange.codePoint) {
+                characters.advance()
+                mType = when (characters.currentChar) {
                     GreaterThanSign -> {
-                        mTokenRange.match()
+                        characters.advance()
                         XPathTokenType.NODE_AFTER
                     }
 
                     EqualsSign -> {
-                        mTokenRange.match()
+                        characters.advance()
                         XPathTokenType.GREATER_THAN_OR_EQUAL
                     }
 
@@ -222,9 +222,9 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             NumberSign -> {
-                mTokenRange.match()
-                mType = if (mTokenRange.codePoint == RightParenthesis) {
-                    mTokenRange.match()
+                characters.advance()
+                mType = if (characters.currentChar == RightParenthesis) {
+                    characters.advance()
                     XPathTokenType.PRAGMA_END
                 } else {
                     XPathTokenType.FUNCTION_REF_OPERATOR
@@ -232,9 +232,9 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             HyphenMinus -> {
-                mTokenRange.match()
-                mType = if (mTokenRange.codePoint == GreaterThanSign) {
-                    mTokenRange.match()
+                characters.advance()
+                mType = if (characters.currentChar == GreaterThanSign) {
+                    characters.advance()
                     XPathTokenType.THIN_ARROW
                 } else {
                     XPathTokenType.MINUS
@@ -242,15 +242,15 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             LessThanSign -> {
-                mTokenRange.match()
-                mType = when (mTokenRange.codePoint) {
+                characters.advance()
+                mType = when (characters.currentChar) {
                     LessThanSign -> {
-                        mTokenRange.match()
+                        characters.advance()
                         XPathTokenType.NODE_BEFORE
                     }
 
                     EqualsSign -> {
-                        mTokenRange.match()
+                        characters.advance()
                         XPathTokenType.LESS_THAN_OR_EQUAL
                     }
 
@@ -259,39 +259,39 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             in NameStartChar -> {
-                val pc = mTokenRange.codePoint
-                mTokenRange.match()
-                if (pc == LatinCapitalLetterQ && mTokenRange.codePoint == LeftCurlyBracket) {
-                    mTokenRange.match()
+                val pc = characters.currentChar
+                characters.advance()
+                if (pc == LatinCapitalLetterQ && characters.currentChar == LeftCurlyBracket) {
+                    characters.advance()
                     mType = XPathTokenType.BRACED_URI_LITERAL_START
                     pushState(STATE_BRACED_URI_LITERAL)
-                } else if (pc == LowLine && mTokenRange.codePoint == LeftCurlyBracket) {
-                    mTokenRange.match()
+                } else if (pc == LowLine && characters.currentChar == LeftCurlyBracket) {
+                    characters.advance()
                     mType = XPathTokenType.LAMBDA_FUNCTION
                 } else {
-                    while (mTokenRange.codePoint in NameChar && mTokenRange.codePoint != Colon) {
-                        mTokenRange.match()
+                    while (characters.currentChar in NameChar && characters.currentChar != Colon) {
+                        characters.advance()
                     }
                     mType = ncnameToKeyword(tokenText) ?: XPathTokenType.NCNAME
                 }
             }
 
             RightParenthesis -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.PARENTHESIS_CLOSE
             }
 
             LeftParenthesis -> {
-                mTokenRange.match()
-                when (mTokenRange.codePoint) {
+                characters.advance()
+                when (characters.currentChar) {
                     Colon -> {
-                        mTokenRange.match()
+                        characters.advance()
                         mType = XPathTokenType.COMMENT_START_TAG
                         pushState(STATE_XQUERY_COMMENT)
                     }
 
                     NumberSign -> {
-                        mTokenRange.match()
+                        characters.advance()
                         mType = XPathTokenType.PRAGMA_BEGIN
                         pushState(STATE_PRAGMA_PRE_QNAME)
                     }
@@ -301,20 +301,20 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             PlusSign -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.PLUS
             }
 
             QuestionMark -> {
-                mTokenRange.match()
-                mType = when (mTokenRange.codePoint) {
+                characters.advance()
+                mType = when (characters.currentChar) {
                     QuestionMark -> {
-                        mTokenRange.match()
+                        characters.advance()
                         XPathTokenType.TERNARY_IF
                     }
 
                     Colon -> {
-                        mTokenRange.match()
+                        characters.advance()
                         XPathTokenType.ELVIS // EXPath XPath/XQuery NG Proposal
                     }
 
@@ -323,36 +323,36 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             QuotationMark -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.STRING_LITERAL_START
                 pushState(STATE_STRING_LITERAL_QUOTE)
             }
 
             Apostrophe -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.STRING_LITERAL_START
                 pushState(STATE_STRING_LITERAL_APOSTROPHE)
             }
 
             RightSquareBracket -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.SQUARE_CLOSE
             }
 
             LeftSquareBracket -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.SQUARE_OPEN
             }
 
             Tilde -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.TYPE_ALIAS
             }
 
             VerticalLine -> {
-                mTokenRange.match()
-                mType = if (mTokenRange.codePoint == VerticalLine) {
-                    mTokenRange.match()
+                characters.advance()
+                mType = if (characters.currentChar == VerticalLine) {
+                    characters.advance()
                     XPathTokenType.CONCATENATION
                 } else {
                     XPathTokenType.UNION
@@ -360,27 +360,27 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             in S -> {
-                mTokenRange.match()
-                while (mTokenRange.codePoint in S)
-                    mTokenRange.match()
+                characters.advance()
+                while (characters.currentChar in S)
+                    characters.advance()
                 mType = XPathTokenType.WHITE_SPACE
             }
 
             XmlCharReader.EndOfBuffer -> mType = null
             else -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.BAD_CHARACTER
             }
         }
     }
 
     protected open fun stateStringLiteral(type: XmlChar) {
-        val c = mTokenRange.codePoint
+        val c = characters.currentChar
         when {
             c == type -> {
-                mTokenRange.match()
-                if (mTokenRange.codePoint == type && type != RightCurlyBracket) {
-                    mTokenRange.match()
+                characters.advance()
+                if (characters.currentChar == type && type != RightCurlyBracket) {
+                    characters.advance()
                     mType = XPathTokenType.ESCAPED_CHARACTER
                 } else {
                     mType = when (type) {
@@ -392,7 +392,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             c == LeftCurlyBracket && type == RightCurlyBracket -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.BAD_CHARACTER
             }
 
@@ -402,11 +402,11 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
             else -> {
                 while (
-                    mTokenRange.codePoint != type &&
-                    mTokenRange.codePoint != XmlCharReader.EndOfBuffer &&
-                    !(type == RightCurlyBracket && mTokenRange.codePoint == LeftCurlyBracket)
+                    characters.currentChar != type &&
+                    characters.currentChar != XmlCharReader.EndOfBuffer &&
+                    !(type == RightCurlyBracket && characters.currentChar == LeftCurlyBracket)
                 ) {
-                    mTokenRange.match()
+                    characters.advance()
                 }
                 mType = XPathTokenType.STRING_LITERAL_CONTENTS
             }
@@ -414,40 +414,40 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
     }
 
     private fun stateDoubleExponent() {
-        mTokenRange.match()
-        if (mTokenRange.codePoint == PlusSign || mTokenRange.codePoint == HyphenMinus) {
-            mTokenRange.match()
+        characters.advance()
+        if (characters.currentChar == PlusSign || characters.currentChar == HyphenMinus) {
+            characters.advance()
         }
         mType = XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
         popState()
     }
 
     private fun stateXQueryComment() {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> {
                 mType = null
                 return
             }
 
             Colon -> {
-                mTokenRange.save()
-                mTokenRange.match()
-                if (mTokenRange.codePoint == RightParenthesis) {
-                    mTokenRange.match()
+                val savedOffset = characters.currentOffset
+                characters.advance()
+                if (characters.currentChar == RightParenthesis) {
+                    characters.advance()
                     mType = XPathTokenType.COMMENT_END_TAG
                     popState()
                     return
                 } else {
-                    mTokenRange.restore()
+                    characters.currentOffset = savedOffset
                 }
             }
         }
 
         var depth = 1
         while (true) {
-            when (mTokenRange.codePoint) {
+            when (characters.currentChar) {
                 XmlCharReader.EndOfBuffer -> {
-                    mTokenRange.match()
+                    characters.advance()
                     mType = XPathTokenType.COMMENT
                     popState()
                     pushState(STATE_UNEXPECTED_END_OF_BLOCK)
@@ -455,20 +455,20 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 }
 
                 LeftParenthesis -> {
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == Colon) {
-                        mTokenRange.match()
+                    characters.advance()
+                    if (characters.currentChar == Colon) {
+                        characters.advance()
                         ++depth
                     }
                 }
 
                 Colon -> {
-                    mTokenRange.save()
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == RightParenthesis) {
-                        mTokenRange.match()
+                    val savedOffset = characters.currentOffset
+                    characters.advance()
+                    if (characters.currentChar == RightParenthesis) {
+                        characters.advance()
                         if (--depth == 0) {
-                            mTokenRange.restore()
+                            characters.currentOffset = savedOffset
                             mType = XPathTokenType.COMMENT
                             return
                         }
@@ -476,40 +476,40 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 }
 
                 else -> {
-                    mTokenRange.match()
+                    characters.advance()
                 }
             }
         }
     }
 
     private fun statePragmaPreQName() {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             in S -> {
-                mTokenRange.match()
-                while (mTokenRange.codePoint in S)
-                    mTokenRange.match()
+                characters.advance()
+                while (characters.currentChar in S)
+                    characters.advance()
                 mType = XPathTokenType.WHITE_SPACE
             }
 
             Colon -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.QNAME_SEPARATOR
                 popState()
                 pushState(STATE_PRAGMA_QNAME)
             }
 
             in NameStartChar -> {
-                val pc = mTokenRange.codePoint
-                mTokenRange.match()
-                if (pc == LatinCapitalLetterQ && mTokenRange.codePoint == LeftCurlyBracket) {
-                    mTokenRange.match()
+                val pc = characters.currentChar
+                characters.advance()
+                if (pc == LatinCapitalLetterQ && characters.currentChar == LeftCurlyBracket) {
+                    characters.advance()
                     mType = XPathTokenType.BRACED_URI_LITERAL_START
                     popState()
                     pushState(STATE_PRAGMA_QNAME)
                     pushState(STATE_BRACED_URI_LITERAL_PRAGMA)
                 } else {
-                    while (mTokenRange.codePoint in NameChar && mTokenRange.codePoint != Colon) {
-                        mTokenRange.match()
+                    while (characters.currentChar in NameChar && characters.currentChar != Colon) {
+                        characters.advance()
                     }
                     mType = XPathTokenType.NCNAME
                     popState()
@@ -526,25 +526,25 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
     }
 
     private fun statePragmaQName() {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             in S -> {
-                mTokenRange.match()
-                while (mTokenRange.codePoint in S)
-                    mTokenRange.match()
+                characters.advance()
+                while (characters.currentChar in S)
+                    characters.advance()
                 mType = XPathTokenType.WHITE_SPACE
                 popState()
                 pushState(STATE_PRAGMA_CONTENTS)
             }
 
             Colon -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XPathTokenType.QNAME_SEPARATOR
             }
 
             in NameStartChar -> {
-                mTokenRange.match()
-                while (mTokenRange.codePoint in NameChar && mTokenRange.codePoint != Colon) {
-                    mTokenRange.match()
+                characters.advance()
+                while (characters.currentChar in NameChar && characters.currentChar != Colon) {
+                    characters.advance()
                 }
                 mType = XPathTokenType.NCNAME
             }
@@ -558,30 +558,30 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
     }
 
     private fun statePragmaContents() {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> {
                 mType = null
                 return
             }
 
             NumberSign -> {
-                mTokenRange.save()
-                mTokenRange.match()
-                if (mTokenRange.codePoint == RightParenthesis) {
-                    mTokenRange.match()
+                val savedOffset = characters.currentOffset
+                characters.advance()
+                if (characters.currentChar == RightParenthesis) {
+                    characters.advance()
                     mType = XPathTokenType.PRAGMA_END
                     popState()
                     return
                 } else {
-                    mTokenRange.restore()
+                    characters.currentOffset = savedOffset
                 }
             }
         }
 
         while (true) {
-            when (mTokenRange.codePoint) {
+            when (characters.currentChar) {
                 XmlCharReader.EndOfBuffer -> {
-                    mTokenRange.match()
+                    characters.advance()
                     mType = XPathTokenType.PRAGMA_CONTENTS
                     popState()
                     pushState(STATE_UNEXPECTED_END_OF_BLOCK)
@@ -589,17 +589,17 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 }
 
                 NumberSign -> {
-                    mTokenRange.save()
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == RightParenthesis) {
-                        mTokenRange.restore()
+                    val savedOffset = characters.currentOffset
+                    characters.advance()
+                    if (characters.currentChar == RightParenthesis) {
+                        characters.currentOffset = savedOffset
                         mType = XPathTokenType.PRAGMA_CONTENTS
                         return
                     }
                 }
 
                 else -> {
-                    mTokenRange.match()
+                    characters.advance()
                 }
             }
         }
