@@ -25,7 +25,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     // region States
 
     private fun matchEntityReference() {
-        mType = when (mTokenRange.matchEntityReference()) {
+        mType = when (characters.matchEntityReference()) {
             EntityReferenceType.EmptyEntityReference -> XQDocTokenType.EMPTY_ENTITY_REFERENCE
             EntityReferenceType.PartialEntityReference -> XQDocTokenType.PARTIAL_ENTITY_REFERENCE
             EntityReferenceType.CharacterReference -> XQDocTokenType.CHARACTER_REFERENCE

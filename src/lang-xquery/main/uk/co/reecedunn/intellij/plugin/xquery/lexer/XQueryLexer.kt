@@ -1189,14 +1189,14 @@ class XQueryLexer : XPathLexer() {
 
     private fun matchEntityReference(state: Int) {
         mType = if (state == STATE_DIR_ATTRIBUTE_VALUE_QUOTE || state == STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE) {
-            when (mTokenRange.matchEntityReference()) {
+            when (characters.matchEntityReference()) {
                 EntityReferenceType.CharacterReference -> XQueryTokenType.XML_CHARACTER_REFERENCE
                 EntityReferenceType.EmptyEntityReference -> XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE
                 EntityReferenceType.PartialEntityReference -> XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE
                 else -> XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE
             }
         } else {
-            when (mTokenRange.matchEntityReference()) {
+            when (characters.matchEntityReference()) {
                 EntityReferenceType.CharacterReference -> XQueryTokenType.CHARACTER_REFERENCE
                 EntityReferenceType.EmptyEntityReference -> XQueryTokenType.EMPTY_ENTITY_REFERENCE
                 EntityReferenceType.PartialEntityReference -> XQueryTokenType.PARTIAL_ENTITY_REFERENCE

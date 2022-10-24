@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.core.lexer
 import com.google.gson.JsonParser
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import xqt.platform.xml.lexer.*
+import xqt.platform.xml.model.XmlCharReader
 import java.io.InputStreamReader
 
 enum class EntityReferenceType {
@@ -30,16 +31,16 @@ enum class EntityReferenceType {
     Html5EntityReference
 }
 
-fun CodePointRange.matchEntityReference(): EntityReferenceType {
-    match()
-    return when (codePoint) {
+fun XmlCharReader.matchEntityReference(): EntityReferenceType {
+    advance()
+    return when (currentChar) {
         in NameStartChar -> {
-            match()
-            while (codePoint in NameChar) {
-                match()
+            advance()
+            while (currentChar in NameChar) {
+                advance()
             }
-            if (codePoint == Semicolon) {
-                match()
+            if (currentChar == Semicolon) {
+                advance()
                 EntityReferenceType.PredefinedEntityReference
             } else {
                 EntityReferenceType.PartialEntityReference
@@ -47,17 +48,17 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
         }
 
         NumberSign -> {
-            match()
-            when (codePoint) {
+            advance()
+            when (currentChar) {
                 LatinSmallLetterX -> {
-                    match()
-                    when (codePoint) {
+                    advance()
+                    when (currentChar) {
                         in HexDigit -> {
-                            while (codePoint in HexDigit) {
-                                match()
+                            while (currentChar in HexDigit) {
+                                advance()
                             }
-                            if (codePoint == Semicolon) {
-                                match()
+                            if (currentChar == Semicolon) {
+                                advance()
                                 EntityReferenceType.CharacterReference
                             } else {
                                 EntityReferenceType.PartialEntityReference
@@ -65,7 +66,7 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
                         }
 
                         Semicolon -> {
-                            match()
+                            advance()
                             EntityReferenceType.EmptyEntityReference
                         }
 
@@ -74,11 +75,11 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
                 }
 
                 in Digit -> {
-                    while (codePoint in Digit) {
-                        match()
+                    while (currentChar in Digit) {
+                        advance()
                     }
-                    if (codePoint == Semicolon) {
-                        match()
+                    if (currentChar == Semicolon) {
+                        advance()
                         EntityReferenceType.CharacterReference
                     } else {
                         EntityReferenceType.PartialEntityReference
@@ -86,7 +87,7 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
                 }
 
                 Semicolon -> {
-                    match()
+                    advance()
                     EntityReferenceType.EmptyEntityReference
                 }
 
@@ -95,7 +96,7 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
         }
 
         Semicolon -> {
-            match()
+            advance()
             EntityReferenceType.EmptyEntityReference
         }
 
