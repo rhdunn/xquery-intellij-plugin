@@ -27,15 +27,15 @@ class XsltValueTemplateLexer : XPathLexer() {
     // region States
 
     private fun stateDefault() {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> {
                 mType = null
             }
 
             LeftCurlyBracket -> {
-                mTokenRange.match()
-                if (mTokenRange.codePoint == LeftCurlyBracket) {
-                    mTokenRange.match()
+                characters.advance()
+                if (characters.currentChar == LeftCurlyBracket) {
+                    characters.advance()
                     mType = ValueTemplate.ESCAPED_CHARACTER
                 } else {
                     mType = XPathTokenType.BLOCK_OPEN
@@ -44,9 +44,9 @@ class XsltValueTemplateLexer : XPathLexer() {
             }
 
             RightCurlyBracket -> {
-                mTokenRange.match()
-                mType = if (mTokenRange.codePoint == RightCurlyBracket) {
-                    mTokenRange.match()
+                characters.advance()
+                mType = if (characters.currentChar == RightCurlyBracket) {
+                    characters.advance()
                     ValueTemplate.ESCAPED_CHARACTER
                 } else {
                     XPathTokenType.BLOCK_CLOSE
@@ -54,14 +54,14 @@ class XsltValueTemplateLexer : XPathLexer() {
             }
 
             else -> while (true) {
-                when (mTokenRange.codePoint) {
+                when (characters.currentChar) {
                     XmlCharReader.EndOfBuffer, LeftCurlyBracket, RightCurlyBracket -> {
                         mType = ValueTemplate.VALUE_CONTENTS
                         return
                     }
 
                     else -> {
-                        mTokenRange.match()
+                        characters.advance()
                     }
                 }
             }
