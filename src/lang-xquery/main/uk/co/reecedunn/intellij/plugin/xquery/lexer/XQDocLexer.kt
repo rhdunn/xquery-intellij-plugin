@@ -34,10 +34,10 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     }
 
     private fun stateDefault() {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> mType = null
             Tilde -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XQDocTokenType.XQDOC_COMMENT_MARKER
                 pushState(STATE_CONTENTS)
                 pushState(STATE_TRIM)
@@ -52,10 +52,10 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     }
 
     private fun stateContents() {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> mType = null
             LessThanSign -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XQDocTokenType.OPEN_XML_TAG
                 pushState(STATE_ELEM_CONSTRUCTOR)
             }
@@ -67,7 +67,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
             Ampersand -> matchEntityReference() // XML PredefinedEntityRef and CharRef
             else -> while (true) {
-                when (mTokenRange.codePoint) {
+                when (characters.currentChar) {
                     LineFeed, CarriageReturn -> {
                         pushState(STATE_TRIM)
                         mType = XQDocTokenType.CONTENTS
@@ -80,7 +80,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                     }
 
                     else -> {
-                        mTokenRange.match()
+                        characters.advance()
                     }
                 }
             }
@@ -88,7 +88,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     }
 
     private fun stateXQueryContents() {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> mType = null
             LineFeed, CarriageReturn -> {
                 pushState(STATE_XQUERY_CONTENTS_TRIM)
@@ -96,7 +96,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             }
 
             else -> while (true) {
-                when (mTokenRange.codePoint) {
+                when (characters.currentChar) {
                     LineFeed, CarriageReturn -> {
                         pushState(STATE_XQUERY_CONTENTS_TRIM)
                         mType = XQDocTokenType.CONTENTS
@@ -109,7 +109,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                     }
 
                     else -> {
-                        mTokenRange.match()
+                        characters.advance()
                     }
                 }
             }
@@ -117,10 +117,10 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     }
 
     private fun stateTaggedContents() {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             in AlphaNumeric -> {
-                while (mTokenRange.codePoint in AlphaNumeric) {
-                    mTokenRange.match()
+                while (characters.currentChar in AlphaNumeric) {
+                    characters.advance()
                 }
                 mType = TAG_NAMES[tokenText] ?: XQDocTokenType.TAG
                 if (mType === XQDocTokenType.T_PARAM) {
@@ -130,8 +130,8 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             }
 
             Space, CharacterTabulation -> {
-                while (mTokenRange.codePoint == Space || mTokenRange.codePoint == CharacterTabulation) {
-                    mTokenRange.match()
+                while (characters.currentChar == Space || characters.currentChar == CharacterTabulation) {
+                    characters.advance()
                 }
                 mType = XQDocTokenType.WHITE_SPACE
                 popState()
@@ -145,16 +145,16 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     }
 
     private fun stateParamTagContentsStart() {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             Space, CharacterTabulation -> {
-                while (mTokenRange.codePoint == Space || mTokenRange.codePoint == CharacterTabulation) {
-                    mTokenRange.match()
+                while (characters.currentChar == Space || characters.currentChar == CharacterTabulation) {
+                    characters.advance()
                 }
                 mType = XQDocTokenType.WHITE_SPACE
             }
 
             DollarSign -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XQDocTokenType.VARIABLE_INDICATOR
                 popState()
                 pushState(STATE_PARAM_TAG_VARNAME)
@@ -168,20 +168,20 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     }
 
     private fun stateParamTagVarName() {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             in S -> {
-                mTokenRange.match()
-                while (mTokenRange.codePoint in S)
-                    mTokenRange.match()
+                characters.advance()
+                while (characters.currentChar in S)
+                    characters.advance()
                 mType = XQDocTokenType.WHITE_SPACE
                 popState()
             }
 
             // XQuery/XML NCName token rules.
             in NameStartChar -> {
-                mTokenRange.match()
-                while (mTokenRange.codePoint in NameChar) {
-                    mTokenRange.match()
+                characters.advance()
+                while (characters.currentChar in NameChar) {
+                    characters.advance()
                 }
                 mType = XQDocTokenType.NCNAME
             }
@@ -194,43 +194,43 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     }
 
     private fun stateElemConstructor(state: Int) {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> mType = null
             in AlphaNumeric -> {
-                while (mTokenRange.codePoint in AlphaNumeric) {
-                    mTokenRange.match()
+                while (characters.currentChar in AlphaNumeric) {
+                    characters.advance()
                 }
                 mType = XQDocTokenType.XML_TAG
             }
 
             in S -> {
-                while (mTokenRange.codePoint in S) {
-                    mTokenRange.match()
+                while (characters.currentChar in S) {
+                    characters.advance()
                 }
                 mType = XQDocTokenType.WHITE_SPACE
             }
 
             EqualsSign -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XQDocTokenType.XML_EQUAL
             }
 
             QuotationMark -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_START
                 pushState(STATE_ATTRIBUTE_VALUE_QUOTE)
             }
 
             Apostrophe -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_START
                 pushState(STATE_ATTRIBUTE_VALUE_APOS)
             }
 
             Solidus -> {
-                mTokenRange.match()
-                if (mTokenRange.codePoint == GreaterThanSign) {
-                    mTokenRange.match()
+                characters.advance()
+                if (characters.currentChar == GreaterThanSign) {
+                    characters.advance()
                     mType = XQDocTokenType.SELF_CLOSING_XML_TAG
                     popState()
                 } else {
@@ -239,7 +239,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             }
 
             GreaterThanSign -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XQDocTokenType.END_XML_TAG
                 popState()
                 if (state == STATE_ELEM_CONSTRUCTOR) {
@@ -248,19 +248,19 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             }
 
             else -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XQDocTokenType.INVALID
             }
         }
     }
 
     private fun stateElemContents() {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> mType = null
             LessThanSign -> {
-                mTokenRange.match()
-                if (mTokenRange.codePoint == Solidus) {
-                    mTokenRange.match()
+                characters.advance()
+                if (characters.currentChar == Solidus) {
+                    characters.advance()
                     mType = XQDocTokenType.CLOSE_XML_TAG
                     popState()
                     pushState(STATE_ELEM_CONSTRUCTOR_CLOSING)
@@ -272,16 +272,16 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
             Ampersand -> matchEntityReference() // XML PredefinedEntityRef and CharRef
             else -> {
-                mTokenRange.match()
+                characters.advance()
                 while (true) {
-                    when (mTokenRange.codePoint) {
+                    when (characters.currentChar) {
                         XmlCharReader.EndOfBuffer, LessThanSign, Ampersand -> {
                             mType = XQDocTokenType.XML_ELEMENT_CONTENTS
                             return
                         }
 
                         else -> {
-                            mTokenRange.match()
+                            characters.advance()
                         }
                     }
                 }
@@ -290,17 +290,17 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     }
 
     private fun stateAttributeValue(endChar: XmlChar) {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> mType = null
             endChar -> {
-                mTokenRange.match()
+                characters.advance()
                 mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_END
                 popState()
             }
 
             else -> {
-                while (mTokenRange.codePoint != XmlCharReader.EndOfBuffer && mTokenRange.codePoint != endChar) {
-                    mTokenRange.match()
+                while (characters.currentChar != XmlCharReader.EndOfBuffer && characters.currentChar != endChar) {
+                    characters.advance()
                 }
                 mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
             }
@@ -308,28 +308,28 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     }
 
     private fun stateTrim(state: Int) {
-        when (mTokenRange.codePoint) {
+        when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> mType = null
             Space, CharacterTabulation -> {
-                while (mTokenRange.codePoint == Space || mTokenRange.codePoint == CharacterTabulation) {
-                    mTokenRange.match()
+                while (characters.currentChar == Space || characters.currentChar == CharacterTabulation) {
+                    characters.advance()
                 }
                 mType = XQDocTokenType.WHITE_SPACE
             }
 
             LineFeed, CarriageReturn -> {
-                val pc = mTokenRange.codePoint
-                mTokenRange.match()
-                if (pc == CarriageReturn && mTokenRange.codePoint == LineFeed) {
-                    mTokenRange.match()
+                val pc = characters.currentChar
+                characters.advance()
+                if (pc == CarriageReturn && characters.currentChar == LineFeed) {
+                    characters.advance()
                 }
 
-                while (mTokenRange.codePoint == Space || mTokenRange.codePoint == CharacterTabulation) {
-                    mTokenRange.match()
+                while (characters.currentChar == Space || characters.currentChar == CharacterTabulation) {
+                    characters.advance()
                 }
 
-                if (mTokenRange.codePoint == Colon) {
-                    mTokenRange.match()
+                if (characters.currentChar == Colon) {
+                    characters.advance()
                 }
 
                 mType = XQDocTokenType.TRIM
@@ -337,7 +337,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
             CommercialAt -> {
                 if (state == STATE_TRIM) {
-                    mTokenRange.match()
+                    characters.advance()
                     mType = XQDocTokenType.TAG_MARKER
                     popState()
                     pushState(STATE_TAGGED_CONTENTS)
