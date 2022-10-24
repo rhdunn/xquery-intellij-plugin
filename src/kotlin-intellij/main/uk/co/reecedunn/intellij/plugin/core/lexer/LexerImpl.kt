@@ -23,9 +23,9 @@ import java.util.*
 const val STATE_DEFAULT: Int = 0
 
 abstract class LexerImpl(private val baseState: Int) : LexerBase() {
-    protected val characters = XmlCharReader()
-    protected val mTokenRange: CodePointRange = CodePointRange(characters)
+    protected val characters: XmlCharReader = XmlCharReader()
     protected var mType: IElementType? = null
+    private var tokenStartOffset: Int = 0
 
     // region States
 
@@ -46,7 +46,7 @@ abstract class LexerImpl(private val baseState: Int) : LexerBase() {
     }
 
     private fun nextState(): Int {
-        mTokenRange.flush()
+        tokenStartOffset = characters.currentOffset
         mState = try {
             mStates.peek()
         } catch (e: EmptyStackException) {
@@ -59,7 +59,7 @@ abstract class LexerImpl(private val baseState: Int) : LexerBase() {
     // region Lexer
 
     override fun start(buffer: CharSequence, startOffset: Int, endOffset: Int, initialState: Int) {
-        mTokenRange.start(buffer, startOffset, endOffset)
+        characters.reset(buffer, startOffset, endOffset)
         mStates.clear()
         if (initialState != STATE_DEFAULT) {
             pushState(baseState)
@@ -72,13 +72,13 @@ abstract class LexerImpl(private val baseState: Int) : LexerBase() {
 
     override fun getTokenType(): IElementType? = mType
 
-    override fun getTokenStart(): Int = mTokenRange.start
+    override fun getTokenStart(): Int = tokenStartOffset
 
-    override fun getTokenEnd(): Int = mTokenRange.end
+    override fun getTokenEnd(): Int = characters.currentOffset
 
-    override fun getBufferSequence(): CharSequence = mTokenRange.bufferSequence
+    override fun getBufferSequence(): CharSequence = characters.buffer
 
-    override fun getBufferEnd(): Int = mTokenRange.bufferEnd
+    override fun getBufferEnd(): Int = characters.bufferEndOffset
 
     override fun advance() = advance(nextState())
 
