@@ -15,20 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.lexer
 
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.ValueTemplate
 import xqt.platform.xml.lexer.LeftCurlyBracket
 import xqt.platform.xml.lexer.RightCurlyBracket
+import xqt.platform.xml.model.XmlCharReader
 
 class XsltValueTemplateLexer : XPathLexer() {
     // region States
 
     private fun stateDefault() {
         when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> {
+            XmlCharReader.EndOfBuffer -> {
                 mType = null
             }
 
@@ -55,7 +55,7 @@ class XsltValueTemplateLexer : XPathLexer() {
 
             else -> while (true) {
                 when (mTokenRange.codePoint) {
-                    CodePointRange.END_OF_BUFFER, LeftCurlyBracket, RightCurlyBracket -> {
+                    XmlCharReader.EndOfBuffer, LeftCurlyBracket, RightCurlyBracket -> {
                         mType = ValueTemplate.VALUE_CONTENTS
                         return
                     }

@@ -20,6 +20,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import xqt.platform.xml.model.XmlCharReader
 
 @DisplayName("IntelliJ - Custom Language Support - Implementing Lexer - CodePointRange")
 class CodePointRangeTest {
@@ -61,12 +62,12 @@ class CodePointRangeTest {
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(3))
-        assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
+        assertThat(range.codePoint, `is`(XmlCharReader.EndOfBuffer))
 
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(3))
-        assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
+        assertThat(range.codePoint, `is`(XmlCharReader.EndOfBuffer))
     }
 
     @Test
@@ -89,7 +90,7 @@ class CodePointRangeTest {
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(2))
-        assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
+        assertThat(range.codePoint, `is`(XmlCharReader.EndOfBuffer))
     }
 
     @Test
@@ -112,17 +113,17 @@ class CodePointRangeTest {
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(4))
-        assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
+        assertThat(range.codePoint, `is`(XmlCharReader.EndOfBuffer))
 
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(4))
-        assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
+        assertThat(range.codePoint, `is`(XmlCharReader.EndOfBuffer))
 
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(4))
-        assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
+        assertThat(range.codePoint, `is`(XmlCharReader.EndOfBuffer))
     }
 
     @Test

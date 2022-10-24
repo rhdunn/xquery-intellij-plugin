@@ -60,8 +60,4 @@ class CodePointRange(private val characters: XmlCharReader = XmlCharReader()) {
     fun restore() {
         characters.currentOffset = mSaved
     }
-
-    companion object {
-        val END_OF_BUFFER: XmlChar = XmlChar(-1)
-    }
 }

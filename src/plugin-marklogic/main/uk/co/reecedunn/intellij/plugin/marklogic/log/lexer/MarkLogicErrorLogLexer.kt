@@ -16,11 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.log.lexer
 
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLogFormat
 import xqt.platform.xml.lexer.*
+import xqt.platform.xml.model.XmlCharReader
 
 class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(STATE_DEFAULT) {
     // region States
@@ -36,7 +36,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
 
     private fun stateDefault(): IElementType? {
         return when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> null
+            XmlCharReader.EndOfBuffer -> null
             LineFeed, CarriageReturn -> {
                 while (mTokenRange.codePoint == LineFeed || mTokenRange.codePoint == CarriageReturn) {
                     mTokenRange.match()
@@ -66,7 +66,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
 
     private fun stateTime(): IElementType? {
         return when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> null
+            XmlCharReader.EndOfBuffer -> null
             LineFeed, CarriageReturn -> {
                 popState()
                 stateDefault()
@@ -100,7 +100,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
     private fun stateLogLevelOrServer(state: Int): IElementType? {
         var c = mTokenRange.codePoint
         return when {
-            c == CodePointRange.END_OF_BUFFER -> null
+            c == XmlCharReader.EndOfBuffer -> null
             c == LineFeed || c == CarriageReturn -> {
                 popState()
                 stateDefault()
@@ -126,7 +126,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
 
             else -> {
                 var seenWhitespace = false
-                while (c != LineFeed && c != CarriageReturn && c != CodePointRange.END_OF_BUFFER) {
+                while (c != LineFeed && c != CarriageReturn && c != XmlCharReader.EndOfBuffer) {
                     when (c) {
                         Colon -> if (!seenWhitespace) {
                             mTokenRange.save()

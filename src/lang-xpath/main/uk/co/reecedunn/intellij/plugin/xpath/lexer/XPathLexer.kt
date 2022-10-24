@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.lexer
 
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 import xqt.platform.xml.lexer.*
 import xqt.platform.xml.model.XmlChar
+import xqt.platform.xml.model.XmlCharReader
 
 @Suppress("DuplicatedCode")
 open class XPathLexer : LexerImpl(STATE_DEFAULT) {
@@ -366,7 +366,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 mType = XPathTokenType.WHITE_SPACE
             }
 
-            CodePointRange.END_OF_BUFFER -> mType = null
+            XmlCharReader.EndOfBuffer -> mType = null
             else -> {
                 mTokenRange.match()
                 mType = XPathTokenType.BAD_CHARACTER
@@ -396,14 +396,14 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 mType = XPathTokenType.BAD_CHARACTER
             }
 
-            c == CodePointRange.END_OF_BUFFER -> {
+            c == XmlCharReader.EndOfBuffer -> {
                 mType = null
             }
 
             else -> {
                 while (
                     mTokenRange.codePoint != type &&
-                    mTokenRange.codePoint != CodePointRange.END_OF_BUFFER &&
+                    mTokenRange.codePoint != XmlCharReader.EndOfBuffer &&
                     !(type == RightCurlyBracket && mTokenRange.codePoint == LeftCurlyBracket)
                 ) {
                     mTokenRange.match()
@@ -424,7 +424,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
     private fun stateXQueryComment() {
         when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> {
+            XmlCharReader.EndOfBuffer -> {
                 mType = null
                 return
             }
@@ -446,7 +446,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         var depth = 1
         while (true) {
             when (mTokenRange.codePoint) {
-                CodePointRange.END_OF_BUFFER -> {
+                XmlCharReader.EndOfBuffer -> {
                     mTokenRange.match()
                     mType = XPathTokenType.COMMENT
                     popState()
@@ -559,7 +559,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
     private fun statePragmaContents() {
         when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> {
+            XmlCharReader.EndOfBuffer -> {
                 mType = null
                 return
             }
@@ -580,7 +580,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
         while (true) {
             when (mTokenRange.codePoint) {
-                CodePointRange.END_OF_BUFFER -> {
+                XmlCharReader.EndOfBuffer -> {
                     mTokenRange.match()
                     mType = XPathTokenType.PRAGMA_CONTENTS
                     popState()

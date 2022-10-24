@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
 import xqt.platform.xml.lexer.*
 import xqt.platform.xml.model.XmlChar
+import xqt.platform.xml.model.XmlCharReader
 
 @Suppress("DuplicatedCode")
 class XQDocLexer : LexerImpl(STATE_CONTENTS) {
@@ -34,7 +35,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
     private fun stateDefault() {
         when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            XmlCharReader.EndOfBuffer -> mType = null
             Tilde -> {
                 mTokenRange.match()
                 mType = XQDocTokenType.XQDOC_COMMENT_MARKER
@@ -52,7 +53,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
     private fun stateContents() {
         when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            XmlCharReader.EndOfBuffer -> mType = null
             LessThanSign -> {
                 mTokenRange.match()
                 mType = XQDocTokenType.OPEN_XML_TAG
@@ -73,7 +74,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                         return
                     }
 
-                    CodePointRange.END_OF_BUFFER, LessThanSign, Ampersand -> {
+                    XmlCharReader.EndOfBuffer, LessThanSign, Ampersand -> {
                         mType = XQDocTokenType.CONTENTS
                         return
                     }
@@ -88,7 +89,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
     private fun stateXQueryContents() {
         when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            XmlCharReader.EndOfBuffer -> mType = null
             LineFeed, CarriageReturn -> {
                 pushState(STATE_XQUERY_CONTENTS_TRIM)
                 stateTrim(STATE_XQUERY_CONTENTS_TRIM)
@@ -102,7 +103,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                         return
                     }
 
-                    CodePointRange.END_OF_BUFFER -> {
+                    XmlCharReader.EndOfBuffer -> {
                         mType = XQDocTokenType.CONTENTS
                         return
                     }
@@ -194,7 +195,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
     private fun stateElemConstructor(state: Int) {
         when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            XmlCharReader.EndOfBuffer -> mType = null
             in AlphaNumeric -> {
                 while (mTokenRange.codePoint in AlphaNumeric) {
                     mTokenRange.match()
@@ -255,7 +256,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
     private fun stateElemContents() {
         when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            XmlCharReader.EndOfBuffer -> mType = null
             LessThanSign -> {
                 mTokenRange.match()
                 if (mTokenRange.codePoint == Solidus) {
@@ -274,7 +275,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                 mTokenRange.match()
                 while (true) {
                     when (mTokenRange.codePoint) {
-                        CodePointRange.END_OF_BUFFER, LessThanSign, Ampersand -> {
+                        XmlCharReader.EndOfBuffer, LessThanSign, Ampersand -> {
                             mType = XQDocTokenType.XML_ELEMENT_CONTENTS
                             return
                         }
@@ -290,7 +291,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
     private fun stateAttributeValue(endChar: XmlChar) {
         when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            XmlCharReader.EndOfBuffer -> mType = null
             endChar -> {
                 mTokenRange.match()
                 mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_END
@@ -298,7 +299,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             }
 
             else -> {
-                while (mTokenRange.codePoint != CodePointRange.END_OF_BUFFER && mTokenRange.codePoint != endChar) {
+                while (mTokenRange.codePoint != XmlCharReader.EndOfBuffer && mTokenRange.codePoint != endChar) {
                     mTokenRange.match()
                 }
                 mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
@@ -308,7 +309,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
     private fun stateTrim(state: Int) {
         when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> mType = null
+            XmlCharReader.EndOfBuffer -> mType = null
             Space, CharacterTabulation -> {
                 while (mTokenRange.codePoint == Space || mTokenRange.codePoint == CharacterTabulation) {
                     mTokenRange.match()

@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import xqt.platform.xml.lexer.*
 import xqt.platform.xml.model.XmlChar
+import xqt.platform.xml.model.XmlCharReader
 
 @Suppress("DuplicatedCode")
 class XQueryLexer : XPathLexer() {
@@ -530,7 +531,7 @@ class XQueryLexer : XPathLexer() {
                 mType = XPathTokenType.TYPE_ALIAS
             }
 
-            CodePointRange.END_OF_BUFFER -> mType = null
+            XmlCharReader.EndOfBuffer -> mType = null
             else -> {
                 mTokenRange.match()
                 mType = XPathTokenType.BAD_CHARACTER
@@ -565,14 +566,14 @@ class XQueryLexer : XPathLexer() {
                 mType = XPathTokenType.BAD_CHARACTER
             }
 
-            c == CodePointRange.END_OF_BUFFER -> {
+            c == XmlCharReader.EndOfBuffer -> {
                 mType = null
             }
 
             else -> {
                 while (
                     c != type &&
-                    c != CodePointRange.END_OF_BUFFER &&
+                    c != XmlCharReader.EndOfBuffer &&
                     c != Ampersand &&
                     !(type == RightCurlyBracket && c == LeftCurlyBracket)
                 ) {
@@ -586,7 +587,7 @@ class XQueryLexer : XPathLexer() {
 
     private fun stateXmlComment() {
         when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> {
+            XmlCharReader.EndOfBuffer -> {
                 mType = null
                 return
             }
@@ -612,7 +613,7 @@ class XQueryLexer : XPathLexer() {
 
         while (true) {
             when (mTokenRange.codePoint) {
-                CodePointRange.END_OF_BUFFER -> {
+                XmlCharReader.EndOfBuffer -> {
                     mTokenRange.match()
                     mType = XQueryTokenType.XML_COMMENT
                     popState()
@@ -640,7 +641,7 @@ class XQueryLexer : XPathLexer() {
 
     private fun stateCDataSection() {
         when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> {
+            XmlCharReader.EndOfBuffer -> {
                 mType = null
                 return
             }
@@ -666,7 +667,7 @@ class XQueryLexer : XPathLexer() {
 
         while (true) {
             when (mTokenRange.codePoint) {
-                CodePointRange.END_OF_BUFFER -> {
+                XmlCharReader.EndOfBuffer -> {
                     mTokenRange.match()
                     mType = XQueryTokenType.CDATA_SECTION
                     popState()
@@ -764,7 +765,7 @@ class XQueryLexer : XPathLexer() {
                 pushState(STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE)
             }
 
-            CodePointRange.END_OF_BUFFER -> mType = null
+            XmlCharReader.EndOfBuffer -> mType = null
             else -> {
                 mTokenRange.match()
                 mType = XPathTokenType.BAD_CHARACTER
@@ -819,11 +820,11 @@ class XQueryLexer : XPathLexer() {
                 else -> matchEntityReference(STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE)
             }
 
-            CodePointRange.END_OF_BUFFER -> mType = null
+            XmlCharReader.EndOfBuffer -> mType = null
             else -> {
                 while (true) {
                     when (mTokenRange.codePoint) {
-                        CodePointRange.END_OF_BUFFER, LeftCurlyBracket, RightCurlyBracket, LessThanSign, Ampersand -> {
+                        XmlCharReader.EndOfBuffer, LeftCurlyBracket, RightCurlyBracket, LessThanSign, Ampersand -> {
                             mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
                             return
                         }
@@ -941,11 +942,11 @@ class XQueryLexer : XPathLexer() {
             }
 
             Ampersand -> matchEntityReference(STATE_DIR_ELEM_CONTENT)
-            CodePointRange.END_OF_BUFFER -> mType = null
+            XmlCharReader.EndOfBuffer -> mType = null
             else -> {
                 while (true) {
                     when (mTokenRange.codePoint) {
-                        CodePointRange.END_OF_BUFFER, LeftCurlyBracket, RightCurlyBracket, LessThanSign, Ampersand -> {
+                        XmlCharReader.EndOfBuffer, LeftCurlyBracket, RightCurlyBracket, LessThanSign, Ampersand -> {
                             mType = XQueryTokenType.XML_ELEMENT_CONTENTS
                             return
                         }
@@ -995,7 +996,7 @@ class XQueryLexer : XPathLexer() {
                 }
             }
 
-            CodePointRange.END_OF_BUFFER -> mType = null
+            XmlCharReader.EndOfBuffer -> mType = null
             else -> {
                 mTokenRange.match()
                 mType = XPathTokenType.BAD_CHARACTER
@@ -1005,7 +1006,7 @@ class XQueryLexer : XPathLexer() {
 
     private fun stateProcessingInstructionContents() {
         when (mTokenRange.codePoint) {
-            CodePointRange.END_OF_BUFFER -> {
+            XmlCharReader.EndOfBuffer -> {
                 mType = null
                 return
             }
@@ -1026,7 +1027,7 @@ class XQueryLexer : XPathLexer() {
 
         while (true) {
             when (mTokenRange.codePoint) {
-                CodePointRange.END_OF_BUFFER -> {
+                XmlCharReader.EndOfBuffer -> {
                     mTokenRange.match()
                     mType = XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS
                     popState()
@@ -1064,7 +1065,7 @@ class XQueryLexer : XPathLexer() {
                 }
             }
         }
-        while (mTokenRange.codePoint != CodePointRange.END_OF_BUFFER) {
+        while (mTokenRange.codePoint != XmlCharReader.EndOfBuffer) {
             when (mTokenRange.codePoint) {
                 RightSquareBracket -> {
                     mTokenRange.save()
