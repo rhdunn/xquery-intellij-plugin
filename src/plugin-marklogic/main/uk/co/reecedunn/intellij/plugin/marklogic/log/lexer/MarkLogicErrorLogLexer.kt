@@ -23,13 +23,12 @@ import xqt.platform.xml.lexer.*
 import xqt.platform.xml.model.XmlCharReader
 
 class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(STATE_DEFAULT) {
-    private object State {
-        const val Default = 0
-        const val Time = 1
-        const val LogLevel = 2
-        const val Server = 3
-        const val Message = 4
-        const val SimpleMessage = 5
+    companion object {
+        private const val STATE_TIME = 1
+        private const val STATE_LOG_LEVEL = 2
+        private const val STATE_SERVER = 3
+        private const val STATE_MESSAGE = 4
+        private const val STATE_SIMPLE_MESSAGE = 5
     }
 
     private fun stateDefault(): IElementType? = when (characters.currentChar) {
@@ -41,18 +40,18 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
 
         in Digit -> {
             characters.advanceWhile { it in Digit || it == HyphenMinus }
-            pushState(State.Time)
+            pushState(STATE_TIME)
             MarkLogicErrorLogTokenType.DATE
         }
 
         Space, CharacterTabulation -> {
-            pushState(State.SimpleMessage)
-            stateLogLevelOrServer(State.SimpleMessage)
+            pushState(STATE_SIMPLE_MESSAGE)
+            stateLogLevelOrServer(STATE_SIMPLE_MESSAGE)
         }
 
         else -> {
-            pushState(State.Message)
-            stateLogLevelOrServer(State.Default)
+            pushState(STATE_MESSAGE)
+            stateLogLevelOrServer(STATE_DEFAULT)
         }
     }
 
@@ -71,7 +70,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
         in Digit -> {
             characters.advanceWhile { it in Digit || it == Colon || it == FullStop }
             popState()
-            pushState(State.LogLevel)
+            pushState(STATE_LOG_LEVEL)
             MarkLogicErrorLogTokenType.TIME
         }
 
@@ -90,7 +89,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
                 stateDefault()
             }
 
-            (c == Space || c == CharacterTabulation) && state != State.SimpleMessage -> {
+            (c == Space || c == CharacterTabulation) && state != STATE_SIMPLE_MESSAGE -> {
                 characters.advanceWhile { it == Space || it == CharacterTabulation }
                 MarkLogicErrorLogTokenType.WHITE_SPACE
             }
@@ -113,21 +112,21 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
                             c = characters.nextChar
                             when {
                                 c != Space && c != CharacterTabulation && c != PlusSign -> seenWhitespace = true
-                                state == State.Default -> {
+                                state == STATE_DEFAULT -> {
                                     if (tokenSequence == "WARNING") {
                                         return MarkLogicErrorLogTokenType.LogLevel.WARNING
                                     }
                                 }
 
-                                state == State.LogLevel -> {
+                                state == STATE_LOG_LEVEL -> {
                                     popState()
-                                    pushState(if (format.haveServer) State.Server else State.Message)
+                                    pushState(if (format.haveServer) STATE_SERVER else STATE_MESSAGE)
                                     return MarkLogicErrorLogTokenType.LogLevel.token(tokenSequence)
                                 }
 
-                                state == State.Server -> {
+                                state == STATE_SERVER -> {
                                     popState()
-                                    pushState(State.Message)
+                                    pushState(STATE_MESSAGE)
                                     return MarkLogicErrorLogTokenType.SERVER
                                 }
 
@@ -150,12 +149,12 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
 
     override fun advance(state: Int) {
         mType = when (state) {
-            State.Default -> stateDefault()
-            State.Time -> stateTime()
-            State.LogLevel -> stateLogLevelOrServer(state)
-            State.Server -> stateLogLevelOrServer(state)
-            State.Message -> stateLogLevelOrServer(state)
-            State.SimpleMessage -> stateLogLevelOrServer(state)
+            STATE_DEFAULT -> stateDefault()
+            STATE_TIME -> stateTime()
+            STATE_LOG_LEVEL -> stateLogLevelOrServer(state)
+            STATE_SERVER -> stateLogLevelOrServer(state)
+            STATE_MESSAGE -> stateLogLevelOrServer(state)
+            STATE_SIMPLE_MESSAGE -> stateLogLevelOrServer(state)
             else -> throw AssertionError("Invalid state: $state")
         }
     }
