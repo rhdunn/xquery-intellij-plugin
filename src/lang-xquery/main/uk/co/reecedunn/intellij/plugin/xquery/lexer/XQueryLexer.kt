@@ -621,11 +621,10 @@ class XQueryLexer : XPathLexer() {
         }
     }
 
-    private fun stateCDataSection() {
+    private fun stateCDataSection(): IElementType? {
         when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> {
-                mType = null
-                return
+                return null
             }
 
             RightSquareBracket -> {
@@ -635,9 +634,8 @@ class XQueryLexer : XPathLexer() {
                     characters.advance()
                     if (characters.currentChar == GreaterThanSign) {
                         characters.advance()
-                        mType = XQueryTokenType.CDATA_SECTION_END_TAG
                         popState()
-                        return
+                        return XQueryTokenType.CDATA_SECTION_END_TAG
                     } else {
                         characters.currentOffset = savedOffset
                     }
@@ -651,10 +649,9 @@ class XQueryLexer : XPathLexer() {
             when (characters.currentChar) {
                 XmlCharReader.EndOfBuffer -> {
                     characters.advance()
-                    mType = XQueryTokenType.CDATA_SECTION
                     popState()
                     pushState(STATE_UNEXPECTED_END_OF_BLOCK)
-                    return
+                    return XQueryTokenType.CDATA_SECTION
                 }
 
                 RightSquareBracket -> {
@@ -664,8 +661,7 @@ class XQueryLexer : XPathLexer() {
                         characters.advance()
                         if (characters.currentChar == GreaterThanSign) {
                             characters.currentOffset = savedOffset
-                            mType = XQueryTokenType.CDATA_SECTION
-                            return
+                            return XQueryTokenType.CDATA_SECTION
                         }
                     }
                 }
@@ -1178,9 +1174,8 @@ class XQueryLexer : XPathLexer() {
             mType = stateDefault(state)
         STATE_XML_COMMENT -> mType = stateXmlComment()
         STATE_XML_COMMENT_ELEM_CONTENT -> mType = stateXmlComment()
-        STATE_CDATA_SECTION,
-        STATE_CDATA_SECTION_ELEM_CONTENT ->
-            stateCDataSection()
+        STATE_CDATA_SECTION -> mType = stateCDataSection()
+        STATE_CDATA_SECTION_ELEM_CONTENT -> mType = stateCDataSection()
         STATE_DIR_ELEM_CONSTRUCTOR,
         STATE_DIR_ELEM_CONSTRUCTOR_CLOSING,
         STATE_DIR_ATTRIBUTE_LIST ->
