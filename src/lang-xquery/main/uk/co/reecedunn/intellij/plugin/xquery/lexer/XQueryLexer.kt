@@ -746,16 +746,16 @@ class XQueryLexer : XPathLexer() {
         }
     }
 
-    private fun stateDirAttributeValue(type: XmlChar) {
-        when (characters.currentChar) {
+    private fun stateDirAttributeValue(type: XmlChar): IElementType? {
+        return when (characters.currentChar) {
             type -> {
                 characters.advance()
                 if (characters.currentChar == type) {
                     characters.advance()
-                    mType = XQueryTokenType.XML_ESCAPED_CHARACTER
+                    XQueryTokenType.XML_ESCAPED_CHARACTER
                 } else {
-                    mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_END
                     popState()
+                    XQueryTokenType.XML_ATTRIBUTE_VALUE_END
                 }
             }
 
@@ -763,19 +763,19 @@ class XQueryLexer : XPathLexer() {
                 characters.advance()
                 if (characters.currentChar == LeftCurlyBracket) {
                     characters.advance()
-                    mType = XQueryTokenType.XML_ESCAPED_CHARACTER
+                    XQueryTokenType.XML_ESCAPED_CHARACTER
                 } else {
-                    mType = XPathTokenType.BLOCK_OPEN
                     when (type) {
                         QuotationMark -> pushState(STATE_DEFAULT_ATTRIBUTE_QUOT)
                         else -> pushState(STATE_DEFAULT_ATTRIBUTE_APOSTROPHE)
                     }
+                    XPathTokenType.BLOCK_OPEN
                 }
             }
 
             RightCurlyBracket -> {
                 characters.advance()
-                mType = if (characters.currentChar == RightCurlyBracket) {
+                if (characters.currentChar == RightCurlyBracket) {
                     characters.advance()
                     XQueryTokenType.XML_ESCAPED_CHARACTER
                 } else {
@@ -785,31 +785,30 @@ class XQueryLexer : XPathLexer() {
 
             LessThanSign -> {
                 characters.advance()
-                mType = XPathTokenType.BAD_CHARACTER
+                XPathTokenType.BAD_CHARACTER
             }
 
-            Ampersand -> mType = when (type) {
+            Ampersand -> when (type) {
                 QuotationMark -> matchEntityReference(STATE_DIR_ATTRIBUTE_VALUE_QUOTE)
                 else -> matchEntityReference(STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE)
             }
 
-            XmlCharReader.EndOfBuffer -> mType = null
+            XmlCharReader.EndOfBuffer -> null
             else -> {
                 while (true) {
                     when (characters.currentChar) {
                         XmlCharReader.EndOfBuffer, LeftCurlyBracket, RightCurlyBracket, LessThanSign, Ampersand -> {
-                            mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
-                            return
+                            return XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
                         }
 
                         type -> {
-                            mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
-                            return
+                            return XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
                         }
 
                         else -> characters.advance()
                     }
                 }
+                @Suppress("UNREACHABLE_CODE") null
             }
         }
     }
@@ -1179,10 +1178,8 @@ class XQueryLexer : XPathLexer() {
         STATE_DIR_ELEM_CONSTRUCTOR -> mType = stateDirElemConstructor(state)
         STATE_DIR_ELEM_CONSTRUCTOR_CLOSING -> mType = stateDirElemConstructor(state)
         STATE_DIR_ATTRIBUTE_LIST -> mType = stateDirElemConstructor(state)
-        STATE_DIR_ATTRIBUTE_VALUE_QUOTE ->
-            stateDirAttributeValue(QuotationMark)
-        STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE ->
-            stateDirAttributeValue(Apostrophe)
+        STATE_DIR_ATTRIBUTE_VALUE_QUOTE -> mType = stateDirAttributeValue(QuotationMark)
+        STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE -> mType = stateDirAttributeValue(Apostrophe)
         STATE_DIR_ELEM_CONTENT ->
             stateDirElemContent()
         STATE_PROCESSING_INSTRUCTION,
