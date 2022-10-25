@@ -116,10 +116,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
                 while (c != LineFeed && c != CarriageReturn && c != XmlCharReader.EndOfBuffer) {
                     when (c) {
                         Colon -> if (!seenWhitespace) {
-                            val savedOffset = characters.currentOffset
-                            characters.advance()
-                            c = characters.currentChar
-                            characters.currentOffset = savedOffset
+                            c = characters.nextChar
                             when {
                                 c != Space && c != CharacterTabulation && c != PlusSign -> seenWhitespace = true
                                 state == State.Default -> {
