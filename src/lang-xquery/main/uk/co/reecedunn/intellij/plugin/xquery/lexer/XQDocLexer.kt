@@ -143,18 +143,18 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         }
     }
 
-    private fun stateParamTagContentsStart() {
-        when (characters.currentChar) {
+    private fun stateParamTagContentsStart(): IElementType? {
+        return when (characters.currentChar) {
             Space, CharacterTabulation -> {
                 characters.advanceWhile { it == Space || it == CharacterTabulation }
-                mType = XQDocTokenType.WHITE_SPACE
+                XQDocTokenType.WHITE_SPACE
             }
 
             DollarSign -> {
                 characters.advance()
-                mType = XQDocTokenType.VARIABLE_INDICATOR
                 popState()
                 pushState(STATE_PARAM_TAG_VARNAME)
+                XQDocTokenType.VARIABLE_INDICATOR
             }
 
             else -> {
@@ -348,7 +348,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         STATE_ATTRIBUTE_VALUE_QUOTE -> stateAttributeValue(QuotationMark)
         STATE_ATTRIBUTE_VALUE_APOS -> stateAttributeValue(Apostrophe)
         STATE_TRIM, STATE_XQUERY_CONTENTS_TRIM -> stateTrim(state)
-        STATE_PARAM_TAG_CONTENTS_START -> stateParamTagContentsStart()
+        STATE_PARAM_TAG_CONTENTS_START -> mType = stateParamTagContentsStart()
         STATE_PARAM_TAG_VARNAME -> stateParamTagVarName()
         STATE_XQUERY_CONTENTS -> mType = stateXQueryContents()
         else -> throw AssertionError("Invalid state: $state")
