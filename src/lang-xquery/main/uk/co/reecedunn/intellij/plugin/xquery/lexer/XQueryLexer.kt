@@ -571,11 +571,10 @@ class XQueryLexer : XPathLexer() {
         }
     }
 
-    private fun stateXmlComment() {
+    private fun stateXmlComment(): IElementType? {
         when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> {
-                mType = null
-                return
+                return null
             }
 
             HyphenMinus -> {
@@ -585,9 +584,8 @@ class XQueryLexer : XPathLexer() {
                     characters.advance()
                     if (characters.currentChar == GreaterThanSign) {
                         characters.advance()
-                        mType = XQueryTokenType.XML_COMMENT_END_TAG
                         popState()
-                        return
+                        return XQueryTokenType.XML_COMMENT_END_TAG
                     } else {
                         characters.currentOffset = savedOffset
                     }
@@ -601,10 +599,9 @@ class XQueryLexer : XPathLexer() {
             when (characters.currentChar) {
                 XmlCharReader.EndOfBuffer -> {
                     characters.advance()
-                    mType = XQueryTokenType.XML_COMMENT
                     popState()
                     pushState(STATE_UNEXPECTED_END_OF_BLOCK)
-                    return
+                    return XQueryTokenType.XML_COMMENT
                 }
 
                 HyphenMinus -> {
@@ -614,8 +611,7 @@ class XQueryLexer : XPathLexer() {
                         characters.advance()
                         if (characters.currentChar == GreaterThanSign) {
                             characters.currentOffset = savedOffset
-                            mType = XQueryTokenType.XML_COMMENT
-                            return
+                            return XQueryTokenType.XML_COMMENT
                         }
                     }
                 }
@@ -1180,9 +1176,8 @@ class XQueryLexer : XPathLexer() {
         STATE_DEFAULT_STRING_INTERPOLATION,
         STATE_MAYBE_DIR_ELEM_CONSTRUCTOR ->
             mType = stateDefault(state)
-        STATE_XML_COMMENT,
-        STATE_XML_COMMENT_ELEM_CONTENT ->
-            stateXmlComment()
+        STATE_XML_COMMENT -> mType = stateXmlComment()
+        STATE_XML_COMMENT_ELEM_CONTENT -> mType = stateXmlComment()
         STATE_CDATA_SECTION,
         STATE_CDATA_SECTION_ELEM_CONTENT ->
             stateCDataSection()
