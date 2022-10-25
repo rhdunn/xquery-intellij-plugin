@@ -164,18 +164,18 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         }
     }
 
-    private fun stateParamTagVarName() {
-        when (characters.currentChar) {
+    private fun stateParamTagVarName(): IElementType? {
+        return when (characters.currentChar) {
             in S -> {
                 characters.advanceWhile { it in S }
-                mType = XQDocTokenType.WHITE_SPACE
                 popState()
+                XQDocTokenType.WHITE_SPACE
             }
 
             // XQuery/XML NCName token rules.
             in NameStartChar -> {
                 characters.advanceWhile { it in NameChar }
-                mType = XQDocTokenType.NCNAME
+                XQDocTokenType.NCNAME
             }
 
             else -> {
@@ -349,7 +349,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         STATE_ATTRIBUTE_VALUE_APOS -> stateAttributeValue(Apostrophe)
         STATE_TRIM, STATE_XQUERY_CONTENTS_TRIM -> stateTrim(state)
         STATE_PARAM_TAG_CONTENTS_START -> mType = stateParamTagContentsStart()
-        STATE_PARAM_TAG_VARNAME -> stateParamTagVarName()
+        STATE_PARAM_TAG_VARNAME -> mType = stateParamTagVarName()
         STATE_XQUERY_CONTENTS -> mType = stateXQueryContents()
         else -> throw AssertionError("Invalid state: $state")
     }
