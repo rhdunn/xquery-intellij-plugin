@@ -89,31 +89,31 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         }
     }
 
-    private fun stateXQueryContents() {
-        when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> mType = null
+    private fun stateXQueryContents(): IElementType? {
+        return when (characters.currentChar) {
+            XmlCharReader.EndOfBuffer -> null
             LineFeed, CarriageReturn -> {
                 pushState(STATE_XQUERY_CONTENTS_TRIM)
                 stateTrim(STATE_XQUERY_CONTENTS_TRIM)
+                mType
             }
 
-            else -> while (true) {
-                when (characters.currentChar) {
-                    LineFeed, CarriageReturn -> {
-                        pushState(STATE_XQUERY_CONTENTS_TRIM)
-                        mType = XQDocTokenType.CONTENTS
-                        return
-                    }
+            else -> run {
+                while (true) {
+                    when (characters.currentChar) {
+                        LineFeed, CarriageReturn -> {
+                            pushState(STATE_XQUERY_CONTENTS_TRIM)
+                            return XQDocTokenType.CONTENTS
+                        }
 
-                    XmlCharReader.EndOfBuffer -> {
-                        mType = XQDocTokenType.CONTENTS
-                        return
-                    }
+                        XmlCharReader.EndOfBuffer -> {
+                            return XQDocTokenType.CONTENTS
+                        }
 
-                    else -> {
-                        characters.advance()
+                        else -> characters.advance()
                     }
                 }
+                @Suppress("UNREACHABLE_CODE") null
             }
         }
     }
@@ -349,7 +349,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         STATE_TRIM, STATE_XQUERY_CONTENTS_TRIM -> stateTrim(state)
         STATE_PARAM_TAG_CONTENTS_START -> stateParamTagContentsStart()
         STATE_PARAM_TAG_VARNAME -> stateParamTagVarName()
-        STATE_XQUERY_CONTENTS -> stateXQueryContents()
+        STATE_XQUERY_CONTENTS -> mType = stateXQueryContents()
         else -> throw AssertionError("Invalid state: $state")
     }
 
