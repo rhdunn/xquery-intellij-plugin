@@ -362,32 +362,29 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         }
     }
 
-    protected open fun stateStringLiteral(type: XmlChar) {
+    protected open fun stateStringLiteral(type: XmlChar): IElementType? {
         val c = characters.currentChar
-        when {
+        return when {
             c == type -> {
                 characters.advance()
                 if (characters.currentChar == type && type != RightCurlyBracket) {
                     characters.advance()
-                    mType = XPathTokenType.ESCAPED_CHARACTER
+                    XPathTokenType.ESCAPED_CHARACTER
                 } else {
-                    mType = when (type) {
+                    popState()
+                    when (type) {
                         RightCurlyBracket -> XPathTokenType.BRACED_URI_LITERAL_END
                         else -> XPathTokenType.STRING_LITERAL_END
                     }
-                    popState()
                 }
             }
 
             c == LeftCurlyBracket && type == RightCurlyBracket -> {
                 characters.advance()
-                mType = XPathTokenType.BAD_CHARACTER
+                XPathTokenType.BAD_CHARACTER
             }
 
-            c == XmlCharReader.EndOfBuffer -> {
-                mType = null
-            }
-
+            c == XmlCharReader.EndOfBuffer -> null
             else -> {
                 while (
                     characters.currentChar != type &&
@@ -396,7 +393,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 ) {
                     characters.advance()
                 }
-                mType = XPathTokenType.STRING_LITERAL_CONTENTS
+                XPathTokenType.STRING_LITERAL_CONTENTS
             }
         }
     }
@@ -587,16 +584,16 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
     override fun advance(state: Int): Unit = when (state) {
         STATE_DEFAULT -> mType = stateDefault(state)
-        STATE_STRING_LITERAL_QUOTE -> stateStringLiteral(QuotationMark)
-        STATE_STRING_LITERAL_APOSTROPHE -> stateStringLiteral(Apostrophe)
+        STATE_STRING_LITERAL_QUOTE -> mType = stateStringLiteral(QuotationMark)
+        STATE_STRING_LITERAL_APOSTROPHE -> mType = stateStringLiteral(Apostrophe)
         STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
         STATE_XQUERY_COMMENT -> stateXQueryComment()
         STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
         STATE_PRAGMA_PRE_QNAME -> statePragmaPreQName()
         STATE_PRAGMA_QNAME -> statePragmaQName()
         STATE_PRAGMA_CONTENTS -> statePragmaContents()
-        STATE_BRACED_URI_LITERAL -> stateStringLiteral(RightCurlyBracket)
-        STATE_BRACED_URI_LITERAL_PRAGMA -> stateStringLiteral(RightCurlyBracket)
+        STATE_BRACED_URI_LITERAL -> mType = stateStringLiteral(RightCurlyBracket)
+        STATE_BRACED_URI_LITERAL_PRAGMA -> mType = stateStringLiteral(RightCurlyBracket)
         else -> throw AssertionError("Invalid state: $state")
     }
 

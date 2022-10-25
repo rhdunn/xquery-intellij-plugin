@@ -528,37 +528,34 @@ class XQueryLexer : XPathLexer() {
         }
     }
 
-    override fun stateStringLiteral(type: XmlChar) {
+    override fun stateStringLiteral(type: XmlChar): IElementType? {
         var c = characters.currentChar
-        when {
+        return when {
             c == type -> {
                 characters.advance()
                 if (characters.currentChar == type && type != RightCurlyBracket) {
                     characters.advance()
-                    mType = XPathTokenType.ESCAPED_CHARACTER
+                    XPathTokenType.ESCAPED_CHARACTER
                 } else {
-                    mType = when (type) {
+                    popState()
+                    when (type) {
                         RightCurlyBracket -> XPathTokenType.BRACED_URI_LITERAL_END
                         else -> XPathTokenType.STRING_LITERAL_END
                     }
-                    popState()
                 }
             }
 
-            c == Ampersand -> mType = when (type) {
+            c == Ampersand -> when (type) {
                 QuotationMark -> matchEntityReference(STATE_STRING_LITERAL_QUOTE)
                 else -> matchEntityReference(STATE_STRING_LITERAL_APOSTROPHE)
             }
 
             c == LeftCurlyBracket && type == RightCurlyBracket -> {
                 characters.advance()
-                mType = XPathTokenType.BAD_CHARACTER
+                XPathTokenType.BAD_CHARACTER
             }
 
-            c == XmlCharReader.EndOfBuffer -> {
-                mType = null
-            }
-
+            c == XmlCharReader.EndOfBuffer -> null
             else -> {
                 while (
                     c != type &&
@@ -569,7 +566,7 @@ class XQueryLexer : XPathLexer() {
                     characters.advance()
                     c = characters.currentChar
                 }
-                mType = XPathTokenType.STRING_LITERAL_CONTENTS
+                XPathTokenType.STRING_LITERAL_CONTENTS
             }
         }
     }
