@@ -541,15 +541,12 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             NumberSign -> {
-                val savedOffset = characters.currentOffset
-                characters.advance()
-                if (characters.currentChar == RightParenthesis) {
+                if (characters.nextChar == RightParenthesis) {
+                    characters.advance()
                     characters.advance()
                     mType = XPathTokenType.PRAGMA_END
                     popState()
                     return
-                } else {
-                    characters.currentOffset = savedOffset
                 }
             }
         }
@@ -565,12 +562,11 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 }
 
                 NumberSign -> {
-                    val savedOffset = characters.currentOffset
-                    characters.advance()
-                    if (characters.currentChar == RightParenthesis) {
-                        characters.currentOffset = savedOffset
+                    if (characters.nextChar == RightParenthesis) {
                         mType = XPathTokenType.PRAGMA_CONTENTS
                         return
+                    } else {
+                        characters.advance()
                     }
                 }
 
