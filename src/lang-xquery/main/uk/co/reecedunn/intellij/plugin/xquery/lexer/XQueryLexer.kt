@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
@@ -31,11 +32,11 @@ class XQueryLexer : XPathLexer() {
         return KEYWORDS[name] ?: super.ncnameToKeyword(name)
     }
 
-    override fun stateDefault(state: Int) {
-        when (characters.currentChar) {
+    override fun stateDefault(state: Int): IElementType? {
+        return when (characters.currentChar) {
             in S -> {
                 characters.advanceWhile { it in S }
-                mType = XPathTokenType.WHITE_SPACE
+                XPathTokenType.WHITE_SPACE
             }
 
             FullStop -> {
@@ -44,19 +45,17 @@ class XQueryLexer : XPathLexer() {
                 when (characters.currentChar) {
                     FullStop -> {
                         characters.advance()
-                        mType = if (characters.currentChar == FullStop) {
+                        return if (characters.currentChar == FullStop) {
                             characters.advance()
                             XPathTokenType.ELLIPSIS
                         } else {
                             XPathTokenType.PARENT_SELECTOR
                         }
-                        return
                     }
 
                     LeftCurlyBracket -> {
                         characters.advance()
-                        mType = XPathTokenType.CONTEXT_FUNCTION
-                        return
+                        return XPathTokenType.CONTEXT_FUNCTION
                     }
 
                     in Digit -> {
@@ -65,8 +64,7 @@ class XQueryLexer : XPathLexer() {
                     }
 
                     else -> {
-                        mType = XPathTokenType.DOT
-                        return
+                        return XPathTokenType.DOT
                     }
                 }
                 characters.advance()
@@ -85,6 +83,7 @@ class XQueryLexer : XPathLexer() {
                         characters.currentOffset = savedOffset
                     }
                 }
+                mType
             }
 
             in Digit -> {
@@ -110,23 +109,24 @@ class XQueryLexer : XPathLexer() {
                         characters.currentOffset = savedOffset
                     }
                 }
+                mType
             }
 
             QuotationMark -> {
                 characters.advance()
-                mType = XPathTokenType.STRING_LITERAL_START
                 pushState(STATE_STRING_LITERAL_QUOTE)
+                XPathTokenType.STRING_LITERAL_START
             }
 
             Apostrophe -> {
                 characters.advance()
-                mType = XPathTokenType.STRING_LITERAL_START
                 pushState(STATE_STRING_LITERAL_APOSTROPHE)
+                XPathTokenType.STRING_LITERAL_START
             }
 
             Colon -> {
                 characters.advance()
-                mType = when (characters.currentChar) {
+                when (characters.currentChar) {
                     RightParenthesis -> {
                         characters.advance()
                         XPathTokenType.COMMENT_END_TAG
@@ -151,14 +151,14 @@ class XQueryLexer : XPathLexer() {
                 characters.advance()
                 if (pc == LatinCapitalLetterQ && characters.currentChar == LeftCurlyBracket) {
                     characters.advance()
-                    mType = XPathTokenType.BRACED_URI_LITERAL_START
                     pushState(STATE_BRACED_URI_LITERAL)
+                    XPathTokenType.BRACED_URI_LITERAL_START
                 } else if (pc == LowLine && characters.currentChar == LeftCurlyBracket) {
                     characters.advance()
-                    mType = XPathTokenType.LAMBDA_FUNCTION
+                    XPathTokenType.LAMBDA_FUNCTION
                 } else {
                     characters.advanceWhile { it in NameChar && it != Colon }
-                    mType = ncnameToKeyword(tokenText) ?: XPathTokenType.NCNAME
+                    ncnameToKeyword(tokenText) ?: XPathTokenType.NCNAME
                 }
             }
 
@@ -167,28 +167,28 @@ class XQueryLexer : XPathLexer() {
                 when (characters.currentChar) {
                     Colon -> {
                         characters.advance()
-                        mType = XPathTokenType.COMMENT_START_TAG
                         pushState(STATE_XQUERY_COMMENT)
+                        XPathTokenType.COMMENT_START_TAG
                     }
 
                     NumberSign -> {
                         characters.advance()
-                        mType = XPathTokenType.PRAGMA_BEGIN
                         pushState(STATE_PRAGMA_PRE_QNAME)
+                        XPathTokenType.PRAGMA_BEGIN
                     }
 
-                    else -> mType = XPathTokenType.PARENTHESIS_OPEN
+                    else -> XPathTokenType.PARENTHESIS_OPEN
                 }
             }
 
             RightParenthesis -> {
                 characters.advance()
-                mType = XPathTokenType.PARENTHESIS_CLOSE
+                XPathTokenType.PARENTHESIS_CLOSE
             }
 
             NumberSign -> {
                 characters.advance()
-                mType = if (characters.currentChar == RightParenthesis) {
+                if (characters.currentChar == RightParenthesis) {
                     characters.advance()
                     XPathTokenType.PRAGMA_END
                 } else {
@@ -198,7 +198,7 @@ class XQueryLexer : XPathLexer() {
 
             ExclamationMark -> {
                 characters.advance()
-                mType = when (characters.currentChar) {
+                when (characters.currentChar) {
                     EqualsSign -> {
                         characters.advance()
                         XPathTokenType.NOT_EQUAL
@@ -215,27 +215,27 @@ class XQueryLexer : XPathLexer() {
 
             DollarSign -> {
                 characters.advance()
-                mType = XPathTokenType.VARIABLE_INDICATOR
+                XPathTokenType.VARIABLE_INDICATOR
             }
 
             Asterisk -> {
                 characters.advance()
-                mType = XPathTokenType.STAR
+                XPathTokenType.STAR
             }
 
             PlusSign -> {
                 characters.advance()
-                mType = XPathTokenType.PLUS
+                XPathTokenType.PLUS
             }
 
             Comma -> {
                 characters.advance()
-                mType = XPathTokenType.COMMA
+                XPathTokenType.COMMA
             }
 
             HyphenMinus -> {
                 characters.advance()
-                mType = when (characters.currentChar) {
+                when (characters.currentChar) {
                     HyphenMinus -> {
                         val savedOffset = characters.currentOffset
                         characters.advance()
@@ -259,7 +259,7 @@ class XQueryLexer : XPathLexer() {
 
             Semicolon -> {
                 characters.advance()
-                mType = XQueryTokenType.SEPARATOR
+                XQueryTokenType.SEPARATOR
             }
 
             LessThanSign -> {
@@ -267,14 +267,14 @@ class XQueryLexer : XPathLexer() {
                 when (characters.currentChar) {
                     Solidus -> {
                         characters.advance()
-                        mType = XQueryTokenType.CLOSE_XML_TAG
+                        XQueryTokenType.CLOSE_XML_TAG
                     }
 
                     LessThanSign -> {
                         val savedOffset = characters.currentOffset
                         characters.advance()
                         matchOpenXmlTag()
-                        mType = if (mType === XQueryTokenType.DIRELEM_OPEN_XML_TAG) {
+                        if (mType === XQueryTokenType.DIRELEM_OPEN_XML_TAG) {
                             // For when adding a DirElemConstructor before another one -- i.e. <<a/>
                             characters.currentOffset = savedOffset
                             XPathTokenType.LESS_THAN
@@ -287,13 +287,13 @@ class XQueryLexer : XPathLexer() {
 
                     EqualsSign -> {
                         characters.advance()
-                        mType = XPathTokenType.LESS_THAN_OR_EQUAL
+                        XPathTokenType.LESS_THAN_OR_EQUAL
                     }
 
                     QuestionMark -> {
                         characters.advance()
-                        mType = XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN
                         pushState(STATE_PROCESSING_INSTRUCTION)
+                        XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN
                     }
 
                     ExclamationMark -> {
@@ -302,10 +302,10 @@ class XQueryLexer : XPathLexer() {
                             characters.advance()
                             if (characters.currentChar == HyphenMinus) {
                                 characters.advance()
-                                mType = XQueryTokenType.XML_COMMENT_START_TAG
                                 pushState(STATE_XML_COMMENT)
+                                XQueryTokenType.XML_COMMENT_START_TAG
                             } else {
-                                mType = XQueryTokenType.INVALID
+                                XQueryTokenType.INVALID
                             }
                         } else if (characters.currentChar == LeftSquareBracket) {
                             characters.advance()
@@ -321,36 +321,37 @@ class XQueryLexer : XPathLexer() {
                                                 characters.advance()
                                                 if (characters.currentChar == LeftSquareBracket) {
                                                     characters.advance()
-                                                    mType = XQueryTokenType.CDATA_SECTION_START_TAG
                                                     pushState(STATE_CDATA_SECTION)
+                                                    XQueryTokenType.CDATA_SECTION_START_TAG
                                                 } else {
-                                                    mType = XQueryTokenType.INVALID
+                                                    XQueryTokenType.INVALID
                                                 }
                                             } else {
-                                                mType = XQueryTokenType.INVALID
+                                                XQueryTokenType.INVALID
                                             }
                                         } else {
-                                            mType = XQueryTokenType.INVALID
+                                            XQueryTokenType.INVALID
                                         }
                                     } else {
-                                        mType = XQueryTokenType.INVALID
+                                        XQueryTokenType.INVALID
                                     }
                                 } else {
-                                    mType = XQueryTokenType.INVALID
+                                    XQueryTokenType.INVALID
                                 }
                             } else {
-                                mType = XQueryTokenType.INVALID
+                                XQueryTokenType.INVALID
                             }
                         } else {
-                            mType = XQueryTokenType.INVALID
+                            XQueryTokenType.INVALID
                         }
                     }
 
                     else -> {
                         if (state == STATE_MAYBE_DIR_ELEM_CONSTRUCTOR) {
-                            mType = XPathTokenType.LESS_THAN
+                            XPathTokenType.LESS_THAN
                         } else {
                             matchOpenXmlTag()
+                            mType
                         }
                     }
                 }
@@ -358,7 +359,7 @@ class XQueryLexer : XPathLexer() {
 
             GreaterThanSign -> {
                 characters.advance()
-                mType = when (characters.currentChar) {
+                when (characters.currentChar) {
                     GreaterThanSign -> {
                         characters.advance()
                         XPathTokenType.NODE_AFTER
@@ -375,7 +376,7 @@ class XQueryLexer : XPathLexer() {
 
             EqualsSign -> {
                 characters.advance()
-                mType = if (characters.currentChar == GreaterThanSign) {
+                if (characters.currentChar == GreaterThanSign) {
                     characters.advance()
                     XPathTokenType.ARROW
                 } else {
@@ -385,24 +386,24 @@ class XQueryLexer : XPathLexer() {
 
             LeftCurlyBracket -> {
                 characters.advance()
-                mType = XPathTokenType.BLOCK_OPEN
                 pushState(state)
+                XPathTokenType.BLOCK_OPEN
             }
 
             RightCurlyBracket -> {
                 characters.advance()
-                mType = if (characters.currentChar == GraveAccent && state == STATE_DEFAULT_STRING_INTERPOLATION) {
+                popState()
+                if (characters.currentChar == GraveAccent && state == STATE_DEFAULT_STRING_INTERPOLATION) {
                     characters.advance()
                     XQueryTokenType.STRING_INTERPOLATION_CLOSE
                 } else {
                     XPathTokenType.BLOCK_CLOSE
                 }
-                popState()
             }
 
             VerticalLine -> {
                 characters.advance()
-                mType = if (characters.currentChar == VerticalLine) {
+                if (characters.currentChar == VerticalLine) {
                     characters.advance()
                     XPathTokenType.CONCATENATION
                 } else {
@@ -412,7 +413,7 @@ class XQueryLexer : XPathLexer() {
 
             Solidus -> {
                 characters.advance()
-                mType = when (characters.currentChar) {
+                when (characters.currentChar) {
                     Solidus -> {
                         characters.advance()
                         XPathTokenType.ALL_DESCENDANTS_PATH
@@ -429,12 +430,12 @@ class XQueryLexer : XPathLexer() {
 
             CommercialAt -> {
                 characters.advance()
-                mType = XPathTokenType.ATTRIBUTE_SELECTOR
+                XPathTokenType.ATTRIBUTE_SELECTOR
             }
 
             LeftSquareBracket -> {
                 characters.advance()
-                mType = XPathTokenType.SQUARE_OPEN
+                XPathTokenType.SQUARE_OPEN
             }
 
             RightSquareBracket -> {
@@ -443,7 +444,7 @@ class XQueryLexer : XPathLexer() {
                     RightSquareBracket -> {
                         val savedOffset = characters.currentOffset
                         characters.advance()
-                        mType = if (characters.currentChar == GreaterThanSign) {
+                        if (characters.currentChar == GreaterThanSign) {
                             characters.advance()
                             XQueryTokenType.CDATA_SECTION_END_TAG
                         } else {
@@ -454,7 +455,7 @@ class XQueryLexer : XPathLexer() {
 
                     GraveAccent -> {
                         characters.advance()
-                        mType = if (characters.currentChar == GraveAccent) {
+                        if (characters.currentChar == GraveAccent) {
                             characters.advance()
                             XQueryTokenType.STRING_CONSTRUCTOR_END
                         } else {
@@ -462,13 +463,13 @@ class XQueryLexer : XPathLexer() {
                         }
                     }
 
-                    else -> mType = XPathTokenType.SQUARE_CLOSE
+                    else -> XPathTokenType.SQUARE_CLOSE
                 }
             }
 
             QuestionMark -> {
                 characters.advance()
-                mType = when (characters.currentChar) {
+                when (characters.currentChar) {
                     GreaterThanSign -> {
                         characters.advance()
                         XQueryTokenType.PROCESSING_INSTRUCTION_END
@@ -490,12 +491,12 @@ class XQueryLexer : XPathLexer() {
 
             PercentSign -> {
                 characters.advance()
-                mType = XQueryTokenType.ANNOTATION_INDICATOR
+                XQueryTokenType.ANNOTATION_INDICATOR
             }
 
             Ampersand -> {
                 characters.advance()
-                mType = XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING
+                XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING
             }
 
             GraveAccent -> {
@@ -504,25 +505,25 @@ class XQueryLexer : XPathLexer() {
                     characters.advance()
                     if (characters.currentChar == LeftSquareBracket) {
                         characters.advance()
-                        mType = XQueryTokenType.STRING_CONSTRUCTOR_START
                         pushState(STATE_STRING_CONSTRUCTOR_CONTENTS)
+                        XQueryTokenType.STRING_CONSTRUCTOR_START
                     } else {
-                        mType = XQueryTokenType.INVALID
+                        XQueryTokenType.INVALID
                     }
                 } else {
-                    mType = XQueryTokenType.INVALID
+                    XQueryTokenType.INVALID
                 }
             }
 
             Tilde -> {
                 characters.advance()
-                mType = XPathTokenType.TYPE_ALIAS
+                XPathTokenType.TYPE_ALIAS
             }
 
-            XmlCharReader.EndOfBuffer -> mType = null
+            XmlCharReader.EndOfBuffer -> null
             else -> {
                 characters.advance()
-                mType = XPathTokenType.BAD_CHARACTER
+                XPathTokenType.BAD_CHARACTER
             }
         }
     }
@@ -1181,7 +1182,7 @@ class XQueryLexer : XPathLexer() {
         STATE_DEFAULT_ELEM_CONTENT,
         STATE_DEFAULT_STRING_INTERPOLATION,
         STATE_MAYBE_DIR_ELEM_CONSTRUCTOR ->
-            stateDefault(state)
+            mType = stateDefault(state)
         STATE_XML_COMMENT,
         STATE_XML_COMMENT_ELEM_CONTENT ->
             stateXmlComment()

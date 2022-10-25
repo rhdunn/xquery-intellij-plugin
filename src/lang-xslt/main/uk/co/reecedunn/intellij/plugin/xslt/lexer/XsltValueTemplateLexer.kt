@@ -68,7 +68,7 @@ class XsltValueTemplateLexer : XPathLexer() {
 
     override fun advance(state: Int): Unit = when (state) {
         STATE_DEFAULT -> mType = stateDefault()
-        STATE_VALUE_TEMPLATE_EXPRESSION -> stateDefault(state)
+        STATE_VALUE_TEMPLATE_EXPRESSION -> mType = stateDefault(state)
         else -> super.advance(state)
     }
 }

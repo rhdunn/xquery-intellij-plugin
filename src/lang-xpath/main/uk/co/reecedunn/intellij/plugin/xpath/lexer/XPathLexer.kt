@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.lexer
 
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 import xqt.platform.xml.lexer.*
@@ -27,21 +28,21 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
     protected open fun ncnameToKeyword(name: CharSequence): IKeywordOrNCNameType? = KEYWORDS[name]
 
-    protected open fun stateDefault(state: Int) {
-        when (characters.currentChar) {
+    protected open fun stateDefault(state: Int): IElementType? {
+        return when (characters.currentChar) {
             Asterisk -> {
                 characters.advance()
-                mType = XPathTokenType.STAR
+                XPathTokenType.STAR
             }
 
             CommercialAt -> {
                 characters.advance()
-                mType = XPathTokenType.ATTRIBUTE_SELECTOR
+                XPathTokenType.ATTRIBUTE_SELECTOR
             }
 
             Colon -> {
                 characters.advance()
-                mType = when (characters.currentChar) {
+                when (characters.currentChar) {
                     RightParenthesis -> {
                         characters.advance()
                         XPathTokenType.COMMENT_END_TAG
@@ -63,19 +64,19 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
             Comma -> {
                 characters.advance()
-                mType = XPathTokenType.COMMA
+                XPathTokenType.COMMA
             }
 
             RightCurlyBracket -> {
                 characters.advance()
-                mType = XPathTokenType.BLOCK_CLOSE
                 popState()
+                XPathTokenType.BLOCK_CLOSE
             }
 
             LeftCurlyBracket -> {
                 characters.advance()
-                mType = XPathTokenType.BLOCK_OPEN
                 pushState(state)
+                XPathTokenType.BLOCK_OPEN
             }
 
             in Digit -> {
@@ -101,11 +102,12 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                         characters.currentOffset = savedOffset
                     }
                 }
+                mType
             }
 
             DollarSign -> {
                 characters.advance()
-                mType = XPathTokenType.VARIABLE_INDICATOR
+                XPathTokenType.VARIABLE_INDICATOR
             }
 
             FullStop -> {
@@ -114,13 +116,12 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 when (characters.currentChar) {
                     FullStop -> {
                         characters.advance()
-                        mType = if (characters.currentChar == FullStop) {
+                        return if (characters.currentChar == FullStop) {
                             characters.advance()
                             XPathTokenType.ELLIPSIS
                         } else {
                             XPathTokenType.PARENT_SELECTOR
                         }
-                        return
                     }
 
                     in Digit -> {
@@ -130,13 +131,11 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
                     LeftCurlyBracket -> {
                         characters.advance()
-                        mType = XPathTokenType.CONTEXT_FUNCTION
-                        return
+                        return XPathTokenType.CONTEXT_FUNCTION
                     }
 
                     else -> {
-                        mType = XPathTokenType.DOT
-                        return
+                        return XPathTokenType.DOT
                     }
                 }
 
@@ -157,11 +156,12 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                         characters.currentOffset = savedOffset
                     }
                 }
+                mType
             }
 
             EqualsSign -> {
                 characters.advance()
-                mType = if (characters.currentChar == GreaterThanSign) {
+                if (characters.currentChar == GreaterThanSign) {
                     characters.advance()
                     XPathTokenType.ARROW
                 } else {
@@ -171,7 +171,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
             ExclamationMark -> {
                 characters.advance()
-                mType = when (characters.currentChar) {
+                when (characters.currentChar) {
                     EqualsSign -> {
                         characters.advance()
                         XPathTokenType.NOT_EQUAL
@@ -188,7 +188,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
             Solidus -> {
                 characters.advance()
-                mType = if (characters.currentChar == Solidus) {
+                if (characters.currentChar == Solidus) {
                     characters.advance()
                     XPathTokenType.ALL_DESCENDANTS_PATH
                 } else {
@@ -198,7 +198,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
             GreaterThanSign -> {
                 characters.advance()
-                mType = when (characters.currentChar) {
+                when (characters.currentChar) {
                     GreaterThanSign -> {
                         characters.advance()
                         XPathTokenType.NODE_AFTER
@@ -215,7 +215,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
             NumberSign -> {
                 characters.advance()
-                mType = if (characters.currentChar == RightParenthesis) {
+                if (characters.currentChar == RightParenthesis) {
                     characters.advance()
                     XPathTokenType.PRAGMA_END
                 } else {
@@ -225,7 +225,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
             HyphenMinus -> {
                 characters.advance()
-                mType = if (characters.currentChar == GreaterThanSign) {
+                if (characters.currentChar == GreaterThanSign) {
                     characters.advance()
                     XPathTokenType.THIN_ARROW
                 } else {
@@ -235,7 +235,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
             LessThanSign -> {
                 characters.advance()
-                mType = when (characters.currentChar) {
+                when (characters.currentChar) {
                     LessThanSign -> {
                         characters.advance()
                         XPathTokenType.NODE_BEFORE
@@ -255,20 +255,20 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 characters.advance()
                 if (pc == LatinCapitalLetterQ && characters.currentChar == LeftCurlyBracket) {
                     characters.advance()
-                    mType = XPathTokenType.BRACED_URI_LITERAL_START
                     pushState(STATE_BRACED_URI_LITERAL)
+                    XPathTokenType.BRACED_URI_LITERAL_START
                 } else if (pc == LowLine && characters.currentChar == LeftCurlyBracket) {
                     characters.advance()
-                    mType = XPathTokenType.LAMBDA_FUNCTION
+                    XPathTokenType.LAMBDA_FUNCTION
                 } else {
                     characters.advanceWhile { it in NameChar && it != Colon }
-                    mType = ncnameToKeyword(tokenText) ?: XPathTokenType.NCNAME
+                    ncnameToKeyword(tokenText) ?: XPathTokenType.NCNAME
                 }
             }
 
             RightParenthesis -> {
                 characters.advance()
-                mType = XPathTokenType.PARENTHESIS_CLOSE
+                XPathTokenType.PARENTHESIS_CLOSE
             }
 
             LeftParenthesis -> {
@@ -276,28 +276,28 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 when (characters.currentChar) {
                     Colon -> {
                         characters.advance()
-                        mType = XPathTokenType.COMMENT_START_TAG
                         pushState(STATE_XQUERY_COMMENT)
+                        XPathTokenType.COMMENT_START_TAG
                     }
 
                     NumberSign -> {
                         characters.advance()
-                        mType = XPathTokenType.PRAGMA_BEGIN
                         pushState(STATE_PRAGMA_PRE_QNAME)
+                        XPathTokenType.PRAGMA_BEGIN
                     }
 
-                    else -> mType = XPathTokenType.PARENTHESIS_OPEN
+                    else -> XPathTokenType.PARENTHESIS_OPEN
                 }
             }
 
             PlusSign -> {
                 characters.advance()
-                mType = XPathTokenType.PLUS
+                XPathTokenType.PLUS
             }
 
             QuestionMark -> {
                 characters.advance()
-                mType = when (characters.currentChar) {
+                when (characters.currentChar) {
                     QuestionMark -> {
                         characters.advance()
                         XPathTokenType.TERNARY_IF
@@ -314,34 +314,34 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
             QuotationMark -> {
                 characters.advance()
-                mType = XPathTokenType.STRING_LITERAL_START
                 pushState(STATE_STRING_LITERAL_QUOTE)
+                XPathTokenType.STRING_LITERAL_START
             }
 
             Apostrophe -> {
                 characters.advance()
-                mType = XPathTokenType.STRING_LITERAL_START
                 pushState(STATE_STRING_LITERAL_APOSTROPHE)
+                XPathTokenType.STRING_LITERAL_START
             }
 
             RightSquareBracket -> {
                 characters.advance()
-                mType = XPathTokenType.SQUARE_CLOSE
+                XPathTokenType.SQUARE_CLOSE
             }
 
             LeftSquareBracket -> {
                 characters.advance()
-                mType = XPathTokenType.SQUARE_OPEN
+                XPathTokenType.SQUARE_OPEN
             }
 
             Tilde -> {
                 characters.advance()
-                mType = XPathTokenType.TYPE_ALIAS
+                XPathTokenType.TYPE_ALIAS
             }
 
             VerticalLine -> {
                 characters.advance()
-                mType = if (characters.currentChar == VerticalLine) {
+                if (characters.currentChar == VerticalLine) {
                     characters.advance()
                     XPathTokenType.CONCATENATION
                 } else {
@@ -351,13 +351,13 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
             in S -> {
                 characters.advanceWhile { it in S }
-                mType = XPathTokenType.WHITE_SPACE
+                XPathTokenType.WHITE_SPACE
             }
 
-            XmlCharReader.EndOfBuffer -> mType = null
+            XmlCharReader.EndOfBuffer -> null
             else -> {
                 characters.advance()
-                mType = XPathTokenType.BAD_CHARACTER
+                XPathTokenType.BAD_CHARACTER
             }
         }
     }
@@ -586,7 +586,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
     // region Lexer
 
     override fun advance(state: Int): Unit = when (state) {
-        STATE_DEFAULT -> stateDefault(state)
+        STATE_DEFAULT -> mType = stateDefault(state)
         STATE_STRING_LITERAL_QUOTE -> stateStringLiteral(QuotationMark)
         STATE_STRING_LITERAL_APOSTROPHE -> stateStringLiteral(Apostrophe)
         STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
