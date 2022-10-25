@@ -493,7 +493,6 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 popState()
                 pushState(STATE_PRAGMA_CONTENTS)
                 statePragmaContents()
-                mType
             }
         }
     }
@@ -521,25 +520,22 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 popState()
                 pushState(STATE_PRAGMA_CONTENTS)
                 statePragmaContents()
-                mType
             }
         }
     }
 
-    private fun statePragmaContents() {
+    private fun statePragmaContents(): IElementType? {
         when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> {
-                mType = null
-                return
+                return null
             }
 
             NumberSign -> {
                 if (characters.nextChar == RightParenthesis) {
                     characters.advance()
                     characters.advance()
-                    mType = XPathTokenType.PRAGMA_END
                     popState()
-                    return
+                    return XPathTokenType.PRAGMA_END
                 }
             }
         }
@@ -548,24 +544,20 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             when (characters.currentChar) {
                 XmlCharReader.EndOfBuffer -> {
                     characters.advance()
-                    mType = XPathTokenType.PRAGMA_CONTENTS
                     popState()
                     pushState(STATE_UNEXPECTED_END_OF_BLOCK)
-                    return
+                    return XPathTokenType.PRAGMA_CONTENTS
                 }
 
                 NumberSign -> {
                     if (characters.nextChar == RightParenthesis) {
-                        mType = XPathTokenType.PRAGMA_CONTENTS
-                        return
+                        return XPathTokenType.PRAGMA_CONTENTS
                     } else {
                         characters.advance()
                     }
                 }
 
-                else -> {
-                    characters.advance()
-                }
+                else -> characters.advance()
             }
         }
     }
@@ -587,7 +579,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
         STATE_PRAGMA_PRE_QNAME -> mType = statePragmaPreQName()
         STATE_PRAGMA_QNAME -> mType = statePragmaQName()
-        STATE_PRAGMA_CONTENTS -> statePragmaContents()
+        STATE_PRAGMA_CONTENTS -> mType = statePragmaContents()
         STATE_BRACED_URI_LITERAL -> mType = stateStringLiteral(RightCurlyBracket)
         STATE_BRACED_URI_LITERAL_PRAGMA -> mType = stateStringLiteral(RightCurlyBracket)
         else -> throw AssertionError("Invalid state: $state")
