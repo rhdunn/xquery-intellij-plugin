@@ -928,43 +928,43 @@ class XQueryLexer : XPathLexer() {
         }
     }
 
-    private fun stateProcessingInstruction(state: Int) {
-        when (characters.currentChar) {
+    private fun stateProcessingInstruction(state: Int): IElementType? {
+        return when (characters.currentChar) {
             in S -> {
                 characters.advanceWhile { it in S }
-                mType = XQueryTokenType.XML_WHITE_SPACE
                 popState()
                 when (state) {
                     STATE_PROCESSING_INSTRUCTION -> pushState(STATE_PROCESSING_INSTRUCTION_CONTENTS)
                     else -> pushState(STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT)
                 }
+                XQueryTokenType.XML_WHITE_SPACE
             }
 
             Colon -> {
                 characters.advance()
-                mType = XQueryTokenType.XML_TAG_QNAME_SEPARATOR
+                XQueryTokenType.XML_TAG_QNAME_SEPARATOR
             }
 
             in NameStartChar -> {
                 characters.advanceWhile { it in NameChar && it != Colon }
-                mType = XQueryTokenType.XML_PI_TARGET_NCNAME
+                XQueryTokenType.XML_PI_TARGET_NCNAME
             }
 
             QuestionMark -> {
                 characters.advance()
                 if (characters.currentChar == GreaterThanSign) {
                     characters.advance()
-                    mType = XQueryTokenType.PROCESSING_INSTRUCTION_END
                     popState()
+                    XQueryTokenType.PROCESSING_INSTRUCTION_END
                 } else {
-                    mType = XQueryTokenType.INVALID
+                    XQueryTokenType.INVALID
                 }
             }
 
-            XmlCharReader.EndOfBuffer -> mType = null
+            XmlCharReader.EndOfBuffer -> null
             else -> {
                 characters.advance()
-                mType = XPathTokenType.BAD_CHARACTER
+                XPathTokenType.BAD_CHARACTER
             }
         }
     }
@@ -1179,9 +1179,8 @@ class XQueryLexer : XPathLexer() {
         STATE_DIR_ATTRIBUTE_VALUE_QUOTE -> mType = stateDirAttributeValue(QuotationMark)
         STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE -> mType = stateDirAttributeValue(Apostrophe)
         STATE_DIR_ELEM_CONTENT -> mType = stateDirElemContent()
-        STATE_PROCESSING_INSTRUCTION,
-        STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT ->
-            stateProcessingInstruction(state)
+        STATE_PROCESSING_INSTRUCTION -> mType = stateProcessingInstruction(state)
+        STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT -> mType = stateProcessingInstruction(state)
         STATE_PROCESSING_INSTRUCTION_CONTENTS,
         STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT ->
             stateProcessingInstructionContents()
