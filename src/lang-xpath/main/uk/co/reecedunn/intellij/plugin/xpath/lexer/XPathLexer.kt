@@ -562,9 +562,9 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         }
     }
 
-    private fun stateUnexpectedEndOfBlock() {
-        mType = XPathTokenType.UNEXPECTED_END_OF_BLOCK
+    private fun stateUnexpectedEndOfBlock(): IElementType {
         popState()
+        return XPathTokenType.UNEXPECTED_END_OF_BLOCK
     }
 
     // endregion
@@ -576,7 +576,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         STATE_STRING_LITERAL_APOSTROPHE -> mType = stateStringLiteral(Apostrophe)
         STATE_DOUBLE_EXPONENT -> mType = stateDoubleExponent()
         STATE_XQUERY_COMMENT -> mType = stateXQueryComment()
-        STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
+        STATE_UNEXPECTED_END_OF_BLOCK -> mType = stateUnexpectedEndOfBlock()
         STATE_PRAGMA_PRE_QNAME -> mType = statePragmaPreQName()
         STATE_PRAGMA_QNAME -> mType = statePragmaQName()
         STATE_PRAGMA_CONTENTS -> mType = statePragmaContents()
