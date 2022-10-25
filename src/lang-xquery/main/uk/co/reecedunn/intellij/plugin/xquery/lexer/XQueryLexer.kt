@@ -1090,8 +1090,8 @@ class XQueryLexer : XPathLexer() {
             }
 
             in S -> {
+                characters.advanceWhile { it in S }
                 mType = XQueryTokenType.XML_WHITE_SPACE
-                matchWhiteSpace()
                 popState()
                 pushState(STATE_DIR_ELEM_CONSTRUCTOR)
             }
@@ -1120,15 +1120,11 @@ class XQueryLexer : XPathLexer() {
         return true
     }
 
-    private fun matchWhiteSpace() {
-        characters.advanceWhile { it in S }
-    }
-
     private fun matchOpenXmlTag() {
         // Whitespace between the '<' and the NCName/QName is invalid. The lexer
         // allows this to provide better error reporting in the parser.
         var savedOffset = characters.currentOffset
-        matchWhiteSpace()
+        characters.advanceWhile { it in S }
 
         if (!matchQName()) {
             characters.currentOffset = savedOffset
@@ -1137,7 +1133,7 @@ class XQueryLexer : XPathLexer() {
         }
 
         mType = XQueryTokenType.DIRELEM_OPEN_XML_TAG
-        matchWhiteSpace()
+        characters.advanceWhile { it in S }
 
         when (characters.currentChar) {
             Solidus -> {
