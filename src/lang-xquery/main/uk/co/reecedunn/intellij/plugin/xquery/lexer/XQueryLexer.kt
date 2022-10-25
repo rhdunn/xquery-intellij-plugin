@@ -671,20 +671,20 @@ class XQueryLexer : XPathLexer() {
         }
     }
 
-    private fun stateDirElemConstructor(state: Int) {
-        when (characters.currentChar) {
+    private fun stateDirElemConstructor(state: Int): IElementType? {
+        return when (characters.currentChar) {
             in S -> {
                 characters.advanceWhile { it in S }
-                mType = XQueryTokenType.XML_WHITE_SPACE
                 if (state == STATE_DIR_ELEM_CONSTRUCTOR) {
                     popState()
                     pushState(STATE_DIR_ATTRIBUTE_LIST)
                 }
+                XQueryTokenType.XML_WHITE_SPACE
             }
 
             Colon -> {
                 characters.advance()
-                mType = if (state == STATE_DIR_ATTRIBUTE_LIST)
+                if (state == STATE_DIR_ATTRIBUTE_LIST)
                     XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR
                 else
                     XQueryTokenType.XML_TAG_QNAME_SEPARATOR
@@ -692,7 +692,7 @@ class XQueryLexer : XPathLexer() {
 
             in NameStartChar -> {
                 characters.advanceWhile { it in NameChar && it != Colon }
-                mType = if (state == STATE_DIR_ATTRIBUTE_LIST)
+                if (state == STATE_DIR_ATTRIBUTE_LIST)
                     if (tokenText == "xmlns")
                         XQueryTokenType.XML_ATTRIBUTE_XMLNS
                     else
@@ -703,45 +703,45 @@ class XQueryLexer : XPathLexer() {
 
             GreaterThanSign -> {
                 characters.advance()
-                mType = XQueryTokenType.END_XML_TAG
                 popState()
                 if (state == STATE_DIR_ELEM_CONSTRUCTOR || state == STATE_DIR_ATTRIBUTE_LIST) {
                     pushState(STATE_DIR_ELEM_CONTENT)
                 }
+                XQueryTokenType.END_XML_TAG
             }
 
             Solidus -> {
                 characters.advance()
                 if (characters.currentChar == GreaterThanSign) {
                     characters.advance()
-                    mType = XQueryTokenType.SELF_CLOSING_XML_TAG
                     popState()
+                    XQueryTokenType.SELF_CLOSING_XML_TAG
                 } else {
-                    mType = XQueryTokenType.INVALID
+                    XQueryTokenType.INVALID
                 }
             }
 
             EqualsSign -> {
                 characters.advance()
-                mType = XQueryTokenType.XML_EQUAL
+                XQueryTokenType.XML_EQUAL
             }
 
             QuotationMark -> {
                 characters.advance()
-                mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_START
                 pushState(STATE_DIR_ATTRIBUTE_VALUE_QUOTE)
+                XQueryTokenType.XML_ATTRIBUTE_VALUE_START
             }
 
             Apostrophe -> {
                 characters.advance()
-                mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_START
                 pushState(STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE)
+                XQueryTokenType.XML_ATTRIBUTE_VALUE_START
             }
 
-            XmlCharReader.EndOfBuffer -> mType = null
+            XmlCharReader.EndOfBuffer -> null
             else -> {
                 characters.advance()
-                mType = XPathTokenType.BAD_CHARACTER
+                XPathTokenType.BAD_CHARACTER
             }
         }
     }
@@ -1176,10 +1176,9 @@ class XQueryLexer : XPathLexer() {
         STATE_XML_COMMENT_ELEM_CONTENT -> mType = stateXmlComment()
         STATE_CDATA_SECTION -> mType = stateCDataSection()
         STATE_CDATA_SECTION_ELEM_CONTENT -> mType = stateCDataSection()
-        STATE_DIR_ELEM_CONSTRUCTOR,
-        STATE_DIR_ELEM_CONSTRUCTOR_CLOSING,
-        STATE_DIR_ATTRIBUTE_LIST ->
-            stateDirElemConstructor(state)
+        STATE_DIR_ELEM_CONSTRUCTOR -> mType = stateDirElemConstructor(state)
+        STATE_DIR_ELEM_CONSTRUCTOR_CLOSING -> mType = stateDirElemConstructor(state)
+        STATE_DIR_ATTRIBUTE_LIST -> mType = stateDirElemConstructor(state)
         STATE_DIR_ATTRIBUTE_VALUE_QUOTE ->
             stateDirAttributeValue(QuotationMark)
         STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE ->
