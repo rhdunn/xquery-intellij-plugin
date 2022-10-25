@@ -34,20 +34,21 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         }
     }
 
-    private fun stateDefault() {
-        when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> mType = null
+    private fun stateDefault(): IElementType? {
+        return when (characters.currentChar) {
+            XmlCharReader.EndOfBuffer -> null
             Tilde -> {
                 characters.advance()
-                mType = XQDocTokenType.XQDOC_COMMENT_MARKER
                 pushState(STATE_CONTENTS)
                 pushState(STATE_TRIM)
+                XQDocTokenType.XQDOC_COMMENT_MARKER
             }
 
             else -> {
                 pushState(STATE_XQUERY_CONTENTS)
                 pushState(STATE_XQUERY_CONTENTS_TRIM)
                 advance()
+                mType
             }
         }
     }
@@ -338,7 +339,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     // region Lexer
 
     override fun advance(state: Int): Unit = when (state) {
-        STATE_DEFAULT -> stateDefault()
+        STATE_DEFAULT -> mType = stateDefault()
         STATE_CONTENTS -> stateContents()
         STATE_TAGGED_CONTENTS -> stateTaggedContents()
         STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> stateElemConstructor(state)
