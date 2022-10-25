@@ -969,20 +969,18 @@ class XQueryLexer : XPathLexer() {
         }
     }
 
-    private fun stateProcessingInstructionContents() {
+    private fun stateProcessingInstructionContents(): IElementType? {
         when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> {
-                mType = null
-                return
+                return null
             }
 
             QuestionMark -> {
                 if (characters.nextChar == GreaterThanSign) {
                     characters.advance()
                     characters.advance()
-                    mType = XQueryTokenType.PROCESSING_INSTRUCTION_END
                     popState()
-                    return
+                    return XQueryTokenType.PROCESSING_INSTRUCTION_END
                 }
             }
         }
@@ -991,16 +989,14 @@ class XQueryLexer : XPathLexer() {
             when (characters.currentChar) {
                 XmlCharReader.EndOfBuffer -> {
                     characters.advance()
-                    mType = XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS
                     popState()
                     pushState(STATE_UNEXPECTED_END_OF_BLOCK)
-                    return
+                    return XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS
                 }
 
                 QuestionMark -> {
                     if (characters.nextChar == GreaterThanSign) {
-                        mType = XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS
-                        return
+                        return XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS
                     } else {
                         characters.advance()
                     }
@@ -1181,9 +1177,8 @@ class XQueryLexer : XPathLexer() {
         STATE_DIR_ELEM_CONTENT -> mType = stateDirElemContent()
         STATE_PROCESSING_INSTRUCTION -> mType = stateProcessingInstruction(state)
         STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT -> mType = stateProcessingInstruction(state)
-        STATE_PROCESSING_INSTRUCTION_CONTENTS,
-        STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT ->
-            stateProcessingInstructionContents()
+        STATE_PROCESSING_INSTRUCTION_CONTENTS -> mType = stateProcessingInstructionContents()
+        STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT -> mType = stateProcessingInstructionContents()
         STATE_STRING_CONSTRUCTOR_CONTENTS ->
             stateStringConstructorContents()
         STATE_START_DIR_ELEM_CONSTRUCTOR ->
