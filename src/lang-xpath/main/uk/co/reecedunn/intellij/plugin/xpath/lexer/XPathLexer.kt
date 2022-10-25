@@ -498,29 +498,30 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         }
     }
 
-    private fun statePragmaQName() {
-        when (characters.currentChar) {
+    private fun statePragmaQName(): IElementType? {
+        return when (characters.currentChar) {
             in S -> {
                 characters.advanceWhile { it in S }
-                mType = XPathTokenType.WHITE_SPACE
                 popState()
                 pushState(STATE_PRAGMA_CONTENTS)
+                XPathTokenType.WHITE_SPACE
             }
 
             Colon -> {
                 characters.advance()
-                mType = XPathTokenType.QNAME_SEPARATOR
+                XPathTokenType.QNAME_SEPARATOR
             }
 
             in NameStartChar -> {
                 characters.advanceWhile { it in NameChar && it != Colon }
-                mType = XPathTokenType.NCNAME
+                XPathTokenType.NCNAME
             }
 
             else -> {
                 popState()
                 pushState(STATE_PRAGMA_CONTENTS)
                 statePragmaContents()
+                mType
             }
         }
     }
@@ -585,7 +586,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         STATE_XQUERY_COMMENT -> mType = stateXQueryComment()
         STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
         STATE_PRAGMA_PRE_QNAME -> mType = statePragmaPreQName()
-        STATE_PRAGMA_QNAME -> statePragmaQName()
+        STATE_PRAGMA_QNAME -> mType = statePragmaQName()
         STATE_PRAGMA_CONTENTS -> statePragmaContents()
         STATE_BRACED_URI_LITERAL -> mType = stateStringLiteral(RightCurlyBracket)
         STATE_BRACED_URI_LITERAL_PRAGMA -> mType = stateStringLiteral(RightCurlyBracket)
