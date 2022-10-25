@@ -53,38 +53,38 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         }
     }
 
-    private fun stateContents() {
-        when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> mType = null
+    private fun stateContents(): IElementType? {
+        return when (characters.currentChar) {
+            XmlCharReader.EndOfBuffer -> null
             LessThanSign -> {
                 characters.advance()
-                mType = XQDocTokenType.OPEN_XML_TAG
                 pushState(STATE_ELEM_CONSTRUCTOR)
+                XQDocTokenType.OPEN_XML_TAG
             }
 
             LineFeed, CarriageReturn -> {
                 pushState(STATE_TRIM)
                 stateTrim(STATE_TRIM)
+                mType
             }
 
-            Ampersand -> mType = matchEntityReference() // XML PredefinedEntityRef and CharRef
-            else -> while (true) {
-                when (characters.currentChar) {
-                    LineFeed, CarriageReturn -> {
-                        pushState(STATE_TRIM)
-                        mType = XQDocTokenType.CONTENTS
-                        return
-                    }
+            Ampersand -> matchEntityReference() // XML PredefinedEntityRef and CharRef
+            else -> run {
+                while (true) {
+                    when (characters.currentChar) {
+                        LineFeed, CarriageReturn -> {
+                            pushState(STATE_TRIM)
+                            return XQDocTokenType.CONTENTS
+                        }
 
-                    XmlCharReader.EndOfBuffer, LessThanSign, Ampersand -> {
-                        mType = XQDocTokenType.CONTENTS
-                        return
-                    }
+                        XmlCharReader.EndOfBuffer, LessThanSign, Ampersand -> {
+                            return XQDocTokenType.CONTENTS
+                        }
 
-                    else -> {
-                        characters.advance()
+                        else -> characters.advance()
                     }
                 }
+                @Suppress("UNREACHABLE_CODE") null
             }
         }
     }
@@ -340,7 +340,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
     override fun advance(state: Int): Unit = when (state) {
         STATE_DEFAULT -> mType = stateDefault()
-        STATE_CONTENTS -> stateContents()
+        STATE_CONTENTS -> mType = stateContents()
         STATE_TAGGED_CONTENTS -> stateTaggedContents()
         STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> stateElemConstructor(state)
         STATE_ELEM_CONTENTS -> stateElemContents()
