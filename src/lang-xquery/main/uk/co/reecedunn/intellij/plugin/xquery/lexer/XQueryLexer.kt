@@ -813,22 +813,22 @@ class XQueryLexer : XPathLexer() {
         }
     }
 
-    private fun stateDirElemContent() {
-        when (characters.currentChar) {
+    private fun stateDirElemContent(): IElementType? {
+        return when (characters.currentChar) {
             LeftCurlyBracket -> {
                 characters.advance()
                 if (characters.currentChar == LeftCurlyBracket) {
                     characters.advance()
-                    mType = XPathTokenType.ESCAPED_CHARACTER
+                    XPathTokenType.ESCAPED_CHARACTER
                 } else {
-                    mType = XPathTokenType.BLOCK_OPEN
                     pushState(STATE_DEFAULT_ELEM_CONTENT)
+                    XPathTokenType.BLOCK_OPEN
                 }
             }
 
             RightCurlyBracket -> {
                 characters.advance()
-                mType = if (characters.currentChar == RightCurlyBracket) {
+                if (characters.currentChar == RightCurlyBracket) {
                     characters.advance()
                     XPathTokenType.ESCAPED_CHARACTER
                 } else {
@@ -841,20 +841,20 @@ class XQueryLexer : XPathLexer() {
                 when (characters.currentChar) {
                     Solidus -> {
                         characters.advance()
-                        mType = XQueryTokenType.CLOSE_XML_TAG
                         popState()
                         pushState(STATE_DIR_ELEM_CONSTRUCTOR_CLOSING)
+                        XQueryTokenType.CLOSE_XML_TAG
                     }
 
                     in NameStartChar -> {
-                        mType = XQueryTokenType.OPEN_XML_TAG
                         pushState(STATE_DIR_ELEM_CONSTRUCTOR)
+                        XQueryTokenType.OPEN_XML_TAG
                     }
 
                     QuestionMark -> {
                         characters.advance()
-                        mType = XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN
                         pushState(STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT)
+                        XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN
                     }
 
                     ExclamationMark -> {
@@ -863,10 +863,10 @@ class XQueryLexer : XPathLexer() {
                             characters.advance()
                             if (characters.currentChar == HyphenMinus) {
                                 characters.advance()
-                                mType = XQueryTokenType.XML_COMMENT_START_TAG
                                 pushState(STATE_XML_COMMENT_ELEM_CONTENT)
+                                XQueryTokenType.XML_COMMENT_START_TAG
                             } else {
-                                mType = XQueryTokenType.INVALID
+                                XQueryTokenType.INVALID
                             }
                         } else if (characters.currentChar == LeftSquareBracket) {
                             characters.advance()
@@ -882,50 +882,48 @@ class XQueryLexer : XPathLexer() {
                                                 characters.advance()
                                                 if (characters.currentChar == LeftSquareBracket) {
                                                     characters.advance()
-                                                    mType = XQueryTokenType.CDATA_SECTION_START_TAG
                                                     pushState(STATE_CDATA_SECTION_ELEM_CONTENT)
+                                                    XQueryTokenType.CDATA_SECTION_START_TAG
                                                 } else {
-                                                    mType = XQueryTokenType.INVALID
+                                                    XQueryTokenType.INVALID
                                                 }
                                             } else {
-                                                mType = XQueryTokenType.INVALID
+                                                XQueryTokenType.INVALID
                                             }
                                         } else {
-                                            mType = XQueryTokenType.INVALID
+                                            XQueryTokenType.INVALID
                                         }
                                     } else {
-                                        mType = XQueryTokenType.INVALID
+                                        XQueryTokenType.INVALID
                                     }
                                 } else {
-                                    mType = XQueryTokenType.INVALID
+                                    XQueryTokenType.INVALID
                                 }
                             } else {
-                                mType = XQueryTokenType.INVALID
+                                XQueryTokenType.INVALID
                             }
                         } else {
-                            mType = XQueryTokenType.INVALID
+                            XQueryTokenType.INVALID
                         }
                     }
 
-                    else -> {
-                        mType = XPathTokenType.BAD_CHARACTER
-                    }
+                    else -> XPathTokenType.BAD_CHARACTER
                 }
             }
 
-            Ampersand -> mType = matchEntityReference(STATE_DIR_ELEM_CONTENT)
-            XmlCharReader.EndOfBuffer -> mType = null
-            else -> {
+            Ampersand -> matchEntityReference(STATE_DIR_ELEM_CONTENT)
+            XmlCharReader.EndOfBuffer -> null
+            else -> run {
                 while (true) {
                     when (characters.currentChar) {
                         XmlCharReader.EndOfBuffer, LeftCurlyBracket, RightCurlyBracket, LessThanSign, Ampersand -> {
-                            mType = XQueryTokenType.XML_ELEMENT_CONTENTS
-                            return
+                            return XQueryTokenType.XML_ELEMENT_CONTENTS
                         }
 
                         else -> characters.advance()
                     }
                 }
+                @Suppress("UNREACHABLE_CODE") null
             }
         }
     }
@@ -1180,8 +1178,7 @@ class XQueryLexer : XPathLexer() {
         STATE_DIR_ATTRIBUTE_LIST -> mType = stateDirElemConstructor(state)
         STATE_DIR_ATTRIBUTE_VALUE_QUOTE -> mType = stateDirAttributeValue(QuotationMark)
         STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE -> mType = stateDirAttributeValue(Apostrophe)
-        STATE_DIR_ELEM_CONTENT ->
-            stateDirElemContent()
+        STATE_DIR_ELEM_CONTENT -> mType = stateDirElemContent()
         STATE_PROCESSING_INSTRUCTION,
         STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT ->
             stateProcessingInstruction(state)
