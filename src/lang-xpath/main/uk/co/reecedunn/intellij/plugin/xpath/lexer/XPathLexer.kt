@@ -79,13 +79,10 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             in Digit -> {
-                characters.advance()
-                while (characters.currentChar in Digit)
-                    characters.advance()
+                characters.advanceWhile { it in Digit }
                 mType = if (characters.currentChar == FullStop) {
                     characters.advance()
-                    while (characters.currentChar in Digit)
-                        characters.advance()
+                    characters.advanceWhile { it in Digit }
                     XPathTokenType.DECIMAL_LITERAL
                 } else {
                     XPathTokenType.INTEGER_LITERAL
@@ -97,9 +94,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                         characters.advance()
                     }
                     if (characters.currentChar in Digit) {
-                        characters.advance()
-                        while (characters.currentChar in Digit)
-                            characters.advance()
+                        characters.advanceWhile { it in Digit }
                         mType = XPathTokenType.DOUBLE_LITERAL
                     } else {
                         pushState(STATE_DOUBLE_EXPONENT)
@@ -146,8 +141,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 }
 
                 characters.advance()
-                while (characters.currentChar in Digit)
-                    characters.advance()
+                characters.advanceWhile { it in Digit }
                 mType = XPathTokenType.DECIMAL_LITERAL
                 if (characters.currentChar == LatinSmallLetterE || characters.currentChar == LatinCapitalLetterE) {
                     savedOffset = characters.currentOffset
@@ -156,9 +150,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                         characters.advance()
                     }
                     if (characters.currentChar in Digit) {
-                        characters.advance()
-                        while (characters.currentChar in Digit)
-                            characters.advance()
+                        characters.advanceWhile { it in Digit }
                         mType = XPathTokenType.DOUBLE_LITERAL
                     } else {
                         pushState(STATE_DOUBLE_EXPONENT)
@@ -269,9 +261,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                     characters.advance()
                     mType = XPathTokenType.LAMBDA_FUNCTION
                 } else {
-                    while (characters.currentChar in NameChar && characters.currentChar != Colon) {
-                        characters.advance()
-                    }
+                    characters.advanceWhile { it in NameChar && it != Colon }
                     mType = ncnameToKeyword(tokenText) ?: XPathTokenType.NCNAME
                 }
             }
@@ -360,9 +350,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             in S -> {
-                characters.advance()
-                while (characters.currentChar in S)
-                    characters.advance()
+                characters.advanceWhile { it in S }
                 mType = XPathTokenType.WHITE_SPACE
             }
 
@@ -485,9 +473,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
     private fun statePragmaPreQName() {
         when (characters.currentChar) {
             in S -> {
-                characters.advance()
-                while (characters.currentChar in S)
-                    characters.advance()
+                characters.advanceWhile { it in S }
                 mType = XPathTokenType.WHITE_SPACE
             }
 
@@ -508,9 +494,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                     pushState(STATE_PRAGMA_QNAME)
                     pushState(STATE_BRACED_URI_LITERAL_PRAGMA)
                 } else {
-                    while (characters.currentChar in NameChar && characters.currentChar != Colon) {
-                        characters.advance()
-                    }
+                    characters.advanceWhile { it in NameChar && it != Colon }
                     mType = XPathTokenType.NCNAME
                     popState()
                     pushState(STATE_PRAGMA_QNAME)
@@ -528,9 +512,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
     private fun statePragmaQName() {
         when (characters.currentChar) {
             in S -> {
-                characters.advance()
-                while (characters.currentChar in S)
-                    characters.advance()
+                characters.advanceWhile { it in S }
                 mType = XPathTokenType.WHITE_SPACE
                 popState()
                 pushState(STATE_PRAGMA_CONTENTS)
@@ -542,10 +524,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             in NameStartChar -> {
-                characters.advance()
-                while (characters.currentChar in NameChar && characters.currentChar != Colon) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it in NameChar && it != Colon }
                 mType = XPathTokenType.NCNAME
             }
 

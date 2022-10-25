@@ -35,10 +35,7 @@ fun XmlCharReader.matchEntityReference(): EntityReferenceType {
     advance()
     return when (currentChar) {
         in NameStartChar -> {
-            advance()
-            while (currentChar in NameChar) {
-                advance()
-            }
+            advanceWhile { it in NameChar }
             if (currentChar == Semicolon) {
                 advance()
                 EntityReferenceType.PredefinedEntityReference
@@ -54,9 +51,7 @@ fun XmlCharReader.matchEntityReference(): EntityReferenceType {
                     advance()
                     when (currentChar) {
                         in HexDigit -> {
-                            while (currentChar in HexDigit) {
-                                advance()
-                            }
+                            advanceWhile { it in HexDigit }
                             if (currentChar == Semicolon) {
                                 advance()
                                 EntityReferenceType.CharacterReference
@@ -75,9 +70,7 @@ fun XmlCharReader.matchEntityReference(): EntityReferenceType {
                 }
 
                 in Digit -> {
-                    while (currentChar in Digit) {
-                        advance()
-                    }
+                    advanceWhile { it in Digit }
                     if (currentChar == Semicolon) {
                         advance()
                         EntityReferenceType.CharacterReference

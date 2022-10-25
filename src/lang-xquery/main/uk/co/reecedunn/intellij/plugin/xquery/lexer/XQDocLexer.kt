@@ -119,9 +119,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     private fun stateTaggedContents() {
         when (characters.currentChar) {
             in AlphaNumeric -> {
-                while (characters.currentChar in AlphaNumeric) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it in AlphaNumeric }
                 mType = TAG_NAMES[tokenText] ?: XQDocTokenType.TAG
                 if (mType === XQDocTokenType.T_PARAM) {
                     popState()
@@ -130,9 +128,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             }
 
             Space, CharacterTabulation -> {
-                while (characters.currentChar == Space || characters.currentChar == CharacterTabulation) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it == Space || it == CharacterTabulation }
                 mType = XQDocTokenType.WHITE_SPACE
                 popState()
             }
@@ -147,9 +143,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     private fun stateParamTagContentsStart() {
         when (characters.currentChar) {
             Space, CharacterTabulation -> {
-                while (characters.currentChar == Space || characters.currentChar == CharacterTabulation) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it == Space || it == CharacterTabulation }
                 mType = XQDocTokenType.WHITE_SPACE
             }
 
@@ -170,19 +164,14 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     private fun stateParamTagVarName() {
         when (characters.currentChar) {
             in S -> {
-                characters.advance()
-                while (characters.currentChar in S)
-                    characters.advance()
+                characters.advanceWhile { it in S }
                 mType = XQDocTokenType.WHITE_SPACE
                 popState()
             }
 
             // XQuery/XML NCName token rules.
             in NameStartChar -> {
-                characters.advance()
-                while (characters.currentChar in NameChar) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it in NameChar }
                 mType = XQDocTokenType.NCNAME
             }
 
@@ -197,16 +186,12 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> mType = null
             in AlphaNumeric -> {
-                while (characters.currentChar in AlphaNumeric) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it in AlphaNumeric }
                 mType = XQDocTokenType.XML_TAG
             }
 
             in S -> {
-                while (characters.currentChar in S) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it in S }
                 mType = XQDocTokenType.WHITE_SPACE
             }
 
@@ -299,9 +284,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             }
 
             else -> {
-                while (characters.currentChar != XmlCharReader.EndOfBuffer && characters.currentChar != endChar) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it != XmlCharReader.EndOfBuffer && it != endChar }
                 mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
             }
         }
@@ -311,9 +294,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> mType = null
             Space, CharacterTabulation -> {
-                while (characters.currentChar == Space || characters.currentChar == CharacterTabulation) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it == Space || it == CharacterTabulation }
                 mType = XQDocTokenType.WHITE_SPACE
             }
 
@@ -324,9 +305,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                     characters.advance()
                 }
 
-                while (characters.currentChar == Space || characters.currentChar == CharacterTabulation) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it == Space || it == CharacterTabulation }
 
                 if (characters.currentChar == Colon) {
                     characters.advance()

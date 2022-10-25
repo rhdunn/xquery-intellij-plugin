@@ -38,16 +38,12 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
         return when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> null
             LineFeed, CarriageReturn -> {
-                while (characters.currentChar == LineFeed || characters.currentChar == CarriageReturn) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it == LineFeed || it == CarriageReturn }
                 MarkLogicErrorLogTokenType.WHITE_SPACE
             }
 
             in Digit -> {
-                while (characters.currentChar in Digit || characters.currentChar == HyphenMinus) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it in Digit || it == HyphenMinus }
                 pushState(State.Time)
                 MarkLogicErrorLogTokenType.DATE
             }
@@ -73,18 +69,12 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
             }
 
             Space, CharacterTabulation -> {
-                while (characters.currentChar == Space || characters.currentChar == CharacterTabulation) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it == Space || it == CharacterTabulation }
                 MarkLogicErrorLogTokenType.WHITE_SPACE
             }
 
             in Digit -> {
-                var c = characters.currentChar
-                while (c in Digit || c == Colon || c == FullStop) {
-                    characters.advance()
-                    c = characters.currentChar
-                }
+                characters.advanceWhile { it in Digit || it == Colon || it == FullStop }
                 popState()
                 pushState(State.LogLevel)
                 MarkLogicErrorLogTokenType.TIME
@@ -107,10 +97,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
             }
 
             (c == Space || c == CharacterTabulation) && state != State.SimpleMessage -> {
-                while (c == Space || c == CharacterTabulation) {
-                    characters.advance()
-                    c = characters.currentChar
-                }
+                characters.advanceWhile { it == Space || it == CharacterTabulation }
                 MarkLogicErrorLogTokenType.WHITE_SPACE
             }
 

@@ -34,9 +34,7 @@ class XQueryLexer : XPathLexer() {
     override fun stateDefault(state: Int) {
         when (characters.currentChar) {
             in S -> {
-                characters.advance()
-                while (characters.currentChar in S)
-                    characters.advance()
+                characters.advanceWhile { it in S }
                 mType = XPathTokenType.WHITE_SPACE
             }
 
@@ -72,8 +70,7 @@ class XQueryLexer : XPathLexer() {
                     }
                 }
                 characters.advance()
-                while (characters.currentChar in Digit)
-                    characters.advance()
+                characters.advanceWhile { it in Digit }
                 if (characters.currentChar == LatinSmallLetterE || characters.currentChar == LatinCapitalLetterE) {
                     savedOffset = characters.currentOffset
                     characters.advance()
@@ -81,9 +78,7 @@ class XQueryLexer : XPathLexer() {
                         characters.advance()
                     }
                     if (characters.currentChar in Digit) {
-                        characters.advance()
-                        while (characters.currentChar in Digit)
-                            characters.advance()
+                        characters.advanceWhile { it in Digit }
                         mType = XPathTokenType.DOUBLE_LITERAL
                     } else {
                         pushState(STATE_DOUBLE_EXPONENT)
@@ -93,13 +88,10 @@ class XQueryLexer : XPathLexer() {
             }
 
             in Digit -> {
-                characters.advance()
-                while (characters.currentChar in Digit)
-                    characters.advance()
+                characters.advanceWhile { it in Digit }
                 mType = if (characters.currentChar == FullStop) {
                     characters.advance()
-                    while (characters.currentChar in Digit)
-                        characters.advance()
+                    characters.advanceWhile { it in Digit }
                     XPathTokenType.DECIMAL_LITERAL
                 } else {
                     XPathTokenType.INTEGER_LITERAL
@@ -111,9 +103,7 @@ class XQueryLexer : XPathLexer() {
                         characters.advance()
                     }
                     if (characters.currentChar in Digit) {
-                        characters.advance()
-                        while (characters.currentChar in Digit)
-                            characters.advance()
+                        characters.advanceWhile { it in Digit }
                         mType = XPathTokenType.DOUBLE_LITERAL
                     } else {
                         pushState(STATE_DOUBLE_EXPONENT)
@@ -167,9 +157,7 @@ class XQueryLexer : XPathLexer() {
                     characters.advance()
                     mType = XPathTokenType.LAMBDA_FUNCTION
                 } else {
-                    while (characters.currentChar in NameChar && characters.currentChar != Colon) {
-                        characters.advance()
-                    }
+                    characters.advanceWhile { it in NameChar && it != Colon }
                     mType = ncnameToKeyword(tokenText) ?: XPathTokenType.NCNAME
                 }
             }
@@ -696,9 +684,7 @@ class XQueryLexer : XPathLexer() {
     private fun stateDirElemConstructor(state: Int) {
         when (characters.currentChar) {
             in S -> {
-                characters.advance()
-                while (characters.currentChar in S)
-                    characters.advance()
+                characters.advanceWhile { it in S }
                 mType = XQueryTokenType.XML_WHITE_SPACE
                 if (state == STATE_DIR_ELEM_CONSTRUCTOR) {
                     popState()
@@ -715,10 +701,7 @@ class XQueryLexer : XPathLexer() {
             }
 
             in NameStartChar -> {
-                characters.advance()
-                while (characters.currentChar in NameChar && characters.currentChar != Colon) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it in NameChar && it != Colon }
                 mType = if (state == STATE_DIR_ATTRIBUTE_LIST)
                     if (tokenText == "xmlns")
                         XQueryTokenType.XML_ATTRIBUTE_XMLNS
@@ -961,9 +944,7 @@ class XQueryLexer : XPathLexer() {
     private fun stateProcessingInstruction(state: Int) {
         when (characters.currentChar) {
             in S -> {
-                characters.advance()
-                while (characters.currentChar in S)
-                    characters.advance()
+                characters.advanceWhile { it in S }
                 mType = XQueryTokenType.XML_WHITE_SPACE
                 popState()
                 when (state) {
@@ -978,10 +959,7 @@ class XQueryLexer : XPathLexer() {
             }
 
             in NameStartChar -> {
-                characters.advance()
-                while (characters.currentChar in NameChar && characters.currentChar != Colon) {
-                    characters.advance()
-                }
+                characters.advanceWhile { it in NameChar && it != Colon }
                 mType = XQueryTokenType.XML_PI_TARGET_NCNAME
             }
 
@@ -1127,9 +1105,7 @@ class XQueryLexer : XPathLexer() {
         if (characters.currentChar !in NameStartChar)
             return false
 
-        while (characters.currentChar in NameChar && characters.currentChar != Colon) {
-            characters.advance()
-        }
+        characters.advanceWhile { it in NameChar && it != Colon }
         return true
     }
 
@@ -1145,9 +1121,7 @@ class XQueryLexer : XPathLexer() {
     }
 
     private fun matchWhiteSpace() {
-        while (characters.currentChar in S) {
-            characters.advance()
-        }
+        characters.advanceWhile { it in S }
     }
 
     private fun matchOpenXmlTag() {
