@@ -407,20 +407,18 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         return XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
     }
 
-    private fun stateXQueryComment() {
+    private fun stateXQueryComment(): IElementType? {
         when (characters.currentChar) {
             XmlCharReader.EndOfBuffer -> {
-                mType = null
-                return
+                return null
             }
 
             Colon -> {
                 if (characters.nextChar == RightParenthesis) {
                     characters.advance()
                     characters.advance()
-                    mType = XPathTokenType.COMMENT_END_TAG
                     popState()
-                    return
+                    return XPathTokenType.COMMENT_END_TAG
                 }
             }
         }
@@ -430,10 +428,9 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             when (characters.currentChar) {
                 XmlCharReader.EndOfBuffer -> {
                     characters.advance()
-                    mType = XPathTokenType.COMMENT
                     popState()
                     pushState(STATE_UNEXPECTED_END_OF_BLOCK)
-                    return
+                    return XPathTokenType.COMMENT
                 }
 
                 LeftParenthesis -> {
@@ -451,15 +448,12 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                         characters.advance()
                         if (--depth == 0) {
                             characters.currentOffset = savedOffset
-                            mType = XPathTokenType.COMMENT
-                            return
+                            return XPathTokenType.COMMENT
                         }
                     }
                 }
 
-                else -> {
-                    characters.advance()
-                }
+                else -> characters.advance()
             }
         }
     }
@@ -587,7 +581,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         STATE_STRING_LITERAL_QUOTE -> mType = stateStringLiteral(QuotationMark)
         STATE_STRING_LITERAL_APOSTROPHE -> mType = stateStringLiteral(Apostrophe)
         STATE_DOUBLE_EXPONENT -> mType = stateDoubleExponent()
-        STATE_XQUERY_COMMENT -> stateXQueryComment()
+        STATE_XQUERY_COMMENT -> mType = stateXQueryComment()
         STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
         STATE_PRAGMA_PRE_QNAME -> statePragmaPreQName()
         STATE_PRAGMA_QNAME -> statePragmaQName()
