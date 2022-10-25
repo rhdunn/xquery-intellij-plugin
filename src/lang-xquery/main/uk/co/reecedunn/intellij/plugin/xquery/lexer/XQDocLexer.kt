@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
 import xqt.platform.xml.lexer.*
 import xqt.platform.xml.model.XmlChar
@@ -24,8 +25,8 @@ import xqt.platform.xml.model.XmlCharReader
 class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     // region States
 
-    private fun matchEntityReference() {
-        mType = when (characters.matchEntityReference()) {
+    private fun matchEntityReference(): IElementType {
+        return when (characters.matchEntityReference()) {
             EntityReferenceType.EmptyEntityReference -> XQDocTokenType.EMPTY_ENTITY_REFERENCE
             EntityReferenceType.PartialEntityReference -> XQDocTokenType.PARTIAL_ENTITY_REFERENCE
             EntityReferenceType.CharacterReference -> XQDocTokenType.CHARACTER_REFERENCE
@@ -65,7 +66,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                 stateTrim(STATE_TRIM)
             }
 
-            Ampersand -> matchEntityReference() // XML PredefinedEntityRef and CharRef
+            Ampersand -> mType = matchEntityReference() // XML PredefinedEntityRef and CharRef
             else -> while (true) {
                 when (characters.currentChar) {
                     LineFeed, CarriageReturn -> {
@@ -255,7 +256,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                 }
             }
 
-            Ampersand -> matchEntityReference() // XML PredefinedEntityRef and CharRef
+            Ampersand -> mType = matchEntityReference() // XML PredefinedEntityRef and CharRef
             else -> {
                 characters.advance()
                 while (true) {
