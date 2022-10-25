@@ -1054,23 +1054,25 @@ class XQueryLexer : XPathLexer() {
         return XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
     }
 
-    private fun stateStartDirElemConstructor() {
-        when (characters.currentChar) {
+    private fun stateStartDirElemConstructor(): IElementType? {
+        return when (characters.currentChar) {
             LessThanSign -> {
                 characters.advance()
-                mType = XQueryTokenType.OPEN_XML_TAG
                 if (characters.currentChar !in S) {
                     popState()
                     pushState(STATE_DIR_ELEM_CONSTRUCTOR)
                 }
+                XQueryTokenType.OPEN_XML_TAG
             }
 
             in S -> {
                 characters.advanceWhile { it in S }
-                mType = XQueryTokenType.XML_WHITE_SPACE
                 popState()
                 pushState(STATE_DIR_ELEM_CONSTRUCTOR)
+                XQueryTokenType.XML_WHITE_SPACE
             }
+
+            else -> null
         }
     }
 
@@ -1177,8 +1179,7 @@ class XQueryLexer : XPathLexer() {
         STATE_PROCESSING_INSTRUCTION_CONTENTS -> mType = stateProcessingInstructionContents()
         STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT -> mType = stateProcessingInstructionContents()
         STATE_STRING_CONSTRUCTOR_CONTENTS -> mType = stateStringConstructorContents()
-        STATE_START_DIR_ELEM_CONSTRUCTOR ->
-            stateStartDirElemConstructor()
+        STATE_START_DIR_ELEM_CONSTRUCTOR -> mType = stateStartDirElemConstructor()
         else -> super.advance(state)
     }
 
