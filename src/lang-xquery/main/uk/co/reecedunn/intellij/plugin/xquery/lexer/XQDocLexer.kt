@@ -118,8 +118,8 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         }
     }
 
-    private fun stateTaggedContents() {
-        when (characters.currentChar) {
+    private fun stateTaggedContents(): IElementType? {
+        return when (characters.currentChar) {
             in AlphaNumeric -> {
                 characters.advanceWhile { it in AlphaNumeric }
                 mType = TAG_NAMES[tokenText] ?: XQDocTokenType.TAG
@@ -127,12 +127,13 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                     popState()
                     pushState(STATE_PARAM_TAG_CONTENTS_START)
                 }
+                mType
             }
 
             Space, CharacterTabulation -> {
                 characters.advanceWhile { it == Space || it == CharacterTabulation }
-                mType = XQDocTokenType.WHITE_SPACE
                 popState()
+                XQDocTokenType.WHITE_SPACE
             }
 
             else -> {
@@ -341,7 +342,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     override fun advance(state: Int): Unit = when (state) {
         STATE_DEFAULT -> mType = stateDefault()
         STATE_CONTENTS -> mType = stateContents()
-        STATE_TAGGED_CONTENTS -> stateTaggedContents()
+        STATE_TAGGED_CONTENTS -> mType = stateTaggedContents()
         STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> stateElemConstructor(state)
         STATE_ELEM_CONTENTS -> stateElemContents()
         STATE_ATTRIBUTE_VALUE_QUOTE -> stateAttributeValue(QuotationMark)
