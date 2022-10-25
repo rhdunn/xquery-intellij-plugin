@@ -23,319 +23,318 @@ import xqt.platform.xml.model.XmlCharReader
 
 @Suppress("DuplicatedCode")
 class XQDocLexer : LexerImpl(STATE_CONTENTS) {
-    // region States
+    companion object {
+        private const val STATE_CONTENTS = 1
+        private const val STATE_TAGGED_CONTENTS = 2
+        private const val STATE_ELEM_CONSTRUCTOR = 3
+        private const val STATE_ELEM_CONTENTS = 4
+        private const val STATE_ELEM_CONSTRUCTOR_CLOSING = 5
+        private const val STATE_ATTRIBUTE_VALUE_QUOTE = 6
+        private const val STATE_ATTRIBUTE_VALUE_APOS = 7
+        private const val STATE_TRIM = 8
+        private const val STATE_PARAM_TAG_CONTENTS_START = 9
+        private const val STATE_PARAM_TAG_VARNAME = 10
+        private const val STATE_XQUERY_CONTENTS = 11
+        private const val STATE_XQUERY_CONTENTS_TRIM = 12
 
-    private fun matchEntityReference(): IElementType {
-        return when (characters.matchEntityReference()) {
-            EntityReferenceType.EmptyEntityReference -> XQDocTokenType.EMPTY_ENTITY_REFERENCE
-            EntityReferenceType.PartialEntityReference -> XQDocTokenType.PARTIAL_ENTITY_REFERENCE
-            EntityReferenceType.CharacterReference -> XQDocTokenType.CHARACTER_REFERENCE
-            else -> XQDocTokenType.PREDEFINED_ENTITY_REFERENCE
+        private val TAG_NAMES = mapOf(
+            "author" to XQDocTokenType.T_AUTHOR,
+            "deprecated" to XQDocTokenType.T_DEPRECATED,
+            "error" to XQDocTokenType.T_ERROR,
+            "param" to XQDocTokenType.T_PARAM,
+            "return" to XQDocTokenType.T_RETURN,
+            "see" to XQDocTokenType.T_SEE,
+            "since" to XQDocTokenType.T_SINCE,
+            "version" to XQDocTokenType.T_VERSION
+        )
+    }
+
+    private fun matchEntityReference(): IElementType = when (characters.matchEntityReference()) {
+        EntityReferenceType.EmptyEntityReference -> XQDocTokenType.EMPTY_ENTITY_REFERENCE
+        EntityReferenceType.PartialEntityReference -> XQDocTokenType.PARTIAL_ENTITY_REFERENCE
+        EntityReferenceType.CharacterReference -> XQDocTokenType.CHARACTER_REFERENCE
+        else -> XQDocTokenType.PREDEFINED_ENTITY_REFERENCE
+    }
+
+    private fun stateDefault(): IElementType? = when (characters.currentChar) {
+        XmlCharReader.EndOfBuffer -> null
+        Tilde -> {
+            characters.advance()
+            pushState(STATE_CONTENTS)
+            pushState(STATE_TRIM)
+            XQDocTokenType.XQDOC_COMMENT_MARKER
+        }
+
+        else -> {
+            pushState(STATE_XQUERY_CONTENTS)
+            pushState(STATE_XQUERY_CONTENTS_TRIM)
+            advance()
+            mType
         }
     }
 
-    private fun stateDefault(): IElementType? {
-        return when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> null
-            Tilde -> {
-                characters.advance()
-                pushState(STATE_CONTENTS)
-                pushState(STATE_TRIM)
-                XQDocTokenType.XQDOC_COMMENT_MARKER
-            }
-
-            else -> {
-                pushState(STATE_XQUERY_CONTENTS)
-                pushState(STATE_XQUERY_CONTENTS_TRIM)
-                advance()
-                mType
-            }
+    private fun stateContents(): IElementType? = when (characters.currentChar) {
+        XmlCharReader.EndOfBuffer -> null
+        LessThanSign -> {
+            characters.advance()
+            pushState(STATE_ELEM_CONSTRUCTOR)
+            XQDocTokenType.OPEN_XML_TAG
         }
-    }
 
-    private fun stateContents(): IElementType? {
-        return when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> null
-            LessThanSign -> {
-                characters.advance()
-                pushState(STATE_ELEM_CONSTRUCTOR)
-                XQDocTokenType.OPEN_XML_TAG
-            }
+        LineFeed, CarriageReturn -> {
+            pushState(STATE_TRIM)
+            stateTrim(STATE_TRIM)
+        }
 
-            LineFeed, CarriageReturn -> {
-                pushState(STATE_TRIM)
-                stateTrim(STATE_TRIM)
-            }
-
-            Ampersand -> matchEntityReference() // XML PredefinedEntityRef and CharRef
-            else -> run {
-                while (true) {
-                    when (characters.currentChar) {
-                        LineFeed, CarriageReturn -> {
-                            pushState(STATE_TRIM)
-                            return XQDocTokenType.CONTENTS
-                        }
-
-                        XmlCharReader.EndOfBuffer, LessThanSign, Ampersand -> {
-                            return XQDocTokenType.CONTENTS
-                        }
-
-                        else -> characters.advance()
+        Ampersand -> matchEntityReference() // XML PredefinedEntityRef and CharRef
+        else -> run {
+            while (true) {
+                when (characters.currentChar) {
+                    LineFeed, CarriageReturn -> {
+                        pushState(STATE_TRIM)
+                        return XQDocTokenType.CONTENTS
                     }
-                }
-                @Suppress("UNREACHABLE_CODE") null
-            }
-        }
-    }
 
-    private fun stateXQueryContents(): IElementType? {
-        return when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> null
-            LineFeed, CarriageReturn -> {
-                pushState(STATE_XQUERY_CONTENTS_TRIM)
-                stateTrim(STATE_XQUERY_CONTENTS_TRIM)
-            }
-
-            else -> run {
-                while (true) {
-                    when (characters.currentChar) {
-                        LineFeed, CarriageReturn -> {
-                            pushState(STATE_XQUERY_CONTENTS_TRIM)
-                            return XQDocTokenType.CONTENTS
-                        }
-
-                        XmlCharReader.EndOfBuffer -> {
-                            return XQDocTokenType.CONTENTS
-                        }
-
-                        else -> characters.advance()
+                    XmlCharReader.EndOfBuffer, LessThanSign, Ampersand -> {
+                        return XQDocTokenType.CONTENTS
                     }
+
+                    else -> characters.advance()
                 }
-                @Suppress("UNREACHABLE_CODE") null
             }
+            @Suppress("UNREACHABLE_CODE") null
         }
     }
 
-    private fun stateTaggedContents(): IElementType? {
-        return when (characters.currentChar) {
-            in AlphaNumeric -> {
-                characters.advanceWhile { it in AlphaNumeric }
-                mType = TAG_NAMES[tokenText] ?: XQDocTokenType.TAG
-                if (mType === XQDocTokenType.T_PARAM) {
-                    popState()
-                    pushState(STATE_PARAM_TAG_CONTENTS_START)
+    private fun stateXQueryContents(): IElementType? = when (characters.currentChar) {
+        XmlCharReader.EndOfBuffer -> null
+        LineFeed, CarriageReturn -> {
+            pushState(STATE_XQUERY_CONTENTS_TRIM)
+            stateTrim(STATE_XQUERY_CONTENTS_TRIM)
+        }
+
+        else -> run {
+            while (true) {
+                when (characters.currentChar) {
+                    LineFeed, CarriageReturn -> {
+                        pushState(STATE_XQUERY_CONTENTS_TRIM)
+                        return XQDocTokenType.CONTENTS
+                    }
+
+                    XmlCharReader.EndOfBuffer -> {
+                        return XQDocTokenType.CONTENTS
+                    }
+
+                    else -> characters.advance()
                 }
-                mType
             }
-
-            Space, CharacterTabulation -> {
-                characters.advanceWhile { it == Space || it == CharacterTabulation }
-                popState()
-                XQDocTokenType.WHITE_SPACE
-            }
-
-            else -> {
-                popState()
-                stateContents()
-            }
+            @Suppress("UNREACHABLE_CODE") null
         }
     }
 
-    private fun stateParamTagContentsStart(): IElementType? {
-        return when (characters.currentChar) {
-            Space, CharacterTabulation -> {
-                characters.advanceWhile { it == Space || it == CharacterTabulation }
-                XQDocTokenType.WHITE_SPACE
-            }
-
-            DollarSign -> {
-                characters.advance()
+    private fun stateTaggedContents(): IElementType? = when (characters.currentChar) {
+        in AlphaNumeric -> {
+            characters.advanceWhile { it in AlphaNumeric }
+            mType = TAG_NAMES[tokenText] ?: XQDocTokenType.TAG
+            if (mType === XQDocTokenType.T_PARAM) {
                 popState()
-                pushState(STATE_PARAM_TAG_VARNAME)
-                XQDocTokenType.VARIABLE_INDICATOR
+                pushState(STATE_PARAM_TAG_CONTENTS_START)
             }
+            mType
+        }
 
-            else -> {
-                popState()
-                stateContents()
-            }
+        Space, CharacterTabulation -> {
+            characters.advanceWhile { it == Space || it == CharacterTabulation }
+            popState()
+            XQDocTokenType.WHITE_SPACE
+        }
+
+        else -> {
+            popState()
+            stateContents()
         }
     }
 
-    private fun stateParamTagVarName(): IElementType? {
-        return when (characters.currentChar) {
-            in S -> {
-                characters.advanceWhile { it in S }
-                popState()
-                XQDocTokenType.WHITE_SPACE
-            }
+    private fun stateParamTagContentsStart(): IElementType? = when (characters.currentChar) {
+        Space, CharacterTabulation -> {
+            characters.advanceWhile { it == Space || it == CharacterTabulation }
+            XQDocTokenType.WHITE_SPACE
+        }
 
-            // XQuery/XML NCName token rules.
-            in NameStartChar -> {
-                characters.advanceWhile { it in NameChar }
-                XQDocTokenType.NCNAME
-            }
+        DollarSign -> {
+            characters.advance()
+            popState()
+            pushState(STATE_PARAM_TAG_VARNAME)
+            XQDocTokenType.VARIABLE_INDICATOR
+        }
 
-            else -> {
-                popState()
-                stateContents()
-            }
+        else -> {
+            popState()
+            stateContents()
         }
     }
 
-    private fun stateElemConstructor(state: Int): IElementType? {
-        return when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> null
-            in AlphaNumeric -> {
-                characters.advanceWhile { it in AlphaNumeric }
-                XQDocTokenType.XML_TAG
-            }
+    private fun stateParamTagVarName(): IElementType? = when (characters.currentChar) {
+        in S -> {
+            characters.advanceWhile { it in S }
+            popState()
+            XQDocTokenType.WHITE_SPACE
+        }
 
-            in S -> {
-                characters.advanceWhile { it in S }
-                XQDocTokenType.WHITE_SPACE
-            }
+        // XQuery/XML NCName token rules.
+        in NameStartChar -> {
+            characters.advanceWhile { it in NameChar }
+            XQDocTokenType.NCNAME
+        }
 
-            EqualsSign -> {
-                characters.advance()
-                XQDocTokenType.XML_EQUAL
-            }
+        else -> {
+            popState()
+            stateContents()
+        }
+    }
 
-            QuotationMark -> {
-                characters.advance()
-                pushState(STATE_ATTRIBUTE_VALUE_QUOTE)
-                XQDocTokenType.XML_ATTRIBUTE_VALUE_START
-            }
+    private fun stateElemConstructor(state: Int): IElementType? = when (characters.currentChar) {
+        XmlCharReader.EndOfBuffer -> null
+        in AlphaNumeric -> {
+            characters.advanceWhile { it in AlphaNumeric }
+            XQDocTokenType.XML_TAG
+        }
 
-            Apostrophe -> {
-                characters.advance()
-                pushState(STATE_ATTRIBUTE_VALUE_APOS)
-                XQDocTokenType.XML_ATTRIBUTE_VALUE_START
-            }
+        in S -> {
+            characters.advanceWhile { it in S }
+            XQDocTokenType.WHITE_SPACE
+        }
 
-            Solidus -> {
-                characters.advance()
-                if (characters.currentChar == GreaterThanSign) {
-                    characters.advance()
-                    popState()
-                    XQDocTokenType.SELF_CLOSING_XML_TAG
-                } else {
-                    XQDocTokenType.INVALID
-                }
-            }
+        EqualsSign -> {
+            characters.advance()
+            XQDocTokenType.XML_EQUAL
+        }
 
-            GreaterThanSign -> {
+        QuotationMark -> {
+            characters.advance()
+            pushState(STATE_ATTRIBUTE_VALUE_QUOTE)
+            XQDocTokenType.XML_ATTRIBUTE_VALUE_START
+        }
+
+        Apostrophe -> {
+            characters.advance()
+            pushState(STATE_ATTRIBUTE_VALUE_APOS)
+            XQDocTokenType.XML_ATTRIBUTE_VALUE_START
+        }
+
+        Solidus -> {
+            characters.advance()
+            if (characters.currentChar == GreaterThanSign) {
                 characters.advance()
                 popState()
-                if (state == STATE_ELEM_CONSTRUCTOR) {
-                    pushState(STATE_ELEM_CONTENTS)
-                }
-                XQDocTokenType.END_XML_TAG
-            }
-
-            else -> {
-                characters.advance()
+                XQDocTokenType.SELF_CLOSING_XML_TAG
+            } else {
                 XQDocTokenType.INVALID
             }
         }
-    }
 
-    private fun stateElemContents(): IElementType? {
-        return when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> null
-            LessThanSign -> {
-                characters.advance()
-                if (characters.currentChar == Solidus) {
-                    characters.advance()
-                    popState()
-                    pushState(STATE_ELEM_CONSTRUCTOR_CLOSING)
-                    XQDocTokenType.CLOSE_XML_TAG
-                } else {
-                    pushState(STATE_ELEM_CONSTRUCTOR)
-                    XQDocTokenType.OPEN_XML_TAG
-                }
+        GreaterThanSign -> {
+            characters.advance()
+            popState()
+            if (state == STATE_ELEM_CONSTRUCTOR) {
+                pushState(STATE_ELEM_CONTENTS)
             }
+            XQDocTokenType.END_XML_TAG
+        }
 
-            Ampersand -> matchEntityReference() // XML PredefinedEntityRef and CharRef
-            else -> run {
-                characters.advance()
-                while (true) {
-                    when (characters.currentChar) {
-                        XmlCharReader.EndOfBuffer, LessThanSign, Ampersand -> {
-                            return XQDocTokenType.XML_ELEMENT_CONTENTS
-                        }
-
-                        else -> characters.advance()
-                    }
-                }
-                @Suppress("UNREACHABLE_CODE") null
-            }
+        else -> {
+            characters.advance()
+            XQDocTokenType.INVALID
         }
     }
 
-    private fun stateAttributeValue(endChar: XmlChar): IElementType? {
-        return when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> null
-            endChar -> {
+    private fun stateElemContents(): IElementType? = when (characters.currentChar) {
+        XmlCharReader.EndOfBuffer -> null
+        LessThanSign -> {
+            characters.advance()
+            if (characters.currentChar == Solidus) {
                 characters.advance()
                 popState()
-                XQDocTokenType.XML_ATTRIBUTE_VALUE_END
+                pushState(STATE_ELEM_CONSTRUCTOR_CLOSING)
+                XQDocTokenType.CLOSE_XML_TAG
+            } else {
+                pushState(STATE_ELEM_CONSTRUCTOR)
+                XQDocTokenType.OPEN_XML_TAG
             }
+        }
 
-            else -> {
-                characters.advanceWhile { it != XmlCharReader.EndOfBuffer && it != endChar }
-                XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
+        Ampersand -> matchEntityReference() // XML PredefinedEntityRef and CharRef
+        else -> run {
+            characters.advance()
+            while (true) {
+                when (characters.currentChar) {
+                    XmlCharReader.EndOfBuffer, LessThanSign, Ampersand -> {
+                        return XQDocTokenType.XML_ELEMENT_CONTENTS
+                    }
+
+                    else -> characters.advance()
+                }
             }
+            @Suppress("UNREACHABLE_CODE") null
         }
     }
 
-    private fun stateTrim(state: Int): IElementType? {
-        return when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> null
-            Space, CharacterTabulation -> {
-                characters.advanceWhile { it == Space || it == CharacterTabulation }
-                XQDocTokenType.WHITE_SPACE
-            }
+    private fun stateAttributeValue(endChar: XmlChar): IElementType? = when (characters.currentChar) {
+        XmlCharReader.EndOfBuffer -> null
+        endChar -> {
+            characters.advance()
+            popState()
+            XQDocTokenType.XML_ATTRIBUTE_VALUE_END
+        }
 
-            LineFeed, CarriageReturn -> {
-                val pc = characters.currentChar
+        else -> {
+            characters.advanceWhile { it != XmlCharReader.EndOfBuffer && it != endChar }
+            XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
+        }
+    }
+
+    private fun stateTrim(state: Int): IElementType? = when (characters.currentChar) {
+        XmlCharReader.EndOfBuffer -> null
+        Space, CharacterTabulation -> {
+            characters.advanceWhile { it == Space || it == CharacterTabulation }
+            XQDocTokenType.WHITE_SPACE
+        }
+
+        LineFeed, CarriageReturn -> {
+            val pc = characters.currentChar
+            characters.advance()
+            if (pc == CarriageReturn && characters.currentChar == LineFeed) {
                 characters.advance()
-                if (pc == CarriageReturn && characters.currentChar == LineFeed) {
-                    characters.advance()
-                }
-
-                characters.advanceWhile { it == Space || it == CharacterTabulation }
-
-                if (characters.currentChar == Colon) {
-                    characters.advance()
-                }
-
-                XQDocTokenType.TRIM
             }
 
-            CommercialAt -> {
-                if (state == STATE_TRIM) {
-                    characters.advance()
-                    popState()
-                    pushState(STATE_TAGGED_CONTENTS)
-                    XQDocTokenType.TAG_MARKER
-                } else {
-                    popState()
-                    advance()
-                    mType
-                }
+            characters.advanceWhile { it == Space || it == CharacterTabulation }
+
+            if (characters.currentChar == Colon) {
+                characters.advance()
             }
 
-            else -> {
+            XQDocTokenType.TRIM
+        }
+
+        CommercialAt -> {
+            if (state == STATE_TRIM) {
+                characters.advance()
+                popState()
+                pushState(STATE_TAGGED_CONTENTS)
+                XQDocTokenType.TAG_MARKER
+            } else {
                 popState()
                 advance()
                 mType
             }
         }
-    }
 
-    // endregion
-    // region Lexer
+        else -> {
+            popState()
+            advance()
+            mType
+        }
+    }
 
     override fun advance(state: Int): Unit = when (state) {
         STATE_DEFAULT -> mType = stateDefault()
@@ -350,37 +349,5 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         STATE_PARAM_TAG_VARNAME -> mType = stateParamTagVarName()
         STATE_XQUERY_CONTENTS -> mType = stateXQueryContents()
         else -> throw AssertionError("Invalid state: $state")
-    }
-
-    // endregion
-
-    companion object {
-        // region State Constants
-
-        private const val STATE_CONTENTS = 1
-        private const val STATE_TAGGED_CONTENTS = 2
-        private const val STATE_ELEM_CONSTRUCTOR = 3
-        private const val STATE_ELEM_CONTENTS = 4
-        private const val STATE_ELEM_CONSTRUCTOR_CLOSING = 5
-        private const val STATE_ATTRIBUTE_VALUE_QUOTE = 6
-        private const val STATE_ATTRIBUTE_VALUE_APOS = 7
-        private const val STATE_TRIM = 8
-        private const val STATE_PARAM_TAG_CONTENTS_START = 9
-        private const val STATE_PARAM_TAG_VARNAME = 10
-        private const val STATE_XQUERY_CONTENTS = 11
-        private const val STATE_XQUERY_CONTENTS_TRIM = 12
-
-        // endregion
-
-        private val TAG_NAMES = mapOf(
-            "author" to XQDocTokenType.T_AUTHOR,
-            "deprecated" to XQDocTokenType.T_DEPRECATED,
-            "error" to XQDocTokenType.T_ERROR,
-            "param" to XQDocTokenType.T_PARAM,
-            "return" to XQDocTokenType.T_RETURN,
-            "see" to XQDocTokenType.T_SEE,
-            "since" to XQDocTokenType.T_SINCE,
-            "version" to XQDocTokenType.T_VERSION
-        )
     }
 }
