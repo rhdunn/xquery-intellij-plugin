@@ -65,7 +65,6 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             LineFeed, CarriageReturn -> {
                 pushState(STATE_TRIM)
                 stateTrim(STATE_TRIM)
-                mType
             }
 
             Ampersand -> matchEntityReference() // XML PredefinedEntityRef and CharRef
@@ -95,7 +94,6 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             LineFeed, CarriageReturn -> {
                 pushState(STATE_XQUERY_CONTENTS_TRIM)
                 stateTrim(STATE_XQUERY_CONTENTS_TRIM)
-                mType
             }
 
             else -> run {
@@ -291,12 +289,12 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         }
     }
 
-    private fun stateTrim(state: Int) {
-        when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> mType = null
+    private fun stateTrim(state: Int): IElementType? {
+        return when (characters.currentChar) {
+            XmlCharReader.EndOfBuffer -> null
             Space, CharacterTabulation -> {
                 characters.advanceWhile { it == Space || it == CharacterTabulation }
-                mType = XQDocTokenType.WHITE_SPACE
+                XQDocTokenType.WHITE_SPACE
             }
 
             LineFeed, CarriageReturn -> {
@@ -312,24 +310,26 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
                     characters.advance()
                 }
 
-                mType = XQDocTokenType.TRIM
+                XQDocTokenType.TRIM
             }
 
             CommercialAt -> {
                 if (state == STATE_TRIM) {
                     characters.advance()
-                    mType = XQDocTokenType.TAG_MARKER
                     popState()
                     pushState(STATE_TAGGED_CONTENTS)
+                    XQDocTokenType.TAG_MARKER
                 } else {
                     popState()
                     advance()
+                    mType
                 }
             }
 
             else -> {
                 popState()
                 advance()
+                mType
             }
         }
     }
@@ -345,7 +345,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         STATE_ELEM_CONTENTS -> mType = stateElemContents()
         STATE_ATTRIBUTE_VALUE_QUOTE -> mType = stateAttributeValue(QuotationMark)
         STATE_ATTRIBUTE_VALUE_APOS -> mType = stateAttributeValue(Apostrophe)
-        STATE_TRIM, STATE_XQUERY_CONTENTS_TRIM -> stateTrim(state)
+        STATE_TRIM, STATE_XQUERY_CONTENTS_TRIM -> mType = stateTrim(state)
         STATE_PARAM_TAG_CONTENTS_START -> mType = stateParamTagContentsStart()
         STATE_PARAM_TAG_VARNAME -> mType = stateParamTagVarName()
         STATE_XQUERY_CONTENTS -> mType = stateXQueryContents()
