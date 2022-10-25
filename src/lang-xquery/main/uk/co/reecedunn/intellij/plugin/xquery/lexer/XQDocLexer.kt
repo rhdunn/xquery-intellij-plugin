@@ -185,59 +185,59 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         }
     }
 
-    private fun stateElemConstructor(state: Int) {
-        when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> mType = null
+    private fun stateElemConstructor(state: Int): IElementType? {
+        return when (characters.currentChar) {
+            XmlCharReader.EndOfBuffer -> null
             in AlphaNumeric -> {
                 characters.advanceWhile { it in AlphaNumeric }
-                mType = XQDocTokenType.XML_TAG
+                XQDocTokenType.XML_TAG
             }
 
             in S -> {
                 characters.advanceWhile { it in S }
-                mType = XQDocTokenType.WHITE_SPACE
+                XQDocTokenType.WHITE_SPACE
             }
 
             EqualsSign -> {
                 characters.advance()
-                mType = XQDocTokenType.XML_EQUAL
+                XQDocTokenType.XML_EQUAL
             }
 
             QuotationMark -> {
                 characters.advance()
-                mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_START
                 pushState(STATE_ATTRIBUTE_VALUE_QUOTE)
+                XQDocTokenType.XML_ATTRIBUTE_VALUE_START
             }
 
             Apostrophe -> {
                 characters.advance()
-                mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_START
                 pushState(STATE_ATTRIBUTE_VALUE_APOS)
+                XQDocTokenType.XML_ATTRIBUTE_VALUE_START
             }
 
             Solidus -> {
                 characters.advance()
                 if (characters.currentChar == GreaterThanSign) {
                     characters.advance()
-                    mType = XQDocTokenType.SELF_CLOSING_XML_TAG
                     popState()
+                    XQDocTokenType.SELF_CLOSING_XML_TAG
                 } else {
-                    mType = XQDocTokenType.INVALID
+                    XQDocTokenType.INVALID
                 }
             }
 
             GreaterThanSign -> {
                 characters.advance()
-                mType = XQDocTokenType.END_XML_TAG
                 popState()
                 if (state == STATE_ELEM_CONSTRUCTOR) {
                     pushState(STATE_ELEM_CONTENTS)
                 }
+                XQDocTokenType.END_XML_TAG
             }
 
             else -> {
                 characters.advance()
-                mType = XQDocTokenType.INVALID
+                XQDocTokenType.INVALID
             }
         }
     }
@@ -343,7 +343,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         STATE_DEFAULT -> mType = stateDefault()
         STATE_CONTENTS -> mType = stateContents()
         STATE_TAGGED_CONTENTS -> mType = stateTaggedContents()
-        STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> stateElemConstructor(state)
+        STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> mType = stateElemConstructor(state)
         STATE_ELEM_CONTENTS -> stateElemContents()
         STATE_ATTRIBUTE_VALUE_QUOTE -> stateAttributeValue(QuotationMark)
         STATE_ATTRIBUTE_VALUE_APOS -> stateAttributeValue(Apostrophe)
