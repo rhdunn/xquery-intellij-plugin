@@ -25,63 +25,50 @@ import xqt.platform.xml.lexer.RightCurlyBracket
 import xqt.platform.xml.model.XmlCharReader
 
 class XsltValueTemplateLexer : XPathLexer() {
-    // region States
-
-    private fun stateDefault(): IElementType? {
-        return when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> null
-            LeftCurlyBracket -> {
-                characters.advance()
-                if (characters.currentChar == LeftCurlyBracket) {
-                    characters.advance()
-                    ValueTemplate.ESCAPED_CHARACTER
-                } else {
-                    pushState(STATE_VALUE_TEMPLATE_EXPRESSION)
-                    XPathTokenType.BLOCK_OPEN
-                }
-            }
-
-            RightCurlyBracket -> {
-                characters.advance()
-                if (characters.currentChar == RightCurlyBracket) {
-                    characters.advance()
-                    ValueTemplate.ESCAPED_CHARACTER
-                } else {
-                    XPathTokenType.BLOCK_CLOSE
-                }
-            }
-
-            else -> {
-                while (true) {
-                    when (characters.currentChar) {
-                        XmlCharReader.EndOfBuffer, LeftCurlyBracket, RightCurlyBracket -> {
-                            return ValueTemplate.VALUE_CONTENTS
-                        }
-
-                        else -> characters.advance()
-                    }
-                }
-                @Suppress("UNREACHABLE_CODE") null
-            }
-        }
+    companion object {
+        private const val STATE_VALUE_TEMPLATE_EXPRESSION = 32
     }
 
-    // endregion
-    // region Lexer
+    private fun stateDefault(): IElementType? = when (characters.currentChar) {
+        XmlCharReader.EndOfBuffer -> null
+        LeftCurlyBracket -> {
+            characters.advance()
+            if (characters.currentChar == LeftCurlyBracket) {
+                characters.advance()
+                ValueTemplate.ESCAPED_CHARACTER
+            } else {
+                pushState(STATE_VALUE_TEMPLATE_EXPRESSION)
+                XPathTokenType.BLOCK_OPEN
+            }
+        }
+
+        RightCurlyBracket -> {
+            characters.advance()
+            if (characters.currentChar == RightCurlyBracket) {
+                characters.advance()
+                ValueTemplate.ESCAPED_CHARACTER
+            } else {
+                XPathTokenType.BLOCK_CLOSE
+            }
+        }
+
+        else -> run {
+            while (true) {
+                when (characters.currentChar) {
+                    XmlCharReader.EndOfBuffer, LeftCurlyBracket, RightCurlyBracket -> {
+                        return ValueTemplate.VALUE_CONTENTS
+                    }
+
+                    else -> characters.advance()
+                }
+            }
+            @Suppress("UNREACHABLE_CODE") null
+        }
+    }
 
     override fun advance(state: Int): Unit = when (state) {
         STATE_DEFAULT -> mType = stateDefault()
         STATE_VALUE_TEMPLATE_EXPRESSION -> stateDefault(state)
         else -> super.advance(state)
-    }
-
-    // endregion
-
-    companion object {
-        // region State Constants
-
-        private const val STATE_VALUE_TEMPLATE_EXPRESSION = 32
-
-        // endregion
     }
 }
