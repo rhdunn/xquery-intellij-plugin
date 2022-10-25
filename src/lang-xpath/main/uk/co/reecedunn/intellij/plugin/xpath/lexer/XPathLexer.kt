@@ -418,15 +418,12 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
             }
 
             Colon -> {
-                val savedOffset = characters.currentOffset
-                characters.advance()
-                if (characters.currentChar == RightParenthesis) {
+                if (characters.nextChar == RightParenthesis) {
+                    characters.advance()
                     characters.advance()
                     mType = XPathTokenType.COMMENT_END_TAG
                     popState()
                     return
-                } else {
-                    characters.currentOffset = savedOffset
                 }
             }
         }
