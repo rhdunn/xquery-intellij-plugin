@@ -398,13 +398,13 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         }
     }
 
-    private fun stateDoubleExponent() {
+    private fun stateDoubleExponent(): IElementType {
         characters.advance()
         if (characters.currentChar == PlusSign || characters.currentChar == HyphenMinus) {
             characters.advance()
         }
-        mType = XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
         popState()
+        return XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT
     }
 
     private fun stateXQueryComment() {
@@ -586,7 +586,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         STATE_DEFAULT -> mType = stateDefault(state)
         STATE_STRING_LITERAL_QUOTE -> mType = stateStringLiteral(QuotationMark)
         STATE_STRING_LITERAL_APOSTROPHE -> mType = stateStringLiteral(Apostrophe)
-        STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
+        STATE_DOUBLE_EXPONENT -> mType = stateDoubleExponent()
         STATE_XQUERY_COMMENT -> stateXQueryComment()
         STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
         STATE_PRAGMA_PRE_QNAME -> statePragmaPreQName()
