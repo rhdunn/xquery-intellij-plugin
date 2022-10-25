@@ -275,18 +275,18 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         }
     }
 
-    private fun stateAttributeValue(endChar: XmlChar) {
-        when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> mType = null
+    private fun stateAttributeValue(endChar: XmlChar): IElementType? {
+        return when (characters.currentChar) {
+            XmlCharReader.EndOfBuffer -> null
             endChar -> {
                 characters.advance()
-                mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_END
                 popState()
+                XQDocTokenType.XML_ATTRIBUTE_VALUE_END
             }
 
             else -> {
                 characters.advanceWhile { it != XmlCharReader.EndOfBuffer && it != endChar }
-                mType = XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
+                XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
             }
         }
     }
@@ -343,8 +343,8 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         STATE_TAGGED_CONTENTS -> mType = stateTaggedContents()
         STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> mType = stateElemConstructor(state)
         STATE_ELEM_CONTENTS -> mType = stateElemContents()
-        STATE_ATTRIBUTE_VALUE_QUOTE -> stateAttributeValue(QuotationMark)
-        STATE_ATTRIBUTE_VALUE_APOS -> stateAttributeValue(Apostrophe)
+        STATE_ATTRIBUTE_VALUE_QUOTE -> mType = stateAttributeValue(QuotationMark)
+        STATE_ATTRIBUTE_VALUE_APOS -> mType = stateAttributeValue(Apostrophe)
         STATE_TRIM, STATE_XQUERY_CONTENTS_TRIM -> stateTrim(state)
         STATE_PARAM_TAG_CONTENTS_START -> mType = stateParamTagContentsStart()
         STATE_PARAM_TAG_VARNAME -> mType = stateParamTagVarName()
