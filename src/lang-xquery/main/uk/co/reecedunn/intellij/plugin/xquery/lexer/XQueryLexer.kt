@@ -545,7 +545,7 @@ class XQueryLexer : XPathLexer() {
                 }
             }
 
-            c == Ampersand -> when (type) {
+            c == Ampersand -> mType = when (type) {
                 QuotationMark -> matchEntityReference(STATE_STRING_LITERAL_QUOTE)
                 else -> matchEntityReference(STATE_STRING_LITERAL_APOSTROPHE)
             }
@@ -799,7 +799,7 @@ class XQueryLexer : XPathLexer() {
                 mType = XPathTokenType.BAD_CHARACTER
             }
 
-            Ampersand -> when (type) {
+            Ampersand -> mType = when (type) {
                 QuotationMark -> matchEntityReference(STATE_DIR_ATTRIBUTE_VALUE_QUOTE)
                 else -> matchEntityReference(STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE)
             }
@@ -925,7 +925,7 @@ class XQueryLexer : XPathLexer() {
                 }
             }
 
-            Ampersand -> matchEntityReference(STATE_DIR_ELEM_CONTENT)
+            Ampersand -> mType = matchEntityReference(STATE_DIR_ELEM_CONTENT)
             XmlCharReader.EndOfBuffer -> mType = null
             else -> {
                 while (true) {
@@ -1154,8 +1154,8 @@ class XQueryLexer : XPathLexer() {
         }
     }
 
-    private fun matchEntityReference(state: Int) {
-        mType = if (state == STATE_DIR_ATTRIBUTE_VALUE_QUOTE || state == STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE) {
+    private fun matchEntityReference(state: Int): IElementType {
+        return if (state == STATE_DIR_ATTRIBUTE_VALUE_QUOTE || state == STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE) {
             when (characters.matchEntityReference()) {
                 EntityReferenceType.CharacterReference -> XQueryTokenType.XML_CHARACTER_REFERENCE
                 EntityReferenceType.EmptyEntityReference -> XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE
