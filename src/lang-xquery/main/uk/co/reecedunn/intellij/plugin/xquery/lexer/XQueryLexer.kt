@@ -990,15 +990,12 @@ class XQueryLexer : XPathLexer() {
             }
 
             QuestionMark -> {
-                val savedOffset = characters.currentOffset
-                characters.advance()
-                if (characters.currentChar == GreaterThanSign) {
+                if (characters.nextChar == GreaterThanSign) {
+                    characters.advance()
                     characters.advance()
                     mType = XQueryTokenType.PROCESSING_INSTRUCTION_END
                     popState()
                     return
-                } else {
-                    characters.currentOffset = savedOffset
                 }
             }
         }
@@ -1014,12 +1011,11 @@ class XQueryLexer : XPathLexer() {
                 }
 
                 QuestionMark -> {
-                    val savedOffset = characters.currentOffset
-                    characters.advance()
-                    if (characters.currentChar == GreaterThanSign) {
-                        characters.currentOffset = savedOffset
+                    if (characters.nextChar == GreaterThanSign) {
                         mType = XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS
                         return
+                    } else {
+                        characters.advance()
                     }
                 }
 
