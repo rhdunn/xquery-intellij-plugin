@@ -23,9 +23,7 @@ import xqt.platform.xml.lexer.*
 import xqt.platform.xml.model.XmlCharReader
 
 class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(STATE_DEFAULT) {
-    // region States
-
-    object State {
+    private object State {
         const val Default = 0
         const val Time = 1
         const val LogLevel = 2
@@ -34,56 +32,52 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
         const val SimpleMessage = 5
     }
 
-    private fun stateDefault(): IElementType? {
-        return when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> null
-            LineFeed, CarriageReturn -> {
-                characters.advanceWhile { it == LineFeed || it == CarriageReturn }
-                MarkLogicErrorLogTokenType.WHITE_SPACE
-            }
+    private fun stateDefault(): IElementType? = when (characters.currentChar) {
+        XmlCharReader.EndOfBuffer -> null
+        LineFeed, CarriageReturn -> {
+            characters.advanceWhile { it == LineFeed || it == CarriageReturn }
+            MarkLogicErrorLogTokenType.WHITE_SPACE
+        }
 
-            in Digit -> {
-                characters.advanceWhile { it in Digit || it == HyphenMinus }
-                pushState(State.Time)
-                MarkLogicErrorLogTokenType.DATE
-            }
+        in Digit -> {
+            characters.advanceWhile { it in Digit || it == HyphenMinus }
+            pushState(State.Time)
+            MarkLogicErrorLogTokenType.DATE
+        }
 
-            Space, CharacterTabulation -> {
-                pushState(State.SimpleMessage)
-                return stateLogLevelOrServer(State.SimpleMessage)
-            }
+        Space, CharacterTabulation -> {
+            pushState(State.SimpleMessage)
+            stateLogLevelOrServer(State.SimpleMessage)
+        }
 
-            else -> {
-                pushState(State.Message)
-                return stateLogLevelOrServer(State.Default)
-            }
+        else -> {
+            pushState(State.Message)
+            stateLogLevelOrServer(State.Default)
         }
     }
 
-    private fun stateTime(): IElementType? {
-        return when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> null
-            LineFeed, CarriageReturn -> {
-                popState()
-                stateDefault()
-            }
+    private fun stateTime(): IElementType? = when (characters.currentChar) {
+        XmlCharReader.EndOfBuffer -> null
+        LineFeed, CarriageReturn -> {
+            popState()
+            stateDefault()
+        }
 
-            Space, CharacterTabulation -> {
-                characters.advanceWhile { it == Space || it == CharacterTabulation }
-                MarkLogicErrorLogTokenType.WHITE_SPACE
-            }
+        Space, CharacterTabulation -> {
+            characters.advanceWhile { it == Space || it == CharacterTabulation }
+            MarkLogicErrorLogTokenType.WHITE_SPACE
+        }
 
-            in Digit -> {
-                characters.advanceWhile { it in Digit || it == Colon || it == FullStop }
-                popState()
-                pushState(State.LogLevel)
-                MarkLogicErrorLogTokenType.TIME
-            }
+        in Digit -> {
+            characters.advanceWhile { it in Digit || it == Colon || it == FullStop }
+            popState()
+            pushState(State.LogLevel)
+            MarkLogicErrorLogTokenType.TIME
+        }
 
-            else -> {
-                popState()
-                stateDefault()
-            }
+        else -> {
+            popState()
+            stateDefault()
         }
     }
 
@@ -154,20 +148,15 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
         }
     }
 
-    // endregion
-    // region Lexer
-
     override fun advance(state: Int) {
         mType = when (state) {
             State.Default -> stateDefault()
             State.Time -> stateTime()
-            State.LogLevel,
-            State.Server,
-            State.Message,
+            State.LogLevel -> stateLogLevelOrServer(state)
+            State.Server -> stateLogLevelOrServer(state)
+            State.Message -> stateLogLevelOrServer(state)
             State.SimpleMessage -> stateLogLevelOrServer(state)
             else -> throw AssertionError("Invalid state: $state")
         }
     }
-
-    // endregion
 }
