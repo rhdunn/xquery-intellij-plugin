@@ -1007,7 +1007,7 @@ class XQueryLexer : XPathLexer() {
         }
     }
 
-    private fun stateStringConstructorContents() {
+    private fun stateStringConstructorContents(): IElementType {
         when (characters.currentChar) {
             GraveAccent -> {
                 val savedOffset = characters.currentOffset
@@ -1015,8 +1015,7 @@ class XQueryLexer : XPathLexer() {
                 if (characters.currentChar == LeftCurlyBracket) {
                     characters.advance()
                     pushState(STATE_DEFAULT_STRING_INTERPOLATION)
-                    mType = XQueryTokenType.STRING_INTERPOLATION_OPEN
-                    return
+                    return XQueryTokenType.STRING_INTERPOLATION_OPEN
                 } else {
                     characters.currentOffset = savedOffset
                 }
@@ -1032,8 +1031,7 @@ class XQueryLexer : XPathLexer() {
                         if (characters.currentChar == GraveAccent) {
                             characters.currentOffset = savedOffset
                             popState()
-                            mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
-                            return
+                            return XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
                         }
                     }
                 }
@@ -1043,8 +1041,7 @@ class XQueryLexer : XPathLexer() {
                     characters.advance()
                     if (characters.currentChar == LeftCurlyBracket) {
                         characters.currentOffset = savedOffset
-                        mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
-                        return
+                        return XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
                     } else {
                         characters.currentOffset = savedOffset
                     }
@@ -1054,7 +1051,7 @@ class XQueryLexer : XPathLexer() {
         }
         popState()
         pushState(STATE_UNEXPECTED_END_OF_BLOCK)
-        mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
+        return XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
     }
 
     private fun stateStartDirElemConstructor() {
@@ -1179,8 +1176,7 @@ class XQueryLexer : XPathLexer() {
         STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT -> mType = stateProcessingInstruction(state)
         STATE_PROCESSING_INSTRUCTION_CONTENTS -> mType = stateProcessingInstructionContents()
         STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT -> mType = stateProcessingInstructionContents()
-        STATE_STRING_CONSTRUCTOR_CONTENTS ->
-            stateStringConstructorContents()
+        STATE_STRING_CONSTRUCTOR_CONTENTS -> mType = stateStringConstructorContents()
         STATE_START_DIR_ELEM_CONSTRUCTOR ->
             stateStartDirElemConstructor()
         else -> super.advance(state)
