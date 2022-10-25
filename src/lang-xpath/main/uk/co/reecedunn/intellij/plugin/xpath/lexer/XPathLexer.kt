@@ -458,18 +458,18 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         }
     }
 
-    private fun statePragmaPreQName() {
-        when (characters.currentChar) {
+    private fun statePragmaPreQName(): IElementType? {
+        return when (characters.currentChar) {
             in S -> {
                 characters.advanceWhile { it in S }
-                mType = XPathTokenType.WHITE_SPACE
+                XPathTokenType.WHITE_SPACE
             }
 
             Colon -> {
                 characters.advance()
-                mType = XPathTokenType.QNAME_SEPARATOR
                 popState()
                 pushState(STATE_PRAGMA_QNAME)
+                XPathTokenType.QNAME_SEPARATOR
             }
 
             in NameStartChar -> {
@@ -477,15 +477,15 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 characters.advance()
                 if (pc == LatinCapitalLetterQ && characters.currentChar == LeftCurlyBracket) {
                     characters.advance()
-                    mType = XPathTokenType.BRACED_URI_LITERAL_START
                     popState()
                     pushState(STATE_PRAGMA_QNAME)
                     pushState(STATE_BRACED_URI_LITERAL_PRAGMA)
+                    XPathTokenType.BRACED_URI_LITERAL_START
                 } else {
                     characters.advanceWhile { it in NameChar && it != Colon }
-                    mType = XPathTokenType.NCNAME
                     popState()
                     pushState(STATE_PRAGMA_QNAME)
+                    XPathTokenType.NCNAME
                 }
             }
 
@@ -493,6 +493,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 popState()
                 pushState(STATE_PRAGMA_CONTENTS)
                 statePragmaContents()
+                mType
             }
         }
     }
@@ -583,7 +584,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         STATE_DOUBLE_EXPONENT -> mType = stateDoubleExponent()
         STATE_XQUERY_COMMENT -> mType = stateXQueryComment()
         STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
-        STATE_PRAGMA_PRE_QNAME -> statePragmaPreQName()
+        STATE_PRAGMA_PRE_QNAME -> mType = statePragmaPreQName()
         STATE_PRAGMA_QNAME -> statePragmaQName()
         STATE_PRAGMA_CONTENTS -> statePragmaContents()
         STATE_BRACED_URI_LITERAL -> mType = stateStringLiteral(RightCurlyBracket)
