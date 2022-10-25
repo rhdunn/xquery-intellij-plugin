@@ -242,37 +242,35 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         }
     }
 
-    private fun stateElemContents() {
-        when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> mType = null
+    private fun stateElemContents(): IElementType? {
+        return when (characters.currentChar) {
+            XmlCharReader.EndOfBuffer -> null
             LessThanSign -> {
                 characters.advance()
                 if (characters.currentChar == Solidus) {
                     characters.advance()
-                    mType = XQDocTokenType.CLOSE_XML_TAG
                     popState()
                     pushState(STATE_ELEM_CONSTRUCTOR_CLOSING)
+                    XQDocTokenType.CLOSE_XML_TAG
                 } else {
-                    mType = XQDocTokenType.OPEN_XML_TAG
                     pushState(STATE_ELEM_CONSTRUCTOR)
+                    XQDocTokenType.OPEN_XML_TAG
                 }
             }
 
-            Ampersand -> mType = matchEntityReference() // XML PredefinedEntityRef and CharRef
-            else -> {
+            Ampersand -> matchEntityReference() // XML PredefinedEntityRef and CharRef
+            else -> run {
                 characters.advance()
                 while (true) {
                     when (characters.currentChar) {
                         XmlCharReader.EndOfBuffer, LessThanSign, Ampersand -> {
-                            mType = XQDocTokenType.XML_ELEMENT_CONTENTS
-                            return
+                            return XQDocTokenType.XML_ELEMENT_CONTENTS
                         }
 
-                        else -> {
-                            characters.advance()
-                        }
+                        else -> characters.advance()
                     }
                 }
+                @Suppress("UNREACHABLE_CODE") null
             }
         }
     }
@@ -344,7 +342,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         STATE_CONTENTS -> mType = stateContents()
         STATE_TAGGED_CONTENTS -> mType = stateTaggedContents()
         STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> mType = stateElemConstructor(state)
-        STATE_ELEM_CONTENTS -> stateElemContents()
+        STATE_ELEM_CONTENTS -> mType = stateElemContents()
         STATE_ATTRIBUTE_VALUE_QUOTE -> stateAttributeValue(QuotationMark)
         STATE_ATTRIBUTE_VALUE_APOS -> stateAttributeValue(Apostrophe)
         STATE_TRIM, STATE_XQUERY_CONTENTS_TRIM -> stateTrim(state)
