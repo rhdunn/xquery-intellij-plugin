@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.lexer
 
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -26,26 +27,23 @@ import xqt.platform.xml.model.XmlCharReader
 class XsltValueTemplateLexer : XPathLexer() {
     // region States
 
-    private fun stateDefault() {
-        when (characters.currentChar) {
-            XmlCharReader.EndOfBuffer -> {
-                mType = null
-            }
-
+    private fun stateDefault(): IElementType? {
+        return when (characters.currentChar) {
+            XmlCharReader.EndOfBuffer -> null
             LeftCurlyBracket -> {
                 characters.advance()
                 if (characters.currentChar == LeftCurlyBracket) {
                     characters.advance()
-                    mType = ValueTemplate.ESCAPED_CHARACTER
+                    ValueTemplate.ESCAPED_CHARACTER
                 } else {
-                    mType = XPathTokenType.BLOCK_OPEN
                     pushState(STATE_VALUE_TEMPLATE_EXPRESSION)
+                    XPathTokenType.BLOCK_OPEN
                 }
             }
 
             RightCurlyBracket -> {
                 characters.advance()
-                mType = if (characters.currentChar == RightCurlyBracket) {
+                if (characters.currentChar == RightCurlyBracket) {
                     characters.advance()
                     ValueTemplate.ESCAPED_CHARACTER
                 } else {
@@ -53,17 +51,17 @@ class XsltValueTemplateLexer : XPathLexer() {
                 }
             }
 
-            else -> while (true) {
-                when (characters.currentChar) {
-                    XmlCharReader.EndOfBuffer, LeftCurlyBracket, RightCurlyBracket -> {
-                        mType = ValueTemplate.VALUE_CONTENTS
-                        return
-                    }
+            else -> {
+                while (true) {
+                    when (characters.currentChar) {
+                        XmlCharReader.EndOfBuffer, LeftCurlyBracket, RightCurlyBracket -> {
+                            return ValueTemplate.VALUE_CONTENTS
+                        }
 
-                    else -> {
-                        characters.advance()
+                        else -> characters.advance()
                     }
                 }
+                @Suppress("UNREACHABLE_CODE") null
             }
         }
     }
@@ -72,7 +70,7 @@ class XsltValueTemplateLexer : XPathLexer() {
     // region Lexer
 
     override fun advance(state: Int): Unit = when (state) {
-        STATE_DEFAULT -> stateDefault()
+        STATE_DEFAULT -> mType = stateDefault()
         STATE_VALUE_TEMPLATE_EXPRESSION -> stateDefault(state)
         else -> super.advance(state)
     }
