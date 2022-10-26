@@ -704,18 +704,18 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         return XPathTokenType.UNEXPECTED_END_OF_BLOCK
     }
 
-    override fun advance(state: Int): Unit = when (state) {
-        STATE_DEFAULT -> mType = stateDefault(state)
-        STATE_STRING_LITERAL_QUOTE -> mType = stateStringLiteral(QuotationMark)
-        STATE_STRING_LITERAL_APOSTROPHE -> mType = stateStringLiteral(Apostrophe)
-        STATE_DOUBLE_EXPONENT -> mType = stateDoubleExponent()
-        STATE_XQUERY_COMMENT -> mType = stateXQueryComment()
-        STATE_UNEXPECTED_END_OF_BLOCK -> mType = stateUnexpectedEndOfBlock()
-        STATE_PRAGMA_PRE_QNAME -> mType = statePragmaPreQName()
-        STATE_PRAGMA_QNAME -> mType = statePragmaQName()
-        STATE_PRAGMA_CONTENTS -> mType = statePragmaContents()
-        STATE_BRACED_URI_LITERAL -> mType = stateStringLiteral(RightCurlyBracket)
-        STATE_BRACED_URI_LITERAL_PRAGMA -> mType = stateStringLiteral(RightCurlyBracket)
+    override fun advance(state: Int): IElementType? = when (state) {
+        STATE_DEFAULT -> stateDefault(state)
+        STATE_STRING_LITERAL_QUOTE -> stateStringLiteral(QuotationMark)
+        STATE_STRING_LITERAL_APOSTROPHE -> stateStringLiteral(Apostrophe)
+        STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
+        STATE_XQUERY_COMMENT -> stateXQueryComment()
+        STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
+        STATE_PRAGMA_PRE_QNAME -> statePragmaPreQName()
+        STATE_PRAGMA_QNAME -> statePragmaQName()
+        STATE_PRAGMA_CONTENTS -> statePragmaContents()
+        STATE_BRACED_URI_LITERAL -> stateStringLiteral(RightCurlyBracket)
+        STATE_BRACED_URI_LITERAL_PRAGMA -> stateStringLiteral(RightCurlyBracket)
         else -> throw AssertionError("Invalid state: $state")
     }
 }

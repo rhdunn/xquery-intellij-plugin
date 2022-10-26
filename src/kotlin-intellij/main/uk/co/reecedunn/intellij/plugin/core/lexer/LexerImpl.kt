@@ -80,9 +80,11 @@ abstract class LexerImpl(private val baseState: Int) : LexerBase() {
 
     override fun getBufferEnd(): Int = characters.bufferEndOffset
 
-    override fun advance() = advance(nextState())
+    override fun advance() {
+        mType = advance(nextState())
+    }
 
-    abstract fun advance(state: Int)
+    abstract fun advance(state: Int): IElementType?
 
     // endregion
 }

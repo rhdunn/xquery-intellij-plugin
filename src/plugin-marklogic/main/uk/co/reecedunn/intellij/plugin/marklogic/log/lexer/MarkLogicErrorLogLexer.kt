@@ -147,15 +147,13 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
         }
     }
 
-    override fun advance(state: Int) {
-        mType = when (state) {
-            STATE_DEFAULT -> stateDefault()
-            STATE_TIME -> stateTime()
-            STATE_LOG_LEVEL -> stateLogLevelOrServer(state)
-            STATE_SERVER -> stateLogLevelOrServer(state)
-            STATE_MESSAGE -> stateLogLevelOrServer(state)
-            STATE_SIMPLE_MESSAGE -> stateLogLevelOrServer(state)
-            else -> throw AssertionError("Invalid state: $state")
-        }
+    override fun advance(state: Int): IElementType? = when (state) {
+        STATE_DEFAULT -> stateDefault()
+        STATE_TIME -> stateTime()
+        STATE_LOG_LEVEL -> stateLogLevelOrServer(state)
+        STATE_SERVER -> stateLogLevelOrServer(state)
+        STATE_MESSAGE -> stateLogLevelOrServer(state)
+        STATE_SIMPLE_MESSAGE -> stateLogLevelOrServer(state)
+        else -> throw AssertionError("Invalid state: $state")
     }
 }
