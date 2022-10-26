@@ -47,6 +47,14 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             "since" to XQDocTokenType.T_SINCE,
             "version" to XQDocTokenType.T_VERSION
         )
+
+        private val ContentCharExcludedChars = setOf(
+            XmlCharReader.EndOfBuffer,
+            LineFeed,
+            CarriageReturn,
+            LessThanSign,
+            Ampersand
+        )
     }
 
     private fun matchEntityReference(): IElementType = when (characters.matchEntityReference()) {
@@ -88,21 +96,11 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
 
         Ampersand -> matchEntityReference() // XML PredefinedEntityRef and CharRef
         else -> run {
-            while (true) {
-                when (characters.currentChar) {
-                    LineFeed, CarriageReturn -> {
-                        pushState(STATE_TRIM)
-                        return XQDocTokenType.CONTENTS
-                    }
-
-                    XmlCharReader.EndOfBuffer, LessThanSign, Ampersand -> {
-                        return XQDocTokenType.CONTENTS
-                    }
-
-                    else -> characters.advance()
-                }
+            characters.advanceUntil { it in ContentCharExcludedChars }
+            if (characters.currentChar == LineFeed || characters.currentChar == CarriageReturn) {
+                pushState(STATE_TRIM)
             }
-            @Suppress("UNREACHABLE_CODE") null
+            XQDocTokenType.CONTENTS
         }
     }
 
