@@ -159,6 +159,14 @@ class XQueryLexer : XPathLexer() {
             "zero-digit" to XQueryTokenType.K_ZERO_DIGIT // XQuery 3.0
         )
 
+        private val ElementContentCharExcludedChars = setOf(
+            XmlCharReader.EndOfBuffer,
+            LeftCurlyBracket,
+            RightCurlyBracket,
+            LessThanSign,
+            Ampersand
+        )
+
         private val QuotAttrContentCharExcludedChars = setOf(
             XmlCharReader.EndOfBuffer,
             QuotationMark,
@@ -1046,17 +1054,9 @@ class XQueryLexer : XPathLexer() {
 
         Ampersand -> matchEntityReference(STATE_DIR_ELEM_CONTENT)
         XmlCharReader.EndOfBuffer -> null
-        else -> run {
-            while (true) {
-                when (characters.currentChar) {
-                    XmlCharReader.EndOfBuffer, LeftCurlyBracket, RightCurlyBracket, LessThanSign, Ampersand -> {
-                        return XQueryTokenType.XML_ELEMENT_CONTENTS
-                    }
-
-                    else -> characters.advance()
-                }
-            }
-            @Suppress("UNREACHABLE_CODE") null
+        else -> {
+            characters.advanceUntil { it in ElementContentCharExcludedChars }
+            XQueryTokenType.XML_ELEMENT_CONTENTS
         }
     }
 
