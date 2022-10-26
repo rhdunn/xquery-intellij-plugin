@@ -111,22 +111,12 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             stateTrim(STATE_XQUERY_CONTENTS_TRIM)
         }
 
-        else -> run {
-            while (true) {
-                when (characters.currentChar) {
-                    LineFeed, CarriageReturn -> {
-                        pushState(STATE_XQUERY_CONTENTS_TRIM)
-                        return XQDocTokenType.CONTENTS
-                    }
-
-                    XmlCharReader.EndOfBuffer -> {
-                        return XQDocTokenType.CONTENTS
-                    }
-
-                    else -> characters.advance()
-                }
+        else -> {
+            characters.advanceUntil { it == XmlCharReader.EndOfBuffer || it == LineFeed || it == CarriageReturn }
+            if (characters.currentChar == LineFeed || characters.currentChar == CarriageReturn) {
+                pushState(STATE_XQUERY_CONTENTS_TRIM)
             }
-            @Suppress("UNREACHABLE_CODE") null
+            XQDocTokenType.CONTENTS
         }
     }
 
