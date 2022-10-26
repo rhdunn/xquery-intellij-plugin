@@ -158,6 +158,24 @@ class XQueryLexer : XPathLexer() {
             "xquery" to XQueryTokenType.K_XQUERY,
             "zero-digit" to XQueryTokenType.K_ZERO_DIGIT // XQuery 3.0
         )
+
+        private val QuotAttrContentCharExcludedChars = setOf(
+            XmlCharReader.EndOfBuffer,
+            QuotationMark,
+            LeftCurlyBracket,
+            RightCurlyBracket,
+            LessThanSign,
+            Ampersand
+        )
+
+        private val AposAttrContentCharExcludedChars = setOf(
+            XmlCharReader.EndOfBuffer,
+            Apostrophe,
+            LeftCurlyBracket,
+            RightCurlyBracket,
+            LessThanSign,
+            Ampersand
+        )
     }
 
     override fun ncnameToKeyword(name: CharSequence): IKeywordOrNCNameType? {
@@ -920,21 +938,12 @@ class XQueryLexer : XPathLexer() {
         }
 
         XmlCharReader.EndOfBuffer -> null
-        else -> run {
-            while (true) {
-                when (characters.currentChar) {
-                    XmlCharReader.EndOfBuffer, LeftCurlyBracket, RightCurlyBracket, LessThanSign, Ampersand -> {
-                        return XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
-                    }
-
-                    type -> {
-                        return XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
-                    }
-
-                    else -> characters.advance()
-                }
+        else -> {
+            when (type) {
+                QuotationMark -> characters.advanceUntil { it in QuotAttrContentCharExcludedChars }
+                else -> characters.advanceUntil { it in AposAttrContentCharExcludedChars }
             }
-            @Suppress("UNREACHABLE_CODE") null
+            XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
         }
     }
 
