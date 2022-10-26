@@ -1217,7 +1217,7 @@ class XQueryLexer : XPathLexer() {
     private fun matchOpenXmlTag(): IElementType {
         // Whitespace between the '<' and the NCName/QName is invalid. The lexer
         // allows this to provide better error reporting in the parser.
-        var savedOffset = characters.currentOffset
+        val savedOffset = characters.currentOffset
         characters.advanceWhile { it in S }
 
         if (!matchQName()) {
@@ -1229,13 +1229,11 @@ class XQueryLexer : XPathLexer() {
 
         return when (characters.currentChar) {
             Solidus -> {
-                savedOffset = characters.currentOffset
-                characters.advance()
-                if (characters.currentChar == GreaterThanSign) {
+                if (characters.nextChar == GreaterThanSign) {
+                    characters.advance()
                     characters.advance()
                     return XQueryTokenType.DIRELEM_OPEN_XML_TAG
                 }
-                characters.currentOffset = savedOffset
                 XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
             }
 
