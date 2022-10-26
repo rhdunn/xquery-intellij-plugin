@@ -264,18 +264,10 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
         }
 
         Ampersand -> matchEntityReference() // XML PredefinedEntityRef and CharRef
-        else -> run {
+        else -> {
             characters.advance()
-            while (true) {
-                when (characters.currentChar) {
-                    XmlCharReader.EndOfBuffer, LessThanSign, Ampersand -> {
-                        return XQDocTokenType.XML_ELEMENT_CONTENTS
-                    }
-
-                    else -> characters.advance()
-                }
-            }
-            @Suppress("UNREACHABLE_CODE") null
+            characters.advanceUntil { it == XmlCharReader.EndOfBuffer || it == LessThanSign || it == Ampersand }
+            XQDocTokenType.XML_ELEMENT_CONTENTS
         }
     }
 
