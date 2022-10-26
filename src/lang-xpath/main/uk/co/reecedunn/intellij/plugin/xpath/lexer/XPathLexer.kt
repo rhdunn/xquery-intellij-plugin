@@ -223,7 +223,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
         in Digit -> {
             characters.advanceWhile { it in Digit }
-            mType = if (characters.currentChar == FullStop) {
+            var tokenType = if (characters.currentChar == FullStop) {
                 characters.advance()
                 characters.advanceWhile { it in Digit }
                 XPathTokenType.DECIMAL_LITERAL
@@ -238,13 +238,13 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 }
                 if (characters.currentChar in Digit) {
                     characters.advanceWhile { it in Digit }
-                    mType = XPathTokenType.DOUBLE_LITERAL
+                    tokenType = XPathTokenType.DOUBLE_LITERAL
                 } else {
                     pushState(STATE_DOUBLE_EXPONENT)
                     characters.currentOffset = savedOffset
                 }
             }
-            mType
+            tokenType
         }
 
         DollarSign -> {
@@ -253,6 +253,7 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
         }
 
         FullStop -> run {
+            var tokenType = XPathTokenType.DECIMAL_LITERAL
             var savedOffset = characters.currentOffset
             characters.advance()
             when (characters.currentChar) {
@@ -268,7 +269,6 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
                 in Digit -> {
                     characters.currentOffset = savedOffset
-                    mType = XPathTokenType.DECIMAL_LITERAL
                 }
 
                 LeftCurlyBracket -> {
@@ -283,7 +283,6 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
 
             characters.advance()
             characters.advanceWhile { it in Digit }
-            mType = XPathTokenType.DECIMAL_LITERAL
             if (characters.currentChar == LatinSmallLetterE || characters.currentChar == LatinCapitalLetterE) {
                 savedOffset = characters.currentOffset
                 characters.advance()
@@ -292,13 +291,13 @@ open class XPathLexer : LexerImpl(STATE_DEFAULT) {
                 }
                 if (characters.currentChar in Digit) {
                     characters.advanceWhile { it in Digit }
-                    mType = XPathTokenType.DOUBLE_LITERAL
+                    tokenType = XPathTokenType.DOUBLE_LITERAL
                 } else {
                     pushState(STATE_DOUBLE_EXPONENT)
                     characters.currentOffset = savedOffset
                 }
             }
-            mType
+            tokenType
         }
 
         EqualsSign -> {

@@ -69,7 +69,7 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             pushState(STATE_XQUERY_CONTENTS)
             pushState(STATE_XQUERY_CONTENTS_TRIM)
             advance()
-            mType
+            tokenType
         }
     }
 
@@ -135,12 +135,12 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     private fun stateTaggedContents(): IElementType? = when (characters.currentChar) {
         in AlphaNumeric -> {
             characters.advanceWhile { it in AlphaNumeric }
-            mType = TAG_NAMES[tokenText] ?: XQDocTokenType.TAG
-            if (mType === XQDocTokenType.T_PARAM) {
+            val tokenType = TAG_NAMES[tokenText] ?: XQDocTokenType.TAG
+            if (tokenType === XQDocTokenType.T_PARAM) {
                 popState()
                 pushState(STATE_PARAM_TAG_CONTENTS_START)
             }
-            mType
+            tokenType
         }
 
         Space, CharacterTabulation -> {
@@ -325,14 +325,14 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS) {
             } else {
                 popState()
                 advance()
-                mType
+                tokenType
             }
         }
 
         else -> {
             popState()
             advance()
-            mType
+            tokenType
         }
     }
 

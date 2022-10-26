@@ -24,7 +24,7 @@ const val STATE_DEFAULT: Int = 0
 
 abstract class LexerImpl(private val baseState: Int) : LexerBase() {
     protected val characters: XmlCharReader = XmlCharReader()
-    protected var mType: IElementType? = null
+    private var tokenType: IElementType? = null
     private var tokenStartOffset: Int = 0
 
     // region States
@@ -70,7 +70,7 @@ abstract class LexerImpl(private val baseState: Int) : LexerBase() {
 
     override fun getState(): Int = mState
 
-    override fun getTokenType(): IElementType? = mType
+    override fun getTokenType(): IElementType? = tokenType
 
     override fun getTokenStart(): Int = tokenStartOffset
 
@@ -81,7 +81,7 @@ abstract class LexerImpl(private val baseState: Int) : LexerBase() {
     override fun getBufferEnd(): Int = characters.bufferEndOffset
 
     override fun advance() {
-        mType = advance(nextState())
+        tokenType = advance(nextState())
     }
 
     abstract fun advance(state: Int): IElementType?

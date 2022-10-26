@@ -171,6 +171,7 @@ class XQueryLexer : XPathLexer() {
         }
 
         FullStop -> run {
+            var tokenType = XPathTokenType.DECIMAL_LITERAL
             var savedOffset = characters.currentOffset
             characters.advance()
             when (characters.currentChar) {
@@ -191,7 +192,6 @@ class XQueryLexer : XPathLexer() {
 
                 in Digit -> {
                     characters.currentOffset = savedOffset
-                    mType = XPathTokenType.DECIMAL_LITERAL
                 }
 
                 else -> {
@@ -208,18 +208,18 @@ class XQueryLexer : XPathLexer() {
                 }
                 if (characters.currentChar in Digit) {
                     characters.advanceWhile { it in Digit }
-                    mType = XPathTokenType.DOUBLE_LITERAL
+                    tokenType = XPathTokenType.DOUBLE_LITERAL
                 } else {
                     pushState(STATE_DOUBLE_EXPONENT)
                     characters.currentOffset = savedOffset
                 }
             }
-            mType
+            tokenType
         }
 
         in Digit -> {
             characters.advanceWhile { it in Digit }
-            mType = if (characters.currentChar == FullStop) {
+            var tokenType = if (characters.currentChar == FullStop) {
                 characters.advance()
                 characters.advanceWhile { it in Digit }
                 XPathTokenType.DECIMAL_LITERAL
@@ -234,13 +234,13 @@ class XQueryLexer : XPathLexer() {
                 }
                 if (characters.currentChar in Digit) {
                     characters.advanceWhile { it in Digit }
-                    mType = XPathTokenType.DOUBLE_LITERAL
+                    tokenType = XPathTokenType.DOUBLE_LITERAL
                 } else {
                     pushState(STATE_DOUBLE_EXPONENT)
                     characters.currentOffset = savedOffset
                 }
             }
-            mType
+            tokenType
         }
 
         QuotationMark -> {
@@ -404,8 +404,8 @@ class XQueryLexer : XPathLexer() {
                 LessThanSign -> {
                     val savedOffset = characters.currentOffset
                     characters.advance()
-                    matchOpenXmlTag()
-                    if (mType === XQueryTokenType.DIRELEM_OPEN_XML_TAG) {
+                    val tokenType = matchOpenXmlTag()
+                    if (tokenType === XQueryTokenType.DIRELEM_OPEN_XML_TAG) {
                         // For when adding a DirElemConstructor before another one -- i.e. <<a/>
                         characters.currentOffset = savedOffset
                         XPathTokenType.LESS_THAN
@@ -482,7 +482,6 @@ class XQueryLexer : XPathLexer() {
                         XPathTokenType.LESS_THAN
                     } else {
                         matchOpenXmlTag()
-                        mType
                     }
                 }
             }
@@ -1215,7 +1214,7 @@ class XQueryLexer : XPathLexer() {
         return true
     }
 
-    private fun matchOpenXmlTag() {
+    private fun matchOpenXmlTag(): IElementType {
         // Whitespace between the '<' and the NCName/QName is invalid. The lexer
         // allows this to provide better error reporting in the parser.
         var savedOffset = characters.currentOffset
@@ -1223,32 +1222,35 @@ class XQueryLexer : XPathLexer() {
 
         if (!matchQName()) {
             characters.currentOffset = savedOffset
-            mType = XPathTokenType.LESS_THAN
-            return
+            return XPathTokenType.LESS_THAN
         }
 
-        mType = XQueryTokenType.DIRELEM_OPEN_XML_TAG
         characters.advanceWhile { it in S }
 
-        when (characters.currentChar) {
+        return when (characters.currentChar) {
             Solidus -> {
                 savedOffset = characters.currentOffset
                 characters.advance()
                 if (characters.currentChar == GreaterThanSign) {
                     characters.advance()
-                    return
+                    return XQueryTokenType.DIRELEM_OPEN_XML_TAG
                 }
-                mType = XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
                 characters.currentOffset = savedOffset
+                XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
             }
 
             GreaterThanSign -> {
                 characters.advance()
                 pushState(STATE_DIR_ELEM_CONTENT)
+                XQueryTokenType.DIRELEM_OPEN_XML_TAG
             }
 
-            in NameStartChar -> pushState(STATE_DIR_ATTRIBUTE_LIST)
-            else -> mType = XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
+            in NameStartChar -> {
+                pushState(STATE_DIR_ATTRIBUTE_LIST)
+                XQueryTokenType.DIRELEM_OPEN_XML_TAG
+            }
+
+            else -> XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
         }
     }
 
