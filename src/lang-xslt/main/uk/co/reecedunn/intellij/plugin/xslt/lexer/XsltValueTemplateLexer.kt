@@ -52,17 +52,11 @@ class XsltValueTemplateLexer : XPathLexer() {
             }
         }
 
-        else -> run {
-            while (true) {
-                when (characters.currentChar) {
-                    XmlCharReader.EndOfBuffer, LeftCurlyBracket, RightCurlyBracket -> {
-                        return ValueTemplate.VALUE_CONTENTS
-                    }
-
-                    else -> characters.advance()
-                }
+        else -> {
+            characters.advanceUntil {
+                it == XmlCharReader.EndOfBuffer || it == LeftCurlyBracket || it == RightCurlyBracket
             }
-            @Suppress("UNREACHABLE_CODE") null
+            ValueTemplate.VALUE_CONTENTS
         }
     }
 
