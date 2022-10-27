@@ -18,6 +18,14 @@ declare %a:since("basex", "8.5") function fetch:text($uri as xs:string, $encodin
 declare %a:since("basex", "8.0") function fetch:xml($uri as xs:string) as document-node() external;
 declare %a:restrict-until("$options", "basex", "8.6.7", "map(*)")
         %a:since("basex", "8.0") function fetch:xml($uri as xs:string, $options as map(*)?) as document-node() external;
+declare %a:since("basex", "10.0")
+        %a:see-also("basex", "10.0", "fetch:xml") function fetch:doc($uri as xs:string) as document-node() external;
+declare %a:since("basex", "10.0")
+        %a:see-also("basex", "10.0", "fetch:xml") function fetch:doc($uri as xs:string, $options as map(*)?) as document-node() external;
 declare %a:since("basex", "9.0") function fetch:xml-binary($data as xs:base64Binary) as document-node() external;
 declare %a:since("basex", "9.0") function fetch:xml-binary($data as xs:base64Binary, $options as map(*)?) as document-node() external;
+declare %a:since("basex", "9.0")
+        %a:see-also("basex", "10.0", "fetch:xml-binary")function fetch:binary-doc($input as xs:anyAtomicType) as document-node() external;
+declare %a:since("basex", "9.0")
+        %a:see-also("basex", "10.0", "fetch:xml-binary")function fetch:binary-doc($data as xs:anyAtomicType, $options as map(*)?) as document-node() external;
 declare %a:since("basex", "7.6") function fetch:content-type($uri as xs:string) as xs:string external;
