@@ -50,8 +50,8 @@ fun XmlCharReader.matchEntityReference(): EntityReferenceType {
                 LatinSmallLetterX -> {
                     advance()
                     when (currentChar) {
-                        in HexDigit -> {
-                            advanceWhile { it in HexDigit }
+                        in HexDigits -> {
+                            advanceWhile { it in HexDigits }
                             if (currentChar == Semicolon) {
                                 advance()
                                 EntityReferenceType.CharacterReference
