@@ -69,8 +69,8 @@ fun XmlCharReader.matchEntityReference(): EntityReferenceType {
                     }
                 }
 
-                in Digit -> {
-                    advanceWhile { it in Digit }
+                in Digits -> {
+                    advanceWhile { it in Digits }
                     if (currentChar == Semicolon) {
                         advance()
                         EntityReferenceType.CharacterReference

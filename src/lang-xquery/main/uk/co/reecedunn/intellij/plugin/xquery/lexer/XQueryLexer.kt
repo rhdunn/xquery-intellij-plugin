@@ -216,7 +216,7 @@ class XQueryLexer : XPathLexer() {
                     return XPathTokenType.CONTEXT_FUNCTION
                 }
 
-                in Digit -> {
+                in Digits -> {
                     characters.currentOffset = savedOffset
                 }
 
@@ -225,15 +225,15 @@ class XQueryLexer : XPathLexer() {
                 }
             }
             characters.advance()
-            characters.advanceWhile { it in Digit }
+            characters.advanceWhile { it in Digits }
             if (characters.currentChar == LatinSmallLetterE || characters.currentChar == LatinCapitalLetterE) {
                 savedOffset = characters.currentOffset
                 characters.advance()
                 if (characters.currentChar == PlusSign || characters.currentChar == HyphenMinus) {
                     characters.advance()
                 }
-                if (characters.currentChar in Digit) {
-                    characters.advanceWhile { it in Digit }
+                if (characters.currentChar in Digits) {
+                    characters.advanceWhile { it in Digits }
                     tokenType = XPathTokenType.DOUBLE_LITERAL
                 } else {
                     pushState(STATE_DOUBLE_EXPONENT)
@@ -243,11 +243,11 @@ class XQueryLexer : XPathLexer() {
             tokenType
         }
 
-        in Digit -> {
-            characters.advanceWhile { it in Digit }
+        in Digits -> {
+            characters.advanceWhile { it in Digits }
             var tokenType = if (characters.currentChar == FullStop) {
                 characters.advance()
-                characters.advanceWhile { it in Digit }
+                characters.advanceWhile { it in Digits }
                 XPathTokenType.DECIMAL_LITERAL
             } else {
                 XPathTokenType.INTEGER_LITERAL
@@ -258,8 +258,8 @@ class XQueryLexer : XPathLexer() {
                 if (characters.currentChar == PlusSign || characters.currentChar == HyphenMinus) {
                     characters.advance()
                 }
-                if (characters.currentChar in Digit) {
-                    characters.advanceWhile { it in Digit }
+                if (characters.currentChar in Digits) {
+                    characters.advanceWhile { it in Digits }
                     tokenType = XPathTokenType.DOUBLE_LITERAL
                 } else {
                     pushState(STATE_DOUBLE_EXPONENT)

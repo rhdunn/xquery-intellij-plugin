@@ -38,8 +38,8 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
             MarkLogicErrorLogTokenType.WHITE_SPACE
         }
 
-        in Digit -> {
-            characters.advanceWhile { it in Digit || it == HyphenMinus }
+        in Digits -> {
+            characters.advanceWhile { it in Digits || it == HyphenMinus }
             pushState(STATE_TIME)
             MarkLogicErrorLogTokenType.DATE
         }
@@ -67,8 +67,8 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
             MarkLogicErrorLogTokenType.WHITE_SPACE
         }
 
-        in Digit -> {
-            characters.advanceWhile { it in Digit || it == Colon || it == FullStop }
+        in Digits -> {
+            characters.advanceWhile { it in Digits || it == Colon || it == FullStop }
             popState()
             pushState(STATE_LOG_LEVEL)
             MarkLogicErrorLogTokenType.TIME
