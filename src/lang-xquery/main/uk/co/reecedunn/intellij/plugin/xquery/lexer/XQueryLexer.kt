@@ -191,205 +191,6 @@ class XQueryLexer : XPathLexer() {
     }
 
     override fun stateDefault(state: Int): IElementType? = when (characters.currentChar) {
-        in S -> {
-            characters.advanceWhile { it in S }
-            XPathTokenType.WHITE_SPACE
-        }
-
-        FullStop -> run {
-            var tokenType = XPathTokenType.DECIMAL_LITERAL
-            var savedOffset = characters.currentOffset
-            characters.advance()
-            when (characters.currentChar) {
-                FullStop -> {
-                    characters.advance()
-                    return if (characters.currentChar == FullStop) {
-                        characters.advance()
-                        XPathTokenType.ELLIPSIS
-                    } else {
-                        XPathTokenType.PARENT_SELECTOR
-                    }
-                }
-
-                LeftCurlyBracket -> {
-                    characters.advance()
-                    return XPathTokenType.CONTEXT_FUNCTION
-                }
-
-                in Digits -> {
-                    characters.currentOffset = savedOffset
-                }
-
-                else -> {
-                    return XPathTokenType.DOT
-                }
-            }
-            characters.advance()
-            characters.advanceWhile { it in Digits }
-            if (characters.currentChar == LatinSmallLetterE || characters.currentChar == LatinCapitalLetterE) {
-                savedOffset = characters.currentOffset
-                characters.advance()
-                if (characters.currentChar == PlusSign || characters.currentChar == HyphenMinus) {
-                    characters.advance()
-                }
-                if (characters.currentChar in Digits) {
-                    characters.advanceWhile { it in Digits }
-                    tokenType = XPathTokenType.DOUBLE_LITERAL
-                } else {
-                    pushState(STATE_DOUBLE_EXPONENT)
-                    characters.currentOffset = savedOffset
-                }
-            }
-            tokenType
-        }
-
-        in Digits -> {
-            characters.advanceWhile { it in Digits }
-            var tokenType = if (characters.currentChar == FullStop) {
-                characters.advance()
-                characters.advanceWhile { it in Digits }
-                XPathTokenType.DECIMAL_LITERAL
-            } else {
-                XPathTokenType.INTEGER_LITERAL
-            }
-            if (characters.currentChar == LatinSmallLetterE || characters.currentChar == LatinCapitalLetterE) {
-                val savedOffset = characters.currentOffset
-                characters.advance()
-                if (characters.currentChar == PlusSign || characters.currentChar == HyphenMinus) {
-                    characters.advance()
-                }
-                if (characters.currentChar in Digits) {
-                    characters.advanceWhile { it in Digits }
-                    tokenType = XPathTokenType.DOUBLE_LITERAL
-                } else {
-                    pushState(STATE_DOUBLE_EXPONENT)
-                    characters.currentOffset = savedOffset
-                }
-            }
-            tokenType
-        }
-
-        QuotationMark -> {
-            characters.advance()
-            pushState(STATE_STRING_LITERAL_QUOTE)
-            XPathTokenType.STRING_LITERAL_START
-        }
-
-        Apostrophe -> {
-            characters.advance()
-            pushState(STATE_STRING_LITERAL_APOSTROPHE)
-            XPathTokenType.STRING_LITERAL_START
-        }
-
-        Colon -> {
-            characters.advance()
-            when (characters.currentChar) {
-                RightParenthesis -> {
-                    characters.advance()
-                    XPathTokenType.COMMENT_END_TAG
-                }
-
-                Colon -> {
-                    characters.advance()
-                    XPathTokenType.AXIS_SEPARATOR
-                }
-
-                EqualsSign -> {
-                    characters.advance()
-                    XPathTokenType.ASSIGN_EQUAL
-                }
-
-                else -> XPathTokenType.QNAME_SEPARATOR
-            }
-        }
-
-        in NameStartChar -> {
-            val pc = characters.currentChar
-            characters.advance()
-            if (pc == LatinCapitalLetterQ && characters.currentChar == LeftCurlyBracket) {
-                characters.advance()
-                pushState(STATE_BRACED_URI_LITERAL)
-                XPathTokenType.BRACED_URI_LITERAL_START
-            } else if (pc == LowLine && characters.currentChar == LeftCurlyBracket) {
-                characters.advance()
-                XPathTokenType.LAMBDA_FUNCTION
-            } else {
-                characters.advanceWhile { it in NameChar && it != Colon }
-                ncnameToKeyword(tokenText) ?: XPathTokenType.NCNAME
-            }
-        }
-
-        LeftParenthesis -> {
-            characters.advance()
-            when (characters.currentChar) {
-                Colon -> {
-                    characters.advance()
-                    pushState(STATE_XQUERY_COMMENT)
-                    XPathTokenType.COMMENT_START_TAG
-                }
-
-                NumberSign -> {
-                    characters.advance()
-                    pushState(STATE_PRAGMA_PRE_QNAME)
-                    XPathTokenType.PRAGMA_BEGIN
-                }
-
-                else -> XPathTokenType.PARENTHESIS_OPEN
-            }
-        }
-
-        RightParenthesis -> {
-            characters.advance()
-            XPathTokenType.PARENTHESIS_CLOSE
-        }
-
-        NumberSign -> {
-            characters.advance()
-            if (characters.currentChar == RightParenthesis) {
-                characters.advance()
-                XPathTokenType.PRAGMA_END
-            } else {
-                XPathTokenType.FUNCTION_REF_OPERATOR
-            }
-        }
-
-        ExclamationMark -> {
-            characters.advance()
-            when (characters.currentChar) {
-                EqualsSign -> {
-                    characters.advance()
-                    XPathTokenType.NOT_EQUAL
-                }
-
-                ExclamationMark -> {
-                    characters.advance()
-                    XPathTokenType.TERNARY_ELSE // EXPath XPath/XQuery NG Proposal
-                }
-
-                else -> XPathTokenType.MAP_OPERATOR // XQuery 3.0
-            }
-        }
-
-        DollarSign -> {
-            characters.advance()
-            XPathTokenType.VARIABLE_INDICATOR
-        }
-
-        Asterisk -> {
-            characters.advance()
-            XPathTokenType.STAR
-        }
-
-        PlusSign -> {
-            characters.advance()
-            XPathTokenType.PLUS
-        }
-
-        Comma -> {
-            characters.advance()
-            XPathTokenType.COMMA
-        }
-
         HyphenMinus -> {
             characters.advance()
             when (characters.currentChar) {
@@ -513,39 +314,6 @@ class XQueryLexer : XPathLexer() {
             }
         }
 
-        GreaterThanSign -> {
-            characters.advance()
-            when (characters.currentChar) {
-                GreaterThanSign -> {
-                    characters.advance()
-                    XPathTokenType.NODE_AFTER
-                }
-
-                EqualsSign -> {
-                    characters.advance()
-                    XPathTokenType.GREATER_THAN_OR_EQUAL
-                }
-
-                else -> XPathTokenType.GREATER_THAN
-            }
-        }
-
-        EqualsSign -> {
-            characters.advance()
-            if (characters.currentChar == GreaterThanSign) {
-                characters.advance()
-                XPathTokenType.ARROW
-            } else {
-                XPathTokenType.EQUAL
-            }
-        }
-
-        LeftCurlyBracket -> {
-            characters.advance()
-            pushState(state)
-            XPathTokenType.BLOCK_OPEN
-        }
-
         RightCurlyBracket -> {
             characters.advance()
             popState()
@@ -554,16 +322,6 @@ class XQueryLexer : XPathLexer() {
                 XQueryTokenType.STRING_INTERPOLATION_CLOSE
             } else {
                 XPathTokenType.BLOCK_CLOSE
-            }
-        }
-
-        VerticalLine -> {
-            characters.advance()
-            if (characters.currentChar == VerticalLine) {
-                characters.advance()
-                XPathTokenType.CONCATENATION
-            } else {
-                XPathTokenType.UNION
             }
         }
 
@@ -582,16 +340,6 @@ class XQueryLexer : XPathLexer() {
 
                 else -> XPathTokenType.DIRECT_DESCENDANTS_PATH
             }
-        }
-
-        CommercialAt -> {
-            characters.advance()
-            XPathTokenType.ATTRIBUTE_SELECTOR
-        }
-
-        LeftSquareBracket -> {
-            characters.advance()
-            XPathTokenType.SQUARE_OPEN
         }
 
         RightSquareBracket -> {
@@ -671,16 +419,7 @@ class XQueryLexer : XPathLexer() {
             }
         }
 
-        Tilde -> {
-            characters.advance()
-            XPathTokenType.TYPE_ALIAS
-        }
-
-        XmlCharReader.EndOfBuffer -> null
-        else -> {
-            characters.advance()
-            XPathTokenType.BAD_CHARACTER
-        }
+        else -> super.stateDefault(state)
     }
 
     override fun stateStringLiteral(type: XmlChar): IElementType? {
