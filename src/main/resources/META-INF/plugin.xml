@@ -71,6 +71,17 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <p>Bug Fixes:</p>
+    <ol>
+      <li>Fix an exception when trying to display the MarkLogic rewriter endpoint line marker.</li>
+      <li>Fix an exception in the roxy project configuration when there aren't any associated property files.</li>
+      <li>Fix hangs during the Analyze phase when switching projects.</li>
+    </ol>
+    <p>Gradle Project Configuration:</p>
+    <ol>
+      <li>Support reading properties from <code>gradle.properties</code>.
+      <li>Fix an exception in the gradle project configuration when there aren't any associated property files.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

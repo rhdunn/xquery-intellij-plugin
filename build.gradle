@@ -55,12 +55,12 @@ buildscript {
     ext.junit_platform_version = "1.9.1"
     ext.jacoco_version = '0.8.8'
 
-    ext.plugin_version = '1.10.0'
+    ext.plugin_version = '1.9.3'
     // Suffix ordering:
     //    `'-snapshot'` -- for development builds
     //    `'-eap-###'`  -- for early access preview builds (`-eap-1`, `-eap-2`, `-eap-3`, etc.)
     //    `''`          -- for release builds
-    ext.suffix = '-snapshot'
+    ext.suffix = ''
 
     repositories {
         mavenCentral()
