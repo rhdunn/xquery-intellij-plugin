@@ -43,6 +43,12 @@ if (ext.intellij_version >= 223) {
     sourceSets.main.java.srcDirs += 'src/223/compat'
 }
 
+if (ext.intellij_version >= 231) {
+    sourceSets.main.java.srcDirs += 'src/231/native'
+} else {
+    sourceSets.main.java.srcDirs += 'src/231/compat'
+}
+
 // Microservices
 
 if (ext.intellij_type == 'IU') {

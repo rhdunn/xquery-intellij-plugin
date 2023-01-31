@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.tests.debug.frame
 
+import com.intellij.compat.xdebugger.frame.XValueNode
 import com.intellij.xdebugger.frame.XFullValueEvaluator
 import com.intellij.xdebugger.frame.XValue
-import com.intellij.xdebugger.frame.XValueNode
 import com.intellij.xdebugger.frame.XValuePlace
 import com.intellij.xdebugger.frame.presentation.XNumericValuePresentation
 import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation
@@ -59,10 +59,6 @@ class QueryResultsValueTest : XValueNode {
         this.icon = icon
         this.presentation = presentation
         this.hasChildren = hasChildren
-    }
-
-    override fun setPresentation(icon: Icon?, type: String?, separator: String, value: String?, hasChildren: Boolean) {
-        TODO("Don't call this deprecated API.")
     }
 
     // endregion
