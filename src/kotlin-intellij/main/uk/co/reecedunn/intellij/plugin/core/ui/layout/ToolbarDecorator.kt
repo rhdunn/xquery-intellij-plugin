@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2019 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2019, 2023 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -56,6 +42,13 @@ class ToolbarDecoratorBuilder {
     }
 }
 
+fun ToolbarDecorator.actionButton(title: String, icon: Icon, action: (AnActionEvent) -> Unit) {
+    val button = object : AnActionButton(title, icon)  {
+        override fun actionPerformed(e: AnActionEvent) = action(e)
+    }
+    addExtraAction(button)
+}
+
 fun <T> toolbarDecorator(init: ToolbarDecoratorBuilder.() -> T): ToolbarDecorator {
     val builder = ToolbarDecoratorBuilder()
     val decorator = when (val ui = builder.init()) {
@@ -84,8 +77,8 @@ fun <T> DialogBuilder.toolbarPanel(minimumSize: Dimension?, init: ToolbarDecorat
     return panel
 }
 
-fun <T> Container.toolbarPanel(constraints: Any?, init: ToolbarDecoratorBuilder.() -> T): JPanel {
-    val panel = toolbarDecorator(init).createPanel()
+fun Container.toolbarPanel(decorator: ToolbarDecorator, constraints: Any?): JPanel {
+    val panel = decorator.createPanel()
     add(panel, constraints)
     return panel
 }
