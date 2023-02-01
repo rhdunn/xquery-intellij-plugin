@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2021, 2023 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.processor.query.execution.ui
 
 import com.intellij.openapi.application.ModalityState
@@ -24,6 +10,7 @@ import com.intellij.ui.components.JBList
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.dialog
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.list
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.toolbarPanel
 import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
@@ -82,11 +69,11 @@ class QueryProcessorComboBox(private val project: Project) {
                     editAction(::editQueryProcessor)
                     removeAction(::removeQueryProcessor)
 
-                    list = JBList(model)
-                    list.cellRenderer = QueryProcessorSettingsCellRenderer()
-                    list.setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
-                    list.selectedIndex = queryProcessor.childComponent.selectedIndex
-                    list
+                    list = list(model) {
+                        cellRenderer = QueryProcessorSettingsCellRenderer()
+                        setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
+                        selectedIndex = queryProcessor.childComponent.selectedIndex
+                    }
                 }
             }
             if (dialog.showAndGet()) {
