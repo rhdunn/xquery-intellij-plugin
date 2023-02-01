@@ -1,6 +1,7 @@
 // Copyright (C) 2019, 2023 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
+import com.intellij.compat.ui.addExtraActionButton
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.ui.AnActionButton
@@ -14,7 +15,7 @@ fun ToolbarDecorator.actionButton(title: String, icon: Icon, action: (AnActionEv
     val button = object : AnActionButton(title, icon)  {
         override fun actionPerformed(e: AnActionEvent) = action(e)
     }
-    addExtraAction(button)
+    addExtraActionButton(button)
 }
 
 fun <T> toolbarDecorator(init: () -> T): ToolbarDecorator = when (val ui = init()) {
