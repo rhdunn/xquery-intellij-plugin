@@ -70,8 +70,8 @@ fun <T> toolbarDecorator(init: ToolbarDecoratorBuilder.() -> T): ToolbarDecorato
     return decorator
 }
 
-fun <T> DialogBuilder.toolbarPanel(minimumSize: Dimension?, init: ToolbarDecoratorBuilder.() -> T): JPanel {
-    val panel = toolbarDecorator(init).createPanel()
+fun DialogBuilder.toolbarPanel(decorator: ToolbarDecorator, minimumSize: Dimension?): JPanel {
+    val panel = decorator.createPanel()
     minimumSize?.let { panel.minimumSize = it }
     setCenterPanel(panel)
     return panel

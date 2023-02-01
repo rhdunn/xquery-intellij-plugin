@@ -9,9 +9,7 @@ import com.intellij.ui.AnActionButton
 import com.intellij.ui.components.JBList
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.dialog
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.list
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.toolbarPanel
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryServer
@@ -64,17 +62,20 @@ class QueryProcessorComboBox(private val project: Project) {
     private val manageQueryProcessorsAction: ActionListener
         get() = ActionListener {
             val dialog = dialog(PluginApiBundle.message("xquery.configurations.processor.manage-processors")) {
-                toolbarPanel(minimumSize = Dimension(300, 200)) {
-                    addAction(::addQueryProcessor)
-                    editAction(::editQueryProcessor)
-                    removeAction(::removeQueryProcessor)
-
+                val decorator = toolbarDecorator {
                     list = list(model) {
                         cellRenderer = QueryProcessorSettingsCellRenderer()
                         setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
                         selectedIndex = queryProcessor.childComponent.selectedIndex
                     }
+                    list
                 }
+
+                decorator.setAddAction(::addQueryProcessor)
+                decorator.setEditAction(::editQueryProcessor)
+                decorator.setRemoveAction(::removeQueryProcessor)
+
+                toolbarPanel(decorator, minimumSize = Dimension(300, 200))
             }
             if (dialog.showAndGet()) {
                 val index = list.selectedIndex
