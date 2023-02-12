@@ -92,8 +92,6 @@ class XPathInspectionTest : InspectionTestCase() {
             @Test
             @DisplayName("built-in MarkLogic namespaces")
             fun testBuiltinMarkLogic() {
-                settings.implementationVersion = "marklogic/v8"
-                settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                 val file = parse<XQueryModule>(
                     """
                     declare variable ${'$'}x := xdmp:version();
@@ -101,7 +99,10 @@ class XPathInspectionTest : InspectionTestCase() {
                     """
                 )[0]
 
-                val problems = inspect(file, XPST0081())
+                val problems = inspect(file, XPST0081()) {
+                    implementationVersion = "marklogic/v8"
+                    XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
+                }
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(0))
             }
@@ -109,7 +110,6 @@ class XPathInspectionTest : InspectionTestCase() {
             @Test
             @DisplayName("built-in XQuery 1.0 namespaces; different vendor")
             fun testBuiltinMarkLogicNotTargettingMarkLogic() {
-                settings.implementationVersion = "w3c/spec/v1ed"
                 val file = parse<XQueryModule>(
                     """
                     declare variable ${'$'}x := xdmp:version();
@@ -117,7 +117,9 @@ class XPathInspectionTest : InspectionTestCase() {
                     """
                 )[0]
 
-                val problems = inspect(file, XPST0081())
+                val problems = inspect(file, XPST0081()) {
+                    implementationVersion = "w3c/spec/v1ed"
+                }
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 

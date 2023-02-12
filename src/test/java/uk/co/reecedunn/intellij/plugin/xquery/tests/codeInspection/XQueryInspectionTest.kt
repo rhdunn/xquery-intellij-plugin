@@ -92,11 +92,11 @@ class XQueryInspectionTest : InspectionTestCase() {
             @Test
             @DisplayName("vendor supports the xquery version (W3C supports '3.0'?)")
             fun supportedVersion_W3C() {
-                settings.implementationVersion = "w3c/spec"
-
                 val file = parse<XQueryModule>("xquery version \"3.0\"; 2")[0]
 
-                val problems = inspect(file, XQST0031())
+                val problems = inspect(file, XQST0031()) {
+                    implementationVersion = "w3c/spec"
+                }
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(0))
             }
@@ -104,11 +104,11 @@ class XQueryInspectionTest : InspectionTestCase() {
             @Test
             @DisplayName("vendor does not support the xquery version (W3C supports '1.0-ml'?)")
             fun unsupportedVersion_W3C() {
-                settings.implementationVersion = "w3c/spec"
-
                 val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 2")[0]
 
-                val problems = inspect(file, XQST0031())
+                val problems = inspect(file, XQST0031()) {
+                    implementationVersion = "w3c/spec"
+                }
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 
@@ -127,11 +127,11 @@ class XQueryInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("same version; MarkLogic")
                 fun sameVersion_MarkLogic() {
-                    settings.implementationVersion = "marklogic/v8"
-
                     val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 2")[0]
 
-                    val problems = inspect(file, XQST0031())
+                    val problems = inspect(file, XQST0031()) {
+                        implementationVersion = "marklogic/v8"
+                    }
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))
                 }
@@ -139,11 +139,11 @@ class XQueryInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("same version; other implementation")
                 fun sameVersion_W3C() {
-                    settings.implementationVersion = "w3c/spec"
-
                     val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 1 ; xquery version \"1.0-ml\"; 2")[0]
 
-                    val problems = inspect(file, XQST0031())
+                    val problems = inspect(file, XQST0031()) {
+                        implementationVersion = "w3c/spec"
+                    }
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(2))
 
@@ -167,11 +167,11 @@ class XQueryInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("unsupported version after the first transaction")
                 fun unsupportedOtherVersion() {
-                    settings.implementationVersion = "marklogic/v8"
-
                     val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 1 ; xquery version \"0.2\"; 2")[0]
 
-                    val problems = inspect(file, XQST0031())
+                    val problems = inspect(file, XQST0031()) {
+                        implementationVersion = "marklogic/v8"
+                    }
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
 
@@ -187,11 +187,11 @@ class XQueryInspectionTest : InspectionTestCase() {
                 @Test
                 @DisplayName("different versions in different transactions")
                 fun differentVersions() {
-                    settings.implementationVersion = "marklogic/v8"
-
                     val file = parse<XQueryModule>("xquery version \"1.0-ml\"; 1 ; xquery version \"0.9-ml\"; 2")[0]
 
-                    val problems = inspect(file, XQST0031())
+                    val problems = inspect(file, XQST0031()) {
+                        implementationVersion = "marklogic/v8"
+                    }
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
 
