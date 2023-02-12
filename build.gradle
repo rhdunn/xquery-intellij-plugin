@@ -37,7 +37,7 @@ buildscript {
     ext.idea_type = System.getenv("IDEA_TYPE") ?: 'IC'
 
     if (ext.idea_since_build >= 223) {
-        ext.kotlin_version = "1.6.10"
+        ext.kotlin_version = "1.8.10"
         ext.java_version = "17"
     } else if (ext.idea_since_build >= 221) {
         ext.kotlin_version = "1.6.10"
