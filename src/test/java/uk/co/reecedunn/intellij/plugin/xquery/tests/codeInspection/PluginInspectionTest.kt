@@ -2203,6 +2203,7 @@ class PluginInspectionTest : InspectionTestCase() {
 
                     val problems = inspect(file, IJVS0001()) {
                         XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
+                        implementationVersion = "w3c/spec/v1ed"
                     }
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(1))
@@ -2222,6 +2223,7 @@ class PluginInspectionTest : InspectionTestCase() {
 
                     val problems = inspect(file, IJVS0001()) {
                         XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
+                        implementationVersion = "w3c/spec/v1ed"
                     }
                     assertThat(problems, `is`(notNullValue()))
                     assertThat(problems!!.size, `is`(0))

@@ -77,7 +77,7 @@ abstract class InspectionTestCase :
         file: XQueryModule,
         inspection: LocalInspectionTool,
         configuration: XQueryProjectSettings.() -> Unit
-    ): List<ProblemDescriptor>? {
+    ): List<ProblemDescriptor>? = synchronized(settings) {
         settings.configuration()
         return inspect(file, inspection)
     }
