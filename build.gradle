@@ -38,10 +38,10 @@ buildscript {
 
     if (ext.idea_since_build >= 223) {
         ext.kotlin_version = "1.8.10"
-        ext.java_version = "17"
+        ext.java_version = 17
     } else {
         ext.kotlin_version = "1.7.21"
-        ext.java_version = "11"
+        ext.java_version = 11
     }
     ext.kotlin_stdlib = "kotlin-stdlib"
 
@@ -87,16 +87,8 @@ configure(allprojects - project(':src')) {
         mavenLocal()
     }
 
-    compileKotlin {
-        kotlinOptions {
-            jvmTarget = java_version
-        }
-    }
-
-    compileTestKotlin {
-        kotlinOptions {
-            jvmTarget = java_version
-        }
+    kotlin {
+        jvmToolchain(java_version)
     }
 
     intellij {
