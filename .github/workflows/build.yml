@@ -12,36 +12,33 @@ jobs:
       matrix:
         java: [ 11, 17 ]
     steps:
+      - name: Source Code Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: rhdunn/xqt-platform
+
       - name: Setup JDK ${{ matrix.java }}
         uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java }}
           distribution: 'temurin'
 
-      - name: Source Code Checkout
-        uses: actions/checkout@v3
+      - name: Setup Gradle 7.5
+        uses: gradle/gradle-build-action@v2
         with:
-          repository: rhdunn/xqt-platform
-
-      - name: Create a Gradle Wrapper
-        # Use a null gradle file so that if the gradle version cannot parse this gradle
-        # file it will be able to run and generate the gradle wrapper.
-        run: touch null.gradle ; gradle -b null.gradle wrapper --gradle-version 7.5 ; rm null.gradle
-
-      - name: Gradle Version
-        run: ./gradlew --version
+          gradle-version: 7.5
 
       - name: Build for Kotlin/JVM
-        run: ./gradlew -D jvm.target=${{ matrix.java }} jvmJar
+        run: gradle -D jvm.target=${{ matrix.java }} jvmJar
 
       - name: Test for Kotlin/JVM
-        run: ./gradlew -D jvm.target=${{ matrix.java }} jvmTest
+        run: gradle -D jvm.target=${{ matrix.java }} jvmTest
 
       - name: Publish Kotlin/Multiplatform to Maven Local
-        run: ./gradlew -D jvm.target=${{ matrix.java }} publishKotlinMultiplatformPublicationToMavenLocal
+        run: gradle -D jvm.target=${{ matrix.java }} publishKotlinMultiplatformPublicationToMavenLocal
 
       - name: Publish Kotlin/JVM to Maven Local
-        run: ./gradlew -D jvm.target=${{ matrix.java }} publishJvmPublicationToMavenLocal
+        run: gradle -D jvm.target=${{ matrix.java }} publishJvmPublicationToMavenLocal
 
       - name: Tar XQT Platform Artifacts
         run: tar -cvf xqt-platform-jvm-${{ matrix.java }}.tar -C ~/.m2/repository/xqt-platform .
@@ -107,13 +104,10 @@ jobs:
           java-version: ${{ matrix.java-version }}
           distribution: 'temurin'
 
-      - name: Create a Gradle Wrapper
-        # Use a null gradle file so that if the gradle version cannot parse this gradle
-        # file it will be able to run and generate the gradle wrapper.
-        run: touch null.gradle ; gradle -b null.gradle wrapper --gradle-version 7.5 ; rm null.gradle
-
-      - name: Gradle Version
-        run: ./gradlew --version
+      - name: Setup Gradle 7.5
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.5
 
       - name: Download XQT Platform Artifacts
         uses: actions/download-artifact@v3
@@ -126,13 +120,13 @@ jobs:
           tar -xvf xqt-platform-jvm-${{ matrix.java-version }}.tar -C ~/.m2/repository/xqt-platform
 
       - name: Build
-        run: ./gradlew :assemble
+        run: gradle :assemble
 
       - name: Run Tests
-        run: ./gradlew test
+        run: gradle test
 
       - name: Build Plugin
-        run: ./gradlew buildPlugin
+        run: gradle buildPlugin
 
       - name: Upload Plugin Jar
         uses: actions/upload-artifact@v3
