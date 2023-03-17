@@ -27,7 +27,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.content.Content
-import com.intellij.util.Consumer
 import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
@@ -111,11 +110,7 @@ class FlatProfileTableView(val project: Project) :
             PluginApiBundle.message("console.action.save.profile.description"),
             "xml"
         )
-        save = SaveAction(
-            descriptor,
-            getComponent(),
-            project,
-            Consumer { onSaveProfileReport(it) })
+        save = SaveAction(descriptor, getComponent(), project) { onSaveProfileReport(it) }
         save?.isEnabled = report?.xml != null
         return arrayOf(save!!)
     }
