@@ -36,28 +36,28 @@ class XRayHtmlTest(private val test: Element) : TestCase {
         titleParts.getOrNull(2)?.let { "PT$it".toXsDuration() }
     }
 
-    private val failuresList by lazy {
-        test.nextElementSiblings().asSequence().takeWhile { it.nodeName() != "h4" }.flatMap {
-            when {
-                it.nodeName() == "pre" && it.attr("class") != "error" -> {
-                    val text = it.text()
-                    when {
-                        text.startsWith("<assert") -> XRayXmlTestAssert.parseList(text)
-                        else -> emptySequence()
-                    }
-                }
-                else -> emptySequence()
-            }
-        }.toList()
+    private fun results(className: String): Element? {
+        var next = test.nextSibling()
+        while (next != null) {
+            if (next is Element && next.nodeName() == "pre" && next.attr("class") == className)
+                return next
+            next = next.nextSibling()
+        }
+        return null
+    }
+
+    private val assertsList by lazy {
+        val text = results("")?.text() ?: return@lazy listOf<TestAssert>()
+        when {
+            text.startsWith("<assert") -> XRayXmlTestAssert.parseList(text).toList()
+            else -> listOf()
+        }
     }
 
     override val asserts: Sequence<TestAssert>
-        get() = failuresList.asSequence()
+        get() = assertsList.asSequence()
 
     override val error: Throwable? by lazy {
-        val error = test.nextElementSiblings().takeWhile { it.nodeName() != "h4" }.find {
-            it.nodeName() == "pre" && it.attr("class") == "error"
-        }
-        error?.text()?.toMarkLogicQueryError(null)
+        results("error")?.text()?.toMarkLogicQueryError(null)
     }
 }
