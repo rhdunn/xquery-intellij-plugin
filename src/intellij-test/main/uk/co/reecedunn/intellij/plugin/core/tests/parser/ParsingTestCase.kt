@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2022 Reece H. Dunn
+ * Copyright (C) 2016-2023 Reece H. Dunn
  * Copyright 2000-2019 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,10 +19,10 @@ package uk.co.reecedunn.intellij.plugin.core.tests.parser
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
+import com.intellij.compat.openapi.startup.StartupManager
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.compat.util.registry.initializeRegistryForTests
-import com.intellij.ide.startup.impl.StartupManagerImpl
 import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
 import com.intellij.lang.parameterInfo.CreateParameterInfoContext
@@ -96,7 +96,6 @@ abstract class ParsingTestCase<File : PsiFile>(
 
     private val mDefinitions: Array<out ParserDefinition> = definitions
 
-    @Suppress("UnstableApiUsage")
     override fun registerServicesAndExtensions() {
         initializeRegistryForTests()
 
@@ -127,7 +126,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         )
         project.registerServiceInstance(PsiDocumentManager::class.java, MockPsiDocumentManagerEx(project))
         project.registerServiceInstance(PsiFileFactory::class.java, mFileFactory!!)
-        project.registerServiceInstance(StartupManager::class.java, StartupManagerImpl(project))
+        project.registerServiceInstance(StartupManager::class.java, StartupManager(project))
 
         for (definition in mDefinitions) {
             addExplicitExtension(LanguageParserDefinitions.INSTANCE, definition.fileNodeType.language, definition)
