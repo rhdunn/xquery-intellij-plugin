@@ -25,7 +25,6 @@ import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
 import uk.co.reecedunn.intellij.microservices.endpoints.*
-import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryBundle
@@ -77,7 +76,7 @@ class RestXqEndpointsProvider :
     }
 
     override fun getEndpointPresentation(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint): ItemPresentation {
-        return EndpointMethodPresentation(endpoint, endpoint.endpointMethod, endpoint.endpointMethodOrder)
+        return endpoint
     }
 
     override fun getEndpoints(group: RestXqEndpointsGroup): Iterable<RestXqEndpoint> {

@@ -25,7 +25,9 @@ import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import javax.swing.Icon
 
+@Suppress("UnstableApiUsage")
 class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
+    EndpointMethodPresentation,
     ItemPresentation,
     DataProvider {
     // region ItemPresentation
@@ -39,11 +41,10 @@ class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
     // endregion
     // region EndpointMethodPresentation
 
-    val endpointMethod: String?
+    override val endpointMethod: String?
         get() = rest?.methods?.joinToString(" ")
 
-    @Suppress("UnstableApiUsage")
-    val endpointMethodOrder: Int
+    override val endpointMethodOrder: Int
         get() = HttpMethodPresentation.getHttpMethodOrder(rest?.methods?.firstOrNull())
 
     // endregion

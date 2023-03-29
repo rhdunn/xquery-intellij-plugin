@@ -20,13 +20,16 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.xml.XmlTag
+import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.psi.ancestor
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 import javax.swing.Icon
 
+@Suppress("UnstableApiUsage")
 class RewriterEndpoint(val endpoint: XmlTag) :
+    EndpointMethodPresentation,
     ItemPresentation,
     DataProvider {
     // region ItemPresentation
@@ -40,11 +43,10 @@ class RewriterEndpoint(val endpoint: XmlTag) :
     // endregion
     // region EndpointMethodPresentation
 
-    val endpointMethod: String?
+    override val endpointMethod: String?
         get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-method").firstOrNull()?.getAttributeValue("any-of")
 
-    @Suppress("UnstableApiUsage")
-    val endpointMethodOrder: Int
+    override val endpointMethodOrder: Int
         get() = HttpMethodPresentation.getHttpMethodOrder(endpointMethod?.split("\\s+")?.get(0))
 
     // endregion

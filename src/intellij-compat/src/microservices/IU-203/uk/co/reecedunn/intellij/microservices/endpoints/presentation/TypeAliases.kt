@@ -2,4 +2,7 @@
 package uk.co.reecedunn.intellij.microservices.endpoints.presentation
 
 @Suppress("UnstableApiUsage")
+typealias EndpointMethodPresentation = com.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
+
+@Suppress("UnstableApiUsage")
 typealias HttpMethodPresentation = com.intellij.microservices.endpoints.presentation.HttpMethodPresentation
