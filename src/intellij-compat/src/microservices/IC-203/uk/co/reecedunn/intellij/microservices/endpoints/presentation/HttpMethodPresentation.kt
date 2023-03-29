@@ -18,4 +18,9 @@ package uk.co.reecedunn.intellij.microservices.endpoints.presentation
 object HttpMethodPresentation {
     @Suppress("UNUSED_PARAMETER")
     fun getHttpMethodOrder(method: String?): Int = 0
+
+    fun getHttpMethodsPresentation(methods: List<String>) = when (methods.isEmpty()) {
+        true -> ""
+        else -> methods.joinToString("|", "[", "]")
+    }
 }

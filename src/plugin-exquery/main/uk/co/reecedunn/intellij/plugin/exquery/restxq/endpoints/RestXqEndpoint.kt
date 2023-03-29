@@ -41,8 +41,8 @@ class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
     // endregion
     // region EndpointMethodPresentation
 
-    override val endpointMethodPresentation: String? by lazy {
-        endpointMethods.joinToString(" ")
+    override val endpointMethodPresentation: String by lazy {
+        HttpMethodPresentation.getHttpMethodsPresentation(endpointMethods)
     }
 
     override val endpointMethodOrder: Int by lazy {

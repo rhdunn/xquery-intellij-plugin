@@ -28,9 +28,8 @@ class RewriterListCellRenderer(private val endpoints: List<RewriterEndpoint>) : 
 
     override fun getElementText(element: XmlTag): String {
         val endpoint = endpoints.find { it.endpoint === element } ?: return element.localName
-        return endpoint.path?.let { path ->
-            endpoint.endpointMethodPresentation?.let { method -> "[$method] $path" } ?: path
-        } ?: element.localName
+        return endpoint.path?.let { path -> "${endpoint.endpointMethodPresentation} $path" }
+            ?: element.localName
     }
 
     override fun getIcon(element: PsiElement?): Icon = MarkLogicIcons.Markers.Endpoint
