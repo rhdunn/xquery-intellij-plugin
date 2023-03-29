@@ -54,5 +54,5 @@ if (ext.intellij_version >= 231) {
 if (ext.intellij_type == 'IU') {
     sourceSets.main.java.srcDirs += 'src/microservices/203/native'
 } else {
-    sourceSets.main.java.srcDirs += 'src/microservices/203/compat'
+    sourceSets.main.java.srcDirs += 'src/microservices/IC-203'
 }
