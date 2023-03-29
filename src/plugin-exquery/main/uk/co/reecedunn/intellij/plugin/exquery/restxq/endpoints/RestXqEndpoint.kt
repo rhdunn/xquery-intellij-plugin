@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Reece H. Dunn
+ * Copyright (C) 2020-2023 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
+import uk.co.reecedunn.intellij.microservices.endpoints.presentation.HttpMethodPresentation
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import javax.swing.Icon
@@ -41,8 +42,9 @@ class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
     val endpointMethod: String?
         get() = rest?.methods?.joinToString(" ")
 
+    @Suppress("UnstableApiUsage")
     val endpointMethodOrder: Int
-        get() = EndpointMethodPresentation.getHttpMethodOrder(rest?.methods?.firstOrNull())
+        get() = HttpMethodPresentation.getHttpMethodOrder(rest?.methods?.firstOrNull())
 
     // endregion
     // region DataProvider

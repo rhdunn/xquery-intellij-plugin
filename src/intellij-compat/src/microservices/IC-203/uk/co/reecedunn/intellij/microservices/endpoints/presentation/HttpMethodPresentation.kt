@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2023 Reece H. Dunn
+ * Copyright (C) 2023 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,7 @@
  */
 package uk.co.reecedunn.intellij.microservices.endpoints.presentation
 
-import com.intellij.navigation.ItemPresentation
-import javax.swing.Icon
-
-data class EndpointMethodPresentation(
-    private val presentation: ItemPresentation,
-    val endpointMethod: String?,
-    val endpointMethodOrder: Int
-) : ItemPresentation {
-    // region ItemPresentation
-
-    override fun getPresentableText(): String? = presentation.presentableText
-
-    override fun getLocationString(): String? = presentation.locationString
-
-    override fun getIcon(unused: Boolean): Icon? = presentation.getIcon(unused)
-
-    // endregion
+object HttpMethodPresentation {
+    @Suppress("UNUSED_PARAMETER")
+    fun getHttpMethodOrder(method: String?): Int = 0
 }

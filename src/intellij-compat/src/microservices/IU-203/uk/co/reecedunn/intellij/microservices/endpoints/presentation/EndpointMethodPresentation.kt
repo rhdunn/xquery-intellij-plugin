@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Reece H. Dunn
+ * Copyright (C) 2021-2023 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.microservices.endpoints.presentation
 
 import com.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
-import com.intellij.microservices.endpoints.presentation.HttpMethodPresentation
 import com.intellij.navigation.ItemPresentation
 import javax.swing.Icon
 
@@ -25,9 +24,6 @@ data class EndpointMethodPresentation(
     override val endpointMethod: String?,
     override val endpointMethodOrder: Int
 ) : ItemPresentation, EndpointMethodPresentation {
-    companion object {
-        fun getHttpMethodOrder(method: String?): Int = HttpMethodPresentation.getHttpMethodOrder(method)
-    }
     // region ItemPresentation
 
     override fun getPresentableText(): String? = presentation.presentableText

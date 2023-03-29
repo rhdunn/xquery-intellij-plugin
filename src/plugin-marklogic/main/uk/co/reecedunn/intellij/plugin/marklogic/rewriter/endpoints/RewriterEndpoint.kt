@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Reece H. Dunn
+ * Copyright (C) 2020-2023 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
+import com.intellij.microservices.endpoints.presentation.HttpMethodPresentation
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.xml.XmlTag
-import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.psi.ancestor
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
@@ -43,8 +43,9 @@ class RewriterEndpoint(val endpoint: XmlTag) :
     val endpointMethod: String?
         get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-method").firstOrNull()?.getAttributeValue("any-of")
 
+    @Suppress("UnstableApiUsage")
     val endpointMethodOrder: Int
-        get() = EndpointMethodPresentation.getHttpMethodOrder(endpointMethod?.split("\\s+")?.get(0))
+        get() = HttpMethodPresentation.getHttpMethodOrder(endpointMethod?.split("\\s+")?.get(0))
 
     // endregion
     // region DataProvider
