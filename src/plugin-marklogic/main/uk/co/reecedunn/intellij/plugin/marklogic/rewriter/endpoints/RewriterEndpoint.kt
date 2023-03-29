@@ -15,19 +15,19 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
-import com.intellij.microservices.endpoints.presentation.HttpMethodPresentation
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
+import uk.co.reecedunn.intellij.microservices.endpoints.presentation.HttpMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.psi.ancestor
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.xquery.psi.reference.ModuleUriReference
 import javax.swing.Icon
 
-@Suppress("UnstableApiUsage")
+@Suppress("RedundantSuppression", "UnstableApiUsage")
 class RewriterEndpoint(val endpoint: XmlTag) :
     EndpointMethodPresentation,
     ItemPresentation,
@@ -43,11 +43,21 @@ class RewriterEndpoint(val endpoint: XmlTag) :
     // endregion
     // region EndpointMethodPresentation
 
-    override val endpointMethod: String?
-        get() = endpoint.ancestor(Rewriter.NAMESPACE, "match-method").firstOrNull()?.getAttributeValue("any-of")
+    override val endpointMethodPresentation: String? by lazy {
+        endpointMethods.joinToString(" ")
+    }
 
-    override val endpointMethodOrder: Int
-        get() = HttpMethodPresentation.getHttpMethodOrder(endpointMethod?.split("\\s+")?.get(0))
+    override val endpointMethodOrder: Int by lazy {
+        HttpMethodPresentation.getHttpMethodOrder(endpointMethods.firstOrNull())
+    }
+
+    override val endpointMethods: List<String> by lazy {
+        val methods = endpoint
+            .ancestor(Rewriter.NAMESPACE, "match-method")
+            .firstOrNull()
+            ?.getAttributeValue("any-of")
+        methods?.split("\\s+") ?: listOf()
+    }
 
     // endregion
     // region DataProvider

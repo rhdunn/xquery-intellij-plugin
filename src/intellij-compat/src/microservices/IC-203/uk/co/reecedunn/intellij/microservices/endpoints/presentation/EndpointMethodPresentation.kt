@@ -2,6 +2,7 @@
 package uk.co.reecedunn.intellij.microservices.endpoints.presentation
 
 interface EndpointMethodPresentation {
-    val endpointMethod: String?
+    val endpointMethodPresentation: String
+    val endpointMethods: List<String>
     val endpointMethodOrder: Int
 }
