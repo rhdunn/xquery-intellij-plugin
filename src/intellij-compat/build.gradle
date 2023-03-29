@@ -52,7 +52,11 @@ if (ext.intellij_version >= 231) {
 // Microservices
 
 if (ext.intellij_type == 'IU') {
-    sourceSets.main.java.srcDirs += 'src/microservices/IU-203'
+    if (ext.intellij_version >= 231) {
+        sourceSets.main.java.srcDirs += 'src/microservices/IU-231'
+    } else {
+        sourceSets.main.java.srcDirs += 'src/microservices/IU-203'
+    }
 } else {
     sourceSets.main.java.srcDirs += 'src/microservices/IC-203'
 }
