@@ -1,7 +1,5 @@
 # Change Log
 
-## 1.10.0 - (In Development)
-
 ## 2022
 
 *  [1.9.3 - 2022-04-14](docs/_posts/2022-04-14-release-1.9.3.md)
