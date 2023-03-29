@@ -62,6 +62,7 @@ jobs:
             IC-2022.1,
             IC-2022.2,
             IC-2022.3,
+            IC-2023.1,
             LATEST-EAP-SNAPSHOT
         ]
         include:
@@ -86,6 +87,9 @@ jobs:
 
           - java-version: 17
             idea-version: IC-2022.3
+
+          - java-version: 17
+            idea-version: IC-2023.1
 
           - java-version: 17
             idea-version: LATEST-EAP-SNAPSHOT
