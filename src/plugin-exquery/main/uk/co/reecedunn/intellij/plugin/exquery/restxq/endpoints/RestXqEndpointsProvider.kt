@@ -51,7 +51,7 @@ class RestXqEndpointsProvider :
     )
 
     override fun getEndpointData(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint, dataId: String): Any? {
-        return endpoint.getData(dataId)
+        return endpoint.getData(dataId) ?: super.getEndpointData(group, endpoint, dataId)
     }
 
     private fun getEndpointGroups(project: Project): List<RestXqEndpointsGroup> {

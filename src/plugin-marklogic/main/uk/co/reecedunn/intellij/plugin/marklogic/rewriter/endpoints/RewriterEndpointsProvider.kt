@@ -35,7 +35,7 @@ class RewriterEndpointsProvider : EndpointsProvider<RewriterEndpointsGroup, Rewr
     )
 
     override fun getEndpointData(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint, dataId: String): Any? {
-        return endpoint.getData(dataId)
+        return endpoint.getData(dataId) ?: super.getEndpointData(group, endpoint, dataId)
     }
 
     private fun getEndpointGroups(project: Project): Iterable<RewriterEndpointsGroup> {
