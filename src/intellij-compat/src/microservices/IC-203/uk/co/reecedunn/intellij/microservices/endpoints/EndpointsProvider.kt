@@ -4,6 +4,7 @@ package uk.co.reecedunn.intellij.microservices.endpoints
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.ModificationTracker
+import com.intellij.psi.PsiElement
 
 interface EndpointsProvider<Group : Any, Endpoint : Any> {
     val endpointType: EndpointType
@@ -11,6 +12,8 @@ interface EndpointsProvider<Group : Any, Endpoint : Any> {
     val presentation: FrameworkPresentation
 
     fun getEndpointData(group: Group, endpoint: Endpoint, dataId: String): Any? = null
+
+    fun getDocumentationElement(group: Group, endpoint: Endpoint): PsiElement? = null
 
     fun getEndpointGroups(project: Project, filter: EndpointsFilter): Iterable<Group>
 
