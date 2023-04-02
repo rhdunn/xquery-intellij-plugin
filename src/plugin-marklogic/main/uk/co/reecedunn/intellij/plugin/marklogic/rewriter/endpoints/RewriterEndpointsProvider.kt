@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.ModificationTracker
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.microservices.endpoints.*
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
@@ -36,6 +37,10 @@ class RewriterEndpointsProvider : EndpointsProvider<RewriterEndpointsGroup, Rewr
 
     override fun getEndpointData(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint, dataId: String): Any? {
         return endpoint.getData(dataId) ?: super.getEndpointData(group, endpoint, dataId)
+    }
+
+    override fun getDocumentationElement(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint): PsiElement {
+        return endpoint.endpoint
     }
 
     private fun getEndpointGroups(project: Project): Iterable<RewriterEndpointsGroup> {

@@ -17,10 +17,12 @@ package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
 import com.intellij.compat.psi.util.PsiModificationTracker
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.ModificationTracker
+import com.intellij.psi.PsiElement
 import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
@@ -52,6 +54,10 @@ class RestXqEndpointsProvider :
 
     override fun getEndpointData(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint, dataId: String): Any? {
         return endpoint.getData(dataId) ?: super.getEndpointData(group, endpoint, dataId)
+    }
+
+    override fun getDocumentationElement(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint): PsiElement? {
+        return getEndpointData(group, endpoint, CommonDataKeys.PSI_ELEMENT.name) as? PsiElement
     }
 
     private fun getEndpointGroups(project: Project): List<RestXqEndpointsGroup> {
