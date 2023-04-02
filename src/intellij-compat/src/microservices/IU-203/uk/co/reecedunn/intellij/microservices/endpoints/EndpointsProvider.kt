@@ -10,4 +10,8 @@ interface EndpointsProvider<Group : Any, Endpoint : Any> :
     override fun getEndpointData(group: Group, endpoint: Endpoint, dataId: String): Any? = null
 
     fun getDocumentationElement(group: Group, endpoint: Endpoint): PsiElement? = null
+
+    fun getNavigationElement(group: Group, endpoint: Endpoint): PsiElement? {
+        return getDocumentationElement(group, endpoint)
+    }
 }
