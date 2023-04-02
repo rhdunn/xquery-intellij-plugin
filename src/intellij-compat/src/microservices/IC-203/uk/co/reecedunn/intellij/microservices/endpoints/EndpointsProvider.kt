@@ -10,7 +10,7 @@ interface EndpointsProvider<Group : Any, Endpoint : Any> {
 
     val presentation: FrameworkPresentation
 
-    fun getEndpointData(group: Group, endpoint: Endpoint, dataId: String): Any?
+    fun getEndpointData(group: Group, endpoint: Endpoint, dataId: String): Any? = null
 
     fun getEndpointGroups(project: Project, filter: EndpointsFilter): Iterable<Group>
 
