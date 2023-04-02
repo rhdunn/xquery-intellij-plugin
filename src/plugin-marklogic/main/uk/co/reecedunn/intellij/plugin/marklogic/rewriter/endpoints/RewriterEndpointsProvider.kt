@@ -43,6 +43,10 @@ class RewriterEndpointsProvider : EndpointsProvider<RewriterEndpointsGroup, Rewr
         return endpoint.endpoint
     }
 
+    override fun getNavigationElement(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint): PsiElement? {
+        return endpoint.endpointTarget?.resolve()
+    }
+
     private fun getEndpointGroups(project: Project): Iterable<RewriterEndpointsGroup> {
         return Rewriter.getInstance().getEndpointGroups(project)
     }
