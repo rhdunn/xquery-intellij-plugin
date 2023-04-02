@@ -3,8 +3,6 @@ package uk.co.reecedunn.intellij.microservices.endpoints
 
 typealias EndpointsFilter = com.intellij.microservices.endpoints.EndpointsFilter
 
-typealias EndpointsProvider<G, E> = com.intellij.microservices.endpoints.EndpointsProvider<G, E>
-
 typealias EndpointsProviderStatus = com.intellij.microservices.endpoints.EndpointsProvider.Status
 
 typealias EndpointType = com.intellij.microservices.endpoints.EndpointType

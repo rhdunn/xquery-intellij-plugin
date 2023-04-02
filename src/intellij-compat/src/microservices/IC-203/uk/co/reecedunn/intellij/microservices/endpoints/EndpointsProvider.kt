@@ -5,7 +5,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.ModificationTracker
 
-interface EndpointsProvider<Group, Endpoint> {
+interface EndpointsProvider<Group : Any, Endpoint : Any> {
     val endpointType: EndpointType
 
     val presentation: FrameworkPresentation
