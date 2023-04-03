@@ -1,5 +1,5 @@
 (:
- : Copyright (C) 2018-2021 Reece H. Dunn
+ : Copyright (C) 2018-2021, 2023 Reece H. Dunn
  :
  : Licensed under the Apache License, Version 2.0 (the "License");
  : you may not use this file except in compliance with the License.
@@ -74,11 +74,19 @@ declare function local:nullize($value) {
 };
 
 declare function local:version() {
-    substring-before(xdmp:version(), "-") cast as xs:double
+    (: MarkLogic 10 and earlier use the MAJOR.0-MINOR.PATCH version scheme.
+     : MarkLogic 11 and later use the MAJOR.MINOR.PATCH version scheme.
+     :)
+    let $version := tokenize(xdmp:version(), "[-.]")[1 to 2]
+    return fn:string-join($version, ".") cast as xs:double
 };
 
 declare function local:version-minor() {
-    substring-after(xdmp:version(), "-") cast as xs:double
+    (: MarkLogic 10 and earlier use the MAJOR.0-MINOR.PATCH version scheme.
+     : MarkLogic 11 and later use the MAJOR.MINOR.PATCH version scheme.
+     :)
+    let $version := tokenize(xdmp:version(), "[-.]")[3 to 4]
+    return fn:string-join($version, ".") cast as xs:double
 };
 
 declare function local:function($ref as xs:string) {
