@@ -62,7 +62,6 @@
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
-    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath"/>
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings"/>
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations"/>
 
@@ -74,15 +73,12 @@
 
     <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmReverseDomainNameModulePath" fieldName="INSTANCE"/>
     <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath$Companion"/>
-    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.java.JavaModulePath$Companion"/>
-    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath$Companion"/>
     <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleUriPath" fieldName="INSTANCE"/>
 
     <!-- Module Loaders -->
 
     <moduleLoaderFactory name="fixed" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.FixedModuleLoader$Companion"/>
     <moduleLoaderFactory name="jar" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JarModuleLoader$Companion"/>
-    <moduleLoaderFactory name="java" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.java.JavaModuleLoader" fieldName="INSTANCE"/>
     <moduleLoaderFactory name="module" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader$Companion"/>
     <moduleLoaderFactory name="project" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.ProjectModuleLoader" fieldName="INSTANCE"/>
     <moduleLoaderFactory name="relative" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader" fieldName="INSTANCE"/>
