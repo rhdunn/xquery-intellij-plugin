@@ -9,6 +9,10 @@
 
     <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.lang.spellchecker.XsltBundledDictionaryProvider"/>
 
+    <!-- XPath -->
+
+    <completion.contributor language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.XPathCompletionContributor"/>
+
     <!-- XSLT Schema Type -->
 
     <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.xslt.lang.injection.XsltSchemaTypeLanguageInjection"/>
