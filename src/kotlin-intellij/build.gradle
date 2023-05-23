@@ -6,7 +6,7 @@ sourceSets.test.resources.srcDirs += 'test/resources'
 ext.compat_version = project.property('idea_since_build')
 
 dependencies {
-    implementation "xqt-platform:xqt-platform-xml:$xqt_version"
+    implementation "io.github.rhdunn:xqt-platform-xml:$xqt_version"
 
     implementation project(':src:intellij-compat')
 }
