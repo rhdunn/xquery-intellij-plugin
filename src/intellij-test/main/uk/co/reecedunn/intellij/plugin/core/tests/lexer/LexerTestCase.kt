@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.core.tests.lexer
 import com.intellij.lexer.Lexer
 import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.nullValue
+import org.hamcrest.MatcherAssert.assertThat
 
 import org.hamcrest.core.Is.`is`
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 abstract class LexerTestCase {
     abstract val lexer: Lexer

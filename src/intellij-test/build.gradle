@@ -6,6 +6,5 @@ dependencies {
 
     implementation project(':src:intellij-compat')
 
-    implementation project(':src:kotlin-hamcrest')
     implementation project(':src:kotlin-intellij')
 }
