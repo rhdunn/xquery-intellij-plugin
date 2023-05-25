@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.fileTypes
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType

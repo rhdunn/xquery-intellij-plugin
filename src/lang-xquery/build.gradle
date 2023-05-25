@@ -24,7 +24,6 @@ dependencies {
 
     testImplementation project(':src:intellij-compat')
     testImplementation project(':src:intellij-test')
-    testImplementation project(':src:kotlin-hamcrest')
 
     testImplementation project(':src:plugin-basex')
     testImplementation project(':src:plugin-marklogic')
