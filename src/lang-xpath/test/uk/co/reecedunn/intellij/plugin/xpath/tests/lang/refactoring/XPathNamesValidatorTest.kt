@@ -16,9 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xpath.tests.lang.refactoring
 
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.lang.refactoring.XPathNamesValidator
 
 @DisplayName("IntelliJ - Custom Language Support - Rename Refactoring - Names Validator")
