@@ -16,10 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.parser
 
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.parser.Markdown
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 // NOTE: This tests the Markdown generation to ensure that it is consistent.
 @DisplayName("IntelliJ - Custom Language Support - Code Inspections and Intentions - Markdown")

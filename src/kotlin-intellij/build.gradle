@@ -9,6 +9,4 @@ dependencies {
     implementation "xqt-platform:xqt-platform-xml:$xqt_version"
 
     implementation project(':src:intellij-compat')
-
-    testImplementation project(':src:kotlin-hamcrest')
 }

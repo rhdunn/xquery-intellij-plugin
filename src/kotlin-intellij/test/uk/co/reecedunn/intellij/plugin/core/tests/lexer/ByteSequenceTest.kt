@@ -16,11 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.lexer
 
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.ByteSequence
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 @DisplayName("IntelliJ - Custom Language Support - Implementing Lexer - ByteSequence")
 class ByteSequenceTest {

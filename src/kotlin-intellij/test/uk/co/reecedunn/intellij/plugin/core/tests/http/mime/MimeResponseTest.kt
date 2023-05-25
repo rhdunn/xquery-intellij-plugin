@@ -19,11 +19,11 @@ import org.apache.http.Header
 import org.apache.http.message.BasicHeader
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.http.StringMessage
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - MimeResponse")
 class MimeResponseTest {
