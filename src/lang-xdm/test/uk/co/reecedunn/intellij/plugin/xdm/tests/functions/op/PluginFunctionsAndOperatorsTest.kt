@@ -16,11 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xdm.tests.functions.op
 
 import org.hamcrest.CoreMatchers.*
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.UndeclaredNamespacePrefixException
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_parse
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
