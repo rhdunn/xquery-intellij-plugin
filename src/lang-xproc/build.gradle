@@ -10,6 +10,5 @@ dependencies {
     implementation project(':src:lang-xdm')
     implementation project(':src:lang-xslt')
 
-    testImplementation project(':src:kotlin-hamcrest')
     testImplementation project(':src:intellij-test')
 }
