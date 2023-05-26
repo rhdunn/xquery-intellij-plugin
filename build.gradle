@@ -235,7 +235,7 @@ task moduleDependencyReport {
         deps.forEach { from, toList ->
             file << "\"$from\" [shape=none]\n"
             toList.forEach { to ->
-                if (to != "kotlin-hamcrest" && to != "intellij-test") {
+                if (to != "intellij-test") {
                     file << ("\"$from\" -> \"$to\"\n")
                 }
             }

@@ -1,4 +1,3 @@
-include("src:kotlin-hamcrest")
 include("src:kotlin-intellij")
 
 include("src:intellij-compat")
