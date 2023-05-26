@@ -153,7 +153,6 @@ dependencies {
     implementation project(':src:plugin-exquery')
     implementation project(':src:plugin-w3')
 
-    testImplementation project(':src:kotlin-hamcrest')
     testImplementation project(':src:intellij-test')
 }
 
