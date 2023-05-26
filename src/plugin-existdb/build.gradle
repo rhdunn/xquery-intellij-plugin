@@ -12,7 +12,6 @@ dependencies {
     implementation project(':src:lang-xpm')
     implementation project(':src:plugin-api')
 
-    testImplementation project(':src:kotlin-hamcrest')
     testImplementation project(':src:intellij-test')
 
     // JSoup
