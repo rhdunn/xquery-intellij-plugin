@@ -11,5 +11,4 @@ dependencies {
     implementation project(':src:lang-xpath')
 
     testImplementation project(':src:intellij-test')
-    testImplementation project(':src:kotlin-hamcrest')
 }
