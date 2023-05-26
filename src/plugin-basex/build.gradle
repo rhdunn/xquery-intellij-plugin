@@ -14,5 +14,4 @@ dependencies {
     implementation project(':src:plugin-api')
 
     testImplementation project(':src:intellij-test')
-    testImplementation project(':src:kotlin-hamcrest')
 }

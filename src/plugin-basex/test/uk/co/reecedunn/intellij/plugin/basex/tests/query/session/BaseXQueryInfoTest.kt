@@ -16,11 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.basex.tests.query.session
 
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.basex.query.session.toBaseXInfo
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 
 @Suppress("UNCHECKED_CAST", "RedundantInnerClassModifier")
