@@ -12,5 +12,4 @@ dependencies {
 
     testImplementation project(':src:kotlin-intellij')
     testImplementation project(':src:intellij-test')
-    testImplementation project(':src:kotlin-hamcrest')
 }
