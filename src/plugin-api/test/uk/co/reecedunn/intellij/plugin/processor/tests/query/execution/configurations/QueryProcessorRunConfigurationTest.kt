@@ -19,10 +19,10 @@ import com.intellij.execution.impl.serializeConfigurationInto
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.util.JDOMUtil
 import org.hamcrest.CoreMatchers.*
+import org.hamcrest.MatcherAssert.assertThat
 import org.jdom.Element
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.QueryProcessorDataSourceType
