@@ -124,6 +124,9 @@ configure(allprojects - project(':src')) {
 
     test {
         useJUnitPlatform()
+
+        // IntelliJ requires the tests to be run headless when loading icons, etc.
+        systemProperty("java.awt.headless", "true")
     }
 }
 
