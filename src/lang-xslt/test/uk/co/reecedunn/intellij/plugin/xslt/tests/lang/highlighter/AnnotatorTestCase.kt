@@ -49,7 +49,7 @@ abstract class AnnotatorTestCase(vararg definitions: ParserDefinition) :
         app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
 
         project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
-        project.registerServiceInstance(ModuleManager::class.java, MockModuleManager(project))
+        project.registerServiceInstance(ModuleManager::class.java, MockModuleManager(mockProject))
         project.registerServiceInstance(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
 
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)

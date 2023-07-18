@@ -48,7 +48,7 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
 
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
-        project.registerServiceInstance(ModuleManager::class.java, MockModuleManager(project))
+        project.registerServiceInstance(ModuleManager::class.java, MockModuleManager(mockProject))
 
         val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(
