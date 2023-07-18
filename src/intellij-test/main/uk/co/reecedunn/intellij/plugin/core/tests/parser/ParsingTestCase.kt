@@ -22,7 +22,6 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.openapi.startup.StartupManager
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
-import com.intellij.compat.util.registry.initializeRegistryForTests
 import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
 import com.intellij.lang.parameterInfo.CreateParameterInfoContext
@@ -46,6 +45,7 @@ import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.StartupManager
 import com.intellij.openapi.util.Disposer
+import com.intellij.openapi.util.registry.Registry
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
@@ -97,7 +97,7 @@ abstract class ParsingTestCase<File : PsiFile>(
     private val mDefinitions: Array<out ParserDefinition> = definitions
 
     override fun registerServicesAndExtensions() {
-        initializeRegistryForTests()
+        Registry.markAsLoaded()
 
         // IntelliJ ParsingTestCase setUp
         val app = ApplicationManager.getApplication()

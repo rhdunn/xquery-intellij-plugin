@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.psi
 
-import com.intellij.compat.psi.impl.PsiDocumentManagerBase
 import com.intellij.openapi.project.Project
+import com.intellij.psi.impl.PsiDocumentManagerBase
 
 // NOTE: PSI document modifications rely on PsiDocumentManagerBase, which
 // MockPsiDocumentManager does not derive from.

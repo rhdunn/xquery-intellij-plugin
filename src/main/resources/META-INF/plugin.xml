@@ -73,7 +73,7 @@
   <change-notes><![CDATA[
   ]]></change-notes>
 
-  <idea-version since-build="211"/>
+  <idea-version since-build="212"/>
 
   <xi:include href="lang-xpm.xml" xpointer="xpointer(/idea-plugin/*)"/>
 

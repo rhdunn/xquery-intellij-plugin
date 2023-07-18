@@ -55,7 +55,6 @@ jobs:
       fail-fast: false
       matrix:
         idea-version: [
-            IC-2021.1,
             IC-2021.2,
             IC-2021.3,
             IC-2022.1,
@@ -65,9 +64,6 @@ jobs:
             LATEST-EAP-SNAPSHOT
         ]
         include:
-
-          - java-version: 11
-            idea-version: IC-2021.1
 
           - java-version: 11
             idea-version: IC-2021.2
