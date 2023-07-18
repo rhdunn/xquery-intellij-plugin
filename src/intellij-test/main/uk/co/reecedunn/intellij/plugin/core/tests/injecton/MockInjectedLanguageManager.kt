@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.injecton
 
-import com.intellij.compat.lang.injection.InjectedLanguageManager
 import com.intellij.injected.editor.DocumentWindow
+import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.injection.MultiHostInjector
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.editor.Document
