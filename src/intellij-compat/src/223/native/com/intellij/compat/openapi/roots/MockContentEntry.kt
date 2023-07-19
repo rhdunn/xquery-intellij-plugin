@@ -1,28 +1,16 @@
-/*
- * Copyright (C) 2018, 2022 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2018, 2022-2023 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package com.intellij.compat.openapi.roots
 
-import com.intellij.openapi.roots.*
+import com.intellij.openapi.roots.ExcludeFolder
+import com.intellij.openapi.roots.ModuleRootModel
+import com.intellij.openapi.roots.ProjectModelExternalSource
+import com.intellij.openapi.roots.SourceFolder
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.annotations.TestOnly
 import org.jetbrains.jps.model.JpsElement
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
 @TestOnly
-@Suppress("NonExtendableApiUsage")
 open class MockContentEntry : ContentEntry {
     override fun isSynthetic(): Boolean = TODO()
 
@@ -99,10 +87,15 @@ open class MockContentEntry : ContentEntry {
         url: String,
         type: JpsModuleSourceRootType<P>,
         properties: P,
+        isAutomaticallyImported: Boolean
+    ): SourceFolder = TODO()
+
+    override fun <P : JpsElement> addSourceFolder(
+        url: String,
+        type: JpsModuleSourceRootType<P>,
+        properties: P,
         externalSource: ProjectModelExternalSource?
-    ): SourceFolder {
-        TODO("Not yet implemented")
-    }
+    ): SourceFolder = TODO()
 
     override fun removeSourceFolder(sourceFolder: SourceFolder): Unit = TODO()
 
@@ -112,7 +105,9 @@ open class MockContentEntry : ContentEntry {
 
     override fun addExcludeFolder(url: String): ExcludeFolder = TODO()
 
-    override fun addExcludeFolder(url: String, source: ProjectModelExternalSource?): ExcludeFolder = TODO()
+    override fun addExcludeFolder(url: String, isAutomaticallyImported: Boolean): ExcludeFolder {
+        TODO("Not yet implemented")
+    }
 
     override fun removeExcludeFolder(excludeFolder: ExcludeFolder): Unit = TODO()
 
