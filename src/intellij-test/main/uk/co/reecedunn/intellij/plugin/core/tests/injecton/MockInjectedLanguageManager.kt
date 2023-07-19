@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.injecton
 
+import com.intellij.compat.lang.injection.InjectedLanguageManager
 import com.intellij.injected.editor.DocumentWindow
-import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.injection.MultiHostInjector
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.editor.Document
@@ -65,6 +65,10 @@ class MockInjectedLanguageManager : InjectedLanguageManager() {
     override fun registerMultiHostInjector(injector: MultiHostInjector, parentDisposable: Disposable): Unit = TODO()
 
     override fun isInjectedFragment(injectedFile: PsiFile): Boolean = TODO()
+
+    override fun isInjectedViewProvider(viewProvider: FileViewProvider): Boolean {
+        TODO("Not yet implemented")
+    }
 
     override fun intersectWithAllEditableFragments(
         injectedPsi: PsiFile,
