@@ -7,6 +7,7 @@ on:
 
 env:
   XQT_PLATFORM: 'release'
+  GRADLE_VERSION: 7.6.2
 
 jobs:
   xqt-platform:
@@ -29,11 +30,11 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: 'temurin'
 
-      - name: Setup Gradle 7.5
+      - name: Setup Gradle ${{ env.GRADLE_VERSION }}
         if: ${{ env.XQT_PLATFORM == 'master' }}
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: 7.5
+          gradle-version: ${{ env.GRADLE_VERSION }}
 
       - name: Build for Kotlin/JVM
         if: ${{ env.XQT_PLATFORM == 'master' }}
@@ -109,10 +110,10 @@ jobs:
           java-version: ${{ matrix.java-version }}
           distribution: 'temurin'
 
-      - name: Setup Gradle 7.5
+      - name: Setup Gradle ${{ env.GRADLE_VERSION }}
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: 7.5
+          gradle-version: ${{ env.GRADLE_VERSION }}
 
       - name: Download XQT Platform Artifacts
         if: ${{ env.XQT_PLATFORM == 'master' }}
