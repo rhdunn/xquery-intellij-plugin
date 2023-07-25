@@ -4,14 +4,12 @@ package uk.co.reecedunn.intellij.plugin.core.tests.roots
 import com.intellij.compat.openapi.roots.ContentEntry
 import com.intellij.openapi.roots.ExcludeFolder
 import com.intellij.openapi.roots.ModuleRootModel
-import com.intellij.openapi.roots.ProjectModelExternalSource
 import com.intellij.openapi.roots.SourceFolder
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.JpsElement
 import org.jetbrains.jps.model.java.JavaSourceRootType
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
-@Suppress("UnstableApiUsage")
 class MockContentEntry(private val file: VirtualFile) : ContentEntry {
     override fun isSynthetic(): Boolean = TODO()
 
@@ -63,36 +61,10 @@ class MockContentEntry(private val file: VirtualFile) : ContentEntry {
         type: JpsModuleSourceRootType<P>
     ): SourceFolder = TODO()
 
-    override fun <P : JpsElement?> addSourceFolder(
-        url: String,
-        type: JpsModuleSourceRootType<P>,
-        externalSource: ProjectModelExternalSource
-    ): SourceFolder = TODO()
-
-    override fun <P : JpsElement?> addSourceFolder(
-        url: String,
-        type: JpsModuleSourceRootType<P>,
-        useSourceOfContentRoot: Boolean
-    ): SourceFolder = TODO()
-
     override fun <P : JpsElement> addSourceFolder(
         url: String,
         type: JpsModuleSourceRootType<P>,
         properties: P
-    ): SourceFolder = TODO()
-
-    override fun <P : JpsElement> addSourceFolder(
-        url: String,
-        type: JpsModuleSourceRootType<P>,
-        properties: P,
-        isAutomaticallyImported: Boolean
-    ): SourceFolder = TODO()
-
-    override fun <P : JpsElement> addSourceFolder(
-        url: String,
-        type: JpsModuleSourceRootType<P>,
-        properties: P,
-        externalSource: ProjectModelExternalSource?
     ): SourceFolder = TODO()
 
     override fun removeSourceFolder(sourceFolder: SourceFolder): Unit = TODO()
@@ -102,8 +74,6 @@ class MockContentEntry(private val file: VirtualFile) : ContentEntry {
     override fun addExcludeFolder(file: VirtualFile): ExcludeFolder = TODO()
 
     override fun addExcludeFolder(url: String): ExcludeFolder = TODO()
-
-    override fun addExcludeFolder(url: String, isAutomaticallyImported: Boolean): ExcludeFolder = TODO()
 
     override fun removeExcludeFolder(excludeFolder: ExcludeFolder): Unit = TODO()
 
