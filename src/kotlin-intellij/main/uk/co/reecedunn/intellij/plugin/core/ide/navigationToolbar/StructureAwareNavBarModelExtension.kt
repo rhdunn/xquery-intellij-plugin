@@ -30,8 +30,8 @@ import com.intellij.openapi.actionSystem.DataContext
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.reference.SoftReference
 import com.intellij.util.Processor
+import java.lang.ref.SoftReference
 
 @Suppress("unused")
 private fun <T> Array<T>.toListOrSelf(): List<T> = toList() // For IntelliJ 2020.1.
