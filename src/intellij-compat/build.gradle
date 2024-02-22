@@ -3,12 +3,6 @@ ext.intellij_type = project.property('idea_type')
 
 version = ext.intellij_version
 
-if (ext.intellij_version >= 221) {
-    sourceSets.main.java.srcDirs += 'src/221/native'
-} else {
-    sourceSets.main.java.srcDirs += 'src/221/compat'
-}
-
 if (ext.intellij_version >= 222) {
     sourceSets.main.java.srcDirs += 'src/222/native'
 } else {

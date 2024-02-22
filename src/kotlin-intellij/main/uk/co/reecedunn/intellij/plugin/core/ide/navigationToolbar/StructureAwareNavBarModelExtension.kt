@@ -16,12 +16,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ide.navigationToolbar
 
-import com.intellij.compat.ide.ui.UISettings
 import com.intellij.ide.navigationToolbar.AbstractNavBarModelExtension
 import com.intellij.ide.structureView.StructureViewModel
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.TreeBasedStructureViewBuilder
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
+import com.intellij.ide.ui.UISettings
 import com.intellij.ide.util.treeView.smartTree.NodeProvider
 import com.intellij.ide.util.treeView.smartTree.TreeElement
 import com.intellij.lang.LanguageStructureViewBuilder

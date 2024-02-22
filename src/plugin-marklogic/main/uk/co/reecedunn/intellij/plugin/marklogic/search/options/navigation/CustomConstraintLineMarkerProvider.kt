@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.search.options.navigation
 import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
-import com.intellij.compat.codeInsight.navigation.setCellRendererEx
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomConstraintFunctionReference
@@ -41,7 +40,7 @@ class CustomConstraintLineMarkerProvider : LineMarkerProvider {
         return NavigationGutterIconBuilder.create(CustomConstraintFunctionReference.getIcon(facets[0].referenceType))
             .setTargets(facets.map { it.element })
             .setTooltipText(PluginApiBundle.message("line-marker.search-constraint.tooltip-text"))
-            .setCellRendererEx { CustomConstraintListCellRenderer(facets) }
+            .setCellRenderer { CustomConstraintListCellRenderer(facets) }
             .createLineMarkerInfo(element)
     }
 }

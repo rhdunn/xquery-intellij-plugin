@@ -15,15 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.psi
 
-import com.intellij.compat.psi.impl.PsiManagerEx
 import com.intellij.lang.LanguageUtil
 import com.intellij.mock.MockFileManager
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Comparing
+import com.intellij.openapi.util.Computable
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileFilter
 import com.intellij.psi.*
+import com.intellij.psi.impl.PsiManagerEx
 import com.intellij.psi.impl.PsiModificationTrackerImpl
 import com.intellij.psi.impl.PsiTreeChangeEventImpl
 import com.intellij.psi.impl.file.impl.FileManager
@@ -77,6 +78,10 @@ class MockPsiManager(private val project: Project) : PsiManagerEx() {
     }
 
     override fun finishBatchFilesProcessingMode() {
+    }
+
+    override fun <T : Any?> runInBatchFilesMode(runnable: Computable<T>): T {
+        return runnable.get()
     }
 
     override fun isDisposed(): Boolean = false

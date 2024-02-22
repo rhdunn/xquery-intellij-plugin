@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.editor.colors
 
-import com.intellij.compat.openapi.editor.colors.EditorColorsManager
+import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.editor.colors.EditorColorsScheme
 
 class MockEditorColorsManager : EditorColorsManager() {

@@ -80,7 +80,7 @@
     </ol>
   ]]></change-notes>
 
-  <idea-version since-build="213"/>
+  <idea-version since-build="221"/>
 
   <xi:include href="lang-xpm.xml" xpointer="xpointer(/idea-plugin/*)"/>
 

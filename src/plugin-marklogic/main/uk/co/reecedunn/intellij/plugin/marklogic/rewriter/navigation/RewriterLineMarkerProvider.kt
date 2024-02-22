@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.navigation
 import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
-import com.intellij.compat.codeInsight.navigation.setCellRendererEx
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafElement
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
@@ -38,7 +37,7 @@ class RewriterLineMarkerProvider : LineMarkerProvider {
         return NavigationGutterIconBuilder.create(MarkLogicIcons.Markers.Endpoint)
             .setTargets(endpoints.map { it.endpoint })
             .setTooltipText(PluginApiBundle.message("line-marker.rewriter-endpoint.tooltip-text"))
-            .setCellRendererEx { RewriterListCellRenderer(endpoints) }
+            .setCellRenderer { RewriterListCellRenderer(endpoints) }
             .createLineMarkerInfo(element)
     }
 
