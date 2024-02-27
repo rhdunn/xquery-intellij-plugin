@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Reece H. Dunn
+ * Copyright (C) 2016-2021, 2024 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.psi
 
+import com.intellij.compat.psi.impl.PsiManagerEx
 import com.intellij.lang.LanguageUtil
 import com.intellij.mock.MockFileManager
 import com.intellij.openapi.Disposable
@@ -24,7 +25,6 @@ import com.intellij.openapi.util.Computable
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileFilter
 import com.intellij.psi.*
-import com.intellij.psi.impl.PsiManagerEx
 import com.intellij.psi.impl.PsiModificationTrackerImpl
 import com.intellij.psi.impl.PsiTreeChangeEventImpl
 import com.intellij.psi.impl.file.impl.FileManager
@@ -91,6 +91,9 @@ class MockPsiManager(private val project: Project) : PsiManagerEx() {
     override fun dropPsiCaches(): Unit = dropResolveCaches()
 
     override fun isInProject(element: PsiElement): Boolean = false
+
+    @Suppress("UnstableApiUsage", "RedundantSuppression")
+    override fun findCachedViewProvider(vFile: VirtualFile): FileViewProvider = TODO()
 
     // endregion
     // region PsiManagerEx
