@@ -10,61 +10,7 @@ env:
   GRADLE_VERSION: 8.9
 
 jobs:
-  xqt-platform:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java: [ 11, 17 ]
-    steps:
-      - name: Source Code Checkout
-        if: ${{ env.XQT_PLATFORM == 'master' }}
-        uses: actions/checkout@v3
-        with:
-          repository: rhdunn/xqt-platform
-          ref: ${{ env.XQT_PLATFORM }}
-
-      - name: Setup JDK ${{ matrix.java }}
-        if: ${{ env.XQT_PLATFORM == 'master' }}
-        uses: actions/setup-java@v3
-        with:
-          java-version: ${{ matrix.java }}
-          distribution: 'temurin'
-
-      - name: Setup Gradle ${{ env.GRADLE_VERSION }}
-        if: ${{ env.XQT_PLATFORM == 'master' }}
-        uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: ${{ env.GRADLE_VERSION }}
-
-      - name: Build for Kotlin/JVM
-        if: ${{ env.XQT_PLATFORM == 'master' }}
-        run: gradle -D jvm.target=${{ matrix.java }} jvmJar
-
-      - name: Test for Kotlin/JVM
-        if: ${{ env.XQT_PLATFORM == 'master' }}
-        run: gradle -D jvm.target=${{ matrix.java }} jvmTest
-
-      - name: Publish Kotlin/Multiplatform to Maven Local
-        if: ${{ env.XQT_PLATFORM == 'master' }}
-        run: gradle -D jvm.target=${{ matrix.java }} publishKotlinMultiplatformPublicationToMavenLocal
-
-      - name: Publish Kotlin/JVM to Maven Local
-        if: ${{ env.XQT_PLATFORM == 'master' }}
-        run: gradle -D jvm.target=${{ matrix.java }} publishJvmPublicationToMavenLocal
-
-      - name: Tar XQT Platform Artifacts
-        if: ${{ env.XQT_PLATFORM == 'master' }}
-        run: tar -cvf xqt-platform-jvm-${{ matrix.java }}.tar -C ~/.m2/repository/xqt-platform .
-
-      - name: Upload XQT Platform Artifacts
-        if: ${{ env.XQT_PLATFORM == 'master' }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: xqt-platform-jvm-${{ matrix.java }}
-          path: xqt-platform-jvm-${{ matrix.java }}.tar
-
   plugin:
-    needs: xqt-platform
     strategy:
       fail-fast: false
       matrix:
