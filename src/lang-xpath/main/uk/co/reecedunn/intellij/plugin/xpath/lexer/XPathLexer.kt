@@ -16,10 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xpath.lexer
 
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
-import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
-import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCharReader
-import xqt.platform.xml.lexer.*
+import uk.co.reecedunn.intellij.plugin.core.lexer.*
+import xqt.platform.xml.lexer.Digits
+import xqt.platform.xml.lexer.NameChar
+import xqt.platform.xml.lexer.NameStartChar
+import xqt.platform.xml.lexer.S
 import xqt.platform.xml.model.XmlChar
 
 @Suppress("DuplicatedCode")

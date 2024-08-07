@@ -16,13 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xslt.lexer
 
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.core.lexer.LeftCurlyBracket
+import uk.co.reecedunn.intellij.plugin.core.lexer.RightCurlyBracket
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCharReader
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.ValueTemplate
-import xqt.platform.xml.lexer.LeftCurlyBracket
-import xqt.platform.xml.lexer.RightCurlyBracket
 
 class XsltValueTemplateLexer : XPathLexer() {
     companion object {
