@@ -7,7 +7,7 @@ on:
 
 env:
   XQT_PLATFORM: 'release'
-  GRADLE_VERSION: 7.6.2
+  GRADLE_VERSION: 8.9
 
 jobs:
   xqt-platform:
