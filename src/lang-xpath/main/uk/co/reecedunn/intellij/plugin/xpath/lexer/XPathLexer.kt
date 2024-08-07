@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.lexer
 
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
-import xqt.platform.xml.model.XmlChar
 
 @Suppress("DuplicatedCode")
 open class XPathLexer : LexerImpl(STATE_DEFAULT) {

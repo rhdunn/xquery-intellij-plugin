@@ -6,8 +6,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.Digits
 import uk.co.reecedunn.intellij.plugin.core.lexer.Space
+import uk.co.reecedunn.intellij.plugin.core.lexer.XmlChar
 import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCharReader
-import xqt.platform.xml.model.XmlChar
 
 @DisplayName("An XmlCharReader can be initialized")
 class AnXmlCharReaderCanBeInitialized {

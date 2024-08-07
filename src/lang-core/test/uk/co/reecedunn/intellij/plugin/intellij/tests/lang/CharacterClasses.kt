@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
-import xqt.platform.xml.model.XmlChar
 
 @DisplayName("Character classes support testing if an XmlChar belongs to")
 class CharacterClassesSupportTestingIfAnXmlCharBelongsTo {

@@ -1,8 +1,6 @@
 // Copyright (C) 2022 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.lexer
 
-import xqt.platform.xml.model.XmlChar
-
 /**
  * A lexical character class, i.e. a set of codepoints.
  */
