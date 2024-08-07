@@ -22,7 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import xqt.platform.xml.lexer.*
 import xqt.platform.xml.model.XmlChar
-import xqt.platform.xml.model.XmlCharReader
 
 @Suppress("DuplicatedCode")
 class XQueryLexer : XPathLexer() {

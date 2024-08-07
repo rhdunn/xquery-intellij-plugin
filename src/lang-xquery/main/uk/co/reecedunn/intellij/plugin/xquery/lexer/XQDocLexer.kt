@@ -19,7 +19,6 @@ import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
 import xqt.platform.xml.lexer.*
 import xqt.platform.xml.model.XmlChar
-import xqt.platform.xml.model.XmlCharReader
 
 @Suppress("DuplicatedCode")
 class XQDocLexer : LexerImpl(STATE_CONTENTS) {

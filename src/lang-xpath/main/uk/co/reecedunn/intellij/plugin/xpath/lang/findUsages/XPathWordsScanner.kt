@@ -19,12 +19,12 @@ import com.intellij.lang.cacheBuilder.WordsScanner
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.lexer.Lexer
 import com.intellij.util.Processor
+import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCharReader
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import xqt.platform.xml.lexer.Colon
 import xqt.platform.xml.lexer.NameChar
 import xqt.platform.xml.lexer.NameStartChar
-import xqt.platform.xml.model.XmlCharReader
 
 open class XPathWordsScanner(protected val mLexer: Lexer = XPathLexer()) : WordsScanner {
     protected val mOccurrence: WordOccurrence = WordOccurrence(null, 0, 0, null)
