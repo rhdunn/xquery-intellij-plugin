@@ -17,10 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.lexer
 
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
-import xqt.platform.xml.lexer.Digits
-import xqt.platform.xml.lexer.NameChar
-import xqt.platform.xml.lexer.NameStartChar
-import xqt.platform.xml.lexer.S
 import xqt.platform.xml.model.XmlChar
 
 @Suppress("DuplicatedCode")

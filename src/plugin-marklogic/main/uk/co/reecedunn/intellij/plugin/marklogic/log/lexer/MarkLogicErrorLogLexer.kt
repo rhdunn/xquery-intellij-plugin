@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.log.lexer
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLogFormat
-import xqt.platform.xml.lexer.Digits
 
 class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(STATE_DEFAULT) {
     companion object {

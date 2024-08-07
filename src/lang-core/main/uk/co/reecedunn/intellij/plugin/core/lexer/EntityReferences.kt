@@ -17,10 +17,6 @@ package uk.co.reecedunn.intellij.plugin.core.lexer
 
 import com.google.gson.JsonParser
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import xqt.platform.xml.lexer.Digits
-import xqt.platform.xml.lexer.HexDigits
-import xqt.platform.xml.lexer.NameChar
-import xqt.platform.xml.lexer.NameStartChar
 import java.io.InputStreamReader
 
 enum class EntityReferenceType {
