@@ -48,10 +48,10 @@ jobs:
           - java-version: 17
             idea-version: IC-2024.1
 
-          - java-version: 17
+          - java-version: 21
             idea-version: IC-2024.2
 
-          - java-version: 17
+          - java-version: 21
             idea-version: LATEST-EAP-SNAPSHOT
 
     runs-on: ubuntu-latest
