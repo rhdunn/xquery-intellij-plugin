@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
-import com.intellij.compat.psi.util.PsiModificationTracker
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
@@ -25,6 +24,7 @@ import com.intellij.openapi.util.ModificationTracker
 import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
+import com.intellij.psi.util.PsiModificationTracker
 import com.intellij.psi.xml.XmlFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 

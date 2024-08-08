@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.configuration.roxy
 
-import com.intellij.compat.psi.util.PsiModificationTracker
 import com.intellij.lang.properties.IProperty
 import com.intellij.lang.properties.PropertiesLanguage
 import com.intellij.lang.properties.psi.PropertiesFile
@@ -26,6 +25,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
+import com.intellij.psi.util.PsiModificationTracker
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest

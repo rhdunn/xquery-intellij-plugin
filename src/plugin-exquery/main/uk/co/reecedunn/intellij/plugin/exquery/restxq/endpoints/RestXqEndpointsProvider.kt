@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
-import com.intellij.compat.psi.util.PsiModificationTracker
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.project.Project
@@ -26,6 +25,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
+import com.intellij.psi.util.PsiModificationTracker
 import uk.co.reecedunn.intellij.microservices.endpoints.*
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
