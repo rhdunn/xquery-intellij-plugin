@@ -10,9 +10,11 @@ processResources {
     }
 }
 
-intellij.plugins = ['org.intellij.intelliLang']
-
 dependencies {
+    intellijPlatform {
+        bundledPlugins 'org.intellij.intelliLang'
+    }
+
     implementation project(':src:kotlin-intellij')
     implementation project(':src:lang-core')
     implementation project(':src:lang-xdm')

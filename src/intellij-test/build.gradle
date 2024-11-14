@@ -8,3 +8,10 @@ dependencies {
 
     implementation project(':src:kotlin-intellij')
 }
+
+// Include the testFramework dependency in the main build dependencies.
+configurations.getByName("intellijPlatformTestDependencies").dependencies.each { dependency ->
+    dependencies {
+        implementation "${dependency.group}:${dependency.name}:${dependency.version}"
+    }
+}
