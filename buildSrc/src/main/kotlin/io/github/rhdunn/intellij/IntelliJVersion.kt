@@ -1,6 +1,9 @@
 // Copyright (C) 2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package io.github.rhdunn.intellij
 
+import java.io.File
+import java.net.URI
+
 /**
  * An IntelliJ version number.
  *
@@ -71,6 +74,47 @@ data class IntelliJBuildNumber(
                 )
             }
             return null
+        }
+    }
+}
+
+/**
+ * An IntelliJ snapshot.
+ *
+ * Supported formats:
+ * - `192-EAP-SNAPSHOT`
+ * - `LATEST-EAP-SNAPSHOT`
+ */
+data class IntelliJSnapshot(
+    val value: String,
+    val build: IntelliJBuildNumber,
+) {
+    override fun toString(): String = value
+
+    companion object {
+        private const val REPOSITORY_PATH =
+            "https://www.jetbrains.com/intellij-repository/snapshots/com/jetbrains/intellij/idea/BUILD"
+
+        val FORMAT = "([0-9][0-9][0-9]|LATEST)-EAP-SNAPSHOT".toRegex()
+
+        fun parse(value: String): IntelliJSnapshot? {
+            if (FORMAT.matchEntire(value) == null) return null
+
+            val build = File("build/BUILD-$value.txt")
+            if (!build.exists()) {
+                build.parentFile.mkdirs()
+
+                val downloadUrl = URI("$REPOSITORY_PATH/$value/BUILD-$value.txt").toURL()
+                println("Downloading build version file '$downloadUrl' to '${build.absolutePath}'")
+
+                downloadUrl.openStream().use { input ->
+                    build.outputStream().use { output ->
+                        input.copyTo(output)
+                    }
+                }
+            }
+
+            return IntelliJSnapshot(value, IntelliJBuildNumber.parse(build.readLines()[0])!!)
         }
     }
 }

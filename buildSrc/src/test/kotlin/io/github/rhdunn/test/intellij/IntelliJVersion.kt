@@ -4,7 +4,9 @@ package io.github.rhdunn.test.intellij
 import io.github.rhdunn.intellij.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import java.io.File
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 @DisplayName("The IntelliJVersionNumber class")
 class IntelliJVersionNumberTest {
@@ -51,5 +53,34 @@ class IntelliJBuildNumberTest {
         val build = IntelliJBuildNumber.parse("IC-221.5080.210")
         assertEquals(IntelliJBuildNumber("IC-221.5080.210", "IC", "221.5080.210", 221, 5080, 210), build)
         assertEquals("IC-221.5080.210", build.toString())
+    }
+}
+
+@DisplayName("The IntelliJSnapshot class")
+class IntelliJSnapshotTest {
+    @Test
+    fun `should parse versioned eap snapshots`() {
+        val build = IntelliJSnapshot.parse("242-EAP-SNAPSHOT")
+        assertEquals(build!!.value, "242-EAP-SNAPSHOT")
+        assertEquals("242-EAP-SNAPSHOT", build.toString())
+
+        val versionFile = File("build/BUILD-242-EAP-SNAPSHOT.txt")
+        assertTrue(versionFile.exists(), "The ${versionFile.path} file exists.")
+
+        val buildVersion = versionFile.readLines()[0]
+        assertEquals(buildVersion, build.build.toString())
+    }
+
+    @Test
+    fun `should parse latest eap snapshots`() {
+        val build = IntelliJSnapshot.parse("LATEST-EAP-SNAPSHOT")
+        assertEquals(build!!.value, "LATEST-EAP-SNAPSHOT")
+        assertEquals("LATEST-EAP-SNAPSHOT", build.toString())
+
+        val versionFile = File("build/BUILD-LATEST-EAP-SNAPSHOT.txt")
+        assertTrue(versionFile.exists(), "The ${versionFile.path} file exists.")
+
+        val buildVersion = versionFile.readLines()[0]
+        assertEquals(buildVersion, build.build.toString())
     }
 }
