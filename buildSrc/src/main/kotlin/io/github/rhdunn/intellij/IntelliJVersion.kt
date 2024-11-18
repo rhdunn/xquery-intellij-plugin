@@ -70,17 +70,17 @@ data class IntelliJBuildNumber(
     override fun toString(): String = value
 
     companion object {
-        val FORMAT = "(([A-Z]+)-)?(([0-9][0-9][0-9]).([0-9]+).([0-9]+))".toRegex()
+        val FORMAT = "(([A-Z]+)-)?((([0-9][0-9])([0-9])).([0-9]+).([0-9]+))".toRegex()
 
         fun parse(value: String): IntelliJBuildNumber? {
             FORMAT.matchEntire(value)?.let { match ->
                 return IntelliJBuildNumber(
                     value = value,
                     platformType = match.groupValues[2].takeIf { it.isNotEmpty() },
-                    platformVersion = match.groupValues[3],
+                    platformVersion = "20${match.groupValues[5]}.${match.groupValues[6]}",
                     major = match.groupValues[4].toInt(),
-                    minor = match.groupValues[5].toInt(),
-                    patch = match.groupValues[6].toInt(),
+                    minor = match.groupValues[7].toInt(),
+                    patch = match.groupValues[8].toInt(),
                 )
             }
             return null
@@ -100,7 +100,7 @@ data class IntelliJSnapshot(
     val build: IntelliJBuildNumber,
 ) : IntelliJVersion {
     override val platformType: String? get() = null
-    override val platformVersion: String get() = build.platformVersion
+    override val platformVersion: String get() = "${build.platformVersion} EAP"
     override val buildVersion: Int get() = build.buildVersion
 
     override fun toString(): String = value

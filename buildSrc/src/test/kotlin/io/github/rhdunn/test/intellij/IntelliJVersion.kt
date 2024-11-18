@@ -61,22 +61,22 @@ class IntelliJBuildNumberTest {
     @Test
     fun `should parse version numbers without platform type`() {
         val build = IntelliJBuildNumber.parse("221.5080.210")!!
-        assertEquals(IntelliJBuildNumber("221.5080.210", null, "221.5080.210", 221, 5080, 210), build)
+        assertEquals(IntelliJBuildNumber("221.5080.210", null, "2022.1", 221, 5080, 210), build)
         assertEquals("221.5080.210", build.toString())
 
         assertNull(build.platformType)
-        assertEquals("221.5080.210", build.platformVersion)
+        assertEquals("2022.1", build.platformVersion)
         assertEquals(221, build.buildVersion)
     }
 
     @Test
     fun `should parse version numbers with platform type`() {
         val build = IntelliJBuildNumber.parse("IC-221.5080.210")!!
-        assertEquals(IntelliJBuildNumber("IC-221.5080.210", "IC", "221.5080.210", 221, 5080, 210), build)
+        assertEquals(IntelliJBuildNumber("IC-221.5080.210", "IC", "2022.1", 221, 5080, 210), build)
         assertEquals("IC-221.5080.210", build.toString())
 
         assertEquals("IC", build.platformType)
-        assertEquals("221.5080.210", build.platformVersion)
+        assertEquals("2022.1", build.platformVersion)
         assertEquals(221, build.buildVersion)
     }
 }
@@ -96,7 +96,7 @@ class IntelliJSnapshotTest {
         assertEquals(buildVersion, build.build.toString())
 
         assertNull(build.platformType)
-        assertEquals(buildVersion, build.platformVersion)
+        assertEquals("2024.2 EAP", build.platformVersion)
         assertEquals(242, build.buildVersion)
     }
 
@@ -113,7 +113,7 @@ class IntelliJSnapshotTest {
         assertEquals(buildVersion, build.build.toString())
 
         assertNull(build.platformType)
-        assertEquals(buildVersion, build.platformVersion)
+        assertEquals("20${buildVersion[0]}${buildVersion[1]}.${buildVersion[2]} EAP", build.platformVersion)
         assertEquals(build.build.buildVersion, build.buildVersion)
     }
 }
