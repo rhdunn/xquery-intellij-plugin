@@ -1,6 +1,7 @@
 // Copyright (C) 2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package io.github.rhdunn.intellij
 
+import org.gradle.api.GradleException
 import java.io.File
 import java.net.URI
 
@@ -8,6 +9,13 @@ sealed interface IntelliJVersion {
     val platformType: String?
     val platformVersion: String
     val buildVersion: Int
+}
+
+fun IntelliJVersion(value: String): IntelliJVersion {
+    return IntelliJVersionNumber.parse(value)
+        ?: IntelliJBuildNumber.parse(value)
+        ?: IntelliJSnapshot.parse(value)
+        ?: throw GradleException("Unsupported IntelliJ version: $value")
 }
 
 /**
