@@ -7,6 +7,7 @@ import java.net.URI
 sealed interface IntelliJVersion {
     val platformType: String?
     val platformVersion: String
+    val buildVersion: Int
 }
 
 /**
@@ -22,6 +23,7 @@ data class IntelliJVersionNumber(
     val value: String,
     override val platformType: String?,
     override val platformVersion: String,
+    override val buildVersion: Int,
     val year: Int,
     val release: Int,
     val build: Int?,
@@ -29,7 +31,7 @@ data class IntelliJVersionNumber(
     override fun toString(): String = value
 
     companion object {
-        val FORMAT = "(([A-Z]+)-)?((20[0-9][0-9]).([1-3])(.([0-9]+))?)".toRegex()
+        val FORMAT = "(([A-Z]+)-)?((20([0-9][0-9])).([1-3])(.([0-9]+))?)".toRegex()
 
         fun parse(value: String): IntelliJVersionNumber? {
             FORMAT.matchEntire(value)?.let { match ->
@@ -37,9 +39,10 @@ data class IntelliJVersionNumber(
                     value = value,
                     platformType = match.groupValues[2].takeIf { it.isNotEmpty() },
                     platformVersion = match.groupValues[3],
+                    buildVersion = "${match.groupValues[5]}${match.groupValues[6]}".toInt(),
                     year = match.groupValues[4].toInt(),
-                    release = match.groupValues[5].toInt(),
-                    build = match.groupValues[7].takeIf { it.isNotEmpty() }?.toInt(),
+                    release = match.groupValues[6].toInt(),
+                    build = match.groupValues[8].takeIf { it.isNotEmpty() }?.toInt(),
                 )
             }
             return null
@@ -62,6 +65,8 @@ data class IntelliJBuildNumber(
     val minor: Int,
     val patch: Int,
 ) : IntelliJVersion {
+    override val buildVersion: Int get() = major
+
     override fun toString(): String = value
 
     companion object {
@@ -96,6 +101,7 @@ data class IntelliJSnapshot(
 ) : IntelliJVersion {
     override val platformType: String? get() = null
     override val platformVersion: String get() = build.platformVersion
+    override val buildVersion: Int get() = build.buildVersion
 
     override fun toString(): String = value
 
