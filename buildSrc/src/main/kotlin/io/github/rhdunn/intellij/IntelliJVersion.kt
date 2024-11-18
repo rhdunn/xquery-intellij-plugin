@@ -38,3 +38,39 @@ data class IntelliJVersionNumber(
         }
     }
 }
+
+/**
+ * An IntelliJ build number.
+ *
+ * Supported formats:
+ * - `221.5080.210`
+ * - `IC-221.5080.210`
+ */
+data class IntelliJBuildNumber(
+    val value: String,
+    val platformType: String?,
+    val platformVersion: String,
+    val major: Int,
+    val minor: Int,
+    val patch: Int,
+) {
+    override fun toString(): String = value
+
+    companion object {
+        val FORMAT = "(([A-Z]+)-)?(([0-9][0-9][0-9]).([0-9]+).([0-9]+))".toRegex()
+
+        fun parse(value: String): IntelliJBuildNumber? {
+            FORMAT.matchEntire(value)?.let { match ->
+                return IntelliJBuildNumber(
+                    value = value,
+                    platformType = match.groupValues[2].takeIf { it.isNotEmpty() },
+                    platformVersion = match.groupValues[3],
+                    major = match.groupValues[4].toInt(),
+                    minor = match.groupValues[5].toInt(),
+                    patch = match.groupValues[6].toInt(),
+                )
+            }
+            return null
+        }
+    }
+}

@@ -36,3 +36,20 @@ class IntelliJVersionNumberTest {
         assertEquals("IC-2017.3.4", build.toString())
     }
 }
+
+@DisplayName("The IntelliJBuildNumber class")
+class IntelliJBuildNumberTest {
+    @Test
+    fun `should parse version numbers without platform type`() {
+        val build = IntelliJBuildNumber.parse("221.5080.210")
+        assertEquals(IntelliJBuildNumber("221.5080.210", null, "221.5080.210", 221, 5080, 210), build)
+        assertEquals("221.5080.210", build.toString())
+    }
+
+    @Test
+    fun `should parse version numbers with platform type`() {
+        val build = IntelliJBuildNumber.parse("IC-221.5080.210")
+        assertEquals(IntelliJBuildNumber("IC-221.5080.210", "IC", "221.5080.210", 221, 5080, 210), build)
+        assertEquals("IC-221.5080.210", build.toString())
+    }
+}
