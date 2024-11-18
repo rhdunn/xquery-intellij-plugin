@@ -4,6 +4,11 @@ package io.github.rhdunn.intellij
 import java.io.File
 import java.net.URI
 
+sealed interface IntelliJVersion {
+    val platformType: String?
+    val platformVersion: String
+}
+
 /**
  * An IntelliJ version number.
  *
@@ -15,12 +20,12 @@ import java.net.URI
  */
 data class IntelliJVersionNumber(
     val value: String,
-    val platformType: String?,
-    val platformVersion: String,
+    override val platformType: String?,
+    override val platformVersion: String,
     val year: Int,
     val release: Int,
     val build: Int?,
-) {
+) : IntelliJVersion {
     override fun toString(): String = value
 
     companion object {
@@ -51,12 +56,12 @@ data class IntelliJVersionNumber(
  */
 data class IntelliJBuildNumber(
     val value: String,
-    val platformType: String?,
-    val platformVersion: String,
+    override val platformType: String?,
+    override val platformVersion: String,
     val major: Int,
     val minor: Int,
     val patch: Int,
-) {
+) : IntelliJVersion {
     override fun toString(): String = value
 
     companion object {
@@ -88,7 +93,10 @@ data class IntelliJBuildNumber(
 data class IntelliJSnapshot(
     val value: String,
     val build: IntelliJBuildNumber,
-) {
+) : IntelliJVersion {
+    override val platformType: String? get() = null
+    override val platformVersion: String get() = build.platformVersion
+
     override fun toString(): String = value
 
     companion object {
