@@ -6,15 +6,13 @@ buildscript {
     ext.idea_type = Version.INSTANCE.IntelliJ.platformType ?: System.getenv("IDEA_TYPE") ?: 'IC'
 
     if (ext.idea_since_build >= 242) {
-        ext.kotlin_version = "1.9.25"
-        ext.java_version = 21   
+        ext.java_version = 21
     } else if (ext.idea_since_build >= 223) {
-        ext.kotlin_version = "1.8.10"
         ext.java_version = 17
     } else {
-        ext.kotlin_version = "1.7.21"
         ext.java_version = 11
     }
+    ext.kotlin_version = Version.INSTANCE.Kotlin
     ext.kotlin_stdlib = "kotlin-stdlib"
 
     ext.saxon_version = "9.9.1-7"
