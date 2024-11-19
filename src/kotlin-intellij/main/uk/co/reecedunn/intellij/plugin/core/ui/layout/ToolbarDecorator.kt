@@ -1,4 +1,4 @@
-// Copyright (C) 2019, 2023 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2019, 2023-2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
 import com.intellij.openapi.actionSystem.AnAction
@@ -6,7 +6,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.ui.AnActionButton
 import com.intellij.ui.ToolbarDecorator
-import com.intellij.ui.table.TableView
 import java.awt.Container
 import java.awt.Dimension
 import javax.swing.*
@@ -22,7 +21,6 @@ fun <T> toolbarDecorator(init: () -> T): ToolbarDecorator = when (val ui = init(
     is JList<*> -> ToolbarDecorator.createDecorator(ui)
     is JTree -> ToolbarDecorator.createDecorator(ui)
     is JTable -> ToolbarDecorator.createDecorator(ui)
-    is TableView<*> -> ToolbarDecorator.createDecorator(ui)
     else -> throw UnsupportedOperationException()
 }
 
