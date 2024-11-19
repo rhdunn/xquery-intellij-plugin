@@ -14,6 +14,14 @@ object BuildConfiguration {
         return IntelliJVersion(version)
     }
 
+    /**
+     * The type of IntelliJ platform to target.
+     */
+    fun getPlatformType(project: Project): String {
+        return getProperty(project, "platform.type", "IDEA_TYPE")
+            ?: throw GradleException("The platform.type property is not set.")
+    }
+
     private fun getProperty(project: Project, name: String, envName: String? = null): String? {
         val projectValue = project.findProperty(name)?.toString()
             ?.takeIf { value -> value.isNotBlank() }
