@@ -29,17 +29,17 @@ class XsltResourceProvider : StandardResourceProvider {
         private const val ELEMENT_SYNTAX_NAMESPACE = "http://www.w3.org/1999/XSL/Spec/ElementSyntax"
     }
 
-    override fun registerResources(registrar: ResourceRegistrar?) {
-        val resources = registrar as ResourceRegistrarImpl
+    override fun registerResources(registrar: ResourceRegistrar) {
+        registrar as ResourceRegistrarImpl
 
-        resources.addInternalResource(XSLT_20_URI, "xslt-2_0.xsd")
-        resources.addStdResource(XSLT_30_URI, "/schemas/xslt-3_0.xsd", XsltResourceProvider::class.java)
+        registrar.addInternalResource(XSLT_20_URI, "xslt-2_0.xsd")
+        registrar.addStdResource(XSLT_30_URI, "/schemas/xslt-3_0.xsd", XsltResourceProvider::class.java)
 
-        resources.addStdResource(XSLT.NAMESPACE, "3.0", "/schemas/xslt-3_0.xsd", XsltResourceProvider::class.java)
-        resources.addStdResource(XSLT.NAMESPACE, "4.0", "/schemas/xslt-4_0.xsd", XsltResourceProvider::class.java)
+        registrar.addStdResource(XSLT.NAMESPACE, "3.0", "/schemas/xslt-3_0.xsd", XsltResourceProvider::class.java)
+        registrar.addStdResource(XSLT.NAMESPACE, "4.0", "/schemas/xslt-4_0.xsd", XsltResourceProvider::class.java)
 
-        resources.addStdResource(EXSL_COMMON_NAMESPACE, "/schemas/exsl-common.xsd", XsltResourceProvider::class.java)
+        registrar.addStdResource(EXSL_COMMON_NAMESPACE, "/schemas/exsl-common.xsd", XsltResourceProvider::class.java)
 
-        resources.addIgnoredResource(ELEMENT_SYNTAX_NAMESPACE)
+        registrar.addIgnoredResource(ELEMENT_SYNTAX_NAMESPACE)
     }
 }
