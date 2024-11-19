@@ -24,4 +24,14 @@ object Version {
         IntelliJ.buildVersion >= 222 -> "1.7.22"
         else -> throw GradleException("Unsupported version of IntelliJ: $IntelliJ")
     }
+
+    /**
+     * The version of Java.
+     */
+    val Java: Int = when {
+        IntelliJ.buildVersion >= 242 -> 21
+        IntelliJ.buildVersion >= 223 -> 17
+        IntelliJ.buildVersion >= 222 -> 11
+        else -> throw GradleException("Unsupported version of IntelliJ: $IntelliJ")
+    }
 }
