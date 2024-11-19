@@ -1,25 +1,12 @@
-/*
- * Copyright (C) 2016-2023 Reece H. Dunn
- * Copyright 2000-2019 JetBrains s.r.o.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2016-2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright 2000-2019 JetBrains s.r.o. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.tests.parser
 
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.openapi.startup.StartupManager
+import com.intellij.compat.openapi.vfs.encoding.EncodingManagerImpl
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.lang.*
@@ -48,7 +35,6 @@ import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.registry.Registry
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.encoding.EncodingManager
-import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
 import com.intellij.psi.*
 import com.intellij.psi.codeStyle.*
 import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
@@ -67,6 +53,8 @@ import com.intellij.testFramework.MockSchemeManagerFactory
 import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
@@ -108,7 +96,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         app.registerServiceInstance(MessageBus::class.java, app.messageBus)
         val editorFactory = MockEditorFactoryEx()
         app.registerServiceInstance(EditorFactory::class.java, editorFactory)
-        app.registerServiceInstance(EncodingManager::class.java, EncodingManagerImpl())
+        app.registerServiceInstance(EncodingManager::class.java, EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
         app.registerServiceInstance(CommandProcessor::class.java, CoreCommandProcessor())
         app.registerServiceInstance(
             FileDocumentManager::class.java,
