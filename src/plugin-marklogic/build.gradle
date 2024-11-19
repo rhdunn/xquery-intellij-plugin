@@ -6,7 +6,7 @@ sourceSets.test.resources.srcDirs += 'test/resources'
 
 dependencies {
     intellijPlatform {
-        bundledPlugins 'com.intellij.properties'
+        bundledPlugin 'com.intellij.properties'
     }
 
     implementation project(':src:intellij-compat')

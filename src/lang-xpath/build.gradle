@@ -12,7 +12,7 @@ processResources {
 
 dependencies {
     intellijPlatform {
-        bundledPlugins 'org.intellij.intelliLang'
+        bundledPlugin 'org.intellij.intelliLang'
     }
 
     implementation project(':src:kotlin-intellij')

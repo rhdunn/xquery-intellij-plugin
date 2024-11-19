@@ -118,9 +118,9 @@ configure(allprojects - project(':src')) {
 
 dependencies {
     intellijPlatform {
-        bundledPlugins 'org.intellij.intelliLang'
-        bundledPlugins 'com.intellij.java'
-        bundledPlugins 'com.intellij.properties'
+        bundledPlugin 'org.intellij.intelliLang'
+        bundledPlugin 'com.intellij.java'
+        bundledPlugin 'com.intellij.properties'
     }
 
     implementation project(':src:kotlin-intellij')
