@@ -6,8 +6,8 @@ buildscript {
     ext.idea_since_build = ext.ijVersion.buildVersion
     ext.idea_type = ext.ijVersion.platformType ?: BuildConfiguration.INSTANCE.getPlatformType(project)
 
-    ext.kotlin_version = Version.INSTANCE.Kotlin
-    ext.java_version = Version.INSTANCE.Java
+    ext.kotlin_version = Version.INSTANCE.Kotlin(ext.ijVersion)
+    ext.java_version = Version.INSTANCE.Java(ext.ijVersion)
     ext.kotlin_stdlib = "kotlin-stdlib"
 
     ext.saxon_version = "9.9.1-7"
