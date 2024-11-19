@@ -1,3 +1,4 @@
+import io.github.rhdunn.intellij.IntelliJSnapshot
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 buildscript {
@@ -51,6 +52,7 @@ configure(allprojects - project(':src')) {
         mavenLocal()
         intellijPlatform {
             defaultRepositories()
+            jetbrainsRuntime()
         }
         maven { url = 'https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public' } // grazie
         maven { url = 'https://download.jetbrains.com/teamcity-repository' } // teamcity
@@ -72,7 +74,12 @@ configure(allprojects - project(':src')) {
 
     dependencies {
         intellijPlatform {
-            create(idea_type, idea_version)
+            if (ijVersion instanceof IntelliJSnapshot) {
+                create(idea_type, ijVersion.value, false)
+                jetbrainsRuntime()
+            } else {
+                create(idea_type, idea_version, true)
+            }
 
             instrumentationTools()
 
