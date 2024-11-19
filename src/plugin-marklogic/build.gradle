@@ -7,6 +7,9 @@ sourceSets.test.resources.srcDirs += 'test/resources'
 dependencies {
     intellijPlatform {
         bundledPlugin 'com.intellij.properties'
+        if (idea_since_build >= 243) {
+            bundledPlugin 'com.intellij.modules.json'
+        }
     }
 
     implementation project(':src:intellij-compat')
