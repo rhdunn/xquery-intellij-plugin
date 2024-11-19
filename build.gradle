@@ -53,6 +53,7 @@ configure(allprojects - project(':src')) {
         }
         maven { url = 'https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public' } // grazie
         maven { url = 'https://download.jetbrains.com/teamcity-repository' } // teamcity
+        maven { url = 'https://packages.jetbrains.team/maven/p/dpgpv/maven' } // download-pgp-verifier
     }
 
     kotlin {
