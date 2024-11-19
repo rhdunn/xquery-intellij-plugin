@@ -21,7 +21,6 @@ object Version {
     val Kotlin: String = when {
         IntelliJ.buildVersion >= 242 -> "1.9.22"
         IntelliJ.buildVersion >= 223 -> "1.8.22"
-        IntelliJ.buildVersion >= 222 -> "1.7.22"
         else -> throw GradleException("Unsupported version of IntelliJ: $IntelliJ")
     }
 
@@ -31,7 +30,6 @@ object Version {
     val Java: Int = when {
         IntelliJ.buildVersion >= 242 -> 21
         IntelliJ.buildVersion >= 223 -> 17
-        IntelliJ.buildVersion >= 222 -> 11
         else -> throw GradleException("Unsupported version of IntelliJ: $IntelliJ")
     }
 }
