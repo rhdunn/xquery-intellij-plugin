@@ -1,9 +1,10 @@
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 buildscript {
-    ext.idea_version = Version.INSTANCE.IntelliJ.platformVersion
-    ext.idea_since_build = Version.INSTANCE.IntelliJ.buildVersion
-    ext.idea_type = Version.INSTANCE.IntelliJ.platformType ?: System.getenv("IDEA_TYPE") ?: 'IC'
+    ext.ijVersion = BuildConfiguration.INSTANCE.getPlatformVersion(project)
+    ext.idea_version = ext.ijVersion.platformVersion
+    ext.idea_since_build = ext.ijVersion.buildVersion
+    ext.idea_type = ext.ijVersion.platformType ?: System.getenv("IDEA_TYPE") ?: 'IC'
 
     ext.kotlin_version = Version.INSTANCE.Kotlin
     ext.java_version = Version.INSTANCE.Java
