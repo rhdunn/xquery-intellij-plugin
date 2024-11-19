@@ -1,15 +1,13 @@
-import io.github.rhdunn.intellij.IntelliJVersionKt
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 buildscript {
-    ext.ijVersion = IntelliJVersionKt.IntelliJVersion(System.getenv("IDEA_VERSION") ?: '2024.2')
-    ext.idea_version = ext.ijVersion.platformVersion
-    ext.idea_since_build = ext.ijVersion.buildVersion
-    ext.idea_type = ext.ijVersion.platformType ?: System.getenv("IDEA_TYPE") ?: 'IC'
+    ext.idea_version = Version.INSTANCE.IntelliJ.platformVersion
+    ext.idea_since_build = Version.INSTANCE.IntelliJ.buildVersion
+    ext.idea_type = Version.INSTANCE.IntelliJ.platformType ?: System.getenv("IDEA_TYPE") ?: 'IC'
 
     if (ext.idea_since_build >= 242) {
         ext.kotlin_version = "1.9.25"
-        ext.java_version = 21
+        ext.java_version = 21   
     } else if (ext.idea_since_build >= 223) {
         ext.kotlin_version = "1.8.10"
         ext.java_version = 17
