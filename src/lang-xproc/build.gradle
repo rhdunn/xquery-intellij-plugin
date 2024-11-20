@@ -1,14 +1,14 @@
-sourceSets.main.java.srcDirs += 'main'
-sourceSets.main.resources.srcDirs += 'main/resources'
+sourceSets.main.java.srcDirs += "main"
+sourceSets.main.resources.srcDirs += "main/resources"
 
-sourceSets.test.java.srcDirs += 'test'
-sourceSets.test.resources.srcDirs += 'test/resources'
+sourceSets.test.java.srcDirs += "test"
+sourceSets.test.resources.srcDirs += "test/resources"
 
 dependencies {
-    implementation project(':src:intellij-compat')
-    implementation project(':src:kotlin-intellij')
-    implementation project(':src:lang-xdm')
-    implementation project(':src:lang-xslt')
+    implementation project(":src:intellij-compat")
+    implementation project(":src:kotlin-intellij")
+    implementation project(":src:lang-xdm")
+    implementation project(":src:lang-xslt")
 
-    testImplementation project(':src:intellij-test')
+    testImplementation project(":src:intellij-test")
 }

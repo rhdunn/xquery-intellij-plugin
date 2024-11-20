@@ -1,12 +1,12 @@
-sourceSets.main.java.srcDirs += 'main'
-sourceSets.test.java.srcDirs += 'test'
+sourceSets.main.java.srcDirs += "main"
+sourceSets.test.java.srcDirs += "test"
 
 dependencies {
     implementation "org.junit.jupiter:junit-jupiter-api:5.7.0"
 
-    implementation project(':src:intellij-compat')
+    implementation project(":src:intellij-compat")
 
-    implementation project(':src:kotlin-intellij')
+    implementation project(":src:kotlin-intellij")
 }
 
 // Include the testFramework dependency in the main build dependencies.
