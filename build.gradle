@@ -9,7 +9,6 @@ buildscript {
 
     ext.kotlin_version = Version.INSTANCE.Kotlin(ext.ijVersion)
     ext.java_version = Version.INSTANCE.Java(ext.ijVersion)
-    ext.kotlin_stdlib = "kotlin-stdlib"
 
     ext.saxon_version = "9.9.1-7"
     ext.jsoup_version = "1.15.4"
@@ -35,7 +34,6 @@ buildscript {
 
 plugins {
     id "org.jetbrains.intellij.platform" version "2.0.0"
-    id "org.jetbrains.intellij.platform.migration" version "2.0.0"
 }
 
 configure(allprojects - project(':src')) {
@@ -61,11 +59,6 @@ configure(allprojects - project(':src')) {
 
     kotlin {
         jvmToolchain(java_version)
-    }
-
-    intellij {
-        version = idea_version
-        type = idea_type
     }
 
     runIde {
@@ -180,12 +173,14 @@ tasks {
 }
 
 println "Building for IntelliJ ${idea_type} version '${idea_version}', since build '${idea_since_build}'"
-
-intellij.updateSinceUntilBuild = true
-intellij.sameSinceUntilBuild = true // 'until' is an open 'since' build
-
-patchPluginXml {
-    sinceBuild = "${idea_since_build}"
+                
+intellijPlatform {
+    pluginConfiguration {
+        ideaVersion {
+            sinceBuild = "$idea_since_build"
+            untilBuild = "$idea_since_build.*"
+        }
+    }
 }
 
 repositories {
