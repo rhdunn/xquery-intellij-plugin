@@ -5,5 +5,5 @@ sourceSets.test.java.srcDirs += "test"
 sourceSets.test.resources.srcDirs += "test/resources"
 
 dependencies {
-    implementation project(":src:kotlin-intellij")
+    implementation(project(":src:kotlin-intellij"))
 }

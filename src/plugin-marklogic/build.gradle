@@ -6,28 +6,28 @@ sourceSets.test.resources.srcDirs += "test/resources"
 
 dependencies {
     intellijPlatform {
-        bundledPlugin "com.intellij.properties"
+        bundledPlugin("com.intellij.properties")
         if (idea_since_build >= 243) {
-            bundledPlugin "com.intellij.modules.json"
+            bundledPlugin("com.intellij.modules.json")
         }
     }
 
-    implementation project(":src:intellij-compat")
-    implementation project(":src:kotlin-intellij")
-    implementation project(":src:lang-core")
-    implementation project(":src:lang-xpath")
-    implementation project(":src:lang-xquery")
-    implementation project(":src:lang-xslt")
-    implementation project(":src:lang-xdm")
-    implementation project(":src:lang-xpm")
-    implementation project(":src:lang-xqdoc")
-    implementation project(":src:plugin-api")
+    implementation(project(":src:intellij-compat"))
+    implementation(project(":src:kotlin-intellij"))
+    implementation(project(":src:lang-core"))
+    implementation(project(":src:lang-xpath"))
+    implementation(project(":src:lang-xquery"))
+    implementation(project(":src:lang-xslt"))
+    implementation(project(":src:lang-xdm"))
+    implementation(project(":src:lang-xpm"))
+    implementation(project(":src:lang-xqdoc"))
+    implementation(project(":src:plugin-api"))
 
-    testImplementation project(":src:intellij-test")
+    testImplementation(project(":src:intellij-test"))
 
     // Saxon HE
-    runtimeOnly "net.sf.saxon:Saxon-HE:$saxon_version"
+    runtimeOnly("net.sf.saxon:Saxon-HE:$saxon_version")
 
     // JSoup
-    implementation "org.jsoup:jsoup:$jsoup_version"
+    implementation("org.jsoup:jsoup:$jsoup_version")
 }

@@ -6,12 +6,12 @@ sourceSets.test.resources.srcDirs += "test/resources"
 
 dependencies {
     intellijPlatform {
-        bundledPlugin "com.intellij.java"
+        bundledPlugin("com.intellij.java")
     }
 
-    implementation project(":src:kotlin-intellij")
-    implementation project(":src:lang-xdm")
-    implementation project(":src:lang-xpm")
+    implementation(project(":src:kotlin-intellij"))
+    implementation(project(":src:lang-xdm"))
+    implementation(project(":src:lang-xpm"))
 
-    testImplementation project(":src:intellij-test")
+    testImplementation(project(":src:intellij-test"))
 }
