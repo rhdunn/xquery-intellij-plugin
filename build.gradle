@@ -33,7 +33,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.intellij.platform" version "2.0.0"
+    id "org.jetbrains.intellij.platform" version "2.1.0"
 }
 
 configure(allprojects - project(':src')) {
@@ -87,17 +87,17 @@ configure(allprojects - project(':src')) {
         testRuntimeOnly "junit:junit:4.13"
     }
 
+    // Subproject tasks:
+    // These tasks fail when run on the subprojects as they do things like looking
+    // for the plugin.xml file or the idea-sandbox. As such these tasks are disabled
+    // for the subprojects and only enabled for the main project.
     tasks {
-        // Using the IntelliJ gradle plugin to provide the IntelliJ platform SDK in
-        // each subproject results in various deployment related tasks being added
-        // to those subprojects. As this plugin only uses those tasks on the main
-        // project, those tasks are disabled globally and only enabled for the
-        // main project.
         buildPlugin.enabled = false
         prepareSandbox.enabled = false
         publishPlugin.enabled = false
         runIde.enabled = false
         verifyPlugin.enabled = false
+        prepareJarSearchableOptions.enabled = false
         buildSearchableOptions.enabled = false
     }
 
@@ -158,22 +158,22 @@ if (idea_type == 'IU') {
     sourceSets.main.resources.srcDirs += 'src/main/resources-microservices/compat'
 }
 
+// Main project tasks:
+// These tasks fail when run on the subprojects as they do things like looking
+// for the plugin.xml file or the idea-sandbox. As such these tasks are disabled
+// for the subprojects and only enabled for the main project.
 tasks {
-    // Using the IntelliJ gradle plugin to provide the IntelliJ platform SDK in
-    // each subproject results in various deployment related tasks being added
-    // to those subprojects. As this plugin only uses those tasks on the main
-    // project, those tasks are disabled globally and only enabled for the
-    // main project.
     buildPlugin.enabled = true
     prepareSandbox.enabled = true
     publishPlugin.enabled = true
     runIde.enabled = true
     verifyPlugin.enabled = true
+    prepareJarSearchableOptions.enabled = true
     buildSearchableOptions.enabled = true
 }
 
 println "Building for IntelliJ ${idea_type} version '${idea_version}', since build '${idea_since_build}'"
-                
+
 intellijPlatform {
     pluginConfiguration {
         ideaVersion {
