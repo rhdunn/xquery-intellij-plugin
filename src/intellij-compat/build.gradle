@@ -15,14 +15,6 @@ if (ext.intellij_version >= 232) {
     sourceSets.main.java.srcDirs += 'src/232/compat'
 }
 
-if (ext.intellij_version >= 232) {
-    sourceSets.main.java.srcDirs += 'src/223-232/native'
-} else if (ext.intellij_version >= 223) {
-    sourceSets.main.java.srcDirs += 'src/223-232/223'
-} else {
-    sourceSets.main.java.srcDirs += 'src/223-232/222'
-}
-
 if (ext.intellij_version >= 233) {
     sourceSets.main.java.srcDirs += 'src/233/native'
 } else {
