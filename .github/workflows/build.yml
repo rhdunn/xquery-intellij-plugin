@@ -56,7 +56,7 @@ jobs:
       IDEA_VERSION: ${{ matrix.idea-version }}
     steps:
       - name: Source Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.2.2
 
       - name: Setup JDK ${{ matrix.java-version }}
         uses: actions/setup-java@v3
