@@ -69,18 +69,6 @@ jobs:
         with:
           gradle-version: ${{ env.GRADLE_VERSION }}
 
-      - name: Download XQT Platform Artifacts
-        if: ${{ env.XQT_PLATFORM == 'master' }}
-        uses: actions/download-artifact@v4.1.7
-        with:
-          name: xqt-platform-jvm-${{ matrix.java-version }}
-
-      - name: Extract XQT Platform Artifacts to Maven Local
-        if: ${{ env.XQT_PLATFORM == 'master' }}
-        run: |
-          mkdir -p ~/.m2/repository/xqt-platform
-          tar -xvf xqt-platform-jvm-${{ matrix.java-version }}.tar -C ~/.m2/repository/xqt-platform
-
       - name: Build
         run: gradle :assemble
 
