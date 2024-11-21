@@ -1,7 +1,9 @@
 // Copyright (C) 2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package com.intellij.compat.codeInsight.navigation.impl
 
+import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.ide.util.PsiElementListCellRenderer
+import com.intellij.openapi.util.Computable
 import com.intellij.openapi.util.NlsSafe
 import com.intellij.psi.PsiElement
 import org.jetbrains.annotations.Nls
@@ -18,3 +20,7 @@ abstract class PsiTargetPresentationRenderer<T : PsiElement> : PsiElementListCel
 
     abstract override fun getIcon(element: PsiElement): Icon?
 }
+
+fun <T : PsiElement> NavigationGutterIconBuilder<T>.setTargetRenderer(
+    renderer: Computable<PsiTargetPresentationRenderer<*>>
+): NavigationGutterIconBuilder<T> = setCellRenderer { renderer.compute() }
