@@ -1,11 +1,17 @@
-sourceSets.main.java.srcDirs += 'main'
-sourceSets.test.java.srcDirs += 'test'
+sourceSets.main.java.srcDirs += "main"
+sourceSets.test.java.srcDirs += "test"
 
 dependencies {
-    compile "org.junit.jupiter:junit-jupiter-api:5.7.0"
+    implementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
 
-    compile project(':src:intellij-compat')
+    implementation(project(":src:intellij-compat"))
 
-    compile project(':src:kotlin-hamcrest')
-    compile project(':src:kotlin-intellij')
+    implementation(project(":src:kotlin-intellij"))
+}
+
+// Include the testFramework dependency in the main build dependencies.
+configurations.getByName("intellijPlatformTestDependencies").dependencies.each { dependency ->
+    dependencies {
+        implementation("${dependency.group}:${dependency.name}:${dependency.version}")
+    }
 }

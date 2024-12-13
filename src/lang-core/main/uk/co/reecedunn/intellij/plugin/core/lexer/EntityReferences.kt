@@ -29,74 +29,68 @@ enum class EntityReferenceType {
     Html5EntityReference
 }
 
-fun CodePointRange.matchEntityReference(): EntityReferenceType {
-    match()
-    var cc = CharacterClass.getCharClass(codePoint)
-    return when (cc) {
-        CharacterClass.NAME_START_CHAR -> {
-            match()
-            cc = CharacterClass.getCharClass(codePoint)
-            while (cc == CharacterClass.NAME_START_CHAR || cc == CharacterClass.DIGIT) {
-                match()
-                cc = CharacterClass.getCharClass(codePoint)
-            }
-            if (cc == CharacterClass.SEMICOLON) {
-                match()
+fun XmlCharReader.matchEntityReference(): EntityReferenceType {
+    advance()
+    return when (currentChar) {
+        in NameStartChar -> {
+            advanceWhile { it in NameChar }
+            if (currentChar == Semicolon) {
+                advance()
                 EntityReferenceType.PredefinedEntityReference
             } else {
                 EntityReferenceType.PartialEntityReference
             }
         }
-        CharacterClass.HASH -> {
-            match()
-            var c = codePoint
-            when {
-                c == 'x'.code -> {
-                    match()
-                    c = codePoint
-                    when (c) {
-                        in CharacterClass.HexDigit -> {
-                            while (c in CharacterClass.HexDigit) {
-                                match()
-                                c = codePoint
-                            }
-                            if (c == ';'.code) {
-                                match()
+
+        NumberSign -> {
+            advance()
+            when (currentChar) {
+                LatinSmallLetterX -> {
+                    advance()
+                    when (currentChar) {
+                        in HexDigits -> {
+                            advanceWhile { it in HexDigits }
+                            if (currentChar == Semicolon) {
+                                advance()
                                 EntityReferenceType.CharacterReference
                             } else {
                                 EntityReferenceType.PartialEntityReference
                             }
                         }
-                        ';'.code -> {
-                            match()
+
+                        Semicolon -> {
+                            advance()
                             EntityReferenceType.EmptyEntityReference
                         }
+
                         else -> EntityReferenceType.PartialEntityReference
                     }
                 }
-                c in CharacterClass.Digit -> {
-                    while (c in CharacterClass.Digit) {
-                        match()
-                        c = codePoint
-                    }
-                    if (c == ';'.code) {
-                        match()
+
+                in Digits -> {
+                    advanceWhile { it in Digits }
+                    if (currentChar == Semicolon) {
+                        advance()
                         EntityReferenceType.CharacterReference
                     } else {
                         EntityReferenceType.PartialEntityReference
                     }
                 }
-                c == ';'.code -> {
-                    match()
+
+                Semicolon -> {
+                    advance()
                     EntityReferenceType.EmptyEntityReference
                 }
+
                 else -> EntityReferenceType.PartialEntityReference
             }
         }
-        CharacterClass.SEMICOLON -> {
-            match()
+
+        Semicolon -> {
+            advance()
             EntityReferenceType.EmptyEntityReference
         }
+
         else -> EntityReferenceType.PartialEntityReference
     }
 }
@@ -107,9 +101,11 @@ fun CharSequence.entityReferenceCodePoint(): Int = when {
     startsWith("&#x") -> { // `&#x...;` hexadecimal character reference
         subSequence(3, length - 1).toString().toInt(radix = 16)
     }
+
     startsWith("&#") -> { // `&#...;` decimal character reference
         subSequence(2, length - 1).toString().toInt(radix = 10)
     }
+
     else -> 0xFFFE
 }
 

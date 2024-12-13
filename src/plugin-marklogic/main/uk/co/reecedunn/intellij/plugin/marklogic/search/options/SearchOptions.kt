@@ -50,7 +50,7 @@ class SearchOptions {
     }
 
     private fun getModificationTracker(project: Project): ModificationTracker {
-        return PsiModificationTracker.SERVICE.getInstance(project).forLanguages {
+        return PsiModificationTracker.getInstance(project).forLanguages {
             it === XQuery
         }
     }

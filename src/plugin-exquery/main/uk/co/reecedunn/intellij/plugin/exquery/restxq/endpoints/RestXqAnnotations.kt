@@ -38,8 +38,9 @@ class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
         get() = strings("path").firstOrNull()
 
     // 3.2.2 Method Annotation
-    val methods: Sequence<String>
-        get() = annotations.asSequence().mapNotNull { it.name?.localName?.data }.filter { METHODS.contains(it) }
+    val methods: List<String> by lazy {
+        annotations.mapNotNull { it.name?.localName?.data }.filter { METHODS.contains(it) }
+    }
 
     // 3.2.3 Consumes Annotation
     @Suppress("unused")

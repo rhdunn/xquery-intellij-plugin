@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.ModificationTracker
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.microservices.endpoints.*
-import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 
@@ -36,7 +36,15 @@ class RewriterEndpointsProvider : EndpointsProvider<RewriterEndpointsGroup, Rewr
     )
 
     override fun getEndpointData(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint, dataId: String): Any? {
-        return endpoint.getData(dataId)
+        return endpoint.getData(dataId) ?: super.getEndpointData(group, endpoint, dataId)
+    }
+
+    override fun getDocumentationElement(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint): PsiElement {
+        return endpoint.endpoint
+    }
+
+    override fun getNavigationElement(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint): PsiElement? {
+        return endpoint.endpointTarget?.resolve()
     }
 
     private fun getEndpointGroups(project: Project): Iterable<RewriterEndpointsGroup> {
@@ -48,7 +56,7 @@ class RewriterEndpointsProvider : EndpointsProvider<RewriterEndpointsGroup, Rewr
     }
 
     override fun getEndpointPresentation(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint): ItemPresentation {
-        return EndpointMethodPresentation(endpoint, endpoint.endpointMethod, endpoint.endpointMethodOrder)
+        return endpoint
     }
 
     override fun getEndpoints(group: RewriterEndpointsGroup): Iterable<RewriterEndpoint> {

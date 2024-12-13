@@ -16,15 +16,17 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import com.intellij.application.options.codeStyle.cache.CodeStyleCachingService
-import com.intellij.application.options.codeStyle.cache.CodeStyleCachingServiceImpl
+import com.intellij.compat.application.options.codeStyle.cache.CodeStyleCachingService
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.pom.PomModel
 import com.intellij.pom.tree.TreeAspect
+import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.MockPomModel
@@ -60,14 +62,14 @@ abstract class ParserTestCase :
         project.registerServiceInstance(PomModel::class.java, MockPomModel(project))
         registerPsiModification()
 
-        project.registerServiceInstance(CodeStyleCachingService::class.java, CodeStyleCachingServiceImpl())
+        project.registerServiceInstance(CodeStyleCachingService::class.java, CodeStyleCachingService(project))
 
         project.registerServiceInstance(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
         project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
 
-        val manager = MockModuleManager(project)
+        val manager = MockModuleManager(mockProject)
         registerModules(manager)
         project.registerServiceInstance(ModuleManager::class.java, manager)
 
@@ -88,6 +90,8 @@ abstract class ParserTestCase :
         app.registerExtensionPointBean(
             XpmFunctionDecorator.EP_NAME, XpmFunctionDecoratorBean::class.java, pluginDisposable
         )
+
+        project.registerServiceInstance(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
     }
 
     protected val settings: XQueryProjectSettings

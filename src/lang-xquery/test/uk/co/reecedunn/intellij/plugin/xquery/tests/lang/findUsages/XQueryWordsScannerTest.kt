@@ -18,10 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.findUsages
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.openapi.util.Pair
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.cacheBuilder.WordOccurrences
 import uk.co.reecedunn.intellij.plugin.xquery.lang.findUsages.XQueryWordsScanner
 

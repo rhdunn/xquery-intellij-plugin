@@ -66,6 +66,10 @@ class MockInjectedLanguageManager : InjectedLanguageManager() {
 
     override fun isInjectedFragment(injectedFile: PsiFile): Boolean = TODO()
 
+    override fun isInjectedViewProvider(viewProvider: FileViewProvider): Boolean {
+        TODO("Not yet implemented")
+    }
+
     override fun intersectWithAllEditableFragments(
         injectedPsi: PsiFile,
         rangeToEdit: TextRange

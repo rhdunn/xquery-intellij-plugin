@@ -15,71 +15,54 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.lexer
 
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
+import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.core.lexer.LeftCurlyBracket
+import uk.co.reecedunn.intellij.plugin.core.lexer.RightCurlyBracket
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
+import uk.co.reecedunn.intellij.plugin.core.lexer.XmlCharReader
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.ValueTemplate
 
 class XsltValueTemplateLexer : XPathLexer() {
-    // region States
+    companion object {
+        private const val STATE_VALUE_TEMPLATE_EXPRESSION = 32
+    }
 
-    fun stateDefault() {
-        var c = mTokenRange.codePoint
-        when (c) {
-            CodePointRange.END_OF_BUFFER -> {
-                mType = null
+    private fun stateDefault(): IElementType? = when (characters.currentChar) {
+        XmlCharReader.EndOfBuffer -> null
+        LeftCurlyBracket -> {
+            characters.advance()
+            if (characters.currentChar == LeftCurlyBracket) {
+                characters.advance()
+                ValueTemplate.ESCAPED_CHARACTER
+            } else {
+                pushState(STATE_VALUE_TEMPLATE_EXPRESSION)
+                XPathTokenType.BLOCK_OPEN
             }
-            '{'.code -> {
-                mTokenRange.match()
-                if (mTokenRange.codePoint == '{'.code) {
-                    mTokenRange.match()
-                    mType = ValueTemplate.ESCAPED_CHARACTER
-                } else {
-                    mType = XPathTokenType.BLOCK_OPEN
-                    pushState(STATE_VALUE_TEMPLATE_EXPRESSION)
-                }
+        }
+
+        RightCurlyBracket -> {
+            characters.advance()
+            if (characters.currentChar == RightCurlyBracket) {
+                characters.advance()
+                ValueTemplate.ESCAPED_CHARACTER
+            } else {
+                XPathTokenType.BLOCK_CLOSE
             }
-            '}'.code -> {
-                mTokenRange.match()
-                mType = if (mTokenRange.codePoint == '}'.code) {
-                    mTokenRange.match()
-                    ValueTemplate.ESCAPED_CHARACTER
-                } else {
-                    XPathTokenType.BLOCK_CLOSE
-                }
+        }
+
+        else -> {
+            characters.advanceUntil {
+                it == XmlCharReader.EndOfBuffer || it == LeftCurlyBracket || it == RightCurlyBracket
             }
-            else -> while (true) {
-                when (c) {
-                    CodePointRange.END_OF_BUFFER, '{'.code, '}'.code -> {
-                        mType = ValueTemplate.VALUE_CONTENTS
-                        return
-                    }
-                    else -> {
-                        mTokenRange.match()
-                        c = mTokenRange.codePoint
-                    }
-                }
-            }
+            ValueTemplate.VALUE_CONTENTS
         }
     }
 
-    // endregion
-    // region Lexer
-
-    override fun advance(state: Int): Unit = when (state) {
+    override fun advance(state: Int): IElementType? = when (state) {
         STATE_DEFAULT -> stateDefault()
         STATE_VALUE_TEMPLATE_EXPRESSION -> stateDefault(state)
         else -> super.advance(state)
-    }
-
-    // endregion
-
-    companion object {
-        // region State Constants
-
-        private const val STATE_VALUE_TEMPLATE_EXPRESSION = 32
-
-        // endregion
     }
 }

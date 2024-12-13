@@ -23,7 +23,6 @@ import com.intellij.openapi.fileChooser.FileChooserFactory
 import com.intellij.openapi.fileChooser.FileSaverDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.util.Consumer
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import javax.swing.JComponent
 
@@ -31,7 +30,7 @@ class SaveAction(
     private val descriptor: FileSaverDescriptor,
     val parent: JComponent,
     val project: Project?,
-    private val consumer: Consumer<VirtualFile>
+    private val consumer: (file: VirtualFile) -> Unit
 ) : AnAction(
     PluginApiBundle.message("console.action.save.label"),
     null,

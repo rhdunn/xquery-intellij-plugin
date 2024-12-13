@@ -1,40 +1,54 @@
-ext.intellij_version = project.property('idea_since_build')
-ext.intellij_type = project.property('idea_type')
+ext.intellij_version = project.property("idea_since_build")
+ext.intellij_type = project.property("idea_type")
 
 version = ext.intellij_version
 
-if (ext.intellij_version >= 211) {
-    if (ext.intellij_version >= 221) {
-        sourceSets.main.java.srcDirs += 'src/211/221'
-    } else {
-        sourceSets.main.java.srcDirs += 'src/211/native'
-    }
+if (ext.intellij_version >= 231) {
+    sourceSets.main.java.srcDirs += "src/231/native"
 } else {
-    sourceSets.main.java.srcDirs += 'src/211/compat'
+    sourceSets.main.java.srcDirs += "src/231/compat"
 }
 
-if (ext.intellij_version >= 212) {
-    sourceSets.main.java.srcDirs += 'src/212/native'
+if (ext.intellij_version >= 232) {
+    sourceSets.main.java.srcDirs += "src/232/native"
 } else {
-    sourceSets.main.java.srcDirs += 'src/212/compat'
+    sourceSets.main.java.srcDirs += "src/232/compat"
 }
 
-if (ext.intellij_version >= 213) {
-    sourceSets.main.java.srcDirs += 'src/213/native'
+if (ext.intellij_version >= 233) {
+    sourceSets.main.java.srcDirs += "src/233/native"
 } else {
-    sourceSets.main.java.srcDirs += 'src/213/compat'
+    sourceSets.main.java.srcDirs += "src/233/compat"
 }
 
-if (ext.intellij_version >= 221) {
-    sourceSets.main.java.srcDirs += 'src/221/native'
+if (ext.intellij_version >= 242) {
+    sourceSets.main.java.srcDirs += "src/242/native"
 } else {
-    sourceSets.main.java.srcDirs += 'src/221/compat'
+    sourceSets.main.java.srcDirs += "src/242/compat"
+}
+
+if (ext.intellij_version >= 242) {
+    sourceSets.main.java.srcDirs += "src/233-242/native"
+} else if (ext.intellij_version >= 233) {
+    sourceSets.main.java.srcDirs += "src/233-242/233"
+} else {
+    sourceSets.main.java.srcDirs += "src/233-242/232"
+}
+
+if (ext.intellij_version >= 243) {
+    sourceSets.main.java.srcDirs += "src/243/native"
+} else {
+    sourceSets.main.java.srcDirs += "src/243/compat"
 }
 
 // Microservices
 
-if (ext.intellij_type == 'IU') {
-    sourceSets.main.java.srcDirs += 'src/microservices/203/native'
+if (ext.intellij_type == "IU") {
+    if (ext.intellij_version >= 231) {
+        sourceSets.main.java.srcDirs += "src/microservices/IU-231"
+    } else {
+        sourceSets.main.java.srcDirs += "src/microservices/IU-203"
+    }
 } else {
-    sourceSets.main.java.srcDirs += 'src/microservices/203/compat'
+    sourceSets.main.java.srcDirs += "src/microservices/IC-203"
 }

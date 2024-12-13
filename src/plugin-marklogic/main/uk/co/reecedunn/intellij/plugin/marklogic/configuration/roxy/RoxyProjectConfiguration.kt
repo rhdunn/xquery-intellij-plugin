@@ -113,7 +113,7 @@ class RoxyProjectConfiguration(private val project: Project, override val baseDi
     // region XpmProjectConfiguration
 
     override fun getModificationTracker(project: Project): ModificationTracker {
-        return PsiModificationTracker.SERVICE.getInstance(project).forLanguage(PropertiesLanguage.INSTANCE)
+        return PsiModificationTracker.getInstance(project).forLanguage(PropertiesLanguage.INSTANCE)
     }
 
     override val applicationName: String?

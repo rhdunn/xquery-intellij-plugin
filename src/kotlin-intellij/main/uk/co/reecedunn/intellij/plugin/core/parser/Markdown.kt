@@ -1,21 +1,9 @@
-/*
- * Copyright (C) 2018 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2018, 2023 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.parser
 
-import com.petebevin.markdown.MarkdownProcessor
+import org.intellij.markdown.flavours.gfm.GFMFlavourDescriptor
+import org.intellij.markdown.html.HtmlGenerator
+import org.intellij.markdown.parser.MarkdownParser
 import uk.co.reecedunn.intellij.plugin.core.io.decode
 import java.io.InputStream
 
@@ -37,14 +25,20 @@ import java.io.InputStream
  *     line (1em top margin) at the start of the description.
  */
 object Markdown {
-    private val md = MarkdownProcessor()
+    private val flavour = GFMFlavourDescriptor()
+    private val parser = MarkdownParser(flavour)
 
     fun parse(text: String): String {
-        var ret = md.markdown(text)
-        if (ret.startsWith("<p>")) {
-            ret = ret.substringBefore("</p>").replace("<p>", "") + ret.substringAfter("</p>")
+        val root = parser.buildMarkdownTreeFromString(text)
+        var html = HtmlGenerator(text, root, flavour).generateHtml()
+            .replace("<body>", "")
+            .replace("</body>", "")
+        if (html.startsWith("<p>")) {
+            val firstParagraph = html.substringBefore("</p>").replace("<p>", "")
+            val otherParagraphs = html.substringAfter("</p>")
+            html = firstParagraph + otherParagraphs
         }
-        return "<html><body>\n$ret</body></html>"
+        return "<html><body>$html</body></html>"
     }
 
     fun parse(text: InputStream): String = parse(text.decode())

@@ -28,7 +28,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.impl.source.tree.CompositeElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.hamcrest.CoreMatchers
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import org.hamcrest.MatcherAssert.assertThat
 
 @Suppress("SameParameterValue")
 abstract class AnnotatorTestCase<File : PsiFile>(

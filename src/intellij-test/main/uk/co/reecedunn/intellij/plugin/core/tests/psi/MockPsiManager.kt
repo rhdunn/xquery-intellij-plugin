@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Reece H. Dunn
+ * Copyright (C) 2016-2021, 2024 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import com.intellij.mock.MockFileManager
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Comparing
+import com.intellij.openapi.util.Computable
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileFilter
 import com.intellij.psi.*
@@ -79,6 +80,10 @@ class MockPsiManager(private val project: Project) : PsiManagerEx() {
     override fun finishBatchFilesProcessingMode() {
     }
 
+    override fun <T : Any?> runInBatchFilesMode(runnable: Computable<T>): T {
+        return runnable.get()
+    }
+
     override fun isDisposed(): Boolean = false
 
     override fun dropResolveCaches(): Unit = fileManager.cleanupForNextTest()
@@ -86,6 +91,9 @@ class MockPsiManager(private val project: Project) : PsiManagerEx() {
     override fun dropPsiCaches(): Unit = dropResolveCaches()
 
     override fun isInProject(element: PsiElement): Boolean = false
+
+    @Suppress("UnstableApiUsage", "RedundantSuppression")
+    override fun findCachedViewProvider(vFile: VirtualFile): FileViewProvider = TODO()
 
     // endregion
     // region PsiManagerEx

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2021 Reece H. Dunn
+ * Copyright (C) 2019-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,12 @@ package uk.co.reecedunn.intellij.plugin.processor.tests.query.execution.configur
 
 import com.intellij.execution.impl.serializeConfigurationInto
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.openapi.util.JDOMUtil
 import org.hamcrest.CoreMatchers.*
+import org.hamcrest.MatcherAssert.assertThat
 import org.jdom.Element
-import org.jdom.output.XMLOutputter
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.QueryProcessorDataSourceType
@@ -75,20 +75,22 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     @Test
     @DisplayName("setting: processor ID")
     fun processorId() {
-        val serialized = """<configuration>
-            <option name="contextItem" />
-            <option name="contextItemSource" />
-            <option name="database" />
-            <option name="modulePath" />
-            <option name="processorId" value="1" />
-            <option name="rdfOutputFormat" />
-            <option name="reformatResults" value="false" />
-            <option name="scriptFile" />
-            <option name="scriptSource" value="LocalFile" />
-            <option name="server" />
-            <option name="updating" value="false" />
-            <option name="xpathSubset" value="XPath" />
-        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized = """
+            <configuration>
+              <option name="contextItem" />
+              <option name="contextItemSource" />
+              <option name="database" />
+              <option name="modulePath" />
+              <option name="processorId" value="1" />
+              <option name="rdfOutputFormat" />
+              <option name="reformatResults" value="false" />
+              <option name="scriptFile" />
+              <option name="scriptSource" value="LocalFile" />
+              <option name="server" />
+              <option name="updating" value="false" />
+              <option name="xpathSubset" value="XPath" />
+            </configuration>
+        """.trimIndent()
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
@@ -102,20 +104,22 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     @Test
     @DisplayName("setting: RDF output format")
     fun rdfOutputFormat() {
-        val serialized = """<configuration>
-            <option name="contextItem" />
-            <option name="contextItemSource" />
-            <option name="database" />
-            <option name="modulePath" />
-            <option name="processorId" />
-            <option name="rdfOutputFormat" value="text/turtle" />
-            <option name="reformatResults" value="false" />
-            <option name="scriptFile" />
-            <option name="scriptSource" value="LocalFile" />
-            <option name="server" />
-            <option name="updating" value="false" />
-            <option name="xpathSubset" value="XPath" />
-        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized = """
+            <configuration>
+              <option name="contextItem" />
+              <option name="contextItemSource" />
+              <option name="database" />
+              <option name="modulePath" />
+              <option name="processorId" />
+              <option name="rdfOutputFormat" value="text/turtle" />
+              <option name="reformatResults" value="false" />
+              <option name="scriptFile" />
+              <option name="scriptSource" value="LocalFile" />
+              <option name="server" />
+              <option name="updating" value="false" />
+              <option name="xpathSubset" value="XPath" />
+            </configuration>
+        """.trimIndent()
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
@@ -129,20 +133,22 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     @Test
     @DisplayName("setting: reformat results")
     fun reformatResults() {
-        val serialized = """<configuration>
-            <option name="contextItem" />
-            <option name="contextItemSource" />
-            <option name="database" />
-            <option name="modulePath" />
-            <option name="processorId" />
-            <option name="rdfOutputFormat" />
-            <option name="reformatResults" value="true" />
-            <option name="scriptFile" />
-            <option name="scriptSource" value="LocalFile" />
-            <option name="server" />
-            <option name="updating" value="false" />
-            <option name="xpathSubset" value="XPath" />
-        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized = """
+            <configuration>
+              <option name="contextItem" />
+              <option name="contextItemSource" />
+              <option name="database" />
+              <option name="modulePath" />
+              <option name="processorId" />
+              <option name="rdfOutputFormat" />
+              <option name="reformatResults" value="true" />
+              <option name="scriptFile" />
+              <option name="scriptSource" value="LocalFile" />
+              <option name="server" />
+              <option name="updating" value="false" />
+              <option name="xpathSubset" value="XPath" />
+            </configuration>
+        """.trimIndent()
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
@@ -156,20 +162,22 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     @Test
     @DisplayName("setting: updating")
     fun updating() {
-        val serialized = """<configuration>
-            <option name="contextItem" />
-            <option name="contextItemSource" />
-            <option name="database" />
-            <option name="modulePath" />
-            <option name="processorId" />
-            <option name="rdfOutputFormat" />
-            <option name="reformatResults" value="false" />
-            <option name="scriptFile" />
-            <option name="scriptSource" value="LocalFile" />
-            <option name="server" />
-            <option name="updating" value="true" />
-            <option name="xpathSubset" value="XPath" />
-        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized = """
+            <configuration>
+              <option name="contextItem" />
+              <option name="contextItemSource" />
+              <option name="database" />
+              <option name="modulePath" />
+              <option name="processorId" />
+              <option name="rdfOutputFormat" />
+              <option name="reformatResults" value="false" />
+              <option name="scriptFile" />
+              <option name="scriptSource" value="LocalFile" />
+              <option name="server" />
+              <option name="updating" value="true" />
+              <option name="xpathSubset" value="XPath" />
+            </configuration>
+        """.trimIndent()
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
@@ -183,20 +191,22 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     @Test
     @DisplayName("setting: XPath subset")
     fun xpathSubset() {
-        val serialized = """<configuration>
-            <option name="contextItem" />
-            <option name="contextItemSource" />
-            <option name="database" />
-            <option name="modulePath" />
-            <option name="processorId" />
-            <option name="rdfOutputFormat" />
-            <option name="reformatResults" value="false" />
-            <option name="scriptFile" />
-            <option name="scriptSource" value="LocalFile" />
-            <option name="server" />
-            <option name="updating" value="false" />
-            <option name="xpathSubset" value="XsltPattern" />
-        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized = """
+            <configuration>
+              <option name="contextItem" />
+              <option name="contextItemSource" />
+              <option name="database" />
+              <option name="modulePath" />
+              <option name="processorId" />
+              <option name="rdfOutputFormat" />
+              <option name="reformatResults" value="false" />
+              <option name="scriptFile" />
+              <option name="scriptSource" value="LocalFile" />
+              <option name="server" />
+              <option name="updating" value="false" />
+              <option name="xpathSubset" value="XsltPattern" />
+            </configuration>
+        """.trimIndent()
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
@@ -210,20 +220,22 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     @Test
     @DisplayName("setting: server")
     fun server() {
-        val serialized = """<configuration>
-            <option name="contextItem" />
-            <option name="contextItemSource" />
-            <option name="database" />
-            <option name="modulePath" />
-            <option name="processorId" />
-            <option name="rdfOutputFormat" />
-            <option name="reformatResults" value="false" />
-            <option name="scriptFile" />
-            <option name="scriptSource" value="LocalFile" />
-            <option name="server" value="test-server" />
-            <option name="updating" value="false" />
-            <option name="xpathSubset" value="XPath" />
-        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized = """
+            <configuration>
+              <option name="contextItem" />
+              <option name="contextItemSource" />
+              <option name="database" />
+              <option name="modulePath" />
+              <option name="processorId" />
+              <option name="rdfOutputFormat" />
+              <option name="reformatResults" value="false" />
+              <option name="scriptFile" />
+              <option name="scriptSource" value="LocalFile" />
+              <option name="server" value="test-server" />
+              <option name="updating" value="false" />
+              <option name="xpathSubset" value="XPath" />
+            </configuration>
+        """.trimIndent()
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
@@ -237,20 +249,22 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     @Test
     @DisplayName("setting: database")
     fun database() {
-        val serialized = """<configuration>
-            <option name="contextItem" />
-            <option name="contextItemSource" />
-            <option name="database" value="test-database" />
-            <option name="modulePath" />
-            <option name="processorId" />
-            <option name="rdfOutputFormat" />
-            <option name="reformatResults" value="false" />
-            <option name="scriptFile" />
-            <option name="scriptSource" value="LocalFile" />
-            <option name="server" />
-            <option name="updating" value="false" />
-            <option name="xpathSubset" value="XPath" />
-        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized = """
+            <configuration>
+              <option name="contextItem" />
+              <option name="contextItemSource" />
+              <option name="database" value="test-database" />
+              <option name="modulePath" />
+              <option name="processorId" />
+              <option name="rdfOutputFormat" />
+              <option name="reformatResults" value="false" />
+              <option name="scriptFile" />
+              <option name="scriptSource" value="LocalFile" />
+              <option name="server" />
+              <option name="updating" value="false" />
+              <option name="xpathSubset" value="XPath" />
+            </configuration>
+        """.trimIndent()
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
@@ -264,20 +278,22 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     @Test
     @DisplayName("setting: module path")
     fun modulePath() {
-        val serialized = """<configuration>
-            <option name="contextItem" />
-            <option name="contextItemSource" />
-            <option name="database" />
-            <option name="modulePath" value="/test/path" />
-            <option name="processorId" />
-            <option name="rdfOutputFormat" />
-            <option name="reformatResults" value="false" />
-            <option name="scriptFile" />
-            <option name="scriptSource" value="LocalFile" />
-            <option name="server" />
-            <option name="updating" value="false" />
-            <option name="xpathSubset" value="XPath" />
-        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized = """
+            <configuration>
+              <option name="contextItem" />
+              <option name="contextItemSource" />
+              <option name="database" />
+              <option name="modulePath" value="/test/path" />
+              <option name="processorId" />
+              <option name="rdfOutputFormat" />
+              <option name="reformatResults" value="false" />
+              <option name="scriptFile" />
+              <option name="scriptSource" value="LocalFile" />
+              <option name="server" />
+              <option name="updating" value="false" />
+              <option name="xpathSubset" value="XPath" />
+            </configuration>
+        """.trimIndent()
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
@@ -291,20 +307,22 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     @Test
     @DisplayName("setting: script file source")
     fun scriptFileSource() {
-        val serialized = """<configuration>
-            <option name="contextItem" />
-            <option name="contextItemSource" />
-            <option name="database" />
-            <option name="modulePath" />
-            <option name="processorId" />
-            <option name="rdfOutputFormat" />
-            <option name="reformatResults" value="false" />
-            <option name="scriptFile" />
-            <option name="scriptSource" value="ActiveEditorFile" />
-            <option name="server" />
-            <option name="updating" value="false" />
-            <option name="xpathSubset" value="XPath" />
-        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized = """
+            <configuration>
+              <option name="contextItem" />
+              <option name="contextItemSource" />
+              <option name="database" />
+              <option name="modulePath" />
+              <option name="processorId" />
+              <option name="rdfOutputFormat" />
+              <option name="reformatResults" value="false" />
+              <option name="scriptFile" />
+              <option name="scriptSource" value="ActiveEditorFile" />
+              <option name="server" />
+              <option name="updating" value="false" />
+              <option name="xpathSubset" value="XPath" />
+            </configuration>
+        """.trimIndent()
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
@@ -318,20 +336,22 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     @Test
     @DisplayName("setting: script file path")
     fun scriptFilePath() {
-        val serialized = """<configuration>
-            <option name="contextItem" />
-            <option name="contextItemSource" />
-            <option name="database" />
-            <option name="modulePath" />
-            <option name="processorId" />
-            <option name="rdfOutputFormat" />
-            <option name="reformatResults" value="false" />
-            <option name="scriptFile" value="/test/script.xqy" />
-            <option name="scriptSource" value="LocalFile" />
-            <option name="server" />
-            <option name="updating" value="false" />
-            <option name="xpathSubset" value="XPath" />
-        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized = """
+            <configuration>
+              <option name="contextItem" />
+              <option name="contextItemSource" />
+              <option name="database" />
+              <option name="modulePath" />
+              <option name="processorId" />
+              <option name="rdfOutputFormat" />
+              <option name="reformatResults" value="false" />
+              <option name="scriptFile" value="/test/script.xqy" />
+              <option name="scriptSource" value="LocalFile" />
+              <option name="server" />
+              <option name="updating" value="false" />
+              <option name="xpathSubset" value="XPath" />
+            </configuration>
+        """.trimIndent()
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
@@ -345,20 +365,22 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     @Test
     @DisplayName("setting: context item source")
     fun contextItemSource() {
-        val serialized = """<configuration>
-            <option name="contextItem" />
-            <option name="contextItemSource" value="ActiveEditorFile" />
-            <option name="database" />
-            <option name="modulePath" />
-            <option name="processorId" />
-            <option name="rdfOutputFormat" />
-            <option name="reformatResults" value="false" />
-            <option name="scriptFile" />
-            <option name="scriptSource" value="LocalFile" />
-            <option name="server" />
-            <option name="updating" value="false" />
-            <option name="xpathSubset" value="XPath" />
-        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized = """
+            <configuration>
+              <option name="contextItem" />
+              <option name="contextItemSource" value="ActiveEditorFile" />
+              <option name="database" />
+              <option name="modulePath" />
+              <option name="processorId" />
+              <option name="rdfOutputFormat" />
+              <option name="reformatResults" value="false" />
+              <option name="scriptFile" />
+              <option name="scriptSource" value="LocalFile" />
+              <option name="server" />
+              <option name="updating" value="false" />
+              <option name="xpathSubset" value="XPath" />
+            </configuration>
+        """.trimIndent()
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
@@ -372,20 +394,22 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     @Test
     @DisplayName("setting: context item value")
     fun contextItemValue() {
-        val serialized = """<configuration>
-            <option name="contextItem" value="/test/input.xml" />
-            <option name="contextItemSource" />
-            <option name="database" />
-            <option name="modulePath" />
-            <option name="processorId" />
-            <option name="rdfOutputFormat" />
-            <option name="reformatResults" value="false" />
-            <option name="scriptFile" />
-            <option name="scriptSource" value="LocalFile" />
-            <option name="server" />
-            <option name="updating" value="false" />
-            <option name="xpathSubset" value="XPath" />
-        </configuration>""".replace("\n[ ]*".toRegex(), "")
+        val serialized = """
+            <configuration>
+              <option name="contextItem" value="/test/input.xml" />
+              <option name="contextItemSource" />
+              <option name="database" />
+              <option name="modulePath" />
+              <option name="processorId" />
+              <option name="rdfOutputFormat" />
+              <option name="reformatResults" value="false" />
+              <option name="scriptFile" />
+              <option name="scriptSource" value="LocalFile" />
+              <option name="server" />
+              <option name="updating" value="false" />
+              <option name="xpathSubset" value="XPath" />
+            </configuration>
+        """.trimIndent()
 
         val factory = XPathConfigurationType().configurationFactories[0]
         val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
@@ -468,7 +492,7 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     private fun serialize(configuration: RunConfigurationBase<*>): String {
         val element = Element("configuration")
         serializeConfigurationInto(configuration, element)
-        return XMLOutputter().outputString(element)
+        return JDOMUtil.write(element)
     }
 
     // endregion

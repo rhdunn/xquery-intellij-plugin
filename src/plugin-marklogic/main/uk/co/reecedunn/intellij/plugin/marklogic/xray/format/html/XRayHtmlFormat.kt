@@ -32,7 +32,7 @@ object XRayHtmlFormat : TestFormat {
     override fun parse(result: QueryResult): TestSuites? {
         if (result.mimetype != QueryResult.TEXT_HTML) return null
         val doc = Jsoup.parse(result.value as String)
-        return XRayHtmlTests(doc.selectFirst("html > body"))
+        return XRayHtmlTests(doc.selectFirst("html > body")!!)
     }
 
     override fun toString(): String = name

@@ -67,7 +67,7 @@ object FunctionsAndOperatorsDocumentation :
             val name = parts.asReversed().find { part -> part.isNotEmpty() }
             name == lookupName
         }
-        return match?.let { W3CFunctionReference(it.parent().parent(), active.href) }
+        return match?.let { W3CFunctionReference(it.parent()?.parent()!!, active.href) }
     }
 
     override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? = null

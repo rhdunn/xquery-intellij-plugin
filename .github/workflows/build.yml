@@ -5,81 +5,81 @@ on:
     branches:
       - master
 
+env:
+  XQT_PLATFORM: 'release'
+  GRADLE_VERSION: 8.9
+
 jobs:
-  build:
+  plugin:
     strategy:
       fail-fast: false
       matrix:
         idea-version: [
-            IC-2020.3,
-            IC-2021.1,
-            IC-2021.2,
-            IC-2021.3,
-            IC-2022.1,
+            IC-2022.3,
+            IC-2023.1,
+            IC-2023.2,
+            IC-2023.3,
+            IC-2024.1,
+            IC-2024.2,
+            IC-2024.3,
             LATEST-EAP-SNAPSHOT
         ]
         include:
 
-          - os: ubuntu-latest
-            java-version: 11
-            idea-version: IC-2020.3
+          - java-version: 17
+            idea-version: IC-2022.3
 
-          - os: ubuntu-latest
-            java-version: 11
-            idea-version: IC-2021.1
+          - java-version: 17
+            idea-version: IC-2023.1
 
-          - os: ubuntu-latest
-            java-version: 11
-            idea-version: IC-2021.2
+          - java-version: 17
+            idea-version: IC-2023.2
 
-          - os: ubuntu-latest
-            java-version: 11
-            idea-version: IC-2021.3
+          - java-version: 17
+            idea-version: IC-2023.3
 
-          - os: ubuntu-latest
-            java-version: 11
-            idea-version: IC-2022.1
+          - java-version: 17
+            idea-version: IC-2024.1
 
-          - os: ubuntu-latest
-            java-version: 11
+          - java-version: 21
+            idea-version: IC-2024.2
+
+          - java-version: 21
+            idea-version: IC-2024.3
+
+          - java-version: 21
             idea-version: LATEST-EAP-SNAPSHOT
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
       IDEA_VERSION: ${{ matrix.idea-version }}
     steps:
       - name: Source Code Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.2.2
 
       - name: Setup JDK ${{ matrix.java-version }}
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4.5.0
         with:
           java-version: ${{ matrix.java-version }}
+          distribution: 'temurin'
 
-      - name: Create a Gradle Wrapper
-        # Use a null gradle file so gradle < 4.6 does not fail parsing 'useJUnitPlatform()'.
-        run: touch null.gradle ; gradle -b null.gradle wrapper --gradle-version 6.7 ; rm null.gradle
-
-      - name: Cache Gradle Packages
-        uses: actions/cache@v2
+      - name: Setup Gradle ${{ env.GRADLE_VERSION }}
+        uses: gradle/actions/setup-gradle@v4.2.1
         with:
-          path: ~/.gradle/caches ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ matrix.idea-version }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-${{ matrix.idea-version }}-
+          gradle-version: ${{ env.GRADLE_VERSION }}
 
-      - name: Gradle Version
-        run: ./gradlew --version
-
-      - name: Build with Gradle
-        run: ./gradlew :assemble
+      - name: Build
+        run: gradle :assemble
 
       - name: Run Tests
-        run: ./gradlew test
+        run: gradle test
 
-      - name: Cleanup Gradle Cache
-        # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
-        # Restoring these files from a GitHub Actions cache might cause problems for future builds.
-        run: |
-          rm -f ~/.gradle/caches/modules-2/modules-2.lock
-          rm -f ~/.gradle/caches/modules-2/gc.properties
+      - name: Build Plugin
+        run: gradle buildPlugin
+
+      - name: Upload Plugin Jar
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: xquery-intellij-plugin-${{ matrix.idea-version }}
+          path: build/distributions/xquery-intellij-plugin-*.zip

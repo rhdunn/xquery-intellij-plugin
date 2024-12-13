@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.editor
 
+import com.intellij.compat.openapi.editor.EditorFactory
 import com.intellij.mock.MockEditorEventMulticaster
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
-import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.editor.EditorKind
 import com.intellij.openapi.editor.event.EditorEventMulticaster
 import com.intellij.openapi.editor.event.EditorFactoryListener

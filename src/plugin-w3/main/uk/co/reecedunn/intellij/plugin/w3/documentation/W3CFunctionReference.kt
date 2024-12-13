@@ -27,7 +27,7 @@ internal class W3CFunctionReference(private val node: Element, baseHref: String)
         return node
     }
 
-    val id: String = node.selectFirst("* > a").attr("id")
+    val id: String = node.selectFirst("* > a")!!.attr("id")
 
     override val moduleTypes: Array<XdmModuleType> = XdmModuleType.XPATH_OR_XQUERY
 

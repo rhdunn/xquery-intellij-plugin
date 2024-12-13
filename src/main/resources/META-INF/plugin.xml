@@ -73,26 +73,24 @@
   <change-notes><![CDATA[
     <p>Bug Fixes:</p>
     <ol>
-      <li>Fix an exception when trying to display the MarkLogic rewriter endpoint line marker.</li>
-      <li>Fix an exception in the roxy project configuration when there aren't any associated property files.</li>
-      <li>Fix hangs during the Analyze phase when switching projects.</li>
-    </ol>
-    <p>Gradle Project Configuration:</p>
-    <ol>
-      <li>Support reading properties from <code>gradle.properties</code>.
-      <li>Fix an exception in the gradle project configuration when there aren't any associated property files.</li>
+      <li>Fix an exception when running queries on MarkLogic 11.</li>
+      <li>Fix processing file links in stack traces on IntelliJ 2023.2.</li>
+      <li>Fix navigating to the rewriter endpoint implementation on IntelliJ 2023.1.</li>
+      <li>Various fixes for other exceptions.</li>
     </ol>
   ]]></change-notes>
 
-  <idea-version since-build="161"/>
+  <idea-version since-build="223"/>
 
   <xi:include href="lang-xpm.xml" xpointer="xpointer(/idea-plugin/*)"/>
-  <xi:include href="lang-xqdoc.xml" xpointer="xpointer(/idea-plugin/*)"/>
+
   <xi:include href="lang-xpath.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="lang-xquery.xml" xpointer="xpointer(/idea-plugin/*)"/>
-
   <xi:include href="lang-xslt.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="lang-xproc.xml" xpointer="xpointer(/idea-plugin/*)"/>
+
+  <xi:include href="lang-java.xml" xpointer="xpointer(/idea-plugin/*)"/>
+  <xi:include href="lang-xqdoc.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <xi:include href="plugin-inspections-ijvs.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-inspections-xpst.xml" xpointer="xpointer(/idea-plugin/*)"/>

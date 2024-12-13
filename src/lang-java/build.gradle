@@ -1,19 +1,17 @@
-sourceSets.main.java.srcDirs += 'main'
-sourceSets.main.resources.srcDirs += 'main/resources'
+sourceSets.main.java.srcDirs += "main"
+sourceSets.main.resources.srcDirs += "main/resources"
 
-sourceSets.test.java.srcDirs += 'test'
-sourceSets.test.resources.srcDirs += 'test/resources'
-
-ext.idea_version = project.property('idea_since_build')
-if (ext.idea_version >= 192) {
-    // 'java' is a separate plugin in IntelliJ >= 2019.2
-    intellij.plugins = ['java']
-}
+sourceSets.test.java.srcDirs += "test"
+sourceSets.test.resources.srcDirs += "test/resources"
 
 dependencies {
-    compile project(':src:lang-xdm')
-    compile project(':src:lang-xpm')
+    intellijPlatform {
+        bundledPlugin("com.intellij.java")
+    }
 
-    testCompile project(':src:intellij-test')
-    testCompile project(':src:kotlin-hamcrest')
+    implementation(project(":src:kotlin-intellij"))
+    implementation(project(":src:lang-xdm"))
+    implementation(project(":src:lang-xpm"))
+
+    testImplementation(project(":src:intellij-test"))
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Reece H. Dunn
+ * Copyright (C) 2021-2024 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,8 @@ import uk.co.reecedunn.intellij.plugin.xproc.resources.XProcIcons
 import javax.swing.Icon
 
 class XProcFileIconPatcher : FileIconPatcher {
-    override fun patchIcon(baseIcon: Icon, file: VirtualFile?, flags: Int, project: Project?): Icon = when {
-        project == null || file == null -> baseIcon
+    override fun patchIcon(baseIcon: Icon, file: VirtualFile, flags: Int, project: Project?): Icon = when {
+        project == null -> baseIcon
         else -> {
             (PsiManager.getInstance(project).findFile(file) as? XmlFile)?.rootTag?.let {
                 if (it.namespace == XProc.NAMESPACE) {

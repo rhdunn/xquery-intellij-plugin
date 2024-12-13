@@ -49,6 +49,6 @@ object MarkLogicErrorLogTokenType {
             FINEST, FINER, FINE, DEBUG, CONFIG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY
         )
 
-        fun token(name: String): ILogLevelElementType = VALUES.find { it.name == name } ?: UNKNOWN
+        fun token(name: CharSequence): ILogLevelElementType = VALUES.find { it.name == name } ?: UNKNOWN
     }
 }

@@ -1,16 +1,33 @@
-sourceSets.main.java.srcDirs += 'main'
-sourceSets.main.resources.srcDirs += 'main/resources'
+sourceSets.main.java.srcDirs += "main"
+sourceSets.main.resources.srcDirs += "main/resources"
 
-sourceSets.test.java.srcDirs += 'test'
-sourceSets.test.resources.srcDirs += 'test/resources'
-
-intellij.plugins = ['com.intellij.properties']
+sourceSets.test.java.srcDirs += "test"
+sourceSets.test.resources.srcDirs += "test/resources"
 
 dependencies {
-    compile project(':src:lang-xquery')
-    compile project(':src:lang-xslt')
-    compile project(':src:lang-xpm')
+    intellijPlatform {
+        bundledPlugin("com.intellij.properties")
+        if (idea_since_build >= 243) {
+            bundledPlugin("com.intellij.modules.json")
+        }
+    }
 
-    testCompile project(':src:intellij-test')
-    testCompile project(':src:kotlin-hamcrest')
+    implementation(project(":src:intellij-compat"))
+    implementation(project(":src:kotlin-intellij"))
+    implementation(project(":src:lang-core"))
+    implementation(project(":src:lang-xpath"))
+    implementation(project(":src:lang-xquery"))
+    implementation(project(":src:lang-xslt"))
+    implementation(project(":src:lang-xdm"))
+    implementation(project(":src:lang-xpm"))
+    implementation(project(":src:lang-xqdoc"))
+    implementation(project(":src:plugin-api"))
+
+    testImplementation(project(":src:intellij-test"))
+
+    // Saxon HE
+    runtimeOnly("net.sf.saxon:Saxon-HE:$saxon_version")
+
+    // JSoup
+    implementation("org.jsoup:jsoup:$jsoup_version")
 }

@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2016-2018, 2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2016-2018, 2021, 2023 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
@@ -30,8 +16,7 @@ open class XQueryAnnotatedDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
     // region ElementBase
 
     override fun getElementIcon(flags: Int): Icon? = when (this) {
-        is ItemPresentation -> {
-            val icon = getIcon(false)
+        is ItemPresentation -> getIcon(false)?.let { icon ->
             val isLocked = BitUtil.isSet(flags, ICON_FLAG_READ_STATUS) && !isWritable
             val baseIcon = IconManager.getInstance().createLayeredIcon(this, icon, if (isLocked) FLAGS_LOCKED else 0)
             if (BitUtil.isSet(flags, ICON_FLAG_VISIBILITY)) {

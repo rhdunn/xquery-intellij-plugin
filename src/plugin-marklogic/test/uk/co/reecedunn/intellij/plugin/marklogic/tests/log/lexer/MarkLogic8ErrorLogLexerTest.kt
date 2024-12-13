@@ -16,12 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.log.lexer
 
 import com.intellij.lexer.Lexer
+import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLogFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.ILogLevelElementType

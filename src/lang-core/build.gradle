@@ -1,11 +1,9 @@
-sourceSets.main.java.srcDirs += 'main'
-sourceSets.main.resources.srcDirs += 'main/resources'
+sourceSets.main.java.srcDirs += "main"
+sourceSets.main.resources.srcDirs += "main/resources"
 
-sourceSets.test.java.srcDirs += 'test'
-sourceSets.test.resources.srcDirs += 'test/resources'
+sourceSets.test.java.srcDirs += "test"
+sourceSets.test.resources.srcDirs += "test/resources"
 
 dependencies {
-    compile project(':src:kotlin-intellij')
-
-    testCompile project(':src:kotlin-hamcrest')
+    implementation(project(":src:kotlin-intellij"))
 }

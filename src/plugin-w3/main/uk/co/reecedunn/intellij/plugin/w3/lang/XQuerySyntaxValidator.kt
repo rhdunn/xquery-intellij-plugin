@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Reece H. Dunn
+ * Copyright (C) 2021-2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         }
         is XPathAnyArrayTest -> reporter.requires(element, XQUERY_3_1)
         is XPathAnyFunctionTest -> reporter.requires(element, XQUERY_3_0)
+        is XPathAnyMapTest -> reporter.requires(element, XQUERY_3_1)
         is XPathArgumentPlaceholder -> reporter.requires(element, XQUERY_3_0)
         is XPathArrowFunctionSpecifier -> when (element.conformanceElement.elementType) {
             XPathTokenType.THIN_ARROW -> reporter.requires(element, XQUERY_4_0)
@@ -67,6 +68,10 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             XPathTokenType.K_ARRAY -> reporter.requires(element, XQUERY_3_1)
             else -> {
             }
+        }
+        is XQueryDecimalFormatDecl -> when (element.conformanceElement.firstChild.elementType) {
+            XQueryTokenType.K_EXPONENT_SEPARATOR -> reporter.requires(element, XQUERY_3_1)
+            else -> reporter.requires(element, XQUERY_3_0)
         }
         is XPathElementTest -> when (element.conformanceElement) {
             is XPathWildcard -> {

@@ -337,7 +337,7 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         CommonDataKeys.EDITOR.name -> editor
         CommonDataKeys.NAVIGATABLE.name -> {
             val pos = editor!!.caretModel.logicalPosition
-            val info = hyperlinks!!.getHyperlinkInfoByLineAndCol(pos.line, pos.column)
+            val info = hyperlinks?.getHyperlinkInfoByLineAndCol(pos.line, pos.column)
             val openFileDescriptor = (info as? FileHyperlinkInfo)?.descriptor
             if (openFileDescriptor?.file?.isValid == true)
                 openFileDescriptor

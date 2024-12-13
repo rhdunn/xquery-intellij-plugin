@@ -55,6 +55,6 @@ class Rewriter {
     }
 
     fun getModificationTracker(project: Project): ModificationTracker {
-        return PsiModificationTracker.SERVICE.getInstance(project).forLanguage(XMLLanguage.INSTANCE)
+        return PsiModificationTracker.getInstance(project).forLanguage(XMLLanguage.INSTANCE)
     }
 }

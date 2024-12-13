@@ -35,8 +35,8 @@ open class XPathLookupElement(lookupString: String) : LookupElement() {
         presentation.itemText = lookupString
     }
 
-    override fun renderElement(presentation: LookupElementPresentation?) {
-        presentation?.copyFrom(this.presentation)
+    override fun renderElement(presentation: LookupElementPresentation) {
+        presentation.copyFrom(this.presentation)
     }
 
     open val insertText: XPathInsertText? = null

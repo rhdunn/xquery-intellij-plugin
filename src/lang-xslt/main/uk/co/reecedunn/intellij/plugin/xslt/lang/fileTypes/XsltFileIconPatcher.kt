@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 Reece H. Dunn
+ * Copyright (C) 2020-2024 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +26,9 @@ import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltIcons
 import javax.swing.Icon
 
 class XsltFileIconPatcher : FileIconPatcher {
-    override fun patchIcon(baseIcon: Icon, file: VirtualFile?, flags: Int, project: Project?): Icon = when {
+    override fun patchIcon(baseIcon: Icon, file: VirtualFile, flags: Int, project: Project?): Icon = when {
         isIntellijXPathPluginEnabled() -> baseIcon
-        project == null || file == null -> baseIcon
+        project == null -> baseIcon
         else -> {
             (PsiManager.getInstance(project).findFile(file) as? XmlFile)?.rootTag?.let {
                 if (it.namespace == XSLT.NAMESPACE) {

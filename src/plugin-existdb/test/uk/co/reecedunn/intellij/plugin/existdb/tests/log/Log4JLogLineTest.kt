@@ -18,10 +18,10 @@ package uk.co.reecedunn.intellij.plugin.existdb.tests.log
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.execution.ui.ConsoleViewRecorder
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.existdb.log.Log4JLogLine

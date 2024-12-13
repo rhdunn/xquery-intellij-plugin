@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2022 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.project.settings
 
+import com.intellij.openapi.util.JDOMUtil
 import com.intellij.util.xmlb.XmlSerializer
 import org.hamcrest.CoreMatchers.`is`
-import org.jdom.output.XMLOutputter
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.W3C
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
@@ -106,18 +106,17 @@ class XQueryProjectSettingsTest {
     @DisplayName("serialization to xml")
     fun testSerialization() {
         val settings = XQueryProjectSettings()
-        val outputter = XMLOutputter()
 
-        val expected = listOf(
-            "<XQueryProjectSettings>",
-            "<option name=\"XQuery10Dialect\" value=\"xquery\" />",
-            "<option name=\"XQuery30Dialect\" value=\"xquery\" />",
-            "<option name=\"XQuery31Dialect\" value=\"xquery\" />",
-            "<option name=\"XQueryVersion\" value=\"1.0\" />",
-            "<option name=\"implementationVersion\" value=\"w3c/spec/v1ed\" />",
-            "</XQueryProjectSettings>"
-        ).joinToString("")
+        val expected = """
+            <XQueryProjectSettings>
+              <option name="XQuery10Dialect" value="xquery" />
+              <option name="XQuery30Dialect" value="xquery" />
+              <option name="XQuery31Dialect" value="xquery" />
+              <option name="XQueryVersion" value="1.0" />
+              <option name="implementationVersion" value="w3c/spec/v1ed" />
+            </XQueryProjectSettings>
+        """.trimIndent()
         val element = XmlSerializer.serialize(settings)
-        assertThat(outputter.outputString(element), `is`(expected))
+        assertThat(JDOMUtil.write(element), `is`(expected))
     }
 }

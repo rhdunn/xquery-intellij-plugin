@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Reece H. Dunn
+ * Copyright (C) 2020-2023 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,14 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
+import uk.co.reecedunn.intellij.microservices.endpoints.presentation.HttpMethodPresentation
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import javax.swing.Icon
 
+@Suppress("RedundantSuppression", "UnstableApiUsage")
 class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
+    EndpointMethodPresentation,
     ItemPresentation,
     DataProvider {
     // region ItemPresentation
@@ -38,11 +41,16 @@ class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
     // endregion
     // region EndpointMethodPresentation
 
-    val endpointMethod: String?
-        get() = rest?.methods?.joinToString(" ")
+    override val endpointMethodPresentation: String by lazy {
+        HttpMethodPresentation.getHttpMethodsPresentation(endpointMethods)
+    }
 
-    val endpointMethodOrder: Int
-        get() = EndpointMethodPresentation.getHttpMethodOrder(rest?.methods?.firstOrNull())
+    override val endpointMethodOrder: Int by lazy {
+        HttpMethodPresentation.getHttpMethodOrder(endpointMethods.firstOrNull())
+    }
+
+    override val endpointMethods: List<String>
+        get() = rest?.methods ?: listOf()
 
     // endregion
     // region DataProvider

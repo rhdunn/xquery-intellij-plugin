@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
@@ -22,1125 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 @Suppress("DuplicatedCode")
 class XQueryLexer : XPathLexer() {
-    // region States
-
-    override fun ncnameToKeyword(name: CharSequence): IKeywordOrNCNameType? {
-        return KEYWORDS[name] ?: super.ncnameToKeyword(name)
-    }
-
-    override fun stateDefault(state: Int) {
-        var c = mTokenRange.codePoint
-        var cc = CharacterClass.getCharClass(c)
-        when (cc) {
-            CharacterClass.WHITESPACE -> {
-                mTokenRange.match()
-                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
-                    mTokenRange.match()
-                mType = XPathTokenType.WHITE_SPACE
-            }
-            CharacterClass.DOT -> {
-                mTokenRange.save()
-                mTokenRange.match()
-                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                when {
-                    cc == CharacterClass.DOT -> {
-                        mTokenRange.match()
-                        mType = if (mTokenRange.codePoint == '.'.code) {
-                            mTokenRange.match()
-                            XPathTokenType.ELLIPSIS
-                        } else {
-                            XPathTokenType.PARENT_SELECTOR
-                        }
-                        return
-                    }
-                    cc == CharacterClass.CURLY_BRACE_OPEN -> {
-                        mTokenRange.match()
-                        mType = XPathTokenType.CONTEXT_FUNCTION
-                        return
-                    }
-                    cc != CharacterClass.DIGIT -> {
-                        mType = XPathTokenType.DOT
-                        return
-                    }
-                    else -> {
-                        mTokenRange.restore()
-                        mType = XPathTokenType.DECIMAL_LITERAL
-                    }
-                }
-                mTokenRange.match()
-                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
-                    mTokenRange.match()
-                c = mTokenRange.codePoint
-                if (c == 'e'.code || c == 'E'.code) {
-                    mTokenRange.save()
-                    mTokenRange.match()
-                    c = mTokenRange.codePoint
-                    if (c == '+'.code || c == '-'.code) {
-                        mTokenRange.match()
-                        c = mTokenRange.codePoint
-                    }
-                    if (CharacterClass.getCharClass(c) == CharacterClass.DIGIT) {
-                        mTokenRange.match()
-                        while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
-                            mTokenRange.match()
-                        mType = XPathTokenType.DOUBLE_LITERAL
-                    } else {
-                        pushState(STATE_DOUBLE_EXPONENT)
-                        mTokenRange.restore()
-                    }
-                }
-            }
-            CharacterClass.DIGIT -> {
-                mTokenRange.match()
-                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
-                    mTokenRange.match()
-                mType = if (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DOT) {
-                    mTokenRange.match()
-                    while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
-                        mTokenRange.match()
-                    XPathTokenType.DECIMAL_LITERAL
-                } else {
-                    XPathTokenType.INTEGER_LITERAL
-                }
-                c = mTokenRange.codePoint
-                if (c == 'e'.code || c == 'E'.code) {
-                    mTokenRange.save()
-                    mTokenRange.match()
-                    c = mTokenRange.codePoint
-                    if (c == '+'.code || c == '-'.code) {
-                        mTokenRange.match()
-                        c = mTokenRange.codePoint
-                    }
-                    if (CharacterClass.getCharClass(c) == CharacterClass.DIGIT) {
-                        mTokenRange.match()
-                        while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.DIGIT)
-                            mTokenRange.match()
-                        mType = XPathTokenType.DOUBLE_LITERAL
-                    } else {
-                        pushState(STATE_DOUBLE_EXPONENT)
-                        mTokenRange.restore()
-                    }
-                }
-            }
-            CharacterClass.END_OF_BUFFER -> mType = null
-            CharacterClass.QUOTE, CharacterClass.APOSTROPHE -> {
-                mTokenRange.match()
-                mType = XPathTokenType.STRING_LITERAL_START
-                pushState(if (cc == CharacterClass.QUOTE) STATE_STRING_LITERAL_QUOTE else STATE_STRING_LITERAL_APOSTROPHE)
-            }
-            CharacterClass.NAME_START_CHAR -> {
-                mTokenRange.match()
-                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                if (c == 'Q'.code && cc == CharacterClass.CURLY_BRACE_OPEN) {
-                    mTokenRange.match()
-                    mType = XPathTokenType.BRACED_URI_LITERAL_START
-                    pushState(STATE_BRACED_URI_LITERAL)
-                } else if (c == '_'.code && cc == CharacterClass.CURLY_BRACE_OPEN) {
-                    mTokenRange.match()
-                    mType = XPathTokenType.LAMBDA_FUNCTION
-                } else {
-                    while (
-                        cc == CharacterClass.NAME_START_CHAR ||
-                        cc == CharacterClass.DIGIT ||
-                        cc == CharacterClass.DOT ||
-                        cc == CharacterClass.HYPHEN_MINUS ||
-                        cc == CharacterClass.NAME_CHAR
-                    ) {
-                        mTokenRange.match()
-                        cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                    }
-                    mType = ncnameToKeyword(tokenText) ?: XPathTokenType.NCNAME
-                }
-            }
-            CharacterClass.PARENTHESIS_OPEN -> {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-                when (c) {
-                    ':'.code -> {
-                        mTokenRange.match()
-                        mType = XPathTokenType.COMMENT_START_TAG
-                        pushState(STATE_XQUERY_COMMENT)
-                    }
-                    '#'.code -> {
-                        mTokenRange.match()
-                        mType = XPathTokenType.PRAGMA_BEGIN
-                        pushState(STATE_PRAGMA_PRE_QNAME)
-                    }
-                    else -> mType = XPathTokenType.PARENTHESIS_OPEN
-                }
-            }
-            CharacterClass.PARENTHESIS_CLOSE -> {
-                mTokenRange.match()
-                mType = XPathTokenType.PARENTHESIS_CLOSE
-            }
-            CharacterClass.COLON -> {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-                mType = when (c) {
-                    ')'.code -> {
-                        mTokenRange.match()
-                        XPathTokenType.COMMENT_END_TAG
-                    }
-                    ':'.code -> {
-                        mTokenRange.match()
-                        XPathTokenType.AXIS_SEPARATOR
-                    }
-                    '='.code -> {
-                        mTokenRange.match()
-                        XPathTokenType.ASSIGN_EQUAL
-                    }
-                    else -> XPathTokenType.QNAME_SEPARATOR
-                }
-            }
-            CharacterClass.HASH -> {
-                mTokenRange.match()
-                mType = if (mTokenRange.codePoint == ')'.code) {
-                    mTokenRange.match()
-                    XPathTokenType.PRAGMA_END
-                } else {
-                    XPathTokenType.FUNCTION_REF_OPERATOR
-                }
-            }
-            CharacterClass.EXCLAMATION_MARK -> {
-                mTokenRange.match()
-                mType = when (mTokenRange.codePoint) {
-                    '='.code -> {
-                        mTokenRange.match()
-                        XPathTokenType.NOT_EQUAL
-                    }
-                    '!'.code -> {
-                        mTokenRange.match()
-                        XPathTokenType.TERNARY_ELSE // EXPath XPath/XQuery NG Proposal
-                    }
-                    else -> XPathTokenType.MAP_OPERATOR // XQuery 3.0
-                }
-            }
-            CharacterClass.DOLLAR -> {
-                mTokenRange.match()
-                mType = XPathTokenType.VARIABLE_INDICATOR
-            }
-            CharacterClass.ASTERISK -> {
-                mTokenRange.match()
-                mType = XPathTokenType.STAR
-            }
-            CharacterClass.PLUS -> {
-                mTokenRange.match()
-                mType = XPathTokenType.PLUS
-            }
-            CharacterClass.COMMA -> {
-                mTokenRange.match()
-                mType = XPathTokenType.COMMA
-            }
-            CharacterClass.HYPHEN_MINUS -> {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-                mType = if (c == '-'.code) {
-                    mTokenRange.save()
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == '>'.code) {
-                        mTokenRange.match()
-                        XQueryTokenType.XML_COMMENT_END_TAG
-                    } else {
-                        mTokenRange.restore()
-                        XPathTokenType.MINUS
-                    }
-                } else if (c == '>'.code) {
-                    mTokenRange.match()
-                    XPathTokenType.THIN_ARROW
-                } else {
-                    XPathTokenType.MINUS
-                }
-            }
-            CharacterClass.SEMICOLON -> {
-                mTokenRange.match()
-                mType = XQueryTokenType.SEPARATOR
-            }
-            CharacterClass.LESS_THAN -> {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-                if (c == '/'.code) {
-                    mTokenRange.match()
-                    mType = XQueryTokenType.CLOSE_XML_TAG
-                } else if (c == '<'.code) {
-                    val position = mTokenRange.end
-                    mTokenRange.match()
-                    matchOpenXmlTag()
-                    mType = if (mType === XQueryTokenType.DIRELEM_OPEN_XML_TAG) {
-                        // For when adding a DirElemConstructor before another one -- i.e. <<a/>
-                        mTokenRange.seek(position)
-                        XPathTokenType.LESS_THAN
-                    } else {
-                        mTokenRange.seek(position)
-                        mTokenRange.match()
-                        XPathTokenType.NODE_BEFORE
-                    }
-                } else if (c == '='.code) {
-                    mTokenRange.match()
-                    mType = XPathTokenType.LESS_THAN_OR_EQUAL
-                } else if (c == '?'.code) {
-                    mTokenRange.match()
-                    mType = XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN
-                    pushState(STATE_PROCESSING_INSTRUCTION)
-                } else if (c == '!'.code) {
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == '-'.code) {
-                        mTokenRange.match()
-                        if (mTokenRange.codePoint == '-'.code) {
-                            mTokenRange.match()
-                            mType = XQueryTokenType.XML_COMMENT_START_TAG
-                            pushState(STATE_XML_COMMENT)
-                        } else {
-                            mType = XQueryTokenType.INVALID
-                        }
-                    } else if (mTokenRange.codePoint == '['.code) {
-                        mTokenRange.match()
-                        if (mTokenRange.codePoint == 'C'.code) {
-                            mTokenRange.match()
-                            if (mTokenRange.codePoint == 'D'.code) {
-                                mTokenRange.match()
-                                if (mTokenRange.codePoint == 'A'.code) {
-                                    mTokenRange.match()
-                                    if (mTokenRange.codePoint == 'T'.code) {
-                                        mTokenRange.match()
-                                        if (mTokenRange.codePoint == 'A'.code) {
-                                            mTokenRange.match()
-                                            if (mTokenRange.codePoint == '['.code) {
-                                                mTokenRange.match()
-                                                mType = XQueryTokenType.CDATA_SECTION_START_TAG
-                                                pushState(STATE_CDATA_SECTION)
-                                            } else {
-                                                mType = XQueryTokenType.INVALID
-                                            }
-                                        } else {
-                                            mType = XQueryTokenType.INVALID
-                                        }
-                                    } else {
-                                        mType = XQueryTokenType.INVALID
-                                    }
-                                } else {
-                                    mType = XQueryTokenType.INVALID
-                                }
-                            } else {
-                                mType = XQueryTokenType.INVALID
-                            }
-                        } else {
-                            mType = XQueryTokenType.INVALID
-                        }
-                    } else {
-                        mType = XQueryTokenType.INVALID
-                    }
-                } else {
-                    if (state == STATE_MAYBE_DIR_ELEM_CONSTRUCTOR) {
-                        mType = XPathTokenType.LESS_THAN
-                    } else {
-                        matchOpenXmlTag()
-                    }
-                }
-            }
-            CharacterClass.GREATER_THAN -> {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-                mType = when (c) {
-                    '>'.code -> {
-                        mTokenRange.match()
-                        XPathTokenType.NODE_AFTER
-                    }
-                    '='.code -> {
-                        mTokenRange.match()
-                        XPathTokenType.GREATER_THAN_OR_EQUAL
-                    }
-                    else -> XPathTokenType.GREATER_THAN
-                }
-            }
-            CharacterClass.EQUAL -> {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-                mType = if (c == '>'.code) {
-                    mTokenRange.match()
-                    XPathTokenType.ARROW
-                } else {
-                    XPathTokenType.EQUAL
-                }
-            }
-            CharacterClass.CURLY_BRACE_OPEN -> {
-                mTokenRange.match()
-                mType = XPathTokenType.BLOCK_OPEN
-                pushState(state)
-            }
-            CharacterClass.CURLY_BRACE_CLOSE -> {
-                mTokenRange.match()
-                mType = if (mTokenRange.codePoint == '`'.code && state == STATE_DEFAULT_STRING_INTERPOLATION) {
-                    mTokenRange.match()
-                    XQueryTokenType.STRING_INTERPOLATION_CLOSE
-                } else {
-                    XPathTokenType.BLOCK_CLOSE
-                }
-                popState()
-            }
-            CharacterClass.VERTICAL_BAR -> {
-                mTokenRange.match()
-                mType = if (mTokenRange.codePoint == '|'.code) {
-                    mTokenRange.match()
-                    XPathTokenType.CONCATENATION
-                } else {
-                    XPathTokenType.UNION
-                }
-            }
-            CharacterClass.FORWARD_SLASH -> {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-                mType = when (c) {
-                    '/'.code -> {
-                        mTokenRange.match()
-                        XPathTokenType.ALL_DESCENDANTS_PATH
-                    }
-                    '>'.code -> {
-                        mTokenRange.match()
-                        XQueryTokenType.SELF_CLOSING_XML_TAG
-                    }
-                    else -> XPathTokenType.DIRECT_DESCENDANTS_PATH
-                }
-            }
-            CharacterClass.AT_SIGN -> {
-                mTokenRange.match()
-                mType = XPathTokenType.ATTRIBUTE_SELECTOR
-            }
-            CharacterClass.SQUARE_BRACE_OPEN -> {
-                mTokenRange.match()
-                mType = XPathTokenType.SQUARE_OPEN
-            }
-            CharacterClass.SQUARE_BRACE_CLOSE -> {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-                when (c) {
-                    ']'.code -> {
-                        mTokenRange.save()
-                        mTokenRange.match()
-                        mType = if (mTokenRange.codePoint == '>'.code) {
-                            mTokenRange.match()
-                            XQueryTokenType.CDATA_SECTION_END_TAG
-                        } else {
-                            mTokenRange.restore()
-                            XPathTokenType.SQUARE_CLOSE
-                        }
-                    }
-                    '`'.code -> {
-                        mTokenRange.match()
-                        mType = if (mTokenRange.codePoint == '`'.code) {
-                            mTokenRange.match()
-                            XQueryTokenType.STRING_CONSTRUCTOR_END
-                        } else {
-                            XQueryTokenType.INVALID
-                        }
-                    }
-                    else -> mType = XPathTokenType.SQUARE_CLOSE
-                }
-            }
-            CharacterClass.QUESTION_MARK -> {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-                mType = when (c) {
-                    '>'.code -> {
-                        mTokenRange.match()
-                        XQueryTokenType.PROCESSING_INSTRUCTION_END
-                    }
-                    '?'.code -> {
-                        mTokenRange.match()
-                        XPathTokenType.TERNARY_IF
-                    }
-                    ':'.code -> {
-                        mTokenRange.match()
-                        XPathTokenType.ELVIS // EXPath XPath/XQuery NG Proposal
-                    }
-                    else -> XPathTokenType.OPTIONAL
-                }
-            }
-            CharacterClass.PERCENT -> {
-                mTokenRange.match()
-                mType = XQueryTokenType.ANNOTATION_INDICATOR
-            }
-            CharacterClass.AMPERSAND -> {
-                mTokenRange.match()
-                mType = XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING
-            }
-            CharacterClass.BACK_TICK -> {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-                if (c == '`'.code) {
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == '['.code) {
-                        mTokenRange.match()
-                        mType = XQueryTokenType.STRING_CONSTRUCTOR_START
-                        pushState(STATE_STRING_CONSTRUCTOR_CONTENTS)
-                    } else {
-                        mType = XQueryTokenType.INVALID
-                    }
-                } else {
-                    mType = XQueryTokenType.INVALID
-                }
-            }
-            CharacterClass.TILDE -> {
-                mTokenRange.match()
-                mType = XPathTokenType.TYPE_ALIAS
-            }
-            else -> {
-                mTokenRange.match()
-                mType = XPathTokenType.BAD_CHARACTER
-            }
-        }
-    }
-
-    override fun stateStringLiteral(type: Char) {
-        var c = mTokenRange.codePoint
-        if (c == type.code) {
-            mTokenRange.match()
-            if (mTokenRange.codePoint == type.code && type != '}') {
-                mTokenRange.match()
-                mType = XPathTokenType.ESCAPED_CHARACTER
-            } else {
-                mType = if (type == '}') XPathTokenType.BRACED_URI_LITERAL_END else XPathTokenType.STRING_LITERAL_END
-                popState()
-            }
-        } else if (c == '&'.code) {
-            matchEntityReference(if (type == '"') STATE_STRING_LITERAL_QUOTE else STATE_STRING_LITERAL_APOSTROPHE)
-        } else if (c == '{'.code && type == '}') {
-            mTokenRange.match()
-            mType = XPathTokenType.BAD_CHARACTER
-        } else if (c == CodePointRange.END_OF_BUFFER) {
-            mType = null
-        } else {
-            while (c != type.code && c != CodePointRange.END_OF_BUFFER && c != '&'.code && !(type == '}' && c == '{'.code)) {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-            }
-            mType = XPathTokenType.STRING_LITERAL_CONTENTS
-        }
-    }
-
-    private fun stateXmlComment() {
-        var c = mTokenRange.codePoint
-        if (c == CodePointRange.END_OF_BUFFER) {
-            mType = null
-            return
-        } else if (c == '-'.code) {
-            mTokenRange.save()
-            mTokenRange.match()
-            if (mTokenRange.codePoint == '-'.code) {
-                mTokenRange.match()
-                if (mTokenRange.codePoint == '>'.code) {
-                    mTokenRange.match()
-                    mType = XQueryTokenType.XML_COMMENT_END_TAG
-                    popState()
-                    return
-                } else {
-                    mTokenRange.restore()
-                }
-            } else {
-                mTokenRange.restore()
-            }
-        }
-
-        while (true) {
-            if (c == CodePointRange.END_OF_BUFFER) {
-                mTokenRange.match()
-                mType = XQueryTokenType.XML_COMMENT
-                popState()
-                pushState(STATE_UNEXPECTED_END_OF_BLOCK)
-                return
-            } else if (c == '-'.code) {
-                mTokenRange.save()
-                mTokenRange.match()
-                if (mTokenRange.codePoint == '-'.code) {
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == '>'.code) {
-                        mTokenRange.restore()
-                        mType = XQueryTokenType.XML_COMMENT
-                        return
-                    }
-                }
-            } else {
-                mTokenRange.match()
-            }
-            c = mTokenRange.codePoint
-        }
-    }
-
-    private fun stateCDataSection() {
-        var c = mTokenRange.codePoint
-        if (c == CodePointRange.END_OF_BUFFER) {
-            mType = null
-            return
-        } else if (c == ']'.code) {
-            mTokenRange.save()
-            mTokenRange.match()
-            if (mTokenRange.codePoint == ']'.code) {
-                mTokenRange.match()
-                if (mTokenRange.codePoint == '>'.code) {
-                    mTokenRange.match()
-                    mType = XQueryTokenType.CDATA_SECTION_END_TAG
-                    popState()
-                    return
-                } else {
-                    mTokenRange.restore()
-                }
-            } else {
-                mTokenRange.restore()
-            }
-        }
-
-        while (true) {
-            if (c == CodePointRange.END_OF_BUFFER) {
-                mTokenRange.match()
-                mType = XQueryTokenType.CDATA_SECTION
-                popState()
-                pushState(STATE_UNEXPECTED_END_OF_BLOCK)
-                return
-            } else if (c == ']'.code) {
-                mTokenRange.save()
-                mTokenRange.match()
-                if (mTokenRange.codePoint == ']'.code) {
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == '>'.code) {
-                        mTokenRange.restore()
-                        mType = XQueryTokenType.CDATA_SECTION
-                        return
-                    }
-                }
-            } else {
-                mTokenRange.match()
-            }
-            c = mTokenRange.codePoint
-        }
-    }
-
-    private fun stateDirElemConstructor(state: Int) {
-        var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-        val c: Int
-        when (cc) {
-            CharacterClass.WHITESPACE -> {
-                mTokenRange.match()
-                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
-                    mTokenRange.match()
-                mType = XQueryTokenType.XML_WHITE_SPACE
-                if (state == STATE_DIR_ELEM_CONSTRUCTOR) {
-                    popState()
-                    pushState(STATE_DIR_ATTRIBUTE_LIST)
-                }
-            }
-            CharacterClass.COLON -> {
-                mTokenRange.match()
-                mType = if (state == STATE_DIR_ATTRIBUTE_LIST)
-                    XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR
-                else
-                    XQueryTokenType.XML_TAG_QNAME_SEPARATOR
-            }
-            CharacterClass.NAME_START_CHAR -> {
-                mTokenRange.match()
-                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                while (
-                    cc == CharacterClass.NAME_START_CHAR ||
-                    cc == CharacterClass.DIGIT ||
-                    cc == CharacterClass.DOT ||
-                    cc == CharacterClass.HYPHEN_MINUS ||
-                    cc == CharacterClass.NAME_CHAR
-                ) {
-                    mTokenRange.match()
-                    cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                }
-                mType = if (state == STATE_DIR_ATTRIBUTE_LIST)
-                    if (tokenText == "xmlns")
-                        XQueryTokenType.XML_ATTRIBUTE_XMLNS
-                    else
-                        XQueryTokenType.XML_ATTRIBUTE_NCNAME
-                else
-                    XQueryTokenType.XML_TAG_NCNAME
-            }
-            CharacterClass.GREATER_THAN -> {
-                mTokenRange.match()
-                mType = XQueryTokenType.END_XML_TAG
-                popState()
-                if (state == STATE_DIR_ELEM_CONSTRUCTOR || state == STATE_DIR_ATTRIBUTE_LIST) {
-                    pushState(STATE_DIR_ELEM_CONTENT)
-                }
-            }
-            CharacterClass.FORWARD_SLASH -> {
-                mTokenRange.match()
-                c = mTokenRange.codePoint
-                if (c == '>'.code) {
-                    mTokenRange.match()
-                    mType = XQueryTokenType.SELF_CLOSING_XML_TAG
-                    popState()
-                } else {
-                    mType = XQueryTokenType.INVALID
-                }
-            }
-            CharacterClass.EQUAL -> {
-                mTokenRange.match()
-                mType = XQueryTokenType.XML_EQUAL
-            }
-            CharacterClass.QUOTE, CharacterClass.APOSTROPHE -> {
-                mTokenRange.match()
-                mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_START
-                pushState(if (cc == CharacterClass.QUOTE) STATE_DIR_ATTRIBUTE_VALUE_QUOTE else STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE)
-            }
-            CharacterClass.END_OF_BUFFER -> mType = null
-            else -> {
-                mTokenRange.match()
-                mType = XPathTokenType.BAD_CHARACTER
-            }
-        }
-    }
-
-    private fun stateDirAttributeValue(type: Char) {
-        var c = mTokenRange.codePoint
-        if (c == type.code) {
-            mTokenRange.match()
-            if (mTokenRange.codePoint == type.code) {
-                mTokenRange.match()
-                mType = XQueryTokenType.XML_ESCAPED_CHARACTER
-            } else {
-                mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_END
-                popState()
-            }
-        } else if (c == '{'.code) {
-            mTokenRange.match()
-            if (mTokenRange.codePoint == '{'.code) {
-                mTokenRange.match()
-                mType = XQueryTokenType.XML_ESCAPED_CHARACTER
-            } else {
-                mType = XPathTokenType.BLOCK_OPEN
-                pushState(if (type == '"') STATE_DEFAULT_ATTRIBUTE_QUOT else STATE_DEFAULT_ATTRIBUTE_APOSTROPHE)
-            }
-        } else if (c == '}'.code) {
-            mTokenRange.match()
-            mType = if (mTokenRange.codePoint == '}'.code) {
-                mTokenRange.match()
-                XQueryTokenType.XML_ESCAPED_CHARACTER
-            } else {
-                XPathTokenType.BLOCK_CLOSE
-            }
-        } else if (c == '<'.code) {
-            mTokenRange.match()
-            mType = XPathTokenType.BAD_CHARACTER
-        } else if (c == '&'.code) {
-            matchEntityReference(if (type == '"') STATE_DIR_ATTRIBUTE_VALUE_QUOTE else STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE)
-        } else if (c == CodePointRange.END_OF_BUFFER) {
-            mType = null
-        } else {
-            while (true) {
-                when (c) {
-                    CodePointRange.END_OF_BUFFER, '{'.code, '}'.code, '<'.code, '&'.code -> {
-                        mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
-                        return
-                    }
-                    else -> if (c == type.code) {
-                        mType = XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
-                        return
-                    } else {
-                        mTokenRange.match()
-                        c = mTokenRange.codePoint
-                    }
-                }
-            }
-        }
-    }
-
-    private fun stateDirElemContent() {
-        var c = mTokenRange.codePoint
-        if (c == '{'.code) {
-            mTokenRange.match()
-            if (mTokenRange.codePoint == '{'.code) {
-                mTokenRange.match()
-                mType = XPathTokenType.ESCAPED_CHARACTER
-            } else {
-                mType = XPathTokenType.BLOCK_OPEN
-                pushState(STATE_DEFAULT_ELEM_CONTENT)
-            }
-        } else if (c == '}'.code) {
-            mTokenRange.match()
-            mType = if (mTokenRange.codePoint == '}'.code) {
-                mTokenRange.match()
-                XPathTokenType.ESCAPED_CHARACTER
-            } else {
-                XPathTokenType.BLOCK_CLOSE
-            }
-        } else if (c == '<'.code) {
-            mTokenRange.match()
-            c = mTokenRange.codePoint
-            if (c == '/'.code) {
-                mTokenRange.match()
-                mType = XQueryTokenType.CLOSE_XML_TAG
-                popState()
-                pushState(STATE_DIR_ELEM_CONSTRUCTOR_CLOSING)
-            } else if (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.NAME_START_CHAR) {
-                mType = XQueryTokenType.OPEN_XML_TAG
-                pushState(STATE_DIR_ELEM_CONSTRUCTOR)
-            } else if (c == '?'.code) {
-                mTokenRange.match()
-                mType = XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN
-                pushState(STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT)
-            } else if (c == '!'.code) {
-                mTokenRange.match()
-                if (mTokenRange.codePoint == '-'.code) {
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == '-'.code) {
-                        mTokenRange.match()
-                        mType = XQueryTokenType.XML_COMMENT_START_TAG
-                        pushState(STATE_XML_COMMENT_ELEM_CONTENT)
-                    } else {
-                        mType = XQueryTokenType.INVALID
-                    }
-                } else if (mTokenRange.codePoint == '['.code) {
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == 'C'.code) {
-                        mTokenRange.match()
-                        if (mTokenRange.codePoint == 'D'.code) {
-                            mTokenRange.match()
-                            if (mTokenRange.codePoint == 'A'.code) {
-                                mTokenRange.match()
-                                if (mTokenRange.codePoint == 'T'.code) {
-                                    mTokenRange.match()
-                                    if (mTokenRange.codePoint == 'A'.code) {
-                                        mTokenRange.match()
-                                        if (mTokenRange.codePoint == '['.code) {
-                                            mTokenRange.match()
-                                            mType = XQueryTokenType.CDATA_SECTION_START_TAG
-                                            pushState(STATE_CDATA_SECTION_ELEM_CONTENT)
-                                        } else {
-                                            mType = XQueryTokenType.INVALID
-                                        }
-                                    } else {
-                                        mType = XQueryTokenType.INVALID
-                                    }
-                                } else {
-                                    mType = XQueryTokenType.INVALID
-                                }
-                            } else {
-                                mType = XQueryTokenType.INVALID
-                            }
-                        } else {
-                            mType = XQueryTokenType.INVALID
-                        }
-                    } else {
-                        mType = XQueryTokenType.INVALID
-                    }
-                } else {
-                    mType = XQueryTokenType.INVALID
-                }
-            } else {
-                mType = XPathTokenType.BAD_CHARACTER
-            }
-        } else if (c == '&'.code) {
-            matchEntityReference(STATE_DIR_ELEM_CONTENT)
-        } else if (c == CodePointRange.END_OF_BUFFER) {
-            mType = null
-        } else {
-            while (true) {
-                when (c) {
-                    CodePointRange.END_OF_BUFFER, '{'.code, '}'.code, '<'.code, '&'.code -> {
-                        mType = XQueryTokenType.XML_ELEMENT_CONTENTS
-                        return
-                    }
-                    else -> {
-                        mTokenRange.match()
-                        c = mTokenRange.codePoint
-                    }
-                }
-            }
-        }
-    }
-
-    private fun stateProcessingInstruction(state: Int) {
-        var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-        when (cc) {
-            CharacterClass.WHITESPACE -> {
-                mTokenRange.match()
-                while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
-                    mTokenRange.match()
-                mType = XQueryTokenType.XML_WHITE_SPACE
-                popState()
-                pushState(if (state == STATE_PROCESSING_INSTRUCTION) STATE_PROCESSING_INSTRUCTION_CONTENTS else STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT)
-            }
-            CharacterClass.NAME_START_CHAR -> {
-                mTokenRange.match()
-                cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                while (
-                    cc == CharacterClass.NAME_START_CHAR ||
-                    cc == CharacterClass.DIGIT ||
-                    cc == CharacterClass.DOT ||
-                    cc == CharacterClass.HYPHEN_MINUS ||
-                    cc == CharacterClass.NAME_CHAR
-                ) {
-                    mTokenRange.match()
-                    cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-                }
-                mType = XQueryTokenType.XML_PI_TARGET_NCNAME
-            }
-            CharacterClass.COLON -> {
-                mTokenRange.match()
-                mType = XQueryTokenType.XML_TAG_QNAME_SEPARATOR
-            }
-            CharacterClass.QUESTION_MARK -> {
-                mTokenRange.match()
-                if (mTokenRange.codePoint == '>'.code) {
-                    mTokenRange.match()
-                    mType = XQueryTokenType.PROCESSING_INSTRUCTION_END
-                    popState()
-                } else {
-                    mType = XQueryTokenType.INVALID
-                }
-            }
-            CharacterClass.END_OF_BUFFER -> mType = null
-            else -> {
-                mTokenRange.match()
-                mType = XPathTokenType.BAD_CHARACTER
-            }
-        }
-    }
-
-    private fun stateProcessingInstructionContents() {
-        var c = mTokenRange.codePoint
-        if (c == CodePointRange.END_OF_BUFFER) {
-            mType = null
-            return
-        } else if (c == '?'.code) {
-            mTokenRange.save()
-            mTokenRange.match()
-            if (mTokenRange.codePoint == '>'.code) {
-                mTokenRange.match()
-                mType = XQueryTokenType.PROCESSING_INSTRUCTION_END
-                popState()
-                return
-            } else {
-                mTokenRange.restore()
-            }
-        }
-
-        while (true) {
-            if (c == CodePointRange.END_OF_BUFFER) {
-                mTokenRange.match()
-                mType = XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS
-                popState()
-                pushState(STATE_UNEXPECTED_END_OF_BLOCK)
-                return
-            } else if (c == '?'.code) {
-                mTokenRange.save()
-                mTokenRange.match()
-                if (mTokenRange.codePoint == '>'.code) {
-                    mTokenRange.restore()
-                    mType = XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS
-                    return
-                }
-            } else {
-                mTokenRange.match()
-            }
-            c = mTokenRange.codePoint
-        }
-    }
-
-    private fun stateStringConstructorContents() {
-        var c = mTokenRange.codePoint
-        if (c == '`'.code) {
-            mTokenRange.save()
-            mTokenRange.match()
-            if (mTokenRange.codePoint == '{'.code) {
-                mTokenRange.match()
-                pushState(STATE_DEFAULT_STRING_INTERPOLATION)
-                mType = XQueryTokenType.STRING_INTERPOLATION_OPEN
-                return
-            } else {
-                mTokenRange.restore()
-            }
-        }
-        while (c != CodePointRange.END_OF_BUFFER) {
-            if (c == ']'.code) {
-                mTokenRange.save()
-                mTokenRange.match()
-                if (mTokenRange.codePoint == '`'.code) {
-                    mTokenRange.match()
-                    if (mTokenRange.codePoint == '`'.code) {
-                        mTokenRange.restore()
-                        popState()
-                        mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
-                        return
-                    }
-                }
-            } else if (c == '`'.code) {
-                mTokenRange.save()
-                mTokenRange.match()
-                if (mTokenRange.codePoint == '{'.code) {
-                    mTokenRange.restore()
-                    mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
-                    return
-                } else {
-                    mTokenRange.restore()
-                }
-            }
-            mTokenRange.match()
-            c = mTokenRange.codePoint
-        }
-        popState()
-        pushState(STATE_UNEXPECTED_END_OF_BLOCK)
-        mType = XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
-    }
-
-    private fun stateStartDirElemConstructor() {
-        when (CharacterClass.getCharClass(mTokenRange.codePoint)) {
-            CharacterClass.LESS_THAN -> {
-                mTokenRange.match()
-                mType = XQueryTokenType.OPEN_XML_TAG
-                if (CharacterClass.getCharClass(mTokenRange.codePoint) != CharacterClass.WHITESPACE) {
-                    popState()
-                    pushState(STATE_DIR_ELEM_CONSTRUCTOR)
-                }
-            }
-            CharacterClass.WHITESPACE -> {
-                mType = XQueryTokenType.XML_WHITE_SPACE
-                matchWhiteSpace()
-                popState()
-                pushState(STATE_DIR_ELEM_CONSTRUCTOR)
-            }
-        }
-    }
-
-    // endregion
-    // region Helper Functions
-
-    private fun matchNCName(): Boolean {
-        var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-        if (cc != CharacterClass.NAME_START_CHAR)
-            return false
-
-        while (
-            cc == CharacterClass.NAME_START_CHAR ||
-            cc == CharacterClass.DIGIT ||
-            cc == CharacterClass.DOT ||
-            cc == CharacterClass.HYPHEN_MINUS ||
-            cc == CharacterClass.NAME_CHAR
-        ) {
-            mTokenRange.match()
-            cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-        }
-        return true
-    }
-
-    private fun matchQName(): Boolean {
-        if (!matchNCName())
-            return false
-
-        if (mTokenRange.codePoint == ':'.code) {
-            mTokenRange.match()
-            matchNCName()
-        }
-        return true
-    }
-
-    private fun matchWhiteSpace() {
-        var cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-        while (cc == CharacterClass.WHITESPACE) {
-            mTokenRange.match()
-            cc = CharacterClass.getCharClass(mTokenRange.codePoint)
-        }
-    }
-
-    private fun matchOpenXmlTag() {
-        // Whitespace between the '<' and the NCName/QName is invalid. The lexer
-        // allows this to provide better error reporting in the parser.
-        mTokenRange.save()
-        matchWhiteSpace()
-
-        if (!matchQName()) {
-            mTokenRange.restore()
-            mType = XPathTokenType.LESS_THAN
-            return
-        }
-
-        mType = XQueryTokenType.DIRELEM_OPEN_XML_TAG
-        matchWhiteSpace()
-
-        when (CharacterClass.getCharClass(mTokenRange.codePoint)) {
-            CharacterClass.FORWARD_SLASH -> {
-                mTokenRange.save()
-                mTokenRange.match()
-                if (mTokenRange.codePoint == '>'.code) {
-                    mTokenRange.match()
-                    return
-                }
-                mType = XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
-                mTokenRange.restore()
-            }
-            CharacterClass.GREATER_THAN -> {
-                mTokenRange.match()
-                pushState(STATE_DIR_ELEM_CONTENT)
-            }
-            CharacterClass.NAME_START_CHAR -> pushState(STATE_DIR_ATTRIBUTE_LIST)
-            else -> mType = XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
-        }
-    }
-
-    private fun matchEntityReference(state: Int) {
-        mType = if (state == STATE_DIR_ATTRIBUTE_VALUE_QUOTE || state == STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE) {
-            when (mTokenRange.matchEntityReference()) {
-                EntityReferenceType.CharacterReference -> XQueryTokenType.XML_CHARACTER_REFERENCE
-                EntityReferenceType.EmptyEntityReference -> XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE
-                EntityReferenceType.PartialEntityReference -> XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE
-                else -> XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE
-            }
-        } else {
-            when (mTokenRange.matchEntityReference()) {
-                EntityReferenceType.CharacterReference -> XQueryTokenType.CHARACTER_REFERENCE
-                EntityReferenceType.EmptyEntityReference -> XQueryTokenType.EMPTY_ENTITY_REFERENCE
-                EntityReferenceType.PartialEntityReference -> XQueryTokenType.PARTIAL_ENTITY_REFERENCE
-                else -> XQueryTokenType.PREDEFINED_ENTITY_REFERENCE
-            }
-        }
-    }
-
-    // endregion
-    // region Lexer
-
-    override fun advance(state: Int): Unit = when (state) {
-        STATE_DEFAULT,
-        STATE_DEFAULT_ATTRIBUTE_QUOT,
-        STATE_DEFAULT_ATTRIBUTE_APOSTROPHE,
-        STATE_DEFAULT_ELEM_CONTENT,
-        STATE_DEFAULT_STRING_INTERPOLATION,
-        STATE_MAYBE_DIR_ELEM_CONSTRUCTOR ->
-            stateDefault(state)
-        STATE_XML_COMMENT,
-        STATE_XML_COMMENT_ELEM_CONTENT ->
-            stateXmlComment()
-        STATE_CDATA_SECTION,
-        STATE_CDATA_SECTION_ELEM_CONTENT ->
-            stateCDataSection()
-        STATE_DIR_ELEM_CONSTRUCTOR,
-        STATE_DIR_ELEM_CONSTRUCTOR_CLOSING,
-        STATE_DIR_ATTRIBUTE_LIST ->
-            stateDirElemConstructor(state)
-        STATE_DIR_ATTRIBUTE_VALUE_QUOTE ->
-            stateDirAttributeValue('"')
-        STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE ->
-            stateDirAttributeValue('\'')
-        STATE_DIR_ELEM_CONTENT ->
-            stateDirElemContent()
-        STATE_PROCESSING_INSTRUCTION,
-        STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT ->
-            stateProcessingInstruction(state)
-        STATE_PROCESSING_INSTRUCTION_CONTENTS,
-        STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT ->
-            stateProcessingInstructionContents()
-        STATE_STRING_CONSTRUCTOR_CONTENTS ->
-            stateStringConstructorContents()
-        STATE_START_DIR_ELEM_CONSTRUCTOR ->
-            stateStartDirElemConstructor()
-        else -> super.advance(state)
-    }
-
-    // endregion
-
     companion object {
-        // region State Constants
-
         private const val STATE_XML_COMMENT = 5
         private const val STATE_CDATA_SECTION = 7
         private const val STATE_DIR_ELEM_CONSTRUCTOR = 11
@@ -1162,8 +45,6 @@ class XQueryLexer : XPathLexer() {
         private const val STATE_DEFAULT_STRING_INTERPOLATION = 28
         const val STATE_MAYBE_DIR_ELEM_CONSTRUCTOR: Int = 29
         const val STATE_START_DIR_ELEM_CONSTRUCTOR: Int = 30
-
-        // endregion
 
         private val KEYWORDS = mapOf(
             "after" to XQueryTokenType.K_AFTER, // Update Facility 1.0
@@ -1274,5 +155,887 @@ class XQueryLexer : XPathLexer() {
             "xquery" to XQueryTokenType.K_XQUERY,
             "zero-digit" to XQueryTokenType.K_ZERO_DIGIT // XQuery 3.0
         )
+
+        private val ElementContentCharExcludedChars = setOf(
+            XmlCharReader.EndOfBuffer,
+            LeftCurlyBracket,
+            RightCurlyBracket,
+            LessThanSign,
+            Ampersand
+        )
+
+        private val QuotAttrContentCharExcludedChars = setOf(
+            XmlCharReader.EndOfBuffer,
+            QuotationMark,
+            LeftCurlyBracket,
+            RightCurlyBracket,
+            LessThanSign,
+            Ampersand
+        )
+
+        private val AposAttrContentCharExcludedChars = setOf(
+            XmlCharReader.EndOfBuffer,
+            Apostrophe,
+            LeftCurlyBracket,
+            RightCurlyBracket,
+            LessThanSign,
+            Ampersand
+        )
+    }
+
+    override fun ncnameToKeyword(name: CharSequence): IKeywordOrNCNameType? {
+        return KEYWORDS[name] ?: super.ncnameToKeyword(name)
+    }
+
+    override fun stateDefault(state: Int): IElementType? = when (characters.currentChar) {
+        HyphenMinus -> {
+            characters.advance()
+            when (characters.currentChar) {
+                HyphenMinus -> {
+                    val savedOffset = characters.currentOffset
+                    characters.advance()
+                    if (characters.currentChar == GreaterThanSign) {
+                        characters.advance()
+                        XQueryTokenType.XML_COMMENT_END_TAG
+                    } else {
+                        characters.currentOffset = savedOffset
+                        XPathTokenType.MINUS
+                    }
+                }
+
+                GreaterThanSign -> {
+                    characters.advance()
+                    XPathTokenType.THIN_ARROW
+                }
+
+                else -> XPathTokenType.MINUS
+            }
+        }
+
+        Semicolon -> {
+            characters.advance()
+            XQueryTokenType.SEPARATOR
+        }
+
+        LessThanSign -> {
+            characters.advance()
+            when (characters.currentChar) {
+                Solidus -> {
+                    characters.advance()
+                    XQueryTokenType.CLOSE_XML_TAG
+                }
+
+                LessThanSign -> {
+                    val savedOffset = characters.currentOffset
+                    characters.advance()
+                    val tokenType = matchOpenXmlTag()
+                    if (tokenType === XQueryTokenType.DIRELEM_OPEN_XML_TAG) {
+                        // For when adding a DirElemConstructor before another one -- i.e. <<a/>
+                        characters.currentOffset = savedOffset
+                        XPathTokenType.LESS_THAN
+                    } else {
+                        characters.currentOffset = savedOffset
+                        characters.advance()
+                        XPathTokenType.NODE_BEFORE
+                    }
+                }
+
+                EqualsSign -> {
+                    characters.advance()
+                    XPathTokenType.LESS_THAN_OR_EQUAL
+                }
+
+                QuestionMark -> {
+                    characters.advance()
+                    pushState(STATE_PROCESSING_INSTRUCTION)
+                    XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN
+                }
+
+                ExclamationMark -> {
+                    characters.advance()
+                    if (characters.currentChar == HyphenMinus) {
+                        characters.advance()
+                        if (characters.currentChar == HyphenMinus) {
+                            characters.advance()
+                            pushState(STATE_XML_COMMENT)
+                            XQueryTokenType.XML_COMMENT_START_TAG
+                        } else {
+                            XQueryTokenType.INVALID
+                        }
+                    } else if (characters.currentChar == LeftSquareBracket) {
+                        characters.advance()
+                        if (characters.currentChar == LatinCapitalLetterC) {
+                            characters.advance()
+                            if (characters.currentChar == LatinCapitalLetterD) {
+                                characters.advance()
+                                if (characters.currentChar == LatinCapitalLetterA) {
+                                    characters.advance()
+                                    if (characters.currentChar == LatinCapitalLetterT) {
+                                        characters.advance()
+                                        if (characters.currentChar == LatinCapitalLetterA) {
+                                            characters.advance()
+                                            if (characters.currentChar == LeftSquareBracket) {
+                                                characters.advance()
+                                                pushState(STATE_CDATA_SECTION)
+                                                XQueryTokenType.CDATA_SECTION_START_TAG
+                                            } else {
+                                                XQueryTokenType.INVALID
+                                            }
+                                        } else {
+                                            XQueryTokenType.INVALID
+                                        }
+                                    } else {
+                                        XQueryTokenType.INVALID
+                                    }
+                                } else {
+                                    XQueryTokenType.INVALID
+                                }
+                            } else {
+                                XQueryTokenType.INVALID
+                            }
+                        } else {
+                            XQueryTokenType.INVALID
+                        }
+                    } else {
+                        XQueryTokenType.INVALID
+                    }
+                }
+
+                else -> {
+                    if (state == STATE_MAYBE_DIR_ELEM_CONSTRUCTOR) {
+                        XPathTokenType.LESS_THAN
+                    } else {
+                        matchOpenXmlTag()
+                    }
+                }
+            }
+        }
+
+        RightCurlyBracket -> {
+            characters.advance()
+            popState()
+            if (characters.currentChar == GraveAccent && state == STATE_DEFAULT_STRING_INTERPOLATION) {
+                characters.advance()
+                XQueryTokenType.STRING_INTERPOLATION_CLOSE
+            } else {
+                XPathTokenType.BLOCK_CLOSE
+            }
+        }
+
+        Solidus -> {
+            characters.advance()
+            when (characters.currentChar) {
+                Solidus -> {
+                    characters.advance()
+                    XPathTokenType.ALL_DESCENDANTS_PATH
+                }
+
+                GreaterThanSign -> {
+                    characters.advance()
+                    XQueryTokenType.SELF_CLOSING_XML_TAG
+                }
+
+                else -> XPathTokenType.DIRECT_DESCENDANTS_PATH
+            }
+        }
+
+        RightSquareBracket -> {
+            characters.advance()
+            when (characters.currentChar) {
+                RightSquareBracket -> {
+                    val savedOffset = characters.currentOffset
+                    characters.advance()
+                    if (characters.currentChar == GreaterThanSign) {
+                        characters.advance()
+                        XQueryTokenType.CDATA_SECTION_END_TAG
+                    } else {
+                        characters.currentOffset = savedOffset
+                        XPathTokenType.SQUARE_CLOSE
+                    }
+                }
+
+                GraveAccent -> {
+                    characters.advance()
+                    if (characters.currentChar == GraveAccent) {
+                        characters.advance()
+                        XQueryTokenType.STRING_CONSTRUCTOR_END
+                    } else {
+                        XQueryTokenType.INVALID
+                    }
+                }
+
+                else -> XPathTokenType.SQUARE_CLOSE
+            }
+        }
+
+        QuestionMark -> {
+            characters.advance()
+            when (characters.currentChar) {
+                GreaterThanSign -> {
+                    characters.advance()
+                    XQueryTokenType.PROCESSING_INSTRUCTION_END
+                }
+
+                QuestionMark -> {
+                    characters.advance()
+                    XPathTokenType.TERNARY_IF
+                }
+
+                Colon -> {
+                    characters.advance()
+                    XPathTokenType.ELVIS // EXPath XPath/XQuery NG Proposal
+                }
+
+                else -> XPathTokenType.OPTIONAL
+            }
+        }
+
+        PercentSign -> {
+            characters.advance()
+            XQueryTokenType.ANNOTATION_INDICATOR
+        }
+
+        Ampersand -> {
+            characters.advance()
+            XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING
+        }
+
+        GraveAccent -> {
+            characters.advance()
+            if (characters.currentChar == GraveAccent) {
+                characters.advance()
+                if (characters.currentChar == LeftSquareBracket) {
+                    characters.advance()
+                    pushState(STATE_STRING_CONSTRUCTOR_CONTENTS)
+                    XQueryTokenType.STRING_CONSTRUCTOR_START
+                } else {
+                    XQueryTokenType.INVALID
+                }
+            } else {
+                XQueryTokenType.INVALID
+            }
+        }
+
+        else -> super.stateDefault(state)
+    }
+
+    override fun stateStringLiteral(type: XmlChar): IElementType? {
+        var c = characters.currentChar
+        return when {
+            c == type -> {
+                characters.advance()
+                if (characters.currentChar == type && type != RightCurlyBracket) {
+                    characters.advance()
+                    XPathTokenType.ESCAPED_CHARACTER
+                } else {
+                    popState()
+                    when (type) {
+                        RightCurlyBracket -> XPathTokenType.BRACED_URI_LITERAL_END
+                        else -> XPathTokenType.STRING_LITERAL_END
+                    }
+                }
+            }
+
+            c == Ampersand -> when (type) {
+                QuotationMark -> matchEntityReference(STATE_STRING_LITERAL_QUOTE)
+                else -> matchEntityReference(STATE_STRING_LITERAL_APOSTROPHE)
+            }
+
+            c == LeftCurlyBracket && type == RightCurlyBracket -> {
+                characters.advance()
+                XPathTokenType.BAD_CHARACTER
+            }
+
+            c == XmlCharReader.EndOfBuffer -> null
+            else -> {
+                while (
+                    c != type &&
+                    c != XmlCharReader.EndOfBuffer &&
+                    c != Ampersand &&
+                    !(type == RightCurlyBracket && c == LeftCurlyBracket)
+                ) {
+                    characters.advance()
+                    c = characters.currentChar
+                }
+                XPathTokenType.STRING_LITERAL_CONTENTS
+            }
+        }
+    }
+
+    private fun stateXmlComment(): IElementType? {
+        when (characters.currentChar) {
+            XmlCharReader.EndOfBuffer -> {
+                return null
+            }
+
+            HyphenMinus -> {
+                val savedOffset = characters.currentOffset
+                characters.advance()
+                if (characters.currentChar == HyphenMinus) {
+                    characters.advance()
+                    if (characters.currentChar == GreaterThanSign) {
+                        characters.advance()
+                        popState()
+                        return XQueryTokenType.XML_COMMENT_END_TAG
+                    } else {
+                        characters.currentOffset = savedOffset
+                    }
+                } else {
+                    characters.currentOffset = savedOffset
+                }
+            }
+        }
+
+        while (true) {
+            when (characters.currentChar) {
+                XmlCharReader.EndOfBuffer -> {
+                    characters.advance()
+                    popState()
+                    pushState(STATE_UNEXPECTED_END_OF_BLOCK)
+                    return XQueryTokenType.XML_COMMENT
+                }
+
+                HyphenMinus -> {
+                    val savedOffset = characters.currentOffset
+                    characters.advance()
+                    if (characters.currentChar == HyphenMinus) {
+                        characters.advance()
+                        if (characters.currentChar == GreaterThanSign) {
+                            characters.currentOffset = savedOffset
+                            return XQueryTokenType.XML_COMMENT
+                        }
+                    }
+                }
+
+                else -> characters.advance()
+            }
+        }
+    }
+
+    private fun stateCDataSection(): IElementType? {
+        when (characters.currentChar) {
+            XmlCharReader.EndOfBuffer -> {
+                return null
+            }
+
+            RightSquareBracket -> {
+                val savedOffset = characters.currentOffset
+                characters.advance()
+                if (characters.currentChar == RightSquareBracket) {
+                    characters.advance()
+                    if (characters.currentChar == GreaterThanSign) {
+                        characters.advance()
+                        popState()
+                        return XQueryTokenType.CDATA_SECTION_END_TAG
+                    } else {
+                        characters.currentOffset = savedOffset
+                    }
+                } else {
+                    characters.currentOffset = savedOffset
+                }
+            }
+        }
+
+        while (true) {
+            when (characters.currentChar) {
+                XmlCharReader.EndOfBuffer -> {
+                    characters.advance()
+                    popState()
+                    pushState(STATE_UNEXPECTED_END_OF_BLOCK)
+                    return XQueryTokenType.CDATA_SECTION
+                }
+
+                RightSquareBracket -> {
+                    val savedOffset = characters.currentOffset
+                    characters.advance()
+                    if (characters.currentChar == RightSquareBracket) {
+                        characters.advance()
+                        if (characters.currentChar == GreaterThanSign) {
+                            characters.currentOffset = savedOffset
+                            return XQueryTokenType.CDATA_SECTION
+                        }
+                    }
+                }
+
+                else -> characters.advance()
+            }
+        }
+    }
+
+    private fun stateDirElemConstructor(state: Int): IElementType? = when (characters.currentChar) {
+        in S -> {
+            characters.advanceWhile { it in S }
+            if (state == STATE_DIR_ELEM_CONSTRUCTOR) {
+                popState()
+                pushState(STATE_DIR_ATTRIBUTE_LIST)
+            }
+            XQueryTokenType.XML_WHITE_SPACE
+        }
+
+        Colon -> {
+            characters.advance()
+            if (state == STATE_DIR_ATTRIBUTE_LIST)
+                XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR
+            else
+                XQueryTokenType.XML_TAG_QNAME_SEPARATOR
+        }
+
+        in NameStartChar -> {
+            characters.advanceWhile { it in NameChar && it != Colon }
+            if (state == STATE_DIR_ATTRIBUTE_LIST)
+                if (tokenText == "xmlns")
+                    XQueryTokenType.XML_ATTRIBUTE_XMLNS
+                else
+                    XQueryTokenType.XML_ATTRIBUTE_NCNAME
+            else
+                XQueryTokenType.XML_TAG_NCNAME
+        }
+
+        GreaterThanSign -> {
+            characters.advance()
+            popState()
+            if (state == STATE_DIR_ELEM_CONSTRUCTOR || state == STATE_DIR_ATTRIBUTE_LIST) {
+                pushState(STATE_DIR_ELEM_CONTENT)
+            }
+            XQueryTokenType.END_XML_TAG
+        }
+
+        Solidus -> {
+            characters.advance()
+            if (characters.currentChar == GreaterThanSign) {
+                characters.advance()
+                popState()
+                XQueryTokenType.SELF_CLOSING_XML_TAG
+            } else {
+                XQueryTokenType.INVALID
+            }
+        }
+
+        EqualsSign -> {
+            characters.advance()
+            XQueryTokenType.XML_EQUAL
+        }
+
+        QuotationMark -> {
+            characters.advance()
+            pushState(STATE_DIR_ATTRIBUTE_VALUE_QUOTE)
+            XQueryTokenType.XML_ATTRIBUTE_VALUE_START
+        }
+
+        Apostrophe -> {
+            characters.advance()
+            pushState(STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE)
+            XQueryTokenType.XML_ATTRIBUTE_VALUE_START
+        }
+
+        XmlCharReader.EndOfBuffer -> null
+        else -> {
+            characters.advance()
+            XPathTokenType.BAD_CHARACTER
+        }
+    }
+
+    private fun stateDirAttributeValue(type: XmlChar): IElementType? = when (characters.currentChar) {
+        type -> {
+            characters.advance()
+            if (characters.currentChar == type) {
+                characters.advance()
+                XQueryTokenType.XML_ESCAPED_CHARACTER
+            } else {
+                popState()
+                XQueryTokenType.XML_ATTRIBUTE_VALUE_END
+            }
+        }
+
+        LeftCurlyBracket -> {
+            characters.advance()
+            if (characters.currentChar == LeftCurlyBracket) {
+                characters.advance()
+                XQueryTokenType.XML_ESCAPED_CHARACTER
+            } else {
+                when (type) {
+                    QuotationMark -> pushState(STATE_DEFAULT_ATTRIBUTE_QUOT)
+                    else -> pushState(STATE_DEFAULT_ATTRIBUTE_APOSTROPHE)
+                }
+                XPathTokenType.BLOCK_OPEN
+            }
+        }
+
+        RightCurlyBracket -> {
+            characters.advance()
+            if (characters.currentChar == RightCurlyBracket) {
+                characters.advance()
+                XQueryTokenType.XML_ESCAPED_CHARACTER
+            } else {
+                XPathTokenType.BLOCK_CLOSE
+            }
+        }
+
+        LessThanSign -> {
+            characters.advance()
+            XPathTokenType.BAD_CHARACTER
+        }
+
+        Ampersand -> when (type) {
+            QuotationMark -> matchEntityReference(STATE_DIR_ATTRIBUTE_VALUE_QUOTE)
+            else -> matchEntityReference(STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE)
+        }
+
+        XmlCharReader.EndOfBuffer -> null
+        else -> {
+            when (type) {
+                QuotationMark -> characters.advanceUntil { it in QuotAttrContentCharExcludedChars }
+                else -> characters.advanceUntil { it in AposAttrContentCharExcludedChars }
+            }
+            XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
+        }
+    }
+
+    private fun stateDirElemContent(): IElementType? = when (characters.currentChar) {
+        LeftCurlyBracket -> {
+            characters.advance()
+            if (characters.currentChar == LeftCurlyBracket) {
+                characters.advance()
+                XPathTokenType.ESCAPED_CHARACTER
+            } else {
+                pushState(STATE_DEFAULT_ELEM_CONTENT)
+                XPathTokenType.BLOCK_OPEN
+            }
+        }
+
+        RightCurlyBracket -> {
+            characters.advance()
+            if (characters.currentChar == RightCurlyBracket) {
+                characters.advance()
+                XPathTokenType.ESCAPED_CHARACTER
+            } else {
+                XPathTokenType.BLOCK_CLOSE
+            }
+        }
+
+        LessThanSign -> {
+            characters.advance()
+            when (characters.currentChar) {
+                Solidus -> {
+                    characters.advance()
+                    popState()
+                    pushState(STATE_DIR_ELEM_CONSTRUCTOR_CLOSING)
+                    XQueryTokenType.CLOSE_XML_TAG
+                }
+
+                in NameStartChar -> {
+                    pushState(STATE_DIR_ELEM_CONSTRUCTOR)
+                    XQueryTokenType.OPEN_XML_TAG
+                }
+
+                QuestionMark -> {
+                    characters.advance()
+                    pushState(STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT)
+                    XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN
+                }
+
+                ExclamationMark -> {
+                    characters.advance()
+                    if (characters.currentChar == HyphenMinus) {
+                        characters.advance()
+                        if (characters.currentChar == HyphenMinus) {
+                            characters.advance()
+                            pushState(STATE_XML_COMMENT_ELEM_CONTENT)
+                            XQueryTokenType.XML_COMMENT_START_TAG
+                        } else {
+                            XQueryTokenType.INVALID
+                        }
+                    } else if (characters.currentChar == LeftSquareBracket) {
+                        characters.advance()
+                        if (characters.currentChar == LatinCapitalLetterC) {
+                            characters.advance()
+                            if (characters.currentChar == LatinCapitalLetterD) {
+                                characters.advance()
+                                if (characters.currentChar == LatinCapitalLetterA) {
+                                    characters.advance()
+                                    if (characters.currentChar == LatinCapitalLetterT) {
+                                        characters.advance()
+                                        if (characters.currentChar == LatinCapitalLetterA) {
+                                            characters.advance()
+                                            if (characters.currentChar == LeftSquareBracket) {
+                                                characters.advance()
+                                                pushState(STATE_CDATA_SECTION_ELEM_CONTENT)
+                                                XQueryTokenType.CDATA_SECTION_START_TAG
+                                            } else {
+                                                XQueryTokenType.INVALID
+                                            }
+                                        } else {
+                                            XQueryTokenType.INVALID
+                                        }
+                                    } else {
+                                        XQueryTokenType.INVALID
+                                    }
+                                } else {
+                                    XQueryTokenType.INVALID
+                                }
+                            } else {
+                                XQueryTokenType.INVALID
+                            }
+                        } else {
+                            XQueryTokenType.INVALID
+                        }
+                    } else {
+                        XQueryTokenType.INVALID
+                    }
+                }
+
+                else -> XPathTokenType.BAD_CHARACTER
+            }
+        }
+
+        Ampersand -> matchEntityReference(STATE_DIR_ELEM_CONTENT)
+        XmlCharReader.EndOfBuffer -> null
+        else -> {
+            characters.advanceUntil { it in ElementContentCharExcludedChars }
+            XQueryTokenType.XML_ELEMENT_CONTENTS
+        }
+    }
+
+    private fun stateProcessingInstruction(state: Int): IElementType? = when (characters.currentChar) {
+        in S -> {
+            characters.advanceWhile { it in S }
+            popState()
+            when (state) {
+                STATE_PROCESSING_INSTRUCTION -> pushState(STATE_PROCESSING_INSTRUCTION_CONTENTS)
+                else -> pushState(STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT)
+            }
+            XQueryTokenType.XML_WHITE_SPACE
+        }
+
+        Colon -> {
+            characters.advance()
+            XQueryTokenType.XML_TAG_QNAME_SEPARATOR
+        }
+
+        in NameStartChar -> {
+            characters.advanceWhile { it in NameChar && it != Colon }
+            XQueryTokenType.XML_PI_TARGET_NCNAME
+        }
+
+        QuestionMark -> {
+            characters.advance()
+            if (characters.currentChar == GreaterThanSign) {
+                characters.advance()
+                popState()
+                XQueryTokenType.PROCESSING_INSTRUCTION_END
+            } else {
+                XQueryTokenType.INVALID
+            }
+        }
+
+        XmlCharReader.EndOfBuffer -> null
+        else -> {
+            characters.advance()
+            XPathTokenType.BAD_CHARACTER
+        }
+    }
+
+    private fun stateProcessingInstructionContents(): IElementType? {
+        when (characters.currentChar) {
+            XmlCharReader.EndOfBuffer -> {
+                return null
+            }
+
+            QuestionMark -> {
+                if (characters.nextChar == GreaterThanSign) {
+                    characters.advance()
+                    characters.advance()
+                    popState()
+                    return XQueryTokenType.PROCESSING_INSTRUCTION_END
+                }
+            }
+        }
+
+        while (true) {
+            when (characters.currentChar) {
+                XmlCharReader.EndOfBuffer -> {
+                    characters.advance()
+                    popState()
+                    pushState(STATE_UNEXPECTED_END_OF_BLOCK)
+                    return XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS
+                }
+
+                QuestionMark -> {
+                    if (characters.nextChar == GreaterThanSign) {
+                        return XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS
+                    } else {
+                        characters.advance()
+                    }
+                }
+
+                else -> characters.advance()
+            }
+        }
+    }
+
+    private fun stateStringConstructorContents(): IElementType {
+        when (characters.currentChar) {
+            GraveAccent -> {
+                val savedOffset = characters.currentOffset
+                characters.advance()
+                if (characters.currentChar == LeftCurlyBracket) {
+                    characters.advance()
+                    pushState(STATE_DEFAULT_STRING_INTERPOLATION)
+                    return XQueryTokenType.STRING_INTERPOLATION_OPEN
+                } else {
+                    characters.currentOffset = savedOffset
+                }
+            }
+        }
+        while (characters.currentChar != XmlCharReader.EndOfBuffer) {
+            when (characters.currentChar) {
+                RightSquareBracket -> {
+                    val savedOffset = characters.currentOffset
+                    characters.advance()
+                    if (characters.currentChar == GraveAccent) {
+                        characters.advance()
+                        if (characters.currentChar == GraveAccent) {
+                            characters.currentOffset = savedOffset
+                            popState()
+                            return XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
+                        }
+                    }
+                }
+
+                GraveAccent -> {
+                    val savedOffset = characters.currentOffset
+                    characters.advance()
+                    if (characters.currentChar == LeftCurlyBracket) {
+                        characters.currentOffset = savedOffset
+                        return XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
+                    } else {
+                        characters.currentOffset = savedOffset
+                    }
+                }
+            }
+            characters.advance()
+        }
+        popState()
+        pushState(STATE_UNEXPECTED_END_OF_BLOCK)
+        return XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS
+    }
+
+    private fun stateStartDirElemConstructor(): IElementType? = when (characters.currentChar) {
+        LessThanSign -> {
+            characters.advance()
+            if (characters.currentChar !in S) {
+                popState()
+                pushState(STATE_DIR_ELEM_CONSTRUCTOR)
+            }
+            XQueryTokenType.OPEN_XML_TAG
+        }
+
+        in S -> {
+            characters.advanceWhile { it in S }
+            popState()
+            pushState(STATE_DIR_ELEM_CONSTRUCTOR)
+            XQueryTokenType.XML_WHITE_SPACE
+        }
+
+        else -> null
+    }
+
+    private fun matchNCName(): Boolean {
+        if (characters.currentChar !in NameStartChar)
+            return false
+
+        characters.advanceWhile { it in NameChar && it != Colon }
+        return true
+    }
+
+    private fun matchQName(): Boolean {
+        if (!matchNCName())
+            return false
+
+        if (characters.currentChar == Colon) {
+            characters.advance()
+            matchNCName()
+        }
+        return true
+    }
+
+    private fun matchOpenXmlTag(): IElementType {
+        // Whitespace between the '<' and the NCName/QName is invalid. The lexer
+        // allows this to provide better error reporting in the parser.
+        val savedOffset = characters.currentOffset
+        characters.advanceWhile { it in S }
+
+        if (!matchQName()) {
+            characters.currentOffset = savedOffset
+            return XPathTokenType.LESS_THAN
+        }
+
+        characters.advanceWhile { it in S }
+
+        return when (characters.currentChar) {
+            Solidus -> {
+                if (characters.nextChar == GreaterThanSign) {
+                    characters.advance()
+                    characters.advance()
+                    return XQueryTokenType.DIRELEM_OPEN_XML_TAG
+                }
+                XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
+            }
+
+            GreaterThanSign -> {
+                characters.advance()
+                pushState(STATE_DIR_ELEM_CONTENT)
+                XQueryTokenType.DIRELEM_OPEN_XML_TAG
+            }
+
+            in NameStartChar -> {
+                pushState(STATE_DIR_ATTRIBUTE_LIST)
+                XQueryTokenType.DIRELEM_OPEN_XML_TAG
+            }
+
+            else -> XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG
+        }
+    }
+
+    private fun matchEntityReference(state: Int): IElementType = when (state) {
+        STATE_DIR_ATTRIBUTE_VALUE_QUOTE, STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE -> when (characters.matchEntityReference()) {
+            EntityReferenceType.CharacterReference -> XQueryTokenType.XML_CHARACTER_REFERENCE
+            EntityReferenceType.EmptyEntityReference -> XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE
+            EntityReferenceType.PartialEntityReference -> XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE
+            else -> XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE
+        }
+
+        else -> when (characters.matchEntityReference()) {
+            EntityReferenceType.CharacterReference -> XQueryTokenType.CHARACTER_REFERENCE
+            EntityReferenceType.EmptyEntityReference -> XQueryTokenType.EMPTY_ENTITY_REFERENCE
+            EntityReferenceType.PartialEntityReference -> XQueryTokenType.PARTIAL_ENTITY_REFERENCE
+            else -> XQueryTokenType.PREDEFINED_ENTITY_REFERENCE
+        }
+    }
+
+    override fun advance(state: Int): IElementType? = when (state) {
+        STATE_DEFAULT -> stateDefault(state)
+        STATE_DEFAULT_ATTRIBUTE_QUOT -> stateDefault(state)
+        STATE_DEFAULT_ATTRIBUTE_APOSTROPHE -> stateDefault(state)
+        STATE_DEFAULT_ELEM_CONTENT -> stateDefault(state)
+        STATE_DEFAULT_STRING_INTERPOLATION -> stateDefault(state)
+        STATE_MAYBE_DIR_ELEM_CONSTRUCTOR -> stateDefault(state)
+        STATE_XML_COMMENT -> stateXmlComment()
+        STATE_XML_COMMENT_ELEM_CONTENT -> stateXmlComment()
+        STATE_CDATA_SECTION -> stateCDataSection()
+        STATE_CDATA_SECTION_ELEM_CONTENT -> stateCDataSection()
+        STATE_DIR_ELEM_CONSTRUCTOR -> stateDirElemConstructor(state)
+        STATE_DIR_ELEM_CONSTRUCTOR_CLOSING -> stateDirElemConstructor(state)
+        STATE_DIR_ATTRIBUTE_LIST -> stateDirElemConstructor(state)
+        STATE_DIR_ATTRIBUTE_VALUE_QUOTE -> stateDirAttributeValue(QuotationMark)
+        STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE -> stateDirAttributeValue(Apostrophe)
+        STATE_DIR_ELEM_CONTENT -> stateDirElemContent()
+        STATE_PROCESSING_INSTRUCTION -> stateProcessingInstruction(state)
+        STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT -> stateProcessingInstruction(state)
+        STATE_PROCESSING_INSTRUCTION_CONTENTS -> stateProcessingInstructionContents()
+        STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT -> stateProcessingInstructionContents()
+        STATE_STRING_CONSTRUCTOR_CONTENTS -> stateStringConstructorContents()
+        STATE_START_DIR_ELEM_CONSTRUCTOR -> stateStartDirElemConstructor()
+        else -> super.advance(state)
     }
 }

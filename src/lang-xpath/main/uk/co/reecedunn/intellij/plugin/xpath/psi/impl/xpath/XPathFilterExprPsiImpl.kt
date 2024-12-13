@@ -45,7 +45,7 @@ class XPathFilterExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathF
     override val expressionElement: PsiElement?
         get() {
             var step: PsiElement = this
-            while (step.firstChild !is XPathPrimaryExpr) {
+            while (step.firstChild != null && step.firstChild !is XPathPrimaryExpr) {
                 step = step.firstChild!!
             }
             return (step.firstChild as? XpmExpression)?.expressionElement ?: step.firstChild

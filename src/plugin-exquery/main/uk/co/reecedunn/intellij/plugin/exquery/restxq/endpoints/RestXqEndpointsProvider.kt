@@ -16,16 +16,17 @@
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.ModificationTracker
+import com.intellij.psi.PsiElement
 import com.intellij.psi.util.CachedValue
 import com.intellij.psi.util.CachedValueProvider
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.psi.util.PsiModificationTracker
 import uk.co.reecedunn.intellij.microservices.endpoints.*
-import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryBundle
@@ -52,7 +53,11 @@ class RestXqEndpointsProvider :
     )
 
     override fun getEndpointData(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint, dataId: String): Any? {
-        return endpoint.getData(dataId)
+        return endpoint.getData(dataId) ?: super.getEndpointData(group, endpoint, dataId)
+    }
+
+    override fun getDocumentationElement(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint): PsiElement? {
+        return getEndpointData(group, endpoint, CommonDataKeys.PSI_ELEMENT.name) as? PsiElement
     }
 
     private fun getEndpointGroups(project: Project): List<RestXqEndpointsGroup> {
@@ -77,7 +82,7 @@ class RestXqEndpointsProvider :
     }
 
     override fun getEndpointPresentation(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint): ItemPresentation {
-        return EndpointMethodPresentation(endpoint, endpoint.endpointMethod, endpoint.endpointMethodOrder)
+        return endpoint
     }
 
     override fun getEndpoints(group: RestXqEndpointsGroup): Iterable<RestXqEndpoint> {
@@ -85,7 +90,7 @@ class RestXqEndpointsProvider :
     }
 
     override fun getModificationTracker(project: Project): ModificationTracker {
-        return PsiModificationTracker.SERVICE.getInstance(project).forLanguage(XQuery)
+        return PsiModificationTracker.getInstance(project).forLanguage(XQuery)
     }
 
     override fun getStatus(project: Project): EndpointsProviderStatus = when {

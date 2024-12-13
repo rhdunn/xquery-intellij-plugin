@@ -19,9 +19,9 @@ import com.intellij.lang.ParserDefinition
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 

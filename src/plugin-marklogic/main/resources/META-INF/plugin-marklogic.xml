@@ -6,13 +6,13 @@
     <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.Rewriter"/>
     <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.ModelTypeRegexLanguageInjection"/>
     <completion.contributor language="XML" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.completion.RewriterCompletionContributor"/>
-    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.RewriterReferenceContributor"/>
+    <psi.referenceContributor language="XML" implementation="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.RewriterReferenceContributor"/>
     <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.rewriter.navigation.RewriterLineMarkerProvider"/>
 
     <!-- Search Options XML -->
     <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions"/>
-    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomConstraintModuleUriReferenceContributor"/>
-    <psi.referenceContributor implementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomConstraintFunctionReferenceContributor"/>
+    <psi.referenceContributor language="XQuery" implementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomConstraintModuleUriReferenceContributor"/>
+    <psi.referenceContributor language="XQuery" implementation="uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomConstraintFunctionReferenceContributor"/>
     <codeInsight.lineMarkerProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.search.options.navigation.CustomConstraintLineMarkerProvider"/>
 
     <!-- XRay Unit Tests -->

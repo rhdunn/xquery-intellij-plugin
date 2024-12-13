@@ -1,0 +1,16 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath"/>
+  </extensions>
+
+  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <!-- Module Paths -->
+
+    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.java.JavaModulePath$Companion"/>
+    <modulePathFactory implementationClass="uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath$Companion"/>
+
+    <!-- Module Loaders -->
+
+    <moduleLoaderFactory name="java" implementationClass="uk.co.reecedunn.intellij.plugin.xpm.java.JavaModuleLoader" fieldName="INSTANCE"/>
+  </extensions>
+</idea-plugin>

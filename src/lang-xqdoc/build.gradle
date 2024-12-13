@@ -1,13 +1,13 @@
-sourceSets.main.java.srcDirs += 'main'
-sourceSets.main.resources.srcDirs += 'main/resources'
+sourceSets.main.java.srcDirs += "main"
+sourceSets.main.resources.srcDirs += "main/resources"
 
-sourceSets.test.java.srcDirs += 'test'
+sourceSets.test.java.srcDirs += "test"
 
 dependencies {
-    compile project(':src:lang-core')
-    compile project(':src:lang-xdm')
-    compile project(':src:lang-xpm')
+    implementation(project(":src:kotlin-intellij"))
+    implementation(project(":src:lang-core"))
+    implementation(project(":src:lang-xdm"))
+    implementation(project(":src:lang-xpm"))
 
-    testCompile project(':src:intellij-test')
-    testCompile project(':src:kotlin-hamcrest')
+    testImplementation(project(":src:intellij-test"))
 }

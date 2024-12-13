@@ -20,10 +20,10 @@ import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.util.elementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0081
@@ -92,8 +92,6 @@ class XPathInspectionTest : InspectionTestCase() {
             @Test
             @DisplayName("built-in MarkLogic namespaces")
             fun testBuiltinMarkLogic() {
-                settings.implementationVersion = "marklogic/v8"
-                settings.XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
                 val file = parse<XQueryModule>(
                     """
                     declare variable ${'$'}x := xdmp:version();
@@ -101,7 +99,10 @@ class XPathInspectionTest : InspectionTestCase() {
                     """
                 )[0]
 
-                val problems = inspect(file, XPST0081())
+                val problems = inspect(file, XPST0081()) {
+                    implementationVersion = "marklogic/v8"
+                    XQueryVersion = XQuerySpec.MARKLOGIC_1_0.versionId
+                }
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(0))
             }
@@ -109,7 +110,6 @@ class XPathInspectionTest : InspectionTestCase() {
             @Test
             @DisplayName("built-in XQuery 1.0 namespaces; different vendor")
             fun testBuiltinMarkLogicNotTargettingMarkLogic() {
-                settings.implementationVersion = "w3c/spec/v1ed"
                 val file = parse<XQueryModule>(
                     """
                     declare variable ${'$'}x := xdmp:version();
@@ -117,7 +117,9 @@ class XPathInspectionTest : InspectionTestCase() {
                     """
                 )[0]
 
-                val problems = inspect(file, XPST0081())
+                val problems = inspect(file, XPST0081()) {
+                    implementationVersion = "w3c/spec/v1ed"
+                }
                 assertThat(problems, `is`(notNullValue()))
                 assertThat(problems!!.size, `is`(1))
 

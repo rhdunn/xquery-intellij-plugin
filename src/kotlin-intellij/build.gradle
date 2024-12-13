@@ -1,12 +1,10 @@
-sourceSets.main.java.srcDirs += 'main'
+sourceSets.main.java.srcDirs += "main"
 
-sourceSets.test.java.srcDirs += 'test'
-sourceSets.test.resources.srcDirs += 'test/resources'
+sourceSets.test.java.srcDirs += "test"
+sourceSets.test.resources.srcDirs += "test/resources"
 
-ext.compat_version = project.property('idea_since_build')
+ext.compat_version = project.property("idea_since_build")
 
 dependencies {
-    compile project(':src:intellij-compat')
-
-    testCompile project(':src:kotlin-hamcrest')
+    implementation(project(":src:intellij-compat"))
 }

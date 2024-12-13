@@ -15,20 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.debugger
 
+import com.intellij.compat.xdebugger.frame.XValueNode
 import com.intellij.xdebugger.frame.XFullValueEvaluator
 import com.intellij.xdebugger.frame.XNamedValue
-import com.intellij.xdebugger.frame.XValueNode
 import com.intellij.xdebugger.frame.XValuePlace
 import com.intellij.xdebugger.frame.presentation.XNumericValuePresentation
 import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation
 import com.intellij.xdebugger.frame.presentation.XStringValuePresentation
 import com.intellij.xdebugger.frame.presentation.XValuePresentation
 import org.hamcrest.CoreMatchers.*
+import org.hamcrest.MatcherAssert.assertThat
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.xml.dom.XmlDocument
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.MarkLogicVariable
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
@@ -67,10 +67,6 @@ class MarkLogicVariableTest : XValueNode {
         this.icon = icon
         this.presentation = presentation
         this.hasChildren = hasChildren
-    }
-
-    override fun setPresentation(icon: Icon?, type: String?, separator: String, value: String?, hasChildren: Boolean) {
-        TODO("Don't call this deprecated API.")
     }
 
     // endregion

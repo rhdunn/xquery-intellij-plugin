@@ -47,7 +47,7 @@ abstract class InspectionTestCase :
     private val inspectionManager: InspectionManager
         get() = InspectionManager.getInstance(project)
 
-    protected val settings: XQueryProjectSettings
+    private val settings: XQueryProjectSettings
         get() = XQueryProjectSettings.getInstance(project)
 
     override fun registerServicesAndExtensions() {
@@ -71,5 +71,14 @@ abstract class InspectionTestCase :
 
     fun inspect(file: XQueryModule, inspection: LocalInspectionTool): List<ProblemDescriptor>? {
         return inspection.checkFile(file, inspectionManager as InspectionManagerEx, false)?.filterNotNull()
+    }
+
+    fun inspect(
+        file: XQueryModule,
+        inspection: LocalInspectionTool,
+        configuration: XQueryProjectSettings.() -> Unit
+    ): List<ProblemDescriptor>? = synchronized(settings) {
+        settings.configuration()
+        return inspect(file, inspection)
     }
 }

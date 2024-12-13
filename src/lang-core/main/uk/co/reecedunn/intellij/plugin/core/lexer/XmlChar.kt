@@ -1,104 +1,58 @@
-/*
- * Copyright (C) 2017, 2020, 2022 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2022 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.lexer
 
-import kotlin.math.floor
+import kotlin.jvm.JvmInline
 
 /**
- * Represents an XML [Char](https://www.w3.org/TR/REC-xml/#NT-Char).
+ * Represents an XML character.
+ *
+ * @param codepoint The unicode codepoint for this XML character.
+ *
+ * @see <a href="http://www.w3.org/TR/REC-xml/#NT-Char">XML 1.0 (REC) Char</a>
  */
-data class XmlChar(val codepoint: Int) {
-    override fun toString(): String {
-        // 1. Invalid Unicode Codepoint
-        if (!isValid) return REPLACEMENT_CODEPOINT
-        // 2. Basic Multilingual Plane Codepoint
-        if (codepoint <= 0xFFFF) return codepoint.toChar().toString()
-        // 3. Other Codepoint => Surrogate Pair
-        val hi = 0xD800 + floor((codepoint - 0x10000).toDouble() / 0x400).toInt()
-        val lo = 0xDC00 + (codepoint - 0x10000) % 0x400
-        return hi.toChar().toString() + lo.toChar().toString()
+@JvmInline
+value class XmlChar(val codepoint: Int) : Comparable<XmlChar> {
+    /**
+     * Creates an XML character from a Kotlin character.
+     */
+    constructor(c: Char) : this(c.code)
+
+    /**
+     * Creates an XML character from a surrogate pair.
+     *
+     * @param high The high-surrogate value.
+     * @param low The low-surrogate value.
+     */
+    constructor(high: Char, low: Char) : this(toCodePoint(high, low))
+
+    /**
+     * Returns the UTF-16 representation of the XML character.
+     */
+    override fun toString(): String = when {
+        codepoint <= 0xFFFF -> codepoint.toChar().toString()
+        else -> {
+            // Surrogate Pair
+            val base = codepoint - 0x10000
+            val hi = 0xD800 + base.floorDiv(0x400)
+            val lo = 0xDC00 + base % 0x400
+            hi.toChar().toString() + lo.toChar().toString()
+        }
     }
 
-    val length: Int
-        get() = when {
-            !isValid -> 1 // Replacement Codepoint
-            codepoint <= 0xFFFF -> 1 // Basic Multilingual Plane Codepoint
-            else -> 2 // Surrogate Pair Codepoint
-        }
-
     /**
-     * Is this a valid codepoint?
+     * Compares this object with the specified object for order.
      *
-     * Any value outside the range U+0000 to U+10FFFF is an invalid codepoint.
-     * Invalid codepoints are not allowed in the XML `Char` regular expression.
+     * @return zero if this object is equal to the specified `other` object,
+     *         a negative number if it's less than `other`,
+     *         or a positive number if it's greater than `other`.
      */
-    @Suppress("MemberVisibilityCanBePrivate")
-    val isValid: Boolean = codepoint in 0..0x10FFFF
-
-    /**
-     * Is the codepoint an unsupported control character?
-     *
-     * The XML `Char` regular expression excludes C0 control characters except
-     * HT, CR, and LF, while the note in the spec discourages DEL, and the C1
-     * control characters except NEL.
-     *
-     * The C0 control characters are U+0000 to U+001F, and the C1 control
-     * characters are in the range U+0080 to U+009F. The named codepoints
-     * are:
-     *   -  U+0009 HT (HORIZONTAL TAB)
-     *   -  U+000D CR (CARRIAGE RETURN)
-     *   -  U+000A LF (LINE FEED)
-     *   -  U+007F DEL (DELETE)
-     *   -  U+0085 NEL (NEXT LINE)
-     */
-    @Suppress("unused")
-    val isUnsupportedControlCharacter: Boolean
-        get() = (codepoint in 0x00..0x1F || codepoint in 0x7F..0x9F) && codepoint !in VALID_CONTROL_CHARACTERS
-
-    /**
-     * Is the codepoint a UTF-16 surrogate?
-     *
-     * Surrogates are invalid when not used as a pair in a UTF-16 byte sequence.
-     *
-     * The XML `Char` regular expression excludes these codepoints.
-     */
-    @Suppress("unused")
-    val isSurrogate: Boolean = codepoint in 0xD800..0xDFFF
-
-    /**
-     * Is the codepoint permanently unassigned?
-     *
-     * The XML `Char` type regular expression excludes the Basic Multilingual
-     * Plane U+FFFE and U+FFFF codepoints, while the note in the spec
-     * discourages the equivalent codepoints from the other Unicode planes.
-     * Unicode classifies these as `Cn` (unassigned) characters.
-     *
-     * The Unicode codepoints U+FDD0 to U+FDEF are intended for internal
-     * processing purposes, and as such are also unassigned codepoints.
-     *
-     * Other Unicode codepoints with the `Cn `(unassigned) general category
-     * may be assigned at some point in the future, so using those is not
-     * invalid.
-     */
-    @Suppress("unused")
-    val isPermanentlyUnassigned: Boolean
-        get() = (codepoint and 0x00FFFF) in 0xFFFE..0xFFFF || codepoint in 0xFDD0..0xFDEF
+    override fun compareTo(other: XmlChar): Int = codepoint.compareTo(other.codepoint)
 
     companion object {
-        const val REPLACEMENT_CODEPOINT: String = "\uFFFD"
-        private val VALID_CONTROL_CHARACTERS = arrayOf(0x09, 0x0A, 0x0D, 0x85) // TAB, LF, CR, NEL
+        private fun toCodePoint(high: Char, low: Char): Int {
+            val hi = (high.code - 0xD800) * 0x400
+            val lo = low.code - 0xDC00
+            return 0x10000 + hi + lo
+        }
     }
 }
