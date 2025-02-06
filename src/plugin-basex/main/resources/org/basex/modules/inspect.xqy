@@ -15,7 +15,9 @@ declare option o:requires "basex/7.7";
 
 declare %a:since("basex", "7.7") function inspect:functions() as function(*)* external;
 declare %a:since("basex", "7.7") function inspect:functions($uri as xs:string) as function(*)* external;
-declare %a:since("basex", "8.5") function inspect:function-annotations($function as function(*)?) as map(xs:QName, xs:anyAtomicType*) external;
+declare %a:since("basex", "8.5")
+        %a:until("basex", "11.0")
+        %a:see-also("w3", "4.0", "fn:function-annotations") function inspect:function-annotations($function as function(*)?) as map(xs:QName, xs:anyAtomicType*) external;
 declare %a:since("basex", "8.5") function inspect:static-context($function as function(*)?, $name as xs:string) as item()* external;
 declare %a:since("basex", "7.7") function inspect:function($function as function(*)) as element(function) external;
 declare %a:since("basex", "7.7") function inspect:context() as element(context) external;
