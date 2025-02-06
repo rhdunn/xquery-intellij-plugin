@@ -12,12 +12,23 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 declare option o:requires "basex/7.0";
 
 declare %a:since("basex", "7.0") function hof:fold-left1($seq as item()+, $f as function(item()*, item()) as item()*) as item()* external;
-declare %a:since("basex", "7.0") function hof:until($pred as function(item()*) as xs:boolean, $f as function(item()*) as item()*, $start as item()*) as item()* external;
+declare %a:since("basex", "7.0")
+        %a:until("basex", "11.0")
+        %a:see-also("w3", "4.0", "fn:while-do")
+        %a:see-also("w3", "4.0", "fn:do-until") function hof:until($pred as function(item()*) as xs:boolean, $f as function(item()*) as item()*, $start as item()*) as item()* external;
 declare %a:since("basex", "8.1") function hof:scan-left($seq as item()*, $start as item()*, $f as function(item()*, item()) as item()*) as item()* external;
-declare %a:since("basex", "8.1") function hof:take-while($seq as item()*, $pred as function(item()) as xs:boolean) as item()* external;
+declare %a:since("basex", "8.1")
+        %a:until("basex", "11.0")
+        %a:see-also("w3", "4.0", "fn:take-while") function hof:take-while($seq as item()*, $pred as function(item()) as xs:boolean) as item()* external;
 declare %a:since("basex", "7.2") function hof:top-k-by($seq as item()*, $sort-key as function(item()) as item(), $k as xs:integer) as item()* external;
 declare %a:since("basex", "7.2") function hof:top-k-with($seq as item()*, $lt as function(item(), item()) as xs:boolean, $k as xs:integer) as item()* external;
-declare %a:since("basex", "7.0") function hof:id($expr as item()*) as item()* external;
-declare %a:since("basex", "7.0") function hof:const($expr as item()*, $ignored as item()*) as item()* external;
+declare %a:since("basex", "7.0")
+        %a:until("basex", "11.0")
+        %a:see-also("w3", "4.0", "fn:identity") function hof:id($expr as item()*) as item()* external;
+declare %a:since("basex", "7.0")
+        %a:until("basex", "11.0")
+        %a:see-also("w3", "4.0", "fn:identity") function hof:const($expr as item()*, $ignored as item()*) as item()* external;
 declare %a:since("basex", "7.0") %a:until("basex", "7.2") function hof:iterate($f as function(item()*, item()*) as item()*, $seq as item()*) as item()* external;
-declare %a:since("basex", "9.5") function hof:drop-while($seq as item()*, $pred as function(item()) as xs:boolean) as item()* external;
+declare %a:since("basex", "9.5")
+        %a:until("basex", "11.0")
+        %a:see-also("w3", "4.0", "fn:subsequence-where") function hof:drop-while($seq as item()*, $pred as function(item()) as xs:boolean) as item()* external;
