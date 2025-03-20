@@ -27,7 +27,7 @@ class CustomConstraintLineMarkerProvider : LineMarkerProvider {
         return NavigationGutterIconBuilder.create(CustomConstraintFunctionReference.getIcon(facets[0].referenceType))
             .setTargets(facets.map { it.element })
             .setTooltipText(PluginApiBundle.message("line-marker.search-constraint.tooltip-text"))
-            .setTargetRenderer { CustomConstraintListCellRenderer(facets) as PsiTargetPresentationRenderer<PsiElement> }
+            .setTargetRenderer { CustomConstraintListCellRenderer(facets) }
             .createLineMarkerInfo(element)
     }
 }
