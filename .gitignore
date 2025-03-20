@@ -16,6 +16,7 @@ classes/
 out/
 
 .intellijPlatform/
+.kotlin/
 
 project-dependencies.*
 
