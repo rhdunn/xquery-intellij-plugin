@@ -80,7 +80,7 @@ abstract class AnnotatorTestCase<File : PsiFile>(
 }
 
 fun List<Annotation>.prettyPrint(): String {
-    return groupBy { "${it.severity} (${it.startOffset}:${it.endOffset})" }.asSequence().joinToString("\n") {
+    return groupBy { "${it.severity.name} (${it.startOffset}:${it.endOffset})" }.asSequence().joinToString("\n") {
         val annotations = it.value.joinToString(" + ") { a ->
             when {
                 a.enforcedTextAttributes === TextAttributes.ERASE_MARKER -> "ERASED/${a.textAttributes.externalName}"
