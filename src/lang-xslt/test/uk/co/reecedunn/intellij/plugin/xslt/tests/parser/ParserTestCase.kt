@@ -15,8 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import com.intellij.compat.lang.xml.registerBasicXmlElementFactory
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.lang.ParserDefinition
 import com.intellij.lang.injection.InjectedLanguageManager
@@ -31,6 +30,8 @@ import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import com.intellij.xml.XmlExtension
 import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
@@ -56,6 +57,8 @@ abstract class ParserTestCase(vararg definitions: ParserDefinition) :
             StartTagEndTokenProvider.EP_NAME, StartTagEndTokenProvider::class.java, pluginDisposable
         )
         app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
+
+        app.registerBasicXmlElementFactory()
 
         project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
         project.registerServiceInstance(ModuleManager::class.java, MockModuleManager(mockProject))

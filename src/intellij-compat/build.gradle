@@ -42,6 +42,12 @@ if (ext.intellij_version >= 243) {
 }
 
 if (ext.intellij_version >= 251) {
+    sourceSets.main.java.srcDirs += "src/251/native"
+} else {
+    sourceSets.main.java.srcDirs += "src/251/compat"
+}
+
+if (ext.intellij_version >= 251) {
     sourceSets.main.java.srcDirs += "src/233-251/native"
 } else if (ext.intellij_version >= 233) {
     sourceSets.main.java.srcDirs += "src/233-251/233"
