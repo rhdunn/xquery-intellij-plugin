@@ -1,6 +1,7 @@
-// Copyright (C) 2021, 2023 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2021, 2023, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.processor.test.execution.ui
 
+import com.intellij.compat.fileTypes.FileTypeEditorHighlighterProviders
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
@@ -8,7 +9,6 @@ import com.intellij.execution.ui.RunnerLayoutUi
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
-import com.intellij.openapi.fileTypes.FileTypeEditorHighlighterProviders
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiFileFactory
@@ -71,7 +71,7 @@ class TestConsoleOutputView(project: Project, private val outputFormat: TestForm
         val language = outputFormat.language
 
         language.associatedFileType!!.let {
-            val provider = FileTypeEditorHighlighterProviders.INSTANCE.forFileType(it)
+            val provider = FileTypeEditorHighlighterProviders.getInstance().forFileType(it)
             editor!!.highlighter = provider.getEditorHighlighter(project, it, null, editor!!.colorsScheme)
         }
 
