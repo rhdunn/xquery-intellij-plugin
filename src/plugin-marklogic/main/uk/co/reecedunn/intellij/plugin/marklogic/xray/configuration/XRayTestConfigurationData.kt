@@ -1,31 +1,17 @@
-/*
- * Copyright (C) 2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 
 import com.intellij.execution.configurations.RunConfigurationOptions
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray.XRayXmlFormat
 
-data class XRayTestConfigurationData(
-    var processorId: Int? = null,
-    var database: String? = null,
-    var server: String? = null,
-    var modulePath: String? = null,
-    var testPath: String? = null,
-    var modulePattern: String? = null,
-    var testPattern: String? = null,
-    var outputFormat: String = XRayXmlFormat.id,
-    var reformatResults: Boolean = false
-) : RunConfigurationOptions()
+class XRayTestConfigurationData : RunConfigurationOptions() {
+    var processorId: Int by property(-1)
+    var database: String? by string()
+    var server: String? by string()
+    var modulePath: String? by string()
+    var testPath: String? by string()
+    var modulePattern: String? by string()
+    var testPattern: String? by string()
+    var outputFormat: String? by string(XRayXmlFormat.id)
+    var reformatResults: Boolean by property(false)
+}

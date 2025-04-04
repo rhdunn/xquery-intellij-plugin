@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 
 import com.intellij.execution.Executor
@@ -29,6 +15,7 @@ import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray.XRayXmlFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.runner.XRayTestRunState
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
@@ -71,15 +58,15 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
     // region Query Processor
 
     var processorId: Int?
-        get() = data.processorId
+        get() = if (data.processorId == -1) null else data.processorId
         set(value) {
-            data.processorId = value
+            data.processorId = value ?: -1
         }
 
     var processor: QueryProcessorSettings?
-        get() = QueryProcessors.getInstance().processors.firstOrNull { processor -> processor.id == data.processorId }
+        get() = QueryProcessors.getInstance().processors.firstOrNull { processor -> processor.id == processorId }
         set(value) {
-            data.processorId = value?.id
+            processorId = value?.id
         }
 
     // endregion
@@ -140,7 +127,7 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
     // region Output Format
 
     override var outputFormat: TestFormat
-        get() = XRayTestFormat.format(data.outputFormat)
+        get() = XRayTestFormat.format(data.outputFormat ?: XRayXmlFormat.id)
         set(value) {
             data.outputFormat = value.id
         }
