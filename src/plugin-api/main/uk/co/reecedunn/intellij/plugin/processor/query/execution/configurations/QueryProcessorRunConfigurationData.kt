@@ -1,34 +1,20 @@
-/*
- * Copyright (C) 2018-2020 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2018-2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations
 
 import com.intellij.execution.configurations.RunConfigurationOptions
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 
-data class QueryProcessorRunConfigurationData(
-    var processorId: Int? = null,
-    var rdfOutputFormat: String? = null,
-    var updating: Boolean = false,
-    var xpathSubset: XPathSubset = XPathSubset.XPath,
-    var database: String? = null,
-    var server: String? = null,
-    var modulePath: String? = null,
-    var scriptFile: String? = null,
-    var scriptSource: QueryProcessorDataSourceType = QueryProcessorDataSourceType.LocalFile,
-    var contextItem: String? = null,
-    var contextItemSource: QueryProcessorDataSourceType? = null,
-    var reformatResults: Boolean = false
-) : RunConfigurationOptions()
+class QueryProcessorRunConfigurationData : RunConfigurationOptions() {
+    var processorId: Int by property(-1)
+    var rdfOutputFormat: String? by string()
+    var updating: Boolean by property(false)
+    var xpathSubset: XPathSubset by enum(XPathSubset.XPath)
+    var database: String? by string()
+    var server: String? by string()
+    var modulePath: String? by string()
+    var scriptFile: String? by string()
+    var scriptSource: QueryProcessorDataSourceType by enum(QueryProcessorDataSourceType.LocalFile)
+    var contextItem: String? by string()
+    var contextItemSource: QueryProcessorDataSourceType? by enum<QueryProcessorDataSourceType>()
+    var reformatResults: Boolean by property(false)
+}

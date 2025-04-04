@@ -1,20 +1,7 @@
-/*
- * Copyright (C) 2019-2022 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2019-2022, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.processor.tests.query.execution.configurations
 
+import com.intellij.execution.configurations.RunConfigurationBase
 import com.intellij.execution.impl.serializeConfigurationInto
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.util.JDOMUtil
@@ -22,7 +9,6 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.jdom.Element
 import org.junit.jupiter.api.*
-import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.QueryProcessorDataSourceType
@@ -58,7 +44,7 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
         assertThat(settings.contextItemValue, `is`(nullValue()))
 
         val state = settings.getState()!!
-        assertThat(state.processorId, `is`(nullValue()))
+        assertThat(state.processorId, `is`(-1))
         assertThat(state.rdfOutputFormat, `is`(nullValue()))
         assertThat(state.reformatResults, `is`(false))
         assertThat(state.updating, `is`(false))
@@ -77,18 +63,7 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     fun processorId() {
         val serialized = """
             <configuration>
-              <option name="contextItem" />
-              <option name="contextItemSource" />
-              <option name="database" />
-              <option name="modulePath" />
               <option name="processorId" value="1" />
-              <option name="rdfOutputFormat" />
-              <option name="reformatResults" value="false" />
-              <option name="scriptFile" />
-              <option name="scriptSource" value="LocalFile" />
-              <option name="server" />
-              <option name="updating" value="false" />
-              <option name="xpathSubset" value="XPath" />
             </configuration>
         """.trimIndent()
 
@@ -106,18 +81,7 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     fun rdfOutputFormat() {
         val serialized = """
             <configuration>
-              <option name="contextItem" />
-              <option name="contextItemSource" />
-              <option name="database" />
-              <option name="modulePath" />
-              <option name="processorId" />
               <option name="rdfOutputFormat" value="text/turtle" />
-              <option name="reformatResults" value="false" />
-              <option name="scriptFile" />
-              <option name="scriptSource" value="LocalFile" />
-              <option name="server" />
-              <option name="updating" value="false" />
-              <option name="xpathSubset" value="XPath" />
             </configuration>
         """.trimIndent()
 
@@ -135,18 +99,7 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     fun reformatResults() {
         val serialized = """
             <configuration>
-              <option name="contextItem" />
-              <option name="contextItemSource" />
-              <option name="database" />
-              <option name="modulePath" />
-              <option name="processorId" />
-              <option name="rdfOutputFormat" />
               <option name="reformatResults" value="true" />
-              <option name="scriptFile" />
-              <option name="scriptSource" value="LocalFile" />
-              <option name="server" />
-              <option name="updating" value="false" />
-              <option name="xpathSubset" value="XPath" />
             </configuration>
         """.trimIndent()
 
@@ -164,18 +117,7 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     fun updating() {
         val serialized = """
             <configuration>
-              <option name="contextItem" />
-              <option name="contextItemSource" />
-              <option name="database" />
-              <option name="modulePath" />
-              <option name="processorId" />
-              <option name="rdfOutputFormat" />
-              <option name="reformatResults" value="false" />
-              <option name="scriptFile" />
-              <option name="scriptSource" value="LocalFile" />
-              <option name="server" />
               <option name="updating" value="true" />
-              <option name="xpathSubset" value="XPath" />
             </configuration>
         """.trimIndent()
 
@@ -193,17 +135,6 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     fun xpathSubset() {
         val serialized = """
             <configuration>
-              <option name="contextItem" />
-              <option name="contextItemSource" />
-              <option name="database" />
-              <option name="modulePath" />
-              <option name="processorId" />
-              <option name="rdfOutputFormat" />
-              <option name="reformatResults" value="false" />
-              <option name="scriptFile" />
-              <option name="scriptSource" value="LocalFile" />
-              <option name="server" />
-              <option name="updating" value="false" />
               <option name="xpathSubset" value="XsltPattern" />
             </configuration>
         """.trimIndent()
@@ -222,18 +153,7 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     fun server() {
         val serialized = """
             <configuration>
-              <option name="contextItem" />
-              <option name="contextItemSource" />
-              <option name="database" />
-              <option name="modulePath" />
-              <option name="processorId" />
-              <option name="rdfOutputFormat" />
-              <option name="reformatResults" value="false" />
-              <option name="scriptFile" />
-              <option name="scriptSource" value="LocalFile" />
               <option name="server" value="test-server" />
-              <option name="updating" value="false" />
-              <option name="xpathSubset" value="XPath" />
             </configuration>
         """.trimIndent()
 
@@ -251,18 +171,7 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     fun database() {
         val serialized = """
             <configuration>
-              <option name="contextItem" />
-              <option name="contextItemSource" />
               <option name="database" value="test-database" />
-              <option name="modulePath" />
-              <option name="processorId" />
-              <option name="rdfOutputFormat" />
-              <option name="reformatResults" value="false" />
-              <option name="scriptFile" />
-              <option name="scriptSource" value="LocalFile" />
-              <option name="server" />
-              <option name="updating" value="false" />
-              <option name="xpathSubset" value="XPath" />
             </configuration>
         """.trimIndent()
 
@@ -280,18 +189,7 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     fun modulePath() {
         val serialized = """
             <configuration>
-              <option name="contextItem" />
-              <option name="contextItemSource" />
-              <option name="database" />
               <option name="modulePath" value="/test/path" />
-              <option name="processorId" />
-              <option name="rdfOutputFormat" />
-              <option name="reformatResults" value="false" />
-              <option name="scriptFile" />
-              <option name="scriptSource" value="LocalFile" />
-              <option name="server" />
-              <option name="updating" value="false" />
-              <option name="xpathSubset" value="XPath" />
             </configuration>
         """.trimIndent()
 
@@ -309,18 +207,7 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     fun scriptFileSource() {
         val serialized = """
             <configuration>
-              <option name="contextItem" />
-              <option name="contextItemSource" />
-              <option name="database" />
-              <option name="modulePath" />
-              <option name="processorId" />
-              <option name="rdfOutputFormat" />
-              <option name="reformatResults" value="false" />
-              <option name="scriptFile" />
               <option name="scriptSource" value="ActiveEditorFile" />
-              <option name="server" />
-              <option name="updating" value="false" />
-              <option name="xpathSubset" value="XPath" />
             </configuration>
         """.trimIndent()
 
@@ -338,18 +225,7 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     fun scriptFilePath() {
         val serialized = """
             <configuration>
-              <option name="contextItem" />
-              <option name="contextItemSource" />
-              <option name="database" />
-              <option name="modulePath" />
-              <option name="processorId" />
-              <option name="rdfOutputFormat" />
-              <option name="reformatResults" value="false" />
               <option name="scriptFile" value="/test/script.xqy" />
-              <option name="scriptSource" value="LocalFile" />
-              <option name="server" />
-              <option name="updating" value="false" />
-              <option name="xpathSubset" value="XPath" />
             </configuration>
         """.trimIndent()
 
@@ -367,18 +243,7 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
     fun contextItemSource() {
         val serialized = """
             <configuration>
-              <option name="contextItem" />
               <option name="contextItemSource" value="ActiveEditorFile" />
-              <option name="database" />
-              <option name="modulePath" />
-              <option name="processorId" />
-              <option name="rdfOutputFormat" />
-              <option name="reformatResults" value="false" />
-              <option name="scriptFile" />
-              <option name="scriptSource" value="LocalFile" />
-              <option name="server" />
-              <option name="updating" value="false" />
-              <option name="xpathSubset" value="XPath" />
             </configuration>
         """.trimIndent()
 
@@ -397,17 +262,6 @@ class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
         val serialized = """
             <configuration>
               <option name="contextItem" value="/test/input.xml" />
-              <option name="contextItemSource" />
-              <option name="database" />
-              <option name="modulePath" />
-              <option name="processorId" />
-              <option name="rdfOutputFormat" />
-              <option name="reformatResults" value="false" />
-              <option name="scriptFile" />
-              <option name="scriptSource" value="LocalFile" />
-              <option name="server" />
-              <option name="updating" value="false" />
-              <option name="xpathSubset" value="XPath" />
             </configuration>
         """.trimIndent()
 

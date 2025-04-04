@@ -1,23 +1,10 @@
-/*
- * Copyright (C) 2018-2020 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2018-2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations
 
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.RunConfiguration
+import com.intellij.execution.configurations.RunConfigurationBase
 import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
@@ -26,7 +13,6 @@ import com.intellij.lang.Language
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.core.lang.findByAssociations
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
@@ -60,15 +46,15 @@ class QueryProcessorRunConfiguration(
     // region Query Processor
 
     var processorId: Int?
-        get() = data.processorId
+        get() = if (data.processorId == -1) null else data.processorId
         set(value) {
-            data.processorId = value
+            data.processorId = value ?: -1
         }
 
     var processor: QueryProcessorSettings?
-        get() = QueryProcessors.getInstance().processors.firstOrNull { processor -> processor.id == data.processorId }
+        get() = QueryProcessors.getInstance().processors.firstOrNull { processor -> processor.id == processorId }
         set(value) {
-            data.processorId = value?.id
+            processorId = value?.id
         }
 
     // endregion
