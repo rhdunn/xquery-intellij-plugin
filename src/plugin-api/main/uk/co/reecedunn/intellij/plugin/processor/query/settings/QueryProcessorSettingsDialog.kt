@@ -215,12 +215,6 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
                 )
                 awsApplication = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
                     val descriptor = object : FileChooserDescriptor(true, false, false, false, false, false) {
-                        override fun isFileVisible(file: VirtualFile?, showHiddenFiles: Boolean): Boolean = when {
-                            file == null -> false
-                            file.isDirectory -> true
-                            else -> file.name == "aws" || file.name == "aws.exe"
-                        }
-
                         override fun isFileSelectable(file: VirtualFile?): Boolean {
                             return super.isFileSelectable(file) || isMacExecutable(file)
                         }
@@ -230,6 +224,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
                         }
                     }
                     descriptor.title = PluginApiBundle.message("browser.choose.aws-application")
+                    descriptor.withFileFilter { it.name == "aws" || it.name == "aws.exe" }
                     addBrowseFolderListenerEx(project, descriptor)
                 }
             }
