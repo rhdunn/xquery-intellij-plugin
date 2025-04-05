@@ -1,6 +1,7 @@
 // Copyright (C) 2018-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations
 
+import com.intellij.compat.openapi.ui.addBrowseFolderListenerEx
 import com.intellij.lang.Language
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
@@ -70,7 +71,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             modulePath = textFieldWithBrowseButton(column.spanCols().horizontal().hgap().vgap()) {
                 val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
                 descriptor.title = PluginApiBundle.message("browser.choose.module-path")
-                addBrowseFolderListener(null, null, project, descriptor)
+                addBrowseFolderListenerEx(project, descriptor)
             }
         }
         row {
