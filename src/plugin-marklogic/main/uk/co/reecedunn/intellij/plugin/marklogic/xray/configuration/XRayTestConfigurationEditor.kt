@@ -1,20 +1,7 @@
-/*
- * Copyright (C) 2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 
+import com.intellij.compat.openapi.ui.addBrowseFolderListenerEx
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
@@ -89,7 +76,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             modulePath = textFieldWithBrowseButton(column.spanCols().horizontal().hgap().vgap()) {
                 val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
                 descriptor.title = PluginApiBundle.message("browser.choose.module-path")
-                addBrowseFolderListener(null, null, project, descriptor)
+                addBrowseFolderListenerEx(project, descriptor)
             }
         }
         separator(PluginApiBundle.message("xquery.configurations.test.xray-configuration.separator"))
@@ -98,7 +85,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             testPath = textFieldWithBrowseButton(column.spanCols(3).horizontal().hgap().vgap()) {
                 val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
                 descriptor.title = PluginApiBundle.message("browser.choose.test-path")
-                addBrowseFolderListener(null, null, project, descriptor)
+                addBrowseFolderListenerEx(project, descriptor)
             }
         }
         row {
