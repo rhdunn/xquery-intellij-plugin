@@ -163,7 +163,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
         row {
             label(PluginApiBundle.message("xquery.settings.dialog.query-processor.api-jar.label"), column.vgap())
             jar = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
-                val descriptor = FileChooserDescriptor(true, false, false, true, false, false)
+                val descriptor = FileChooserDescriptorFactory.singleFile()
                     .withExtensionFilterEx("jar")
                 descriptor.title = PluginApiBundle.message("browser.choose.implementation-api-jar")
                 addBrowseFolderListenerEx(project, descriptor)
