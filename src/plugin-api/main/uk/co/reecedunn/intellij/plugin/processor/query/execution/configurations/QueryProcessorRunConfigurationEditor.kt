@@ -4,7 +4,6 @@ package uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations
 import com.intellij.compat.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.compat.openapi.ui.addBrowseFolderListenerEx
 import com.intellij.lang.Language
-import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory as FileChooserDescriptorFactoryEx
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
@@ -135,8 +134,8 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
     private val inputPanel: JPanel = panel {
         contextItem = queryProcessorDataSource(allowUnspecified = true) {
-            val descriptor = FileChooserDescriptorFactoryEx.createSingleFileDescriptor()
-            descriptor.title = PluginApiBundle.message("browser.choose.context-item")
+            val descriptor = FileChooserDescriptorFactory.singleFile()
+                .withTitle(PluginApiBundle.message("browser.choose.context-item"))
             addBrowseFolderListenerEx(project, descriptor)
         }
         row {

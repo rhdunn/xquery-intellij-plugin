@@ -1,13 +1,13 @@
 // Copyright (C) 2018-2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.processor.query.settings
 
+import com.intellij.compat.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.compat.openapi.fileChooser.withExtensionFilterEx
 import com.intellij.compat.openapi.ui.addBrowseFolderListenerEx
 import com.intellij.icons.AllIcons
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.fileChooser.FileChooserDescriptor
-import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.openapi.util.SystemInfo
@@ -174,8 +174,8 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
         row {
             label(PluginApiBundle.message("xquery.settings.dialog.query-processor.config-path.label"), column.vgap())
             configuration = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
-                val descriptor = FileChooserDescriptorFactory.createSingleFileDescriptor()
-                descriptor.title = PluginApiBundle.message("browser.choose.configuration")
+                val descriptor = FileChooserDescriptorFactory.singleFile()
+                    .withTitle(PluginApiBundle.message("browser.choose.configuration"))
                 addBrowseFolderListenerEx(project, descriptor)
             }
         }
