@@ -7,5 +7,7 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory.*
 object FileChooserDescriptorFactory {
     fun singleFile(): FileChooserDescriptor = createSingleFileDescriptor()
 
+    fun singleFileOrAppBundle(): FileChooserDescriptor = createSingleFileOrExecutableAppDescriptor()
+
     fun singleDir(): FileChooserDescriptor = createSingleFolderDescriptor()
 }

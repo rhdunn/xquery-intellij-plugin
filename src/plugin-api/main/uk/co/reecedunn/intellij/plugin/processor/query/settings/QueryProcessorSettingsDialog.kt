@@ -10,8 +10,6 @@ import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.fileChooser.FileChooserDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
-import com.intellij.openapi.util.SystemInfo
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
@@ -214,17 +212,9 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
                     column.surrogate().vgap()
                 )
                 awsApplication = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
-                    val descriptor = object : FileChooserDescriptor(true, false, false, false, false, false) {
-                        override fun isFileSelectable(file: VirtualFile?): Boolean {
-                            return super.isFileSelectable(file) || isMacExecutable(file)
-                        }
-
-                        fun isMacExecutable(file: VirtualFile?): Boolean {
-                            return SystemInfo.isMac && file?.isDirectory == true && "app" == file.extension
-                        }
-                    }
-                    descriptor.title = PluginApiBundle.message("browser.choose.aws-application")
-                    descriptor.withFileFilter { it.name == "aws" || it.name == "aws.exe" }
+                    val descriptor = FileChooserDescriptorFactory.singleFileOrAppBundle()
+                        .withTitle(PluginApiBundle.message("browser.choose.aws-application"))
+                        .withFileFilter { it.name == "aws" || it.name == "aws.exe" }
                     addBrowseFolderListenerEx(project, descriptor)
                 }
             }
