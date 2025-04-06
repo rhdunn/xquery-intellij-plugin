@@ -8,7 +8,6 @@ import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.text.nullize
-import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
@@ -81,8 +80,12 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             )
         }
         scriptFile = queryProcessorDataSource {
-            val descriptor = FileNameMatcherDescriptor(languages.getAssociations())
-            descriptor.title = PluginApiBundle.message("browser.choose.script-file")
+            val associations = languages.getAssociations()
+            val descriptor = FileChooserDescriptorFactory.singleFile()
+                .withTitle(PluginApiBundle.message("browser.choose.script-file"))
+                .withFileFilter {
+                    associations.find { association -> association.acceptsCharSequence(it.name) } != null
+                }
             addBrowseFolderListenerEx(project, descriptor)
             addActionListener {
                 if (languages[0].getLanguageMimeTypes()[0] == "application/sparql-query") {
