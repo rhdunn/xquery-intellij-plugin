@@ -1,8 +1,8 @@
 // Copyright (C) 2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 
+import com.intellij.compat.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.compat.openapi.ui.addBrowseFolderListenerEx
-import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
@@ -74,8 +74,8 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column.vgap())
             modulePath = textFieldWithBrowseButton(column.spanCols().horizontal().hgap().vgap()) {
-                val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
-                descriptor.title = PluginApiBundle.message("browser.choose.module-path")
+                val descriptor = FileChooserDescriptorFactory.singleDir()
+                    .withTitle(PluginApiBundle.message("browser.choose.module-path"))
                 addBrowseFolderListenerEx(project, descriptor)
             }
         }
@@ -83,8 +83,8 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         row {
             label(PluginApiBundle.message("xquery.configurations.test.test-root.label"), column.vgap())
             testPath = textFieldWithBrowseButton(column.spanCols(3).horizontal().hgap().vgap()) {
-                val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
-                descriptor.title = PluginApiBundle.message("browser.choose.test-path")
+                val descriptor = FileChooserDescriptorFactory.singleDir()
+                    .withTitle(PluginApiBundle.message("browser.choose.test-path"))
                 addBrowseFolderListenerEx(project, descriptor)
             }
         }

@@ -1,9 +1,10 @@
 // Copyright (C) 2018-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations
 
+import com.intellij.compat.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.compat.openapi.ui.addBrowseFolderListenerEx
 import com.intellij.lang.Language
-import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
+import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory as FileChooserDescriptorFactoryEx
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
@@ -69,8 +70,8 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column.vgap())
             modulePath = textFieldWithBrowseButton(column.spanCols().horizontal().hgap().vgap()) {
-                val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
-                descriptor.title = PluginApiBundle.message("browser.choose.module-path")
+                val descriptor = FileChooserDescriptorFactory.singleDir()
+                    .withTitle(PluginApiBundle.message("browser.choose.module-path"))
                 addBrowseFolderListenerEx(project, descriptor)
             }
         }
@@ -134,7 +135,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
     private val inputPanel: JPanel = panel {
         contextItem = queryProcessorDataSource(allowUnspecified = true) {
-            val descriptor = FileChooserDescriptorFactory.createSingleFileDescriptor()
+            val descriptor = FileChooserDescriptorFactoryEx.createSingleFileDescriptor()
             descriptor.title = PluginApiBundle.message("browser.choose.context-item")
             addBrowseFolderListenerEx(project, descriptor)
         }

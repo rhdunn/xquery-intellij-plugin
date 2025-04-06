@@ -1,9 +1,9 @@
 // Copyright (C) 2019, 2023, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation.settings
 
+import com.intellij.compat.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.compat.openapi.ui.addBrowseFolderListenerEx
 import com.intellij.icons.AllIcons
-import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.text.nullize
@@ -27,7 +27,7 @@ class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener
         row {
             label(XQDocBundle.message("documentation-source.cache-path.label"), column.vgap())
             cachePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
-                val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+                val descriptor = FileChooserDescriptorFactory.singleDir()
                 addBrowseFolderListenerEx(null, descriptor)
             }
         }

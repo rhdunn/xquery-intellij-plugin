@@ -1,8 +1,8 @@
 // Copyright (C) 2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xpm.project.settings
 
+import com.intellij.compat.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.compat.openapi.ui.addBrowseFolderListenerEx
-import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
@@ -26,8 +26,8 @@ class XpmModuleConfigurable(val project: Project) : Configurable {
         row {
             label(XpmBundle.message("preferences.module.database-path.label"), column.vgap())
             databasePath = textFieldWithBrowseButton(column.vgap().hgap().horizontal()) {
-                val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
-                descriptor.title = XpmBundle.message("preferences.module.database-path.choose-path")
+                val descriptor = FileChooserDescriptorFactory.singleDir()
+                    .withTitle(XpmBundle.message("preferences.module.database-path.choose-path"))
                 addBrowseFolderListenerEx(project, descriptor)
             }
         }
