@@ -85,7 +85,7 @@ class IntelliJBuildNumberTest {
 class IntelliJSnapshotTest {
     @Test
     fun `should parse versioned eap snapshots`() {
-        val build = IntelliJSnapshot.parse("242-EAP-SNAPSHOT")!!
+        val build = IntelliJSnapshot.parse("IC", "242-EAP-SNAPSHOT")!!
         assertEquals(build.value, "242-EAP-SNAPSHOT")
         assertEquals("242-EAP-SNAPSHOT", build.toString())
 
@@ -95,14 +95,14 @@ class IntelliJSnapshotTest {
         val buildVersion = versionFile.readLines()[0]
         assertEquals(buildVersion, build.build.toString())
 
-        assertNull(build.platformType)
+        assertEquals("IC", build.platformType)
         assertEquals("2024.2 EAP", build.platformVersion)
         assertEquals(242, build.buildVersion)
     }
 
     @Test
     fun `should parse latest eap snapshots`() {
-        val build = IntelliJSnapshot.parse("LATEST-EAP-SNAPSHOT")!!
+        val build = IntelliJSnapshot.parse("IC", "LATEST-EAP-SNAPSHOT")!!
         assertEquals(build.value, "LATEST-EAP-SNAPSHOT")
         assertEquals("LATEST-EAP-SNAPSHOT", build.toString())
 
@@ -112,7 +112,7 @@ class IntelliJSnapshotTest {
         val buildVersion = versionFile.readLines()[0]
         assertEquals(buildVersion, build.build.toString())
 
-        assertNull(build.platformType)
+        assertEquals("IC", build.platformType)
         assertEquals("20${buildVersion[0]}${buildVersion[1]}.${buildVersion[2]} EAP", build.platformVersion)
         assertEquals(build.build.buildVersion, build.buildVersion)
     }

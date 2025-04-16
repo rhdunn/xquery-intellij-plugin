@@ -14,7 +14,7 @@ sealed interface IntelliJVersion {
 fun IntelliJVersion(value: String): IntelliJVersion {
     return IntelliJVersionNumber.parse(null, value)
         ?: IntelliJBuildNumber.parse(null, value)
-        ?: IntelliJSnapshot.parse(value)
+        ?: IntelliJSnapshot.parse(null, value)
         ?: throw GradleException("Unsupported IntelliJ version: $value")
 }
 
@@ -107,7 +107,7 @@ data class IntelliJSnapshot(
     val value: String,
     val build: IntelliJBuildNumber,
 ) : IntelliJVersion {
-    override val platformType: String? get() = null
+    override val platformType: String get() = build.platformType
     override val platformVersion: String get() = "${build.platformVersion} EAP"
     override val buildVersion: Int get() = build.buildVersion
 
@@ -119,14 +119,14 @@ data class IntelliJSnapshot(
 
         val FORMAT = "([0-9][0-9][0-9]|LATEST)-EAP-SNAPSHOT".toRegex()
 
-        fun parse(value: String): IntelliJSnapshot? {
-            if (FORMAT.matchEntire(value) == null) return null
+        fun parse(type: String?, version: String): IntelliJSnapshot? {
+            if (FORMAT.matchEntire(version) == null) return null
 
-            val build = File("build/BUILD-$value.txt")
+            val build = File("build/BUILD-$version.txt")
             if (!build.exists()) {
                 build.parentFile.mkdirs()
 
-                val downloadUrl = URI("$REPOSITORY_PATH/$value/BUILD-$value.txt").toURL()
+                val downloadUrl = URI("$REPOSITORY_PATH/$version/BUILD-$version.txt").toURL()
                 println("Downloading build version file '$downloadUrl' to '${build.absolutePath}'")
 
                 downloadUrl.openStream().use { input ->
@@ -136,7 +136,7 @@ data class IntelliJSnapshot(
                 }
             }
 
-            return IntelliJSnapshot(value, IntelliJBuildNumber.parse(null, build.readLines()[0])!!)
+            return IntelliJSnapshot(version, IntelliJBuildNumber.parse(type, build.readLines()[0])!!)
         }
     }
 }
