@@ -11,11 +11,11 @@ sealed interface IntelliJVersion {
     val buildVersion: Int
 }
 
-fun IntelliJVersion(value: String): IntelliJVersion {
-    return IntelliJVersionNumber.parse(null, value)
-        ?: IntelliJBuildNumber.parse(null, value)
-        ?: IntelliJSnapshot.parse(null, value)
-        ?: throw GradleException("Unsupported IntelliJ version: $value")
+fun IntelliJVersion(type: String?, version: String): IntelliJVersion {
+    return IntelliJVersionNumber.parse(type, version)
+        ?: IntelliJBuildNumber.parse(type, version)
+        ?: IntelliJSnapshot.parse(type, version)
+        ?: throw GradleException("Unsupported IntelliJ version: $version")
 }
 
 /**

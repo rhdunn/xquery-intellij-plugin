@@ -11,7 +11,7 @@ object BuildConfiguration {
     fun getPlatformVersion(project: Project): IntelliJVersion {
         val version = getProperty(project, "platform.version", "IDEA_VERSION")
             ?: throw GradleException("The platform.version property is not set.")
-        return IntelliJVersion(version)
+        return IntelliJVersion(null, version)
     }
 
     /**
