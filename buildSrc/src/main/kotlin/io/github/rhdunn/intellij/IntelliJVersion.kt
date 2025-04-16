@@ -13,7 +13,7 @@ sealed interface IntelliJVersion {
 
 fun IntelliJVersion(value: String): IntelliJVersion {
     return IntelliJVersionNumber.parse(null, value)
-        ?: IntelliJBuildNumber.parse(value)
+        ?: IntelliJBuildNumber.parse(null, value)
         ?: IntelliJSnapshot.parse(value)
         ?: throw GradleException("Unsupported IntelliJ version: $value")
 }
@@ -67,7 +67,7 @@ data class IntelliJVersionNumber(
  */
 data class IntelliJBuildNumber(
     val value: String,
-    override val platformType: String?,
+    override val platformType: String,
     override val platformVersion: String,
     val major: Int,
     val minor: Int,
@@ -80,11 +80,11 @@ data class IntelliJBuildNumber(
     companion object {
         val FORMAT = "(([A-Z]+)-)?((([0-9][0-9])([0-9])).([0-9]+).([0-9]+))".toRegex()
 
-        fun parse(value: String): IntelliJBuildNumber? {
-            FORMAT.matchEntire(value)?.let { match ->
+        fun parse(type: String?, version: String): IntelliJBuildNumber? {
+            FORMAT.matchEntire(version)?.let { match ->
                 return IntelliJBuildNumber(
-                    value = value,
-                    platformType = match.groupValues[2].takeIf { it.isNotEmpty() },
+                    value = version,
+                    platformType = match.groupValues[2].takeIf { it.isNotEmpty() } ?: type ?: "IC",
                     platformVersion = "20${match.groupValues[5]}.${match.groupValues[6]}",
                     major = match.groupValues[4].toInt(),
                     minor = match.groupValues[7].toInt(),
@@ -136,7 +136,7 @@ data class IntelliJSnapshot(
                 }
             }
 
-            return IntelliJSnapshot(value, IntelliJBuildNumber.parse(build.readLines()[0])!!)
+            return IntelliJSnapshot(value, IntelliJBuildNumber.parse(null, build.readLines()[0])!!)
         }
     }
 }
