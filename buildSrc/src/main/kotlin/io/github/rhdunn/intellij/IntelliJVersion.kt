@@ -12,7 +12,7 @@ sealed interface IntelliJVersion {
 }
 
 fun IntelliJVersion(value: String): IntelliJVersion {
-    return IntelliJVersionNumber.parse(value)
+    return IntelliJVersionNumber.parse(null, value)
         ?: IntelliJBuildNumber.parse(value)
         ?: IntelliJSnapshot.parse(value)
         ?: throw GradleException("Unsupported IntelliJ version: $value")
@@ -29,7 +29,7 @@ fun IntelliJVersion(value: String): IntelliJVersion {
  */
 data class IntelliJVersionNumber(
     val value: String,
-    override val platformType: String?,
+    override val platformType: String,
     override val platformVersion: String,
     override val buildVersion: Int,
     val year: Int,
@@ -41,11 +41,11 @@ data class IntelliJVersionNumber(
     companion object {
         val FORMAT = "(([A-Z]+)-)?((20([0-9][0-9])).([1-3])(.([0-9]+))?)".toRegex()
 
-        fun parse(value: String): IntelliJVersionNumber? {
-            FORMAT.matchEntire(value)?.let { match ->
+        fun parse(type: String?, version: String): IntelliJVersionNumber? {
+            FORMAT.matchEntire(version)?.let { match ->
                 return IntelliJVersionNumber(
-                    value = value,
-                    platformType = match.groupValues[2].takeIf { it.isNotEmpty() },
+                    value = version,
+                    platformType = match.groupValues[2].takeIf { it.isNotEmpty() } ?: type ?: "IC",
                     platformVersion = match.groupValues[3],
                     buildVersion = "${match.groupValues[5]}${match.groupValues[6]}".toInt(),
                     year = match.groupValues[4].toInt(),

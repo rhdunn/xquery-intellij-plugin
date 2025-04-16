@@ -13,29 +13,29 @@ import kotlin.test.assertTrue
 class IntelliJVersionNumberTest {
     @Test
     fun `should parse year-release version numbers`() {
-        val build = IntelliJVersionNumber.parse("2021.3")!!
-        assertEquals(IntelliJVersionNumber("2021.3", null, "2021.3", 213, 2021, 3, null), build)
+        val build = IntelliJVersionNumber.parse("IC", "2021.3")!!
+        assertEquals(IntelliJVersionNumber("2021.3", "IC", "2021.3", 213, 2021, 3, null), build)
         assertEquals("2021.3", build.toString())
 
-        assertNull(build.platformType)
+        assertEquals("IC", build.platformType)
         assertEquals("2021.3", build.platformVersion)
         assertEquals(213, build.buildVersion)
     }
 
     @Test
     fun `should parse year-release-build version numbers`() {
-        val build = IntelliJVersionNumber.parse("2017.2.4")!!
-        assertEquals(IntelliJVersionNumber("2017.2.4", null, "2017.2.4", 172, 2017, 2, 4), build)
+        val build = IntelliJVersionNumber.parse("IC", "2017.2.4")!!
+        assertEquals(IntelliJVersionNumber("2017.2.4", "IC", "2017.2.4", 172, 2017, 2, 4), build)
         assertEquals("2017.2.4", build.toString())
 
-        assertNull(build.platformType)
+        assertEquals("IC", build.platformType)
         assertEquals("2017.2.4", build.platformVersion)
         assertEquals(172, build.buildVersion)
     }
 
     @Test
     fun `should parse product-year-release version numbers`() {
-        val build = IntelliJVersionNumber.parse("IC-2021.3")!!
+        val build = IntelliJVersionNumber.parse("IU", "IC-2021.3")!!
         assertEquals(IntelliJVersionNumber("IC-2021.3", "IC", "2021.3", 213, 2021, 3, null), build)
         assertEquals("IC-2021.3", build.toString())
 
@@ -46,7 +46,7 @@ class IntelliJVersionNumberTest {
 
     @Test
     fun `should parse product-year-release-build version numbers`() {
-        val build = IntelliJVersionNumber.parse("IC-2017.3.4")!!
+        val build = IntelliJVersionNumber.parse("IU", "IC-2017.3.4")!!
         assertEquals(IntelliJVersionNumber("IC-2017.3.4", "IC", "2017.3.4", 173, 2017, 3, 4), build)
         assertEquals("IC-2017.3.4", build.toString())
 
