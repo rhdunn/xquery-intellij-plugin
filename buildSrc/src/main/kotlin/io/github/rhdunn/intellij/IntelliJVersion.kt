@@ -6,12 +6,12 @@ import java.io.File
 import java.net.URI
 
 sealed interface IntelliJVersion {
-    val platformType: String?
+    val platformType: String
     val platformVersion: String
     val buildVersion: Int
 }
 
-fun IntelliJVersion(type: String?, version: String): IntelliJVersion {
+fun IntelliJVersion(type: String, version: String): IntelliJVersion {
     return IntelliJVersionNumber.parse(type, version)
         ?: IntelliJBuildNumber.parse(type, version)
         ?: IntelliJSnapshot.parse(type, version)
@@ -41,11 +41,11 @@ data class IntelliJVersionNumber(
     companion object {
         val FORMAT = "(([A-Z]+)-)?((20([0-9][0-9])).([1-3])(.([0-9]+))?)".toRegex()
 
-        fun parse(type: String?, version: String): IntelliJVersionNumber? {
+        fun parse(type: String, version: String): IntelliJVersionNumber? {
             FORMAT.matchEntire(version)?.let { match ->
                 return IntelliJVersionNumber(
                     value = version,
-                    platformType = match.groupValues[2].takeIf { it.isNotEmpty() } ?: type ?: "IC",
+                    platformType = match.groupValues[2].takeIf { it.isNotEmpty() } ?: type,
                     platformVersion = match.groupValues[3],
                     buildVersion = "${match.groupValues[5]}${match.groupValues[6]}".toInt(),
                     year = match.groupValues[4].toInt(),
@@ -80,11 +80,11 @@ data class IntelliJBuildNumber(
     companion object {
         val FORMAT = "(([A-Z]+)-)?((([0-9][0-9])([0-9])).([0-9]+).([0-9]+))".toRegex()
 
-        fun parse(type: String?, version: String): IntelliJBuildNumber? {
+        fun parse(type: String, version: String): IntelliJBuildNumber? {
             FORMAT.matchEntire(version)?.let { match ->
                 return IntelliJBuildNumber(
                     value = version,
-                    platformType = match.groupValues[2].takeIf { it.isNotEmpty() } ?: type ?: "IC",
+                    platformType = match.groupValues[2].takeIf { it.isNotEmpty() } ?: type,
                     platformVersion = "20${match.groupValues[5]}.${match.groupValues[6]}",
                     major = match.groupValues[4].toInt(),
                     minor = match.groupValues[7].toInt(),
@@ -119,7 +119,7 @@ data class IntelliJSnapshot(
 
         val FORMAT = "([0-9][0-9][0-9]|LATEST)-EAP-SNAPSHOT".toRegex()
 
-        fun parse(type: String?, version: String): IntelliJSnapshot? {
+        fun parse(type: String, version: String): IntelliJSnapshot? {
             if (FORMAT.matchEntire(version) == null) return null
 
             val build = File("build/BUILD-$version.txt")
