@@ -9,17 +9,11 @@ object BuildConfiguration {
      * The version of IntelliJ platform to target.
      */
     fun getPlatformVersion(project: Project): IntelliJVersion {
+        val type = getProperty(project, "platform.type", "IDEA_TYPE")
+            ?: throw GradleException("The platform.type property is not set.")
         val version = getProperty(project, "platform.version", "IDEA_VERSION")
             ?: throw GradleException("The platform.version property is not set.")
-        return IntelliJVersion(null, version)
-    }
-
-    /**
-     * The type of IntelliJ platform to target.
-     */
-    fun getPlatformType(project: Project): String {
-        return getProperty(project, "platform.type", "IDEA_TYPE")
-            ?: throw GradleException("The platform.type property is not set.")
+        return IntelliJVersion(type, version)
     }
 
     private fun getProperty(project: Project, name: String, envName: String? = null): String? {

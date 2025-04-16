@@ -5,7 +5,7 @@ buildscript {
     ext.ijVersion = BuildConfiguration.INSTANCE.getPlatformVersion(project)
     ext.idea_version = ext.ijVersion.platformVersion
     ext.idea_since_build = ext.ijVersion.buildVersion
-    ext.idea_type = ext.ijVersion.platformType ?: BuildConfiguration.INSTANCE.getPlatformType(project)
+    ext.idea_type = ext.ijVersion.platformType
 
     ext.kotlin_version = Version.INSTANCE.Kotlin(ext.ijVersion)
     ext.java_version = Version.INSTANCE.Java(ext.ijVersion)
