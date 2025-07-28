@@ -1,5 +1,4 @@
 val ijVersion = BuildConfiguration.getPlatformVersion(project)
-val intellijType = project.property("idea_type")
 
 version = ijVersion.buildVersion.toString()
 
@@ -58,7 +57,7 @@ sourceSets.main {
 
     // Microservices
 
-    if (intellijType == "IU") {
+    if (ijVersion.platformType == "IU") {
         if (ijVersion.buildVersion >= 231) {
             java.srcDir("src/microservices/IU-231")
         } else {

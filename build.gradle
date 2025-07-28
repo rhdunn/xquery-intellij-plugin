@@ -3,8 +3,6 @@ import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 buildscript {
     ext.ijVersion = BuildConfiguration.INSTANCE.getPlatformVersion(project)
-    ext.idea_type = ext.ijVersion.platformType
-
     ext.kotlin_version = Version.INSTANCE.Kotlin(ext.ijVersion)
     ext.java_version = Version.INSTANCE.Java(ext.ijVersion)
 
@@ -63,10 +61,10 @@ configure(allprojects - project(":src")) {
     dependencies {
         intellijPlatform {
             if (ijVersion instanceof IntelliJSnapshot) {
-                create(idea_type, ijVersion.value, false)
+                create(ijVersion.platformType, ijVersion.value, false)
                 jetbrainsRuntime()
             } else {
-                create(idea_type, ijVersion.platformVersion, true)
+                create(ijVersion.platformType, ijVersion.platformVersion, true)
             }
 
             instrumentationTools()
@@ -144,7 +142,7 @@ dependencies {
 }
 
 sourceSets.main {
-    if (idea_type == "IU") {
+    if (ijVersion.platformType == "IU") {
         if (ijVersion.buildVersion >= 193) {
             resources.srcDir("src/main/resources-microservices/193")
         } else {
@@ -169,7 +167,7 @@ tasks {
     buildSearchableOptions.enabled = true
 }
 
-println "Building for IntelliJ ${idea_type} version '${ijVersion.platformVersion}', since build '${ijVersion.buildVersion}'"
+println "Building for IntelliJ ${ijVersion.platformType} version '${ijVersion.platformVersion}', since build '${ijVersion.buildVersion}'"
 
 intellijPlatform {
     pluginConfiguration {
