@@ -148,14 +148,16 @@ dependencies {
     testImplementation("org.hamcrest:hamcrest-core:1.3")
 }
 
-if (idea_type == "IU") {
-    if (idea_since_build >= 193) {
-        sourceSets.main.resources.srcDirs += "src/main/resources-microservices/193"
+sourceSets.main {
+    if (idea_type == "IU") {
+        if (idea_since_build >= 193) {
+            resources.srcDir("src/main/resources-microservices/193")
+        } else {
+            resources.srcDir("src/main/resources-microservices/compat")
+        }
     } else {
-        sourceSets.main.resources.srcDirs += "src/main/resources-microservices/compat"
+        resources.srcDir("src/main/resources-microservices/compat")
     }
-} else {
-    sourceSets.main.resources.srcDirs += "src/main/resources-microservices/compat"
 }
 
 // Main project tasks:

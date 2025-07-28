@@ -1,5 +1,10 @@
-sourceSets.main.java.srcDirs += "main"
-sourceSets.test.java.srcDirs += "test"
+sourceSets.main {
+    java.srcDir("main")
+}
+
+sourceSets.test {
+    java.srcDir("test")
+}
 
 dependencies {
     implementation("org.junit.jupiter:junit-jupiter-api:5.7.0")

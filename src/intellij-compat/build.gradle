@@ -3,66 +3,71 @@ ext.intellij_type = project.property("idea_type")
 
 version = ext.intellij_version
 
-if (ext.intellij_version >= 231) {
-    sourceSets.main.java.srcDirs += "src/231/native"
-} else {
-    sourceSets.main.java.srcDirs += "src/231/compat"
-}
+sourceSets.main {
+    ext.intellij_version = project.property("idea_since_build")
+    ext.intellij_type = project.property("idea_type")
 
-if (ext.intellij_version >= 232) {
-    sourceSets.main.java.srcDirs += "src/232/native"
-} else {
-    sourceSets.main.java.srcDirs += "src/232/compat"
-}
-
-if (ext.intellij_version >= 233) {
-    sourceSets.main.java.srcDirs += "src/233/native"
-} else {
-    sourceSets.main.java.srcDirs += "src/233/compat"
-}
-
-if (ext.intellij_version >= 242) {
-    sourceSets.main.java.srcDirs += "src/242/native"
-} else {
-    sourceSets.main.java.srcDirs += "src/242/compat"
-}
-
-if (ext.intellij_version >= 242) {
-    sourceSets.main.java.srcDirs += "src/233-242/native"
-} else if (ext.intellij_version >= 233) {
-    sourceSets.main.java.srcDirs += "src/233-242/233"
-} else {
-    sourceSets.main.java.srcDirs += "src/233-242/232"
-}
-
-if (ext.intellij_version >= 243) {
-    sourceSets.main.java.srcDirs += "src/243/native"
-} else {
-    sourceSets.main.java.srcDirs += "src/243/compat"
-}
-
-if (ext.intellij_version >= 251) {
-    sourceSets.main.java.srcDirs += "src/251/native"
-} else {
-    sourceSets.main.java.srcDirs += "src/251/compat"
-}
-
-if (ext.intellij_version >= 251) {
-    sourceSets.main.java.srcDirs += "src/233-251/native"
-} else if (ext.intellij_version >= 233) {
-    sourceSets.main.java.srcDirs += "src/233-251/233"
-} else {
-    sourceSets.main.java.srcDirs += "src/233-251/232"
-}
-
-// Microservices
-
-if (ext.intellij_type == "IU") {
     if (ext.intellij_version >= 231) {
-        sourceSets.main.java.srcDirs += "src/microservices/IU-231"
+        java.srcDir("src/231/native")
     } else {
-        sourceSets.main.java.srcDirs += "src/microservices/IU-203"
+        java.srcDir("src/231/compat")
     }
-} else {
-    sourceSets.main.java.srcDirs += "src/microservices/IC-203"
+
+    if (ext.intellij_version >= 232) {
+        java.srcDir("src/232/native")
+    } else {
+        java.srcDir("src/232/compat")
+    }
+
+    if (ext.intellij_version >= 233) {
+        java.srcDir("src/233/native")
+    } else {
+        java.srcDir("src/233/compat")
+    }
+
+    if (ext.intellij_version >= 242) {
+        java.srcDir("src/242/native")
+    } else {
+        java.srcDir("src/242/compat")
+    }
+
+    if (ext.intellij_version >= 242) {
+        java.srcDir("src/233-242/native")
+    } else if (ext.intellij_version >= 233) {
+        java.srcDir("src/233-242/233")
+    } else {
+        java.srcDir("src/233-242/232")
+    }
+
+    if (ext.intellij_version >= 243) {
+        java.srcDir("src/243/native")
+    } else {
+        java.srcDir("src/243/compat")
+    }
+
+    if (ext.intellij_version >= 251) {
+        java.srcDir("src/251/native")
+    } else {
+        java.srcDir("src/251/compat")
+    }
+
+    if (ext.intellij_version >= 251) {
+        java.srcDir("src/233-251/native")
+    } else if (ext.intellij_version >= 233) {
+        java.srcDir("src/233-251/233")
+    } else {
+        java.srcDir("src/233-251/232")
+    }
+
+    // Microservices
+
+    if (ext.intellij_type == "IU") {
+        if (ext.intellij_version >= 231) {
+            java.srcDir("src/microservices/IU-231")
+        } else {
+            java.srcDir("src/microservices/IU-203")
+        }
+    } else {
+        java.srcDir("src/microservices/IC-203")
+    }
 }

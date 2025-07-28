@@ -1,5 +1,7 @@
-sourceSets.main.java.srcDirs += "main"
-sourceSets.main.resources.srcDirs += "main/resources"
+sourceSets.main {
+    java.srcDir("main")
+    resources.srcDir("main/resources")
+}
 
 dependencies {
     implementation(project(":src:intellij-compat"))

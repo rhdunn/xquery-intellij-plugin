@@ -1,7 +1,11 @@
-sourceSets.main.java.srcDirs += "main"
-sourceSets.main.resources.srcDirs += "main/resources"
+sourceSets.main {
+    java.srcDir("main")
+    resources.srcDir("main/resources")
+}
 
-sourceSets.test.java.srcDirs += "test"
+sourceSets.test {
+    java.srcDir("test")
+}
 
 dependencies {
     implementation(project(":src:kotlin-intellij"))
