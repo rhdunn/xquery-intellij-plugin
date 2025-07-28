@@ -3,7 +3,6 @@ import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 buildscript {
     ext.ijVersion = BuildConfiguration.INSTANCE.getPlatformVersion(project)
-    ext.idea_version = ext.ijVersion.platformVersion
     ext.idea_type = ext.ijVersion.platformType
 
     ext.kotlin_version = Version.INSTANCE.Kotlin(ext.ijVersion)
@@ -67,7 +66,7 @@ configure(allprojects - project(":src")) {
                 create(idea_type, ijVersion.value, false)
                 jetbrainsRuntime()
             } else {
-                create(idea_type, idea_version, true)
+                create(idea_type, ijVersion.platformVersion, true)
             }
 
             instrumentationTools()
@@ -170,7 +169,7 @@ tasks {
     buildSearchableOptions.enabled = true
 }
 
-println "Building for IntelliJ ${idea_type} version '${idea_version}', since build '${ijVersion.buildVersion}'"
+println "Building for IntelliJ ${idea_type} version '${ijVersion.platformVersion}', since build '${ijVersion.buildVersion}'"
 
 intellijPlatform {
     pluginConfiguration {
