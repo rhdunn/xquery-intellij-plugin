@@ -8,9 +8,11 @@ sourceSets.test {
     resources.srcDir("test/resources")
 }
 
-processResources {
-    from ("main") {
-        include "**/*.dic"
+tasks {
+    processResources {
+        from("main") {
+            include("**/*.dic")
+        }
     }
 }
 

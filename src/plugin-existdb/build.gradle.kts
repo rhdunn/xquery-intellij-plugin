@@ -1,3 +1,5 @@
+val jsoupVersion = project.property("jsoup_version")
+
 sourceSets.main {
     java.srcDir("main")
     resources.srcDir("main/resources")
@@ -5,27 +7,19 @@ sourceSets.main {
 
 sourceSets.test {
     java.srcDir("test")
-    resources.srcDir("test/resources")
-}
-
-processResources {
-    from ("main") {
-        include "**/*.dic"
-    }
 }
 
 dependencies {
-    intellijPlatform {
-        bundledPlugin("org.intellij.intelliLang")
-    }
-
     implementation(project(":src:kotlin-intellij"))
     implementation(project(":src:lang-core"))
+    implementation(project(":src:lang-xquery"))
+    implementation(project(":src:lang-xslt"))
     implementation(project(":src:lang-xdm"))
     implementation(project(":src:lang-xpm"))
-    implementation(project(":src:lang-xqdoc"))
     implementation(project(":src:plugin-api"))
 
-    testImplementation(project(":src:intellij-compat"))
     testImplementation(project(":src:intellij-test"))
+
+    // JSoup
+    implementation("org.jsoup:jsoup:$jsoupVersion")
 }

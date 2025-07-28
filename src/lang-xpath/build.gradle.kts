@@ -8,20 +8,26 @@ sourceSets.test {
     resources.srcDir("test/resources")
 }
 
-processResources {
-    from ("main") {
-        include "**/*.dic"
+tasks {
+    processResources {
+        from("main") {
+            include("**/*.dic")
+        }
     }
 }
 
 dependencies {
-    implementation(project(":src:intellij-compat"))
+    intellijPlatform {
+        bundledPlugin("org.intellij.intelliLang")
+    }
+
     implementation(project(":src:kotlin-intellij"))
     implementation(project(":src:lang-core"))
     implementation(project(":src:lang-xdm"))
     implementation(project(":src:lang-xpm"))
-    implementation(project(":src:lang-xpath"))
+    implementation(project(":src:lang-xqdoc"))
     implementation(project(":src:plugin-api"))
 
+    testImplementation(project(":src:intellij-compat"))
     testImplementation(project(":src:intellij-test"))
 }

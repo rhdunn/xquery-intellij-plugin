@@ -1,3 +1,7 @@
+val intellijVersion = project.property("idea_since_build") as Int
+val saxonVersion = project.property("saxon_version")
+val jsoupVersion = project.property("jsoup_version")
+
 sourceSets.main {
     java.srcDir("main")
     resources.srcDir("main/resources")
@@ -11,7 +15,7 @@ sourceSets.test {
 dependencies {
     intellijPlatform {
         bundledPlugin("com.intellij.properties")
-        if (idea_since_build >= 243) {
+        if (intellijVersion >= 243) {
             bundledPlugin("com.intellij.modules.json")
         }
     }
@@ -30,8 +34,8 @@ dependencies {
     testImplementation(project(":src:intellij-test"))
 
     // Saxon HE
-    runtimeOnly("net.sf.saxon:Saxon-HE:$saxon_version")
+    runtimeOnly("net.sf.saxon:Saxon-HE:$saxonVersion")
 
     // JSoup
-    implementation("org.jsoup:jsoup:$jsoup_version")
+    implementation("org.jsoup:jsoup:$jsoupVersion")
 }

@@ -8,18 +8,22 @@ sourceSets.test {
     resources.srcDir("test/resources")
 }
 
+tasks {
+    processResources {
+        from("main") {
+            include("**/*.dic")
+        }
+    }
+}
+
 dependencies {
+    implementation(project(":src:intellij-compat"))
     implementation(project(":src:kotlin-intellij"))
     implementation(project(":src:lang-core"))
     implementation(project(":src:lang-xdm"))
-    implementation(project(":src:lang-xpath"))
-    implementation(project(":src:lang-xquery"))
-    implementation(project(":src:lang-xslt"))
     implementation(project(":src:lang-xpm"))
-    implementation(project(":src:lang-xqdoc"))
+    implementation(project(":src:lang-xpath"))
+    implementation(project(":src:plugin-api"))
 
     testImplementation(project(":src:intellij-test"))
-
-    // JSoup
-    implementation("org.jsoup:jsoup:$jsoup_version")
 }

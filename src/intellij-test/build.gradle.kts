@@ -15,7 +15,7 @@ dependencies {
 }
 
 // Include the testFramework dependency in the main build dependencies.
-configurations.getByName("intellijPlatformTestDependencies").dependencies.each { dependency ->
+configurations.getByName("intellijPlatformTestDependencies").dependencies.forEach { dependency ->
     dependencies {
         implementation("${dependency.group}:${dependency.name}:${dependency.version}")
     }

@@ -7,8 +7,6 @@ sourceSets.test {
     resources.srcDir("test/resources")
 }
 
-ext.compat_version = project.property("idea_since_build")
-
 dependencies {
     implementation(project(":src:intellij-compat"))
 }
