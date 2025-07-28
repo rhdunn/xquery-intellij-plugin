@@ -1,4 +1,4 @@
-// Copyright (C) 2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2024-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 
 import io.github.rhdunn.intellij.IntelliJVersion
 import org.gradle.api.GradleException
@@ -27,5 +27,19 @@ object Version {
         intellij.buildVersion >= 242 -> 21
         intellij.buildVersion >= 223 -> 17
         else -> throw GradleException("Unsupported version of IntelliJ: $intellij")
+    }
+
+    /**
+     * Versions of the various libraries used by the project.
+     */
+    object Dependency {
+        /**
+         * The version of the Saxon HE XQuery/XSLT processor.
+         *
+         * `SPDX-License-Identifier: MPL-2.0`
+         *
+         * @see <a href="https://www.saxonica.com/download/java.xml">https://www.saxonica.com/download/java.xml</a>
+         */
+        const val SaxonHE = "9.9.1-7"
     }
 }
