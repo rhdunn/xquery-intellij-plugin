@@ -1,5 +1,4 @@
 val intellijVersion = project.property("idea_since_build") as Int
-val jsoupVersion = project.property("jsoup_version")
 
 sourceSets.main {
     java.srcDir("main")
@@ -36,5 +35,5 @@ dependencies {
     runtimeOnly("net.sf.saxon:Saxon-HE:${Version.Dependency.SaxonHE}")
 
     // JSoup
-    implementation("org.jsoup:jsoup:$jsoupVersion")
+    implementation("org.jsoup:jsoup:${Version.Dependency.JSoup}")
 }

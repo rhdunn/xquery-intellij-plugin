@@ -10,8 +10,6 @@ buildscript {
     ext.kotlin_version = Version.INSTANCE.Kotlin(ext.ijVersion)
     ext.java_version = Version.INSTANCE.Java(ext.ijVersion)
 
-    ext.jsoup_version = "1.15.4"
-
     ext.junit5_version = "5.9.1"
     ext.junit_platform_version = "1.9.1"
 

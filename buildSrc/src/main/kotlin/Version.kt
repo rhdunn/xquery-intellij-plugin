@@ -34,6 +34,15 @@ object Version {
      */
     object Dependency {
         /**
+         * A Java-based HTML 5/LS parser.
+         *
+         * `SPDX-License-Identifier: MPL-2.0`
+         *
+         * @see <a href="https://github.com/jhy/jsoup">https://github.com/jhy/jsoup</a>
+         */
+        const val JSoup = "1.15.4"
+
+        /**
          * The version of the Saxon HE XQuery/XSLT processor.
          *
          * `SPDX-License-Identifier: MPL-2.0`

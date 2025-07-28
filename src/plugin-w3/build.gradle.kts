@@ -1,5 +1,3 @@
-val jsoupVersion = project.property("jsoup_version")
-
 sourceSets.main {
     java.srcDir("main")
     resources.srcDir("main/resources")
@@ -23,5 +21,5 @@ dependencies {
     testImplementation(project(":src:intellij-test"))
 
     // JSoup
-    implementation("org.jsoup:jsoup:$jsoupVersion")
+    implementation("org.jsoup:jsoup:${Version.Dependency.JSoup}")
 }
