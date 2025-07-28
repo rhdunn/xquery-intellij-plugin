@@ -1,4 +1,4 @@
-val intellijVersion = project.property("idea_since_build") as Int
+val ijVersion = BuildConfiguration.getPlatformVersion(project)
 
 sourceSets.main {
     java.srcDir("main")
@@ -13,7 +13,7 @@ sourceSets.test {
 dependencies {
     intellijPlatform {
         bundledPlugin("com.intellij.properties")
-        if (intellijVersion >= 243) {
+        if (ijVersion.buildVersion >= 243) {
             bundledPlugin("com.intellij.modules.json")
         }
     }

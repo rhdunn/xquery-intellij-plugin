@@ -4,7 +4,6 @@ import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 buildscript {
     ext.ijVersion = BuildConfiguration.INSTANCE.getPlatformVersion(project)
     ext.idea_version = ext.ijVersion.platformVersion
-    ext.idea_since_build = ext.ijVersion.buildVersion
     ext.idea_type = ext.ijVersion.platformType
 
     ext.kotlin_version = Version.INSTANCE.Kotlin(ext.ijVersion)
@@ -40,7 +39,7 @@ configure(allprojects - project(":src")) {
     apply plugin: "jacoco"
 
     group "uk.co.reecedunn.intellij.plugin.xquery"
-    version = plugin_version + "-" + idea_since_build.toString() + suffix
+    version = plugin_version + "-" + ijVersion.buildVersion.toString() + suffix
 
     repositories {
         mavenCentral()
@@ -111,7 +110,7 @@ dependencies {
         bundledPlugin("org.intellij.intelliLang")
         bundledPlugin("com.intellij.java")
         bundledPlugin("com.intellij.properties")
-        if (idea_since_build >= 243) {
+        if (ijVersion.buildVersion >= 243) {
             bundledPlugin("com.intellij.modules.json")
         }
     }
@@ -147,7 +146,7 @@ dependencies {
 
 sourceSets.main {
     if (idea_type == "IU") {
-        if (idea_since_build >= 193) {
+        if (ijVersion.buildVersion >= 193) {
             resources.srcDir("src/main/resources-microservices/193")
         } else {
             resources.srcDir("src/main/resources-microservices/compat")
@@ -171,13 +170,13 @@ tasks {
     buildSearchableOptions.enabled = true
 }
 
-println "Building for IntelliJ ${idea_type} version '${idea_version}', since build '${idea_since_build}'"
+println "Building for IntelliJ ${idea_type} version '${idea_version}', since build '${ijVersion.buildVersion}'"
 
 intellijPlatform {
     pluginConfiguration {
         ideaVersion {
-            sinceBuild = "$idea_since_build"
-            untilBuild = "$idea_since_build.*"
+            sinceBuild = "${ijVersion.buildVersion}"
+            untilBuild = "${ijVersion.buildVersion}.*"
         }
     }
 }
