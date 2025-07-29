@@ -55,6 +55,14 @@ sourceSets.main {
         java.srcDir("src/233-251/232")
     }
 
+    if (ijVersion.buildVersion >= 252) {
+        java.srcDir("src/232-252/native")
+    } else if (ijVersion.buildVersion >= 232) {
+        java.srcDir("src/232-252/232")
+    } else {
+        java.srcDir("src/232-252/231")
+    }
+
     // Microservices
 
     if (ijVersion.platformType == "IU") {
