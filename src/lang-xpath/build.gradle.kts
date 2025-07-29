@@ -1,3 +1,5 @@
+val ijVersion = BuildConfiguration.getPlatformVersion(project)
+
 sourceSets.main {
     java.srcDir("main")
     resources.srcDir("main/resources")
@@ -19,6 +21,10 @@ tasks {
 dependencies {
     intellijPlatform {
         bundledPlugin("org.intellij.intelliLang")
+
+        if (ijVersion.buildVersion >= 252) {
+            bundledModule("intellij.spellchecker")
+        }
     }
 
     implementation(project(":src:kotlin-intellij"))
