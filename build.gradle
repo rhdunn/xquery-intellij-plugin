@@ -1,3 +1,4 @@
+// Copyright (C) 2016-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 import io.github.rhdunn.intellij.IntelliJSnapshot
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
