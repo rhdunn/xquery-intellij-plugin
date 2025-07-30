@@ -18,9 +18,8 @@ object BuildConfiguration {
     /**
      * The version of IntelliJ platform to target.
      */
-    fun getPlatformVersion(): IntelliJVersion {
-        return IntelliJVersion(PlatformType, PlatformVersion)
-    }
+    val IntelliJ: IntelliJVersion
+        get() = IntelliJVersion(PlatformType, PlatformVersion)
 
     private fun getProperty(name: String, envName: String? = null): String? {
         val systemValue = System.getProperty(name)

@@ -3,7 +3,7 @@ import io.github.rhdunn.intellij.IntelliJSnapshot
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 buildscript {
-    ext.ijVersion = BuildConfiguration.INSTANCE.getPlatformVersion()
+    ext.ijVersion = BuildConfiguration.INSTANCE.IntelliJ
     ext.kotlin_version = Version.INSTANCE.Kotlin(ext.ijVersion)
     ext.java_version = Version.INSTANCE.Java(ext.ijVersion)
 
