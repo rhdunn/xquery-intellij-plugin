@@ -5,7 +5,16 @@
 
 <img src="images/xquery-intellij-plugin.png" alt="Syntax Highlighting" width="60%" align="right"/>
 
+- [XQuery and XSLT](#xquery-and-xslt)
+  - [Overview](#overview)
+  - [Query Processor and Database Integration](#query-processor-and-database-integration)
+  - [Libraries and Frameworks](#libraries-and-frameworks)
+  - [IntelliJ Integration](#intellij-integration)
+- [License](#license)
+
 ## XQuery and XSLT
+
+### Overview
 
 This is a plugin for the IntelliJ IDE that adds support for the XML Query (XQuery) and
 XML Path (XPath) languages. This covers support for:
@@ -82,7 +91,7 @@ The plugin also supports the following IntelliJ Ultimate features:
 1.  Support displaying MarkLogic rewriter files in the Endpoints tool window;
 1.  Support displaying EXQuery RESTXQ endpoints in the Endpoints tool window.
 
------
+## License
 
 Copyright (C) 2016-2025 Reece H. Dunn
 
