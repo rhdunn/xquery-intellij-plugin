@@ -49,10 +49,14 @@ configure(allprojects - project(":src")) {
     dependencies {
         intellijPlatform {
             if (ijVersion is IntelliJSnapshot) {
-                create(ijVersion.platformType, ijVersion.value, false)
+                create(ijVersion.platformType, ijVersion.value) {
+                    useInstaller = false
+                }
                 jetbrainsRuntime()
             } else {
-                create(ijVersion.platformType, ijVersion.platformVersion, true)
+                create(ijVersion.platformType, ijVersion.platformVersion) {
+                    useInstaller = true
+                }
             }
 
             testFramework(TestFrameworkType.Platform)
