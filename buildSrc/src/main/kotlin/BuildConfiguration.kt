@@ -10,11 +10,16 @@ object BuildConfiguration {
         get() = getProperty("platform.type", "IDEA_TYPE") ?: Version.PlatformType
 
     /**
+     * The IntelliJ platform version to build for.
+     */
+    val PlatformVersion: String
+        get() = getProperty("platform.version", "IDEA_VERSION") ?: Version.PlatformVersion
+
+    /**
      * The version of IntelliJ platform to target.
      */
     fun getPlatformVersion(): IntelliJVersion {
-        val version = getProperty("platform.version", "IDEA_VERSION") ?: "2025.1"
-        return IntelliJVersion(PlatformType, version)
+        return IntelliJVersion(PlatformType, PlatformVersion)
     }
 
     private fun getProperty(name: String, envName: String? = null): String? {
