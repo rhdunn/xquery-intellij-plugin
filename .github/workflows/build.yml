@@ -77,10 +77,10 @@ jobs:
         run: gradle :assemble
 
       - name: Run Tests
-        run: gradle test
+        run: gradle check
 
       - name: Build Plugin
-        run: gradle buildPlugin
+        run: gradle :buildPlugin
 
       - name: Upload Plugin Jar
         uses: actions/upload-artifact@v4.4.3

@@ -1,8 +1,7 @@
 // Copyright (C) 2016-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 
-include("src:kotlin-intellij")
-
 include("src:intellij-compat")
+include("src:kotlin-intellij")
 include("src:intellij-test")
 
 include("src:lang-core")
