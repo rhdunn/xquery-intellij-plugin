@@ -3,7 +3,13 @@
 import io.github.rhdunn.intellij.IntelliJVersion
 import org.gradle.api.GradleException
 
+@Suppress("ConstPropertyName")
 object Version {
+    /**
+     * The IntelliJ platform type to default to unless overridden. See BuildConfiguration.
+     */
+    const val PlatformType = "IC"
+
     /**
      * The version of the Kotlin compiler and runtime.
      *

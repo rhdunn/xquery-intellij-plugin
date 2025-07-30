@@ -4,12 +4,17 @@ import io.github.rhdunn.intellij.IntelliJVersion
 
 object BuildConfiguration {
     /**
+     * The IntelliJ platform type to build for.
+     */
+    val PlatformType: String
+        get() = getProperty("platform.type", "IDEA_TYPE") ?: Version.PlatformType
+
+    /**
      * The version of IntelliJ platform to target.
      */
     fun getPlatformVersion(): IntelliJVersion {
-        val type = getProperty("platform.type", "IDEA_TYPE") ?: "IC"
         val version = getProperty("platform.version", "IDEA_VERSION") ?: "2025.1"
-        return IntelliJVersion(type, version)
+        return IntelliJVersion(PlatformType, version)
     }
 
     private fun getProperty(name: String, envName: String? = null): String? {
