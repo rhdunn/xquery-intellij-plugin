@@ -1,28 +1,22 @@
-// Copyright (C) 2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2024-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 
 import io.github.rhdunn.intellij.IntelliJVersion
-import org.gradle.api.GradleException
-import org.gradle.api.Project
 
 object BuildConfiguration {
     /**
      * The version of IntelliJ platform to target.
      */
-    fun getPlatformVersion(project: Project): IntelliJVersion {
-        val type = getProperty(project, "platform.type", "IDEA_TYPE")
-            ?: throw GradleException("The platform.type property is not set.")
-        val version = getProperty(project, "platform.version", "IDEA_VERSION")
-            ?: throw GradleException("The platform.version property is not set.")
+    fun getPlatformVersion(): IntelliJVersion {
+        val type = getProperty("platform.type", "IDEA_TYPE") ?: "IC"
+        val version = getProperty("platform.version", "IDEA_VERSION") ?: "2025.1"
         return IntelliJVersion(type, version)
     }
 
-    private fun getProperty(project: Project, name: String, envName: String? = null): String? {
-        val projectValue = project.findProperty(name)?.toString()
-            ?.takeIf { value -> value.isNotBlank() }
+    private fun getProperty(name: String, envName: String? = null): String? {
         val systemValue = System.getProperty(name)
             ?.takeIf { value -> value.isNotBlank() }
         val envValue = envName?.let { System.getenv(it) }
             ?.takeIf { value -> value.isNotBlank() }
-        return envValue ?: systemValue ?: projectValue
+        return envValue ?: systemValue
     }
 }

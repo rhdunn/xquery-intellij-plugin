@@ -1,6 +1,6 @@
 // Copyright (C) 2016-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 
-val ijVersion = BuildConfiguration.getPlatformVersion(project)
+val ijVersion = BuildConfiguration.getPlatformVersion()
 
 version = ijVersion.buildVersion.toString()
 
