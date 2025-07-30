@@ -10,6 +10,10 @@
   - [Query Processor and Database Integration](#query-processor-and-database-integration)
   - [Libraries and Frameworks](#libraries-and-frameworks)
   - [IntelliJ Integration](#intellij-integration)
+- [Building](#building)
+  - [Gradle](#gradle)
+  - [Java](#java)
+  - [IntelliJ](#intellij)
 - [License](#license)
 
 ## XQuery and XSLT
@@ -90,6 +94,45 @@ This plugin provides support for the following IntelliJ features:
 The plugin also supports the following IntelliJ Ultimate features:
 1.  Support displaying MarkLogic rewriter files in the Endpoints tool window;
 1.  Support displaying EXQuery RESTXQ endpoints in the Endpoints tool window.
+
+## Building
+
+### Gradle
+
+This project uses `gradle`. It requires gradle 8.5 or later. You can then use:
+
+- `gradle ...`.
+
+If you open the project in IntelliJ it will install and configure the gradle wrapper
+for you. You can then use:
+
+- `./gradlew ...` if using a bash or similar shell;
+- `gradlew.bat ...` if using Windows.
+
+### Java
+
+The Java version depends on the version of IntelliJ being targeted:
+
+- IntelliJ 2022.3 - 2024.1 require Java 17;
+- IntelliJ 2024.2 - 2025.2 require Java 21.
+
+In IntelliJ you need to specify the `Gradle JVM` property (File | Settings |
+Build, Execution, Deployment | Build Tools | Gradle) to that Java version.
+
+### IntelliJ
+
+The version of IntelliJ to build can be configured as follows:
+
+| Environment Variable | System Property    | Default  | Description             |
+|----------------------|--------------------|----------|-------------------------|
+| `IDEA_TYPE`          | `platform.type`    | `IU`     | IntelliJ platform type. |
+| `IDEA_VERSION`       | `platform.version` | `2025.1` | IntelliJ version.       |
+
+The following are some useful gradle tasks:
+
+- `:buildPlugin` -- build the plugin to the `build/distributions` directory;
+- `:runIde` -- run an instance of the specified IntelliJ IDE with the plugin installed;
+- `check` -- run the tests.
 
 ## License
 
