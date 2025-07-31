@@ -60,7 +60,7 @@ configure(allprojects - project(":src")) {
         }
 
         testImplementation("org.junit.jupiter:junit-jupiter-api:${Version.Dependency.JUnit5}")
-        testImplementation("org.hamcrest:hamcrest-core:1.3")
+        testImplementation("org.hamcrest:hamcrest-core:${Version.Dependency.Hamcrest}")
 
         testRuntimeOnly("org.junit.platform:junit-platform-launcher:${Version.Dependency.JUnitPlatform}")
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Version.Dependency.JUnit5}")
@@ -111,7 +111,7 @@ dependencies {
     implementation(project(":src:plugin-w3"))
 
     testImplementation(project(":src:intellij-test"))
-    testImplementation("org.hamcrest:hamcrest-core:1.3")
+    testImplementation("org.hamcrest:hamcrest-core:${Version.Dependency.Hamcrest}")
 }
 
 sourceSets.main {

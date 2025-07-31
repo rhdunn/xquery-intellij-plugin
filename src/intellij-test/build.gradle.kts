@@ -10,7 +10,7 @@ sourceSets.test {
 
 dependencies {
     implementation("org.junit.jupiter:junit-jupiter-api:${Version.Dependency.JUnit5}")
-    implementation("org.hamcrest:hamcrest:3.0")
+    implementation("org.hamcrest:hamcrest:${Version.Dependency.Hamcrest}")
 
     implementation(project(":src:intellij-compat"))
 

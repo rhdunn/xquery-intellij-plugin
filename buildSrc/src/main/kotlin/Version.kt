@@ -45,6 +45,15 @@ object Version {
      */
     object Dependency {
         /**
+         * The version of the `hamcrest` library.
+         *
+         * `SPDX-License-Identifier: BSD-3`
+         *
+         * @see <a href="https://github.com/hamcrest/JavaHamcrest">https://github.com/hamcrest/JavaHamcrest</a>
+         */
+        const val Hamcrest = "3.0"
+
+        /**
          * A Java-based HTML 5/LS parser.
          *
          * `SPDX-License-Identifier: MPL-2.0`
