@@ -3,12 +3,6 @@ import io.github.rhdunn.intellij.IntelliJSnapshot
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import java.net.URI
 
-// Suffix ordering:
-//    `"-snapshot"` -- for development builds
-//    `"-eap-###"`  -- for early access preview builds (`-eap-1`, `-eap-2`, `-eap-3`, etc.)
-//    `""`          -- for release builds
-var suffix = ""
-
 plugins {
     id("org.jetbrains.intellij.platform") version "2.7.0"
     id("org.jetbrains.kotlin.jvm") version Version.Kotlin(BuildConfiguration.IntelliJ)
@@ -21,7 +15,7 @@ configure(allprojects - project(":src")) {
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
     group = "uk.co.reecedunn.intellij.plugin.xquery"
-    version = ProjectMetadata.Build.VersionTag + "-" + ijVersion.buildVersion.toString() + suffix
+    version = ProjectMetadata.Build.VersionTag + "-" + ijVersion.buildVersion.toString() + ProjectMetadata.Build.Type.suffix
 
     repositories {
         mavenCentral()
