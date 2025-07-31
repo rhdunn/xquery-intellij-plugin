@@ -10,7 +10,7 @@ plugins {
 
 val ijVersion = BuildConfiguration.IntelliJ
 
-configure(allprojects - project(":src")) {
+allprojects {
     apply(plugin = "org.jetbrains.intellij.platform")
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
