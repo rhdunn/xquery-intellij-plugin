@@ -14,7 +14,7 @@ configure(allprojects - project(":src")) {
     apply(plugin = "org.jetbrains.intellij.platform")
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
-    group = "uk.co.reecedunn.intellij.plugin.xquery"
+    group = ProjectMetadata.Build.GroupId
     version = ProjectMetadata.Build.Version(ijVersion)
 
     repositories {

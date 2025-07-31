@@ -25,5 +25,10 @@ object ProjectMetadata {
          * The artifact version ID.
          */
         fun Version(ijVersion: IntelliJVersion) = "${VersionTag}-${ijVersion.buildVersion}${Type.suffix}"
+
+        /**
+         * The plugin group ID.
+         */
+        const val GroupId = "uk.co.reecedunn.intellij.plugin.xquery"
     }
 }
