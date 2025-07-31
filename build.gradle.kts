@@ -64,7 +64,7 @@ configure(allprojects - project(":src")) {
 
         testRuntimeOnly("org.junit.platform:junit-platform-launcher:${Version.Dependency.JUnitPlatform}")
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Version.Dependency.JUnit5}")
-        testRuntimeOnly("junit:junit:4.13")
+        testRuntimeOnly("junit:junit:${Version.Dependency.JUnit4}")
     }
 
     tasks.test {

@@ -56,6 +56,15 @@ object Version {
         /**
          * The version of the `junit` library.
          *
+         * `SPDX-License-Identifier: EPL-1.0` (Eclipse Public License 1.0)
+         *
+         * @see <a href="https://github.com/junit-team/junit4">https://github.com/junit-team/junit4</a>
+         */
+        const val JUnit4 = "4.13"
+
+        /**
+         * The version of the `junit` library.
+         *
          * `SPDX-License-Identifier: EPL-2.0` (Eclipse Public License 2.0)
          *
          * @see <a href="https://github.com/junit-team/junit5">https://github.com/junit-team/junit5</a>
