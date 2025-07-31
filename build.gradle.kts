@@ -3,8 +3,6 @@ import io.github.rhdunn.intellij.IntelliJSnapshot
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import java.net.URI
 
-val junit_platform_version = "1.9.1"
-
 var plugin_version = "1.9.4"
 // Suffix ordering:
 //    `"-snapshot"` -- for development builds
@@ -64,7 +62,7 @@ configure(allprojects - project(":src")) {
         testImplementation("org.junit.jupiter:junit-jupiter-api:${Version.Dependency.JUnit5}")
         testImplementation("org.hamcrest:hamcrest-core:1.3")
 
-        testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junit_platform_version")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher:${Version.Dependency.JUnitPlatform}")
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Version.Dependency.JUnit5}")
         testRuntimeOnly("junit:junit:4.13")
     }

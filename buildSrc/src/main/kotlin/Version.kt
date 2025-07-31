@@ -63,6 +63,15 @@ object Version {
         const val JUnit5 = "5.9.1"
 
         /**
+         * The version of the `junit` library.
+         *
+         * `SPDX-License-Identifier: EPL-2.0` (Eclipse Public License 2.0)
+         *
+         * @see <a href="https://github.com/junit-team/junit5">https://github.com/junit-team/junit5</a>
+         */
+        const val JUnitPlatform = "1.9.1"
+
+        /**
          * The version of the Saxon HE XQuery/XSLT processor.
          *
          * `SPDX-License-Identifier: MPL-2.0`
