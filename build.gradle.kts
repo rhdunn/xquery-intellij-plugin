@@ -3,7 +3,6 @@ import io.github.rhdunn.intellij.IntelliJSnapshot
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import java.net.URI
 
-var plugin_version = "1.9.4"
 // Suffix ordering:
 //    `"-snapshot"` -- for development builds
 //    `"-eap-###"`  -- for early access preview builds (`-eap-1`, `-eap-2`, `-eap-3`, etc.)
@@ -22,7 +21,7 @@ configure(allprojects - project(":src")) {
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
     group = "uk.co.reecedunn.intellij.plugin.xquery"
-    version = plugin_version + "-" + ijVersion.buildVersion.toString() + suffix
+    version = ProjectMetadata.Build.VersionTag + "-" + ijVersion.buildVersion.toString() + suffix
 
     repositories {
         mavenCentral()
