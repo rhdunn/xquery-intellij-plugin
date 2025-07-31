@@ -4,7 +4,7 @@ import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import java.net.URI
 
 plugins {
-    id("org.jetbrains.intellij.platform") version "2.7.0"
+    id("org.jetbrains.intellij.platform") version Version.Plugin.IntelliJPlatform
     id("org.jetbrains.kotlin.jvm") version Version.Kotlin(BuildConfiguration.IntelliJ)
 }
 

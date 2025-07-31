@@ -41,6 +41,20 @@ object Version {
     }
 
     /**
+     * Versions of the various plugins used by the project.
+     */
+    object Plugin {
+        /**
+         * The version of the `id("org.jetbrains.intellij.platform")` plugin.
+         *
+         * `SPDX-License-Identifier: Apache-2.0`
+         *
+         * @see <a href="https://github.com/JetBrains/intellij-platform-gradle-plugin">https://github.com/JetBrains/intellij-platform-gradle-plugin</a>
+         */
+        const val IntelliJPlatform = "2.7.0"
+    }
+
+    /**
      * Versions of the various libraries used by the project.
      */
     object Dependency {
