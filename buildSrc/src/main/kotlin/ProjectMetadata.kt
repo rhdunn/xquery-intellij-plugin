@@ -1,10 +1,11 @@
 // Copyright (C) 2024-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 import io.github.rhdunn.intellij.BuildType
+import io.github.rhdunn.intellij.IntelliJVersion
 
 /**
  * Information about the project.
  */
-@Suppress("ConstPropertyName")
+@Suppress("ConstPropertyName", "FunctionName")
 object ProjectMetadata {
     /**
      * Version information about the current build of the project.
@@ -19,5 +20,10 @@ object ProjectMetadata {
          * The build type of this project.
          */
         val Type = BuildType.Release
+
+        /**
+         * The artifact version ID.
+         */
+        fun Version(ijVersion: IntelliJVersion) = "${VersionTag}-${ijVersion.buildVersion}${Type.suffix}"
     }
 }

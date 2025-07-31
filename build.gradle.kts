@@ -15,7 +15,7 @@ configure(allprojects - project(":src")) {
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
     group = "uk.co.reecedunn.intellij.plugin.xquery"
-    version = ProjectMetadata.Build.VersionTag + "-" + ijVersion.buildVersion.toString() + ProjectMetadata.Build.Type.suffix
+    version = ProjectMetadata.Build.Version(ijVersion)
 
     repositories {
         mavenCentral()
