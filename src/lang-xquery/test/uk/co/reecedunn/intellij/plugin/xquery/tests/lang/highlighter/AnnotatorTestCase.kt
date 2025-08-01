@@ -2,7 +2,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.highlighter
 
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.application.ApplicationManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -24,9 +23,10 @@ abstract class AnnotatorTestCase :
 
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
-        project.registerServiceInstance(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
+
+        XQueryProjectSettings.register(project)
 
         XpmVariableProvider.register(this, XQueryVariableProvider)
 

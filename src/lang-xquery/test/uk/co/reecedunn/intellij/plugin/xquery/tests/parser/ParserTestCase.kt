@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2016-2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import com.intellij.application.options.codeStyle.cache.CodeStyleCachingService
@@ -64,7 +50,6 @@ abstract class ParserTestCase :
 
         project.registerServiceInstance(CodeStyleCachingService::class.java, CodeStyleCachingService(project))
 
-        project.registerServiceInstance(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
         project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
@@ -75,6 +60,8 @@ abstract class ParserTestCase :
 
         project.registerServiceInstance(JavaTypePath::class.java, JavaTypePath(project))
         project.registerServiceInstance(XpmModuleLoaderSettings::class.java, XpmModuleLoaderSettings(project))
+
+        XQueryProjectSettings.register(project)
 
         XpmModulePathFactory.register(this, XpmModuleLocationPath, "")
 
