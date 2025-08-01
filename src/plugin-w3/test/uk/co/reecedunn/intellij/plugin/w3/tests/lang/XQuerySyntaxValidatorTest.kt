@@ -7,6 +7,7 @@ import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.w3.lang.W3CSpecifications
 import uk.co.reecedunn.intellij.plugin.w3.lang.XQuerySyntaxValidator
@@ -35,8 +36,8 @@ class XQuerySyntaxValidatorTest :
 
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
+        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
+        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
 
         XQueryProjectSettings.register(project)
 

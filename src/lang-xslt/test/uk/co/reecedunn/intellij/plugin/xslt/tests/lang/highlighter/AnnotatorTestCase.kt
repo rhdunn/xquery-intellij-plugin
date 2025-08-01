@@ -14,6 +14,7 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.PsiFile
 import com.intellij.psi.xml.StartTagEndTokenProvider
 import com.intellij.xml.XmlExtension
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -27,7 +28,7 @@ abstract class AnnotatorTestCase(vararg definitions: ParserDefinition) :
 
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XMLLanguage.INSTANCE, XmlASTFactory())
+        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XMLLanguage.INSTANCE, XmlASTFactory())
 
         val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(

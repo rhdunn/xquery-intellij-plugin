@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2019-2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2019-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
 import com.intellij.compat.lang.xml.registerBasicXmlElementFactory
@@ -30,6 +16,7 @@ import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import com.intellij.xml.XmlExtension
 import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
@@ -50,7 +37,7 @@ abstract class ParserTestCase(vararg definitions: ParserDefinition) :
 
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XMLLanguage.INSTANCE, XmlASTFactory())
+        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XMLLanguage.INSTANCE, XmlASTFactory())
 
         val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(

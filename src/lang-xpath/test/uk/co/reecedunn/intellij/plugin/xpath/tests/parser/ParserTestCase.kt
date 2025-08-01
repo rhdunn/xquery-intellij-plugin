@@ -27,6 +27,7 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.pom.PomModel
 import com.intellij.pom.tree.TreeAspect
 import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -48,7 +49,7 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
 
         project.registerServiceInstance(CodeStyleCachingService::class.java, CodeStyleCachingService(project))
 
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
+        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
         project.registerServiceInstance(ModuleManager::class.java, MockModuleManager(mockProject))
 

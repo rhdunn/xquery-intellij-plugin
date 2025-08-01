@@ -9,6 +9,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.psi.SmartPointerManager
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockSmartPointerManager
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator
@@ -42,8 +43,8 @@ abstract class InspectionTestCase :
         project.registerServiceInstance(SmartPointerManager::class.java, MockSmartPointerManager())
         project.registerServiceInstance(InspectionManager::class.java, InspectionManagerEx(project))
 
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
+        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
+        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
 
         XQueryProjectSettings.register(project)
 

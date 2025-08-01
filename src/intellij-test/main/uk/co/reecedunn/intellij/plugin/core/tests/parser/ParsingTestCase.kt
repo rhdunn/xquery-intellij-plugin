@@ -1,4 +1,4 @@
-// Copyright (C) 2016-2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2016-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 // Copyright 2000-2019 JetBrains s.r.o. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.tests.parser
 
@@ -30,7 +30,6 @@ import com.intellij.openapi.options.SchemeManagerFactory
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.startup.StartupManager
-import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.registry.Registry
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.encoding.EncodingManager
@@ -55,6 +54,7 @@ import com.intellij.util.messages.MessageBus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.annotations.NonNls
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
@@ -116,7 +116,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         project.registerServiceInstance(StartupManager::class.java, StartupManager(project))
 
         for (definition in mDefinitions) {
-            addExplicitExtension(LanguageParserDefinitions.INSTANCE, definition.fileNodeType.language, definition)
+            project.registerExplicitExtension(LanguageParserDefinitions.INSTANCE, definition.fileNodeType.language, definition)
         }
 
         if (mDefinitions.isNotEmpty()) {
@@ -198,7 +198,7 @@ abstract class ParsingTestCase<File : PsiFile>(
     private fun configureFromParserDefinition(definition: ParserDefinition, extension: String?) {
         language = definition.fileNodeType.language
         mFileExt = extension
-        addExplicitExtension(LanguageParserDefinitions.INSTANCE, language!!, definition)
+        project.registerExplicitExtension(LanguageParserDefinitions.INSTANCE, language!!, definition)
     }
 
     private fun loadFileTypeSafe(className: String, fileTypeName: String): FileType {
@@ -210,13 +210,6 @@ abstract class ParsingTestCase<File : PsiFile>(
     }
 
     // region IntelliJ ParsingTestCase Methods
-
-    protected fun <T> addExplicitExtension(instance: LanguageExtension<T>, language: Language, `object`: T) {
-        instance.addExplicitExtension(language, `object`!!)
-        Disposer.register(project, com.intellij.openapi.Disposable {
-            instance.removeExplicitExtension(language, `object`)
-        })
-    }
 
     fun createVirtualFile(@NonNls name: String, text: String): VirtualFile {
         val file = LightVirtualFile(name, language!!, text)

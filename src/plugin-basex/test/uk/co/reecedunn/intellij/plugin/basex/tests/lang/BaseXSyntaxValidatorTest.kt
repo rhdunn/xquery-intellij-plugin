@@ -10,6 +10,7 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXVersion
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
@@ -35,8 +36,8 @@ class BaseXSyntaxValidatorTest :
 
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
-        addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
+        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
+        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
 
         XQueryProjectSettings.register(project)
 
