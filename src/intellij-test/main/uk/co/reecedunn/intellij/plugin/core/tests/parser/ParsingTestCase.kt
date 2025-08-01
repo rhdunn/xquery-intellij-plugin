@@ -29,7 +29,6 @@ import com.intellij.openapi.fileTypes.PlainTextLanguage
 import com.intellij.openapi.options.SchemeManagerFactory
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
-import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.StartupManager
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.registry.Registry
@@ -223,14 +222,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         val file = LightVirtualFile(name, language!!, text)
         file.charset = StandardCharsets.UTF_8
         return file
-    }
-
-    fun getFileViewProvider(project: Project, file: VirtualFile, physical: Boolean): FileViewProvider {
-        val manager = PsiManager.getInstance(project)
-        val factory = LanguageFileViewProviders.INSTANCE.forLanguage(language!!)
-        var viewProvider: FileViewProvider? = factory?.createFileViewProvider(file, language, manager, physical)
-        if (viewProvider == null) viewProvider = SingleRootFileViewProvider(manager, file, physical)
-        return viewProvider
     }
 
     @Suppress("UNCHECKED_CAST")
