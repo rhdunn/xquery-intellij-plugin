@@ -14,8 +14,6 @@ import com.intellij.lang.impl.PsiBuilderFactoryImpl
 import com.intellij.lang.parameterInfo.CreateParameterInfoContext
 import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
 import com.intellij.mock.MockFileDocumentManagerImpl
-import com.intellij.mock.MockFileTypeManager
-import com.intellij.mock.MockLanguageFileType
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.command.CommandProcessor
 import com.intellij.openapi.command.impl.CoreCommandProcessor
@@ -23,9 +21,6 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
-import com.intellij.openapi.fileTypes.FileType
-import com.intellij.openapi.fileTypes.FileTypeManager
-import com.intellij.openapi.fileTypes.PlainTextLanguage
 import com.intellij.openapi.options.SchemeManagerFactory
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
@@ -68,20 +63,8 @@ import java.nio.charset.StandardCharsets
 // NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
 // customise the mock implementation, making it difficult to implement some tests.
 @Suppress("SameParameterValue", "ReplaceNotNullAssertionWithElvisReturn")
-abstract class ParsingTestCase<File : PsiFile>(
-    private var mFileExt: String?,
-    vararg definitions: ParserDefinition
-) : IdeaPlatformTestCase() {
-    constructor(fileExt: String?, language: Language) : this(fileExt) {
-        this.language = language
-    }
-
+abstract class ParsingTestCase<File : PsiFile>(val language: Language) : IdeaPlatformTestCase() {
     private var mFileFactory: PsiFileFactory? = null
-
-    var language: Language? = null
-        private set
-
-    private val mDefinitions: Array<out ParserDefinition> = definitions
 
     override fun registerServicesAndExtensions() {
         Registry.markAsLoaded()
@@ -114,23 +97,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         project.registerServiceInstance(PsiDocumentManager::class.java, MockPsiDocumentManagerEx(project))
         project.registerServiceInstance(PsiFileFactory::class.java, mFileFactory!!)
         project.registerServiceInstance(StartupManager::class.java, StartupManager(project))
-
-        for (definition in mDefinitions) {
-            project.registerExplicitExtension(LanguageParserDefinitions.INSTANCE, definition.fileNodeType.language, definition)
-        }
-
-        if (mDefinitions.isNotEmpty()) {
-            configureFromParserDefinition(mDefinitions[0], mFileExt)
-        }
-
-        if (language != null) {
-            val fileType =
-                if (language?.id == "XML")
-                    loadFileTypeSafe("com.intellij.ide.highlighter.XmlFileType", "XML")
-                else
-                    MockLanguageFileType(language!!, mFileExt)
-            app.registerServiceInstance(FileTypeManager::class.java, MockFileTypeManager(fileType))
-        }
     }
 
     protected fun registerPsiModification() {
@@ -193,20 +159,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         app.registerExtensionPointBean(
             CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java, pluginDisposable
         )
-    }
-
-    private fun configureFromParserDefinition(definition: ParserDefinition, extension: String?) {
-        language = definition.fileNodeType.language
-        mFileExt = extension
-        project.registerExplicitExtension(LanguageParserDefinitions.INSTANCE, language!!, definition)
-    }
-
-    private fun loadFileTypeSafe(className: String, fileTypeName: String): FileType {
-        return try {
-            Class.forName(className).getField("INSTANCE").get(null) as FileType
-        } catch (ignored: Exception) {
-            MockLanguageFileType(PlainTextLanguage.INSTANCE, fileTypeName.lowercase())
-        }
     }
 
     // region IntelliJ ParsingTestCase Methods

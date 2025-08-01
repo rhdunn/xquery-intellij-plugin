@@ -1,20 +1,8 @@
-/*
- * Copyright (C) 2020 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xslt.tests.psi
 
+import com.intellij.ide.highlighter.XmlFileType
+import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
@@ -23,6 +11,8 @@ import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.xslt.ast.exsl.EXslDocument
 import uk.co.reecedunn.intellij.plugin.xslt.ast.marklogic.MarkLogicCatch
 import uk.co.reecedunn.intellij.plugin.xslt.ast.marklogic.MarkLogicImportModule
@@ -35,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XSLT")
-class PluginPsiTest : ParserTestCase(XMLParserDefinition()) {
+class PluginPsiTest : ParserTestCase(XMLLanguage.INSTANCE) {
     companion object {
         private const val EXSL_COMMON_NAMESPACE = "http://exslt.org/common"
         private const val SAXON_NAMESPACE = "http://saxon.sf.net/"
@@ -44,6 +34,13 @@ class PluginPsiTest : ParserTestCase(XMLParserDefinition()) {
     }
 
     override val pluginId: PluginId = PluginId.getId("PluginPsiTest")
+
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
+        XMLParserDefinition().registerExtension(project)
+        XmlFileType.INSTANCE.registerFileType()
+    }
 
     @Nested
     @DisplayName("EXSL Common")

@@ -12,6 +12,7 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.pom.PomModel
 import com.intellij.pom.tree.TreeAspect
 import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
@@ -19,12 +20,13 @@ import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.MockPomModel
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProviderBean
 
-abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefinition()) {
+abstract class ParserTestCase : ParsingTestCase<PsiFile>(XPath) {
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
@@ -35,6 +37,8 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
         project.registerServiceInstance(CodeStyleCachingService::class.java, CodeStyleCachingService(project))
 
         XPathASTFactory().registerExtension(project, XPath)
+        XPathParserDefinition().registerExtension(project)
+        XPathFileType.registerFileType()
 
         project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
         project.registerServiceInstance(ModuleManager::class.java, MockModuleManager(mockProject))

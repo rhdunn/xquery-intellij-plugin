@@ -11,6 +11,7 @@ import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.pom.PomModel
 import com.intellij.pom.tree.TreeAspect
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
@@ -32,12 +33,13 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecoratorBean
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
 abstract class ParserTestCase :
-    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
+    ParsingTestCase<XQueryModule>(XQuery) {
 
     open fun registerModules(manager: MockModuleManager) {}
 
@@ -51,7 +53,11 @@ abstract class ParserTestCase :
         project.registerServiceInstance(CodeStyleCachingService::class.java, CodeStyleCachingService(project))
 
         XPathASTFactory().registerExtension(project, XPath)
+        XPathParserDefinition().registerExtension(project)
+
         XQueryASTFactory().registerExtension(project, XQuery)
+        XQueryParserDefinition().registerExtension(project)
+        XQueryFileType.registerFileType()
 
         project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
 

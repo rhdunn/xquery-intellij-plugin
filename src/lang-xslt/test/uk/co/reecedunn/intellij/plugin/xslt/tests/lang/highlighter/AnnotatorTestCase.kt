@@ -1,9 +1,9 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xslt.tests.lang.highlighter
 
+import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
-import com.intellij.lang.ParserDefinition
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XmlASTFactory
@@ -22,9 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory
 
 @Suppress("MemberVisibilityCanBePrivate", "SameParameterValue")
-abstract class AnnotatorTestCase(vararg definitions: ParserDefinition) :
-    ParsingTestCase<PsiFile>(null, *definitions) {
-
+abstract class AnnotatorTestCase(language: Language) : ParsingTestCase<PsiFile>(language) {
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 

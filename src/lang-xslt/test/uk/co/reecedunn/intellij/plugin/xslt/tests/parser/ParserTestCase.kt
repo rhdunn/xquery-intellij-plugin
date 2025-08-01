@@ -2,7 +2,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
 import com.intellij.compat.lang.xml.registerBasicXmlElementFactory
-import com.intellij.lang.ParserDefinition
+import com.intellij.lang.Language
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XmlASTFactory
@@ -31,9 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory
 
 @Suppress("MemberVisibilityCanBePrivate", "SameParameterValue")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-abstract class ParserTestCase(vararg definitions: ParserDefinition) :
-    ParsingTestCase<XmlFile>(null, *definitions) {
-
+abstract class ParserTestCase(language: Language) : ParsingTestCase<XmlFile>(language) {
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 

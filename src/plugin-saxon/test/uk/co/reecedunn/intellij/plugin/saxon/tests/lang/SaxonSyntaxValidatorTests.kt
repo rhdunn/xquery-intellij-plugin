@@ -7,6 +7,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.saxon.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
@@ -18,23 +19,25 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
 @Suppress("ClassName")
 @DisplayName("XQuery IntelliJ Plugin - Syntax Validation - Saxon")
-class SaxonSyntaxValidatorTest :
-    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
-    XpmDiagnostics {
-
+class SaxonSyntaxValidatorTest : ParsingTestCase<XQueryModule>(XQuery), XpmDiagnostics {
     override val pluginId: PluginId = PluginId.getId("SaxonSyntaxValidatorTest")
 
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
         XPathASTFactory().registerExtension(project, XPath)
+        XPathParserDefinition().registerExtension(project)
+
         XQueryASTFactory().registerExtension(project, XQuery)
+        XQueryParserDefinition().registerExtension(project)
+        XQueryFileType.registerFileType()
 
         XQueryProjectSettings.register(project)
 

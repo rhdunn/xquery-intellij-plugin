@@ -9,6 +9,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.psi.SmartPointerManager
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockSmartPointerManager
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator
@@ -22,14 +23,13 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
-abstract class InspectionTestCase :
-    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
-
+abstract class InspectionTestCase : ParsingTestCase<XQueryModule>(XQuery) {
     private val inspectionManager: InspectionManager
         get() = InspectionManager.getInstance(project)
 
@@ -43,7 +43,11 @@ abstract class InspectionTestCase :
         project.registerServiceInstance(InspectionManager::class.java, InspectionManagerEx(project))
 
         XPathASTFactory().registerExtension(project, XPath)
+        XPathParserDefinition().registerExtension(project)
+
         XQueryASTFactory().registerExtension(project, XQuery)
+        XQueryParserDefinition().registerExtension(project)
+        XQueryFileType.registerFileType()
 
         XQueryProjectSettings.register(project)
 

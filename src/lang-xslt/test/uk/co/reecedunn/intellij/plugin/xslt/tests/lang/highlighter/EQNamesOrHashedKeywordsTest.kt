@@ -7,8 +7,10 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.annotateTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.prettyPrint
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.EQNamesOrHashedKeywords
@@ -17,10 +19,17 @@ import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaTypes
 
 @Suppress("Reformat")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - EQNames-or-hashed-keywords Schema Type Annotator")
-class EQNamesOrHashedKeywordsTest :
-    AnnotatorTestCase(EQNamesOrHashedKeywords.ParserDefinition(), XPathParserDefinition()) {
-
+class EQNamesOrHashedKeywordsTest : AnnotatorTestCase(EQNamesOrHashedKeywords) {
     override val pluginId: PluginId = PluginId.getId("EQNamesOrHashedKeywordsTest")
+
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
+        EQNamesOrHashedKeywords.ParserDefinition().registerExtension(project)
+        EQNamesOrHashedKeywords.FileType.registerFileType()
+
+        XPathParserDefinition().registerExtension(project)
+    }
 
     @Nested
     @DisplayName("xsl:accumulator-names")
