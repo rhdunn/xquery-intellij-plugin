@@ -1,13 +1,12 @@
 // Copyright (C) 2020-2022, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.saxon.tests.lang
 
-import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.saxon.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
@@ -31,19 +30,17 @@ class SaxonSyntaxValidatorTest :
 
     override val pluginId: PluginId = PluginId.getId("SaxonSyntaxValidatorTest")
 
-    // region ParsingTestCase
-
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
-        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
-        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
+
+        XPathASTFactory().registerExtension(project, XPath)
+        XQueryASTFactory().registerExtension(project, XQuery)
 
         XQueryProjectSettings.register(project)
 
         XpmSyntaxValidator.register(this, SaxonSyntaxValidator)
     }
 
-    // endregion
     // region XpmDiagnostics
 
     val report: StringBuffer = StringBuffer()

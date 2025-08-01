@@ -1,13 +1,12 @@
 // Copyright (C) 2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xijp.tests.lang
 
-import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xijp.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xijp.lang.XQueryIntelliJPluginSyntaxValidator
@@ -33,19 +32,17 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
 
     override val pluginId: PluginId = PluginId.getId("XQueryIntelliJPluginSyntaxValidatorTest")
 
-    // region ParsingTestCase
-
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
-        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
-        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
+
+        XPathASTFactory().registerExtension(project, XPath)
+        XQueryASTFactory().registerExtension(project, XQuery)
 
         XQueryProjectSettings.register(project)
 
         XpmSyntaxValidator.register(this, XQueryIntelliJPluginSyntaxValidator)
     }
 
-    // endregion
     // region XpmDiagnostics
 
     val report: StringBuffer = StringBuffer()

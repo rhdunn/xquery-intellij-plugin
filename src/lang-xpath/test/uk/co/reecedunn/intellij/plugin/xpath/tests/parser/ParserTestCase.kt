@@ -1,25 +1,10 @@
-/*
- * Copyright (C) 2018-2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2018-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 
 import com.intellij.application.options.codeStyle.cache.CodeStyleCachingService
 import com.intellij.compat.application.options.codeStyle.cache.CodeStyleCachingService
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
-import com.intellij.lang.LanguageASTFactory
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleManager
@@ -27,8 +12,8 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.pom.PomModel
 import com.intellij.pom.tree.TreeAspect
 import com.intellij.psi.PsiFile
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.MockPomModel
@@ -49,7 +34,8 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
 
         project.registerServiceInstance(CodeStyleCachingService::class.java, CodeStyleCachingService(project))
 
-        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
+        XPathASTFactory().registerExtension(project, XPath)
+
         project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
         project.registerServiceInstance(ModuleManager::class.java, MockModuleManager(mockProject))
 

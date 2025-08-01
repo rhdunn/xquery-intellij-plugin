@@ -3,7 +3,6 @@ package uk.co.reecedunn.intellij.plugin.xslt.tests.lang.highlighter
 
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
-import com.intellij.lang.LanguageASTFactory
 import com.intellij.lang.ParserDefinition
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.xml.XMLLanguage
@@ -14,8 +13,8 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.PsiFile
 import com.intellij.psi.xml.StartTagEndTokenProvider
 import com.intellij.xml.XmlExtension
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
@@ -28,7 +27,8 @@ abstract class AnnotatorTestCase(vararg definitions: ParserDefinition) :
 
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
-        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XMLLanguage.INSTANCE, XmlASTFactory())
+
+        XmlASTFactory().registerExtension(project, XMLLanguage.INSTANCE)
 
         val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(

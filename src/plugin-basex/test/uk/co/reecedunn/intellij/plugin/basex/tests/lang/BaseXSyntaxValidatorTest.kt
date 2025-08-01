@@ -1,7 +1,6 @@
 // Copyright (C) 2020-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.basex.tests.lang
 
-import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.`is`
@@ -10,7 +9,7 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXVersion
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
@@ -32,19 +31,17 @@ class BaseXSyntaxValidatorTest :
 
     override val pluginId: PluginId = PluginId.getId("BaseXSyntaxValidatorTest")
 
-    // region ParsingTestCase
-
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
-        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
-        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
+
+        XPathASTFactory().registerExtension(project, XPath)
+        XQueryASTFactory().registerExtension(project, XQuery)
 
         XQueryProjectSettings.register(project)
 
         XpmSyntaxValidator.register(this, BaseXSyntaxValidator)
     }
 
-    // endregion
     // region XpmDiagnostics
 
     val report: StringBuffer = StringBuffer()

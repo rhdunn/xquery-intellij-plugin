@@ -2,9 +2,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.highlighter
 
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
-import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.application.ApplicationManager
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
@@ -24,8 +23,9 @@ abstract class AnnotatorTestCase :
 
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
-        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
-        project.registerExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
+
+        XPathASTFactory().registerExtension(project, XPath)
+        XQueryASTFactory().registerExtension(project, XQuery)
 
         XQueryProjectSettings.register(project)
 
