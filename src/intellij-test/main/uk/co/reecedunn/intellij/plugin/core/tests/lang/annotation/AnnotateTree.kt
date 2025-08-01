@@ -1,5 +1,5 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
-package uk.co.reecedunn.intellij.plugin.core.tests.parser
+package uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation
 
 import com.intellij.lang.annotation.*
 import com.intellij.lang.annotation.Annotation

@@ -7,8 +7,8 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.annotateTree
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.annotateTree
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.prettyPrint
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.EQNamesOrHashedKeywords

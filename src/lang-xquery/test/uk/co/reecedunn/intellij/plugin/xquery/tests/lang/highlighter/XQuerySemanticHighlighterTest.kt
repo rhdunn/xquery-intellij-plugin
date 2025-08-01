@@ -11,8 +11,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.colors.MockEditorColorsManager
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.annotateTree
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.annotateTree
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.prettyPrint
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSemanticHighlighter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighter
