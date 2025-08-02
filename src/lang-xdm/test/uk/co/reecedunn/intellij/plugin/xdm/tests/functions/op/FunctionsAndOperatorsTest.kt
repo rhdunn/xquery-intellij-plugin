@@ -1,34 +1,60 @@
-/*
- * Copyright (C) 2018 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2018, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xdm.tests.functions.op
 
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.openapi.module.ModuleManager
+import com.intellij.openapi.roots.ProjectRootManager
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XPath and XQuery Functions and Operators 3.1")
-class FunctionsAndOperatorsTest : ParserTestCase() {
+class FunctionsAndOperatorsTest : ParsingTestCase<XQueryModule>(XQuery) {
     override val pluginId: PluginId = PluginId.getId("FunctionsAndOperatorsTest")
+
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
+        XPathASTFactory().registerExtension(project, XPath)
+        XPathParserDefinition().registerExtension(project)
+
+        XQueryASTFactory().registerExtension(project, XQuery)
+        XQueryParserDefinition().registerExtension(project)
+        XQueryFileType.registerFileType()
+
+        project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
+
+        val manager = MockModuleManager(mockProject)
+        project.registerServiceInstance(ModuleManager::class.java, manager)
+
+        XQueryProjectSettings().registerService(project)
+
+        XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
+    }
 
     @Nested
     @DisplayName("XPath and XQuery Functions and Operators 3.1 (10.2.1) op:QName-equal")
