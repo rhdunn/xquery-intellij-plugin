@@ -6,6 +6,7 @@ import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -39,7 +40,7 @@ class SaxonSyntaxValidatorTest : ParsingTestCase<XQueryModule>(XQuery), XpmDiagn
         XQueryParserDefinition().registerExtension(project)
         XQueryFileType.registerFileType()
 
-        XQueryProjectSettings.register(project)
+        XQueryProjectSettings().registerService(project)
 
         XpmSyntaxValidator.register(this, SaxonSyntaxValidator)
     }

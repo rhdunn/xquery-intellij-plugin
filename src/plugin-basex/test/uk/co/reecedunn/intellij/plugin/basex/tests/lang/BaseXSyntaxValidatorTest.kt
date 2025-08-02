@@ -9,6 +9,7 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXVersion
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -40,7 +41,7 @@ class BaseXSyntaxValidatorTest : ParsingTestCase<XQueryModule>(XQuery), XpmDiagn
         XQueryParserDefinition().registerExtension(project)
         XQueryFileType.registerFileType()
 
-        XQueryProjectSettings.register(project)
+        XQueryProjectSettings().registerService(project)
 
         XpmSyntaxValidator.register(this, BaseXSyntaxValidator)
     }

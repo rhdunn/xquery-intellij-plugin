@@ -1,19 +1,5 @@
-/*
- * Copyright (C) 2020-2022 Reece H. Dunn
- * Copyright 2000-2020 JetBrains s.r.o.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2016-2022, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright 2000-2020 JetBrains s.r.o. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.extensions
 
 import com.intellij.mock.MockComponentManager
@@ -67,4 +53,9 @@ fun <T : Any> ComponentManager.registerExtension(
 @TestOnly
 fun <T : Any> ComponentManager.registerServiceInstance(serviceInterface: Class<T>, implementation: T) {
     (this as MockComponentManager).registerService(serviceInterface, implementation)
+}
+
+@TestOnly
+inline fun <reified T : Any> T.registerService(manager: ComponentManager) {
+    manager.registerServiceInstance(T::class.java, this)
 }

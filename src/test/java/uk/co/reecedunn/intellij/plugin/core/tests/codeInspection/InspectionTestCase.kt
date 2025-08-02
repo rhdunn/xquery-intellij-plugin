@@ -8,6 +8,7 @@ import com.intellij.codeInspection.ex.InspectionManagerEx
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.psi.SmartPointerManager
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -49,7 +50,7 @@ abstract class InspectionTestCase : ParsingTestCase<XQueryModule>(XQuery) {
         XQueryParserDefinition().registerExtension(project)
         XQueryFileType.registerFileType()
 
-        XQueryProjectSettings.register(project)
+        XQueryProjectSettings().registerService(project)
 
         XpmSyntaxValidator.register(this, BaseXSyntaxValidator)
         XpmSyntaxValidator.register(this, MarkLogicSyntaxValidator)

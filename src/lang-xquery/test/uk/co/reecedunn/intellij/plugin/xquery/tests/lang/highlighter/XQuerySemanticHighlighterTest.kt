@@ -10,6 +10,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.colors.MockEditorColorsManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.annotateTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.prettyPrint
@@ -48,7 +49,7 @@ class XQuerySemanticHighlighterTest : ParsingTestCase<XQueryModule>(XQuery) {
         XQueryParserDefinition().registerExtension(project)
         XQueryFileType.registerFileType()
 
-        XQueryProjectSettings.register(project)
+        XQueryProjectSettings().registerService(project)
 
         XpmVariableProvider.register(this, XQueryVariableProvider)
 

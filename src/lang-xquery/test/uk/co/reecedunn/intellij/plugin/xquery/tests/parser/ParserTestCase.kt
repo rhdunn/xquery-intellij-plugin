@@ -11,6 +11,7 @@ import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.pom.PomModel
 import com.intellij.pom.tree.TreeAspect
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
@@ -68,7 +69,7 @@ abstract class ParserTestCase :
         project.registerServiceInstance(JavaTypePath::class.java, JavaTypePath(project))
         project.registerServiceInstance(XpmModuleLoaderSettings::class.java, XpmModuleLoaderSettings(project))
 
-        XQueryProjectSettings.register(project)
+        XQueryProjectSettings().registerService(project)
 
         XpmModulePathFactory.register(this, XpmModuleLocationPath, "")
 

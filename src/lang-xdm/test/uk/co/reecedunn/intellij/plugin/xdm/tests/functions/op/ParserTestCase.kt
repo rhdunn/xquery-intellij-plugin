@@ -4,6 +4,7 @@ package uk.co.reecedunn.intellij.plugin.xdm.tests.functions.op
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
@@ -40,7 +41,7 @@ abstract class ParserTestCase : ParsingTestCase<XQueryModule>(XQuery) {
         registerModules(manager)
         project.registerServiceInstance(ModuleManager::class.java, manager)
 
-        XQueryProjectSettings.register(project)
+        XQueryProjectSettings().registerService(project)
 
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
     }

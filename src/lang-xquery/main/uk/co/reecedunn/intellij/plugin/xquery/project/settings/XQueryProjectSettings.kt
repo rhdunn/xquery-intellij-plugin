@@ -9,8 +9,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.ModificationTracker
 import com.intellij.util.xmlb.XmlSerializerUtil
 import com.intellij.util.xmlb.annotations.Transient
-import org.jetbrains.annotations.TestOnly
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import java.util.concurrent.atomic.AtomicLongFieldUpdater
 
@@ -80,11 +78,6 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings>, M
 
         fun getInstance(project: Project): XQueryProjectSettings {
             return project.getService(XQueryProjectSettings::class.java)
-        }
-
-        @TestOnly
-        fun register(project: Project) {
-            project.registerServiceInstance(XQueryProjectSettings::class.java, XQueryProjectSettings())
         }
     }
 }
