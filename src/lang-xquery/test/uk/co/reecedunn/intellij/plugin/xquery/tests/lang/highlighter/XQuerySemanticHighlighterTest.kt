@@ -13,25 +13,52 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.colors.MockEditorColorsManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.annotateTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.prettyPrint
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSemanticHighlighter
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighter
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySemanticHighlighter
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery Semantic Highlighter")
-class XQuerySemanticHighlighterTest : AnnotatorTestCase() {
+class XQuerySemanticHighlighterTest : ParsingTestCase<XQueryModule>(XQuery) {
     override val pluginId: PluginId = PluginId.getId("XQuerySemanticHighlighterTest")
 
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
-        val app = ApplicationManager.getApplication()
-        app.registerServiceInstance(EditorColorsManager::class.java, MockEditorColorsManager())
+        XPathASTFactory().registerExtension(project, XPath)
+        XPathParserDefinition().registerExtension(project)
+
+        XQueryASTFactory().registerExtension(project, XQuery)
+        XQueryParserDefinition().registerExtension(project)
+        XQueryFileType.registerFileType()
+
+        XQueryProjectSettings.register(project)
+
+        XpmVariableProvider.register(this, XQueryVariableProvider)
+
+        XpmNamespaceProvider.register(this)
 
         XpmSemanticHighlighter.register(this, XPathSemanticHighlighter)
         XpmSemanticHighlighter.register(this, XQuerySemanticHighlighter)
+
+        val app = ApplicationManager.getApplication()
+        app.registerServiceInstance(EditorColorsManager::class.java, MockEditorColorsManager())
     }
 
     @Nested
