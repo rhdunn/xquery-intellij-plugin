@@ -2,7 +2,6 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.module
 
 import com.intellij.mock.MockProject
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import com.intellij.openapi.module.*
 import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.vfs.VirtualFile
@@ -22,7 +21,7 @@ class MockModuleManager(private val project: MockProject) : ModuleManager() {
 
     fun createModule(moduleFile: VirtualFile): Module {
         val module = MockModule(project, moduleFile)
-        module.registerServiceInstance(ModuleRootManager::class.java, MockModuleRootsManager(module))
+        module.registerService(ModuleRootManager::class.java, MockModuleRootsManager(module))
         return module
     }
 

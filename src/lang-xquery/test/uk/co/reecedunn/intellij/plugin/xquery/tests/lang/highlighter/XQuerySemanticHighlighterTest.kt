@@ -1,7 +1,7 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.highlighter
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.extensions.PluginId
@@ -10,7 +10,6 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.colors.MockEditorColorsManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.annotateTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.prettyPrint
@@ -59,7 +58,7 @@ class XQuerySemanticHighlighterTest : ParsingTestCase<XQueryModule>(XQuery) {
         XpmSemanticHighlighter.register(this, XQuerySemanticHighlighter)
 
         val app = ApplicationManager.getApplication()
-        app.registerServiceInstance(EditorColorsManager::class.java, MockEditorColorsManager())
+        app.registerService(EditorColorsManager::class.java, MockEditorColorsManager())
     }
 
     @Nested

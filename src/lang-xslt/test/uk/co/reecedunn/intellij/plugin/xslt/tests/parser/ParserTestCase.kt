@@ -16,7 +16,7 @@ import com.intellij.psi.xml.XmlTag
 import com.intellij.xml.XmlExtension
 import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
@@ -45,9 +45,9 @@ abstract class ParserTestCase(language: Language) : ParsingTestCase<XmlFile>(lan
 
         app.registerBasicXmlElementFactory()
 
-        project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
-        project.registerServiceInstance(ModuleManager::class.java, MockModuleManager(mockProject))
-        project.registerServiceInstance(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
+        project.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
+        project.registerService(ModuleManager::class.java, MockModuleManager(mockProject))
+        project.registerService(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
 
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
     }

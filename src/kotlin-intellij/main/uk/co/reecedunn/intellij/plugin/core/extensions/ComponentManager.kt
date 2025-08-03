@@ -51,11 +51,11 @@ fun <T : Any> ComponentManager.registerExtension(
 }
 
 @TestOnly
-fun <T : Any> ComponentManager.registerServiceInstance(serviceInterface: Class<T>, implementation: T) {
+fun <T : Any> ComponentManager.registerService(serviceInterface: Class<T>, implementation: T) {
     (this as MockComponentManager).registerService(serviceInterface, implementation)
 }
 
 @TestOnly
 inline fun <reified T : Any> T.registerService(manager: ComponentManager) {
-    manager.registerServiceInstance(T::class.java, this)
+    manager.registerService(T::class.java, this)
 }

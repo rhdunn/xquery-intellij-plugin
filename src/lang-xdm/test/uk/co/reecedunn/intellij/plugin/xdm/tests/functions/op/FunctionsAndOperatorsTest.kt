@@ -10,7 +10,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
@@ -46,10 +45,10 @@ class FunctionsAndOperatorsTest : ParsingTestCase<XQueryModule>(XQuery) {
         XQueryParserDefinition().registerExtension(project)
         XQueryFileType.registerFileType()
 
-        project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
+        project.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
 
         val manager = MockModuleManager(mockProject)
-        project.registerServiceInstance(ModuleManager::class.java, manager)
+        project.registerService(ModuleManager::class.java, manager)
 
         XQueryProjectSettings().registerService(project)
 

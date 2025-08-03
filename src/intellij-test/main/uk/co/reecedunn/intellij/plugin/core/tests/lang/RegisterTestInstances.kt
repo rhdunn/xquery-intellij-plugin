@@ -13,7 +13,7 @@ import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.project.Project
 import org.jetbrains.annotations.TestOnly
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 
 @TestOnly
 fun ASTFactory.registerExtension(project: Project, language: Language) {
@@ -23,7 +23,7 @@ fun ASTFactory.registerExtension(project: Project, language: Language) {
 @TestOnly
 fun FileType.registerFileType() {
     val app = ApplicationManager.getApplication()
-    app.registerServiceInstance(FileTypeManager::class.java, MockFileTypeManager(this))
+    app.registerService(FileTypeManager::class.java, MockFileTypeManager(this))
 }
 
 @TestOnly

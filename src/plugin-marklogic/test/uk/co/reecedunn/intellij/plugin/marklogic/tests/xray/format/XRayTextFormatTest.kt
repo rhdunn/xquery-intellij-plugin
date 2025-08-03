@@ -2,7 +2,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.xray.format
 
 import com.intellij.compat.openapi.vfs.encoding.EncodingManagerImpl
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.extensions.PluginId
@@ -41,9 +41,9 @@ class XRayTextFormatTest : IdeaPlatformTestCase() {
 
     override fun registerServicesAndExtensions() {
         val app = ApplicationManager.getApplication()
-        app.registerServiceInstance(XDebuggerUtil::class.java, XDebuggerUtilImpl())
-        app.registerServiceInstance(EditorFactory::class.java, MockEditorFactoryEx())
-        app.registerServiceInstance(EncodingManager::class.java, EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
+        app.registerService(XDebuggerUtil::class.java, XDebuggerUtilImpl())
+        app.registerService(EditorFactory::class.java, MockEditorFactoryEx())
+        app.registerService(EncodingManager::class.java, EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
     }
 
     @Nested

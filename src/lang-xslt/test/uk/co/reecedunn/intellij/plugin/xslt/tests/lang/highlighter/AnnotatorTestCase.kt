@@ -3,7 +3,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.tests.lang.highlighter
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XmlASTFactory
@@ -34,9 +34,9 @@ abstract class AnnotatorTestCase(language: Language) : ParsingTestCase<PsiFile>(
         )
         app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
 
-        project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
-        project.registerServiceInstance(ModuleManager::class.java, MockModuleManager(mockProject))
-        project.registerServiceInstance(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
+        project.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
+        project.registerService(ModuleManager::class.java, MockModuleManager(mockProject))
+        project.registerService(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
 
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
     }

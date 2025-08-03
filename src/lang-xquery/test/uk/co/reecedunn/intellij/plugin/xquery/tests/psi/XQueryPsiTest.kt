@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.mock.MockResolveScopeManager
 import com.intellij.navigation.ItemPresentation
 import com.intellij.navigation.NavigationItem
@@ -107,8 +107,8 @@ class XQueryPsiTest : ParserTestCase() {
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
 
-        project.registerServiceInstance(ProjectScopeBuilder::class.java, MockProjectScopeBuilder())
-        project.registerServiceInstance(ResolveScopeManager::class.java, MockResolveScopeManager(project))
+        project.registerService(ProjectScopeBuilder::class.java, MockProjectScopeBuilder())
+        project.registerService(ResolveScopeManager::class.java, MockResolveScopeManager(project))
     }
 
     @Nested

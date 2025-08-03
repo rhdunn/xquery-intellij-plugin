@@ -1,7 +1,7 @@
 // Copyright (C) 2021, 2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.xray.format
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.compat.openapi.vfs.encoding.EncodingManagerImpl
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.EditorFactory
@@ -44,9 +44,9 @@ class XRayJsonFormatTest : IdeaPlatformTestCase() {
 
     override fun registerServicesAndExtensions() {
         val app = ApplicationManager.getApplication()
-        app.registerServiceInstance(XDebuggerUtil::class.java, XDebuggerUtilImpl())
-        app.registerServiceInstance(EditorFactory::class.java, MockEditorFactoryEx())
-        app.registerServiceInstance(EncodingManager::class.java, EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
+        app.registerService(XDebuggerUtil::class.java, XDebuggerUtilImpl())
+        app.registerService(EditorFactory::class.java, MockEditorFactoryEx())
+        app.registerService(EncodingManager::class.java, EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
     }
 
     @Nested

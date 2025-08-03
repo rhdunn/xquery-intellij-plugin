@@ -4,7 +4,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 import com.intellij.application.options.codeStyle.cache.CodeStyleCachingService
 import com.intellij.compat.application.options.codeStyle.cache.CodeStyleCachingService
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleManager
@@ -30,24 +30,24 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(XPath) {
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
-        project.registerServiceInstance(TreeAspect::class.java, TreeAspect())
-        project.registerServiceInstance(PomModel::class.java, MockPomModel(project))
+        project.registerService(TreeAspect::class.java, TreeAspect())
+        project.registerService(PomModel::class.java, MockPomModel(project))
         registerPsiModification()
 
-        project.registerServiceInstance(CodeStyleCachingService::class.java, CodeStyleCachingService(project))
+        project.registerService(CodeStyleCachingService::class.java, CodeStyleCachingService(project))
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)
         XPathFileType.registerFileType()
 
-        project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
-        project.registerServiceInstance(ModuleManager::class.java, MockModuleManager(mockProject))
+        project.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
+        project.registerService(ModuleManager::class.java, MockModuleManager(mockProject))
 
         val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(
             XpmFunctionProvider.EP_NAME, XpmFunctionProviderBean::class.java, pluginDisposable
         )
 
-        project.registerServiceInstance(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
+        project.registerService(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
     }
 }

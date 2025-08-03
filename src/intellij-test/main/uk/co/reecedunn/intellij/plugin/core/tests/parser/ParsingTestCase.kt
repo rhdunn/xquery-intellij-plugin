@@ -8,7 +8,7 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.openapi.startup.StartupManager
 import com.intellij.compat.openapi.vfs.encoding.EncodingManagerImpl
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
 import com.intellij.lang.parameterInfo.CreateParameterInfoContext
@@ -49,7 +49,6 @@ import com.intellij.util.messages.MessageBus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.annotations.NonNls
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExplicitExtension
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
@@ -71,32 +70,32 @@ abstract class ParsingTestCase<File : PsiFile>(val language: Language) : IdeaPla
 
         // IntelliJ ParsingTestCase setUp
         val app = ApplicationManager.getApplication()
-        app.registerServiceInstance(ProgressManager::class.java, ProgressManagerImpl())
+        app.registerService(ProgressManager::class.java, ProgressManagerImpl())
 
         val psiManager = MockPsiManager(project)
         mFileFactory = PsiFileFactoryImpl(psiManager)
-        app.registerServiceInstance(MessageBus::class.java, app.messageBus)
+        app.registerService(MessageBus::class.java, app.messageBus)
         val editorFactory = MockEditorFactoryEx()
-        app.registerServiceInstance(EditorFactory::class.java, editorFactory)
-        app.registerServiceInstance(EncodingManager::class.java, EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
-        app.registerServiceInstance(CommandProcessor::class.java, CoreCommandProcessor())
-        app.registerServiceInstance(
+        app.registerService(EditorFactory::class.java, editorFactory)
+        app.registerService(EncodingManager::class.java, EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
+        app.registerService(CommandProcessor::class.java, CoreCommandProcessor())
+        app.registerService(
             FileDocumentManager::class.java,
             MockFileDocumentManagerImpl(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY) {
                 editorFactory.createDocument(it)
             }
         )
 
-        app.registerServiceInstance(PsiBuilderFactory::class.java, PsiBuilderFactoryImpl())
-        app.registerServiceInstance(DefaultASTFactory::class.java, DefaultASTFactoryImpl())
-        app.registerServiceInstance(ReferenceProvidersRegistry::class.java, ReferenceProvidersRegistryImpl())
-        project.registerServiceInstance(PsiManager::class.java, psiManager)
-        project.registerServiceInstance(
+        app.registerService(PsiBuilderFactory::class.java, PsiBuilderFactoryImpl())
+        app.registerService(DefaultASTFactory::class.java, DefaultASTFactoryImpl())
+        app.registerService(ReferenceProvidersRegistry::class.java, ReferenceProvidersRegistryImpl())
+        project.registerService(PsiManager::class.java, psiManager)
+        project.registerService(
             CachedValuesManager::class.java, CachedValuesManagerImpl(project, PsiCachedValuesFactory(project))
         )
-        project.registerServiceInstance(PsiDocumentManager::class.java, MockPsiDocumentManagerEx(project))
-        project.registerServiceInstance(PsiFileFactory::class.java, mFileFactory!!)
-        project.registerServiceInstance(StartupManager::class.java, StartupManager(project))
+        project.registerService(PsiDocumentManager::class.java, MockPsiDocumentManagerEx(project))
+        project.registerService(PsiFileFactory::class.java, mFileFactory!!)
+        project.registerService(StartupManager::class.java, StartupManager(project))
     }
 
     protected fun registerPsiModification() {
@@ -110,14 +109,14 @@ abstract class ParsingTestCase<File : PsiFile>(val language: Language) : IdeaPla
         )
 
         app.registerExtensionPointBean(TreeCopyHandler.EP_NAME, TreeCopyHandler::class.java, pluginDisposable)
-        app.registerServiceInstance(IndentHelper::class.java, IndentHelperImpl())
+        app.registerService(IndentHelper::class.java, IndentHelperImpl())
 
         registerCodeSettingsService()
         registerCodeStyleSettingsManager()
 
         val schemeManagerFactory = MockSchemeManagerFactory()
-        app.registerServiceInstance(SchemeManagerFactory::class.java, schemeManagerFactory)
-        app.registerServiceInstance(CodeStyleSchemes::class.java, PersistableCodeStyleSchemes(schemeManagerFactory))
+        app.registerService(SchemeManagerFactory::class.java, schemeManagerFactory)
+        app.registerService(CodeStyleSchemes::class.java, PersistableCodeStyleSchemes(schemeManagerFactory))
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -126,7 +125,7 @@ abstract class ParsingTestCase<File : PsiFile>(val language: Language) : IdeaPla
             val service = Class.forName("com.intellij.psi.codeStyle.CodeStyleSettingsService") as Class<Any>
             val `class` = Class.forName("com.intellij.psi.codeStyle.CodeStyleSettingsServiceImpl") as Class<Any>
             val `object` = `class`.getConstructor().newInstance()
-            ApplicationManager.getApplication().registerServiceInstance(service, `object`)
+            ApplicationManager.getApplication().registerService(service, `object`)
         } catch (e: ClassNotFoundException) {
         }
     }
@@ -149,8 +148,8 @@ abstract class ParsingTestCase<File : PsiFile>(val language: Language) : IdeaPla
             FileCodeStyleProvider.EP_NAME, FileCodeStyleProvider::class.java, pluginDisposable
         )
 
-        app.registerServiceInstance(AppCodeStyleSettingsManager::class.java, AppCodeStyleSettingsManager())
-        project.registerServiceInstance(
+        app.registerService(AppCodeStyleSettingsManager::class.java, AppCodeStyleSettingsManager())
+        project.registerService(
             ProjectCodeStyleSettingsManager::class.java,
             ProjectCodeStyleSettingsManager(project)
         )

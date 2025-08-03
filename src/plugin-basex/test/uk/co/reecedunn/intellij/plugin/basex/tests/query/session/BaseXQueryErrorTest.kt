@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.tests.query.session
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.mock.MockFileTypeManager
 import com.intellij.mock.MockLanguageFileType
 import com.intellij.openapi.application.ApplicationManager
@@ -39,10 +39,10 @@ class BaseXQueryErrorTest : IdeaPlatformTestCase() {
 
     override fun registerServicesAndExtensions() {
         val app = ApplicationManager.getApplication()
-        app.registerServiceInstance(XDebuggerUtil::class.java, XDebuggerUtilImpl())
+        app.registerService(XDebuggerUtil::class.java, XDebuggerUtilImpl())
 
         val fileType = MockLanguageFileType(XQuery, "xq")
-        app.registerServiceInstance(FileTypeManager::class.java, MockFileTypeManager(fileType))
+        app.registerService(FileTypeManager::class.java, MockFileTypeManager(fileType))
     }
 
     @Test

@@ -5,10 +5,9 @@ import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ex.InspectionManagerEx
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.psi.SmartPointerManager
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -40,8 +39,8 @@ abstract class InspectionTestCase : ParsingTestCase<XQueryModule>(XQuery) {
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
-        project.registerServiceInstance(SmartPointerManager::class.java, MockSmartPointerManager())
-        project.registerServiceInstance(InspectionManager::class.java, InspectionManagerEx(project))
+        project.registerService(SmartPointerManager::class.java, MockSmartPointerManager())
+        project.registerService(InspectionManager::class.java, InspectionManagerEx(project))
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

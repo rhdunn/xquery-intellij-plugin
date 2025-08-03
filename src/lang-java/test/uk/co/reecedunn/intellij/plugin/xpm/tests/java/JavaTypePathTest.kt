@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.tests.java
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
@@ -35,7 +35,7 @@ class JavaTypePathTest : IdeaPlatformTestCase() {
     override val pluginId: PluginId = PluginId.getId("JavaTypePathTest")
 
     override fun registerServicesAndExtensions() {
-        project.registerServiceInstance(JavaTypePath::class.java, JavaTypePath(project))
+        project.registerService(JavaTypePath::class.java, JavaTypePath(project))
     }
 
     private fun anyURI(path: String, context: XdmUriContext): XsAnyUriValue {
