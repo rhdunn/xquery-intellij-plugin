@@ -44,7 +44,7 @@ class XQuerySyntaxValidatorTest :
         XQueryParserDefinition().registerExtension(project)
         XQueryFileType.registerFileType()
 
-        XQueryProjectSettings().registerService(project)
+        project.registerService(XQueryProjectSettings())
 
         XpmSyntaxValidator.register(this, XQuerySyntaxValidator)
     }

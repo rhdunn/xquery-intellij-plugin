@@ -49,7 +49,7 @@ abstract class InspectionTestCase : ParsingTestCase<XQueryModule>(XQuery) {
         XQueryParserDefinition().registerExtension(project)
         XQueryFileType.registerFileType()
 
-        XQueryProjectSettings().registerService(project)
+        project.registerService(XQueryProjectSettings())
 
         XpmSyntaxValidator.register(this, BaseXSyntaxValidator)
         XpmSyntaxValidator.register(this, MarkLogicSyntaxValidator)

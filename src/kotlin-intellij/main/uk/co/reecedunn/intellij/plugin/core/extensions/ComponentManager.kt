@@ -56,6 +56,6 @@ fun <T : Any> ComponentManager.registerService(serviceInterface: Class<T>, imple
 }
 
 @TestOnly
-inline fun <reified T : Any> T.registerService(manager: ComponentManager) {
-    manager.registerService(T::class.java, this)
+inline fun <reified T : Any> ComponentManager.registerService(implementation: T) {
+    registerService(T::class.java, implementation)
 }

@@ -68,7 +68,7 @@ abstract class ParserTestCase :
         project.registerService(JavaTypePath::class.java, JavaTypePath(project))
         project.registerService(XpmModuleLoaderSettings::class.java, XpmModuleLoaderSettings(project))
 
-        XQueryProjectSettings().registerService(project)
+        project.registerService(XQueryProjectSettings())
 
         XpmModulePathFactory.register(this, XpmModuleLocationPath, "")
 

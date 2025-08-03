@@ -40,7 +40,7 @@ class SaxonSyntaxValidatorTest : ParsingTestCase<XQueryModule>(XQuery), XpmDiagn
         XQueryParserDefinition().registerExtension(project)
         XQueryFileType.registerFileType()
 
-        XQueryProjectSettings().registerService(project)
+        project.registerService(XQueryProjectSettings())
 
         XpmSyntaxValidator.register(this, SaxonSyntaxValidator)
     }

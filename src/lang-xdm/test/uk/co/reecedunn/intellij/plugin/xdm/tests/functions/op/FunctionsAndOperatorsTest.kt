@@ -50,7 +50,7 @@ class FunctionsAndOperatorsTest : ParsingTestCase<XQueryModule>(XQuery) {
         val manager = MockModuleManager(mockProject)
         project.registerService(ModuleManager::class.java, manager)
 
-        XQueryProjectSettings().registerService(project)
+        project.registerService(XQueryProjectSettings())
 
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
     }

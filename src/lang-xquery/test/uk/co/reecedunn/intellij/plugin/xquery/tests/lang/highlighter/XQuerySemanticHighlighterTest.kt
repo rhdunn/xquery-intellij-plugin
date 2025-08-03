@@ -48,7 +48,7 @@ class XQuerySemanticHighlighterTest : ParsingTestCase<XQueryModule>(XQuery) {
         XQueryParserDefinition().registerExtension(project)
         XQueryFileType.registerFileType()
 
-        XQueryProjectSettings().registerService(project)
+        project.registerService(XQueryProjectSettings())
 
         XpmVariableProvider.register(this, XQueryVariableProvider)
 
