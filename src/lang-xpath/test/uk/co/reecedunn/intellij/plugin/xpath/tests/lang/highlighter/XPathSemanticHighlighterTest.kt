@@ -1,8 +1,6 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xpath.tests.lang.highlighter
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -23,7 +21,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighter
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBean
 
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XPath Semantic Highlighter")
@@ -37,10 +34,7 @@ class XPathSemanticHighlighterTest : ParsingTestCase<XPath>(XPathLanguage) {
         XPathParserDefinition().registerExtension(project)
         XPathFileType.registerFileType()
 
-        val app = ApplicationManager.getApplication()
-        app.registerExtensionPointBean(
-            XpmVariableProvider.EP_NAME, XpmVariableProviderBean::class.java, pluginDisposable
-        )
+        XpmVariableProvider.register(this)
 
         XpmSemanticHighlighter.register(this, XPathSemanticHighlighter)
     }
