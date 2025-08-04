@@ -1,6 +1,7 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
+import com.intellij.mock.MockProjectEx
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.mock.MockResolveScopeManager
 import com.intellij.navigation.ItemPresentation
@@ -95,7 +96,7 @@ class XQueryPsiTest : ParserTestCase() {
         project.registerService<ProjectScopeBuilder>(MockProjectScopeBuilder())
         project.registerService<ResolveScopeManager>(MockResolveScopeManager(project))
 
-        val manager = MockModuleManager(mockProject)
+        val manager = MockModuleManager(project as MockProjectEx)
         manager.addModule(res.findFileByPath("tests/module-xquery")!!)
         project.registerService<ModuleManager>(manager)
     }

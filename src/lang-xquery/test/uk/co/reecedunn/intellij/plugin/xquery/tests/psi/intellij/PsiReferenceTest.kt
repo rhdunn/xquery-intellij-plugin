@@ -1,6 +1,7 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi.intellij
 
+import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.psi.PsiElement
@@ -44,7 +45,7 @@ class PsiReferenceTest : ParserTestCase() {
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmVariableProvider.register(this, XQueryVariableProvider)
 
-        val manager = MockModuleManager(mockProject)
+        val manager = MockModuleManager(project as MockProjectEx)
         project.registerService<ModuleManager>(manager)
     }
 

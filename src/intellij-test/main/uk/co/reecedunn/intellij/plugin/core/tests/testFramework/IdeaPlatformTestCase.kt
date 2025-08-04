@@ -1,4 +1,4 @@
-// Copyright (C) 2020, 2023 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2020, 2023, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.tests.testFramework
 
 import com.intellij.mock.MockApplication
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-abstract class IdeaPlatformTestCase : PluginDescriptorProvider {
+abstract class IdeaPlatformTestCase : PluginDescriptorProvider, ProjectTestCase {
     // region PluginDescriptorProvider
 
     override val pluginDescriptor: PluginDescriptor
@@ -23,11 +23,12 @@ abstract class IdeaPlatformTestCase : PluginDescriptorProvider {
     override val pluginDisposable: Disposable = PluginDisposable()
 
     // endregion
+    // region ProjectTestCase
 
     private var mainProject: MockProjectEx? = null
+    override val project: Project get() = mainProject!!
 
-    val mockProject: MockProjectEx get() = mainProject!!
-    val project: Project get() = mainProject!!
+    // endregion
 
     @BeforeAll
     fun setupFixture() {

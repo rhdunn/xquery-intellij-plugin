@@ -1,6 +1,7 @@
 // Copyright (C) 2017-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.optree
 
+import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.module.ModuleManager
 import org.hamcrest.CoreMatchers.*
@@ -44,7 +45,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         XpmVariableProvider.register(this, XQueryVariableProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
 
-        val manager = MockModuleManager(mockProject)
+        val manager = MockModuleManager(project as MockProjectEx)
         manager.addModule(ResourceVirtualFile.create(this::class.java.classLoader, "tests/module-xquery"))
         project.registerService<ModuleManager>(manager)
     }
