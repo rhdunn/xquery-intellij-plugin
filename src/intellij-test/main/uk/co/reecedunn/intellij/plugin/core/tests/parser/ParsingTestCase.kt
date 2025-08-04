@@ -12,8 +12,6 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
 import com.intellij.lang.injection.InjectedLanguageManager
-import com.intellij.lang.parameterInfo.CreateParameterInfoContext
-import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
 import com.intellij.mock.MockFileDocumentManagerImpl
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.command.CommandProcessor
@@ -42,14 +40,12 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.impl.source.tree.TreeCopyHandler
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.testFramework.MockSchemeManagerFactory
-import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import com.intellij.util.CachedValuesManagerImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.EditorTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.MockPomModel
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
@@ -177,19 +173,5 @@ abstract class ParsingTestCase<File : PsiFile>(
 
     fun handleInsert(text: String, char: Char, lookup: LookupElement, tailOffset: Int): InsertionContext {
         return handleInsert(text, char, listOf(lookup).toTypedArray(), tailOffset)
-    }
-
-    fun createParameterInfoContext(text: String, offset: Int): CreateParameterInfoContext {
-        val file = parseText(text)
-        val editor = getEditor(file)
-        editor.caretModel.moveToOffset(offset)
-        return MockCreateParameterInfoContext(editor, file)
-    }
-
-    fun updateParameterInfoContext(text: String, offset: Int): UpdateParameterInfoContext {
-        val file = parseText(text)
-        val editor = getEditor(file)
-        editor.caretModel.moveToOffset(offset)
-        return MockUpdateParameterInfoContext(editor, file)
     }
 }
