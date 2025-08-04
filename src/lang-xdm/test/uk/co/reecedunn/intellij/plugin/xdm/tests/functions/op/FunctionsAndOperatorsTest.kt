@@ -3,7 +3,6 @@ package uk.co.reecedunn.intellij.plugin.xdm.tests.functions.op
 
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.module.ModuleManager
-import com.intellij.openapi.roots.ProjectRootManager
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -14,7 +13,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
-import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
@@ -44,8 +42,6 @@ class FunctionsAndOperatorsTest : ParsingTestCase<XQueryModule>(XQuery) {
         XQueryASTFactory().registerExtension(project, XQuery)
         XQueryParserDefinition().registerExtension(project)
         XQueryFileType.registerFileType()
-
-        project.registerService<ProjectRootManager>(MockProjectRootsManager())
 
         val manager = MockModuleManager(mockProject)
         project.registerService<ModuleManager>(manager)

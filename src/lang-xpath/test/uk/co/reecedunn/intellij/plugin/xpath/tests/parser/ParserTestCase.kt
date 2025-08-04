@@ -5,13 +5,11 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBea
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleManager
-import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
-import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
@@ -27,7 +25,6 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(XPath) {
         XPathParserDefinition().registerExtension(project)
         XPathFileType.registerFileType()
 
-        project.registerService<ProjectRootManager>(MockProjectRootsManager())
         project.registerService<ModuleManager>(MockModuleManager(mockProject))
 
         val app = ApplicationManager.getApplication()
