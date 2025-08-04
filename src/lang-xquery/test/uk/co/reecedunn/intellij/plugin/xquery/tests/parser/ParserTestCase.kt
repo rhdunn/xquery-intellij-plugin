@@ -47,7 +47,6 @@ abstract class ParserTestCase :
 
         project.registerService(TreeAspect())
         project.registerService<PomModel>(MockPomModel(project))
-        registerPsiModification()
 
         project.registerService(CodeStyleCachingService(project))
 

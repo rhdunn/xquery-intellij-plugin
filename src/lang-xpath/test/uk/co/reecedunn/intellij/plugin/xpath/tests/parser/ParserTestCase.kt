@@ -31,7 +31,6 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(XPath) {
 
         project.registerService(TreeAspect())
         project.registerService<PomModel>(MockPomModel(project))
-        registerPsiModification()
 
         project.registerService(CodeStyleCachingService(project))
 
