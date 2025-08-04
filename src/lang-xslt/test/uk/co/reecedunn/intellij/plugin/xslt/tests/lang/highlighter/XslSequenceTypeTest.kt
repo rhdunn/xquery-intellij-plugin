@@ -2,6 +2,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.tests.lang.highlighter
 
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -11,6 +12,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.annotateTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.prettyPrint
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.SequenceType
@@ -19,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaTypes
 
 @Suppress("Reformat", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - SequenceType Schema Type Annotator")
-class XslSequenceTypeTest : AnnotatorTestCase(SequenceType) {
+class XslSequenceTypeTest : ParsingTestCase<PsiFile>(SequenceType) {
     override val pluginId: PluginId = PluginId.getId("XslSequenceTypeTest")
 
     override fun registerServicesAndExtensions() {
