@@ -1,7 +1,6 @@
 // Copyright (C) 2018-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 
-import com.intellij.compat.application.options.codeStyle.cache.CodeStyleCachingService
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.openapi.application.ApplicationManager
@@ -29,8 +28,6 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(XPath) {
 
         project.registerService(TreeAspect())
         project.registerService<PomModel>(MockPomModel(project))
-
-        project.registerService(CodeStyleCachingService(project))
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)
