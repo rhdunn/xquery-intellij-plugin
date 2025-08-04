@@ -2,7 +2,6 @@
 // Copyright 2000-2019 JetBrains s.r.o. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.tests.parser
 
-import com.intellij.compat.openapi.startup.StartupManager
 import com.intellij.compat.openapi.vfs.encoding.EncodingManagerImpl
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.lang.*
@@ -64,6 +63,5 @@ abstract class ParsingTestCase<File : PsiFile>(
         project.registerService<CachedValuesManager>(CachedValuesManagerImpl(project, PsiCachedValuesFactory(project)))
         project.registerService<PsiDocumentManager>(MockPsiDocumentManagerEx(project))
         project.registerService<PsiFileFactory>(PsiFileFactoryImpl(psiManager))
-        project.registerService(StartupManager(project))
     }
 }
