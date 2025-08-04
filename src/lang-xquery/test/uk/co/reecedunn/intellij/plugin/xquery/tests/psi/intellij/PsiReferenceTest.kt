@@ -1,18 +1,15 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi.intellij
 
-import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.openapi.module.ModuleManager
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
+import uk.co.reecedunn.intellij.plugin.core.tests.module.ModuleTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicOrUnionType
@@ -32,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @Suppress("RedundantVisibilityModifier", "ReplaceNotNullAssertionWithElvisReturn")
 @DisplayName("IntelliJ Program Structure Interface (PSI) - PsiReference - XQuery")
-class PsiReferenceTest : ParserTestCase() {
+class PsiReferenceTest : ParserTestCase(), ModuleTestCase {
     override val pluginId: PluginId = PluginId.getId("PsiReferenceTest")
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
@@ -45,8 +42,7 @@ class PsiReferenceTest : ParserTestCase() {
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmVariableProvider.register(this, XQueryVariableProvider)
 
-        val manager = MockModuleManager(project as MockProjectEx)
-        project.registerService<ModuleManager>(manager)
+        registerModuleManager()
     }
 
     @Nested

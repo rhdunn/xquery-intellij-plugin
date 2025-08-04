@@ -1,16 +1,13 @@
 // Copyright (C) 2017-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.optree
 
-import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.openapi.module.ModuleManager
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
+import uk.co.reecedunn.intellij.plugin.core.tests.module.ModuleTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
@@ -35,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - Static Context")
-class XQueryStaticContextTest : ParserTestCase() {
+class XQueryStaticContextTest : ParserTestCase(), ModuleTestCase {
     override val pluginId: PluginId = PluginId.getId("XQueryStaticContextTest")
 
     override fun registerServicesAndExtensions() {
@@ -45,9 +42,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         XpmVariableProvider.register(this, XQueryVariableProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
 
-        val manager = MockModuleManager(project as MockProjectEx)
-        manager.addModule(ResourceVirtualFile.create(this::class.java.classLoader, "tests/module-xquery"))
-        project.registerService<ModuleManager>(manager)
+        registerModuleManager(ResourceVirtualFile.create(this::class.java.classLoader, "tests/module-xquery"))
     }
 
     @Nested

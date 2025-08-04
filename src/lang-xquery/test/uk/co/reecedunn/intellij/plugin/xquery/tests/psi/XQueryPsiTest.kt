@@ -1,13 +1,11 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
-import com.intellij.mock.MockProjectEx
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.mock.MockResolveScopeManager
 import com.intellij.navigation.ItemPresentation
 import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.openapi.module.ModuleManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.psi.impl.DebugUtil
@@ -26,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
+import uk.co.reecedunn.intellij.plugin.core.tests.module.ModuleTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockProjectScopeBuilder
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
@@ -78,7 +76,7 @@ import java.math.BigInteger
 
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
-class XQueryPsiTest : ParserTestCase() {
+class XQueryPsiTest : ParserTestCase(), ModuleTestCase {
     override val pluginId: PluginId = PluginId.getId("XQueryPsiTest")
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
@@ -96,9 +94,7 @@ class XQueryPsiTest : ParserTestCase() {
         project.registerService<ProjectScopeBuilder>(MockProjectScopeBuilder())
         project.registerService<ResolveScopeManager>(MockResolveScopeManager(project))
 
-        val manager = MockModuleManager(project as MockProjectEx)
-        manager.addModule(res.findFileByPath("tests/module-xquery")!!)
-        project.registerService<ModuleManager>(manager)
+        registerModuleManager(res.findFileByPath("tests/module-xquery")!!)
     }
 
     @Nested
