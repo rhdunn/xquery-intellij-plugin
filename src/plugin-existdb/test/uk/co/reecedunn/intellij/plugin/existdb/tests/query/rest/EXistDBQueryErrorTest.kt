@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 class EXistDBQueryErrorTest : IdeaPlatformTestCase() {
     override val pluginId: PluginId = PluginId.getId("EXistDBQueryErrorTest")
 
+    @Suppress("UnstableApiUsage")
     override fun registerServicesAndExtensions() {
         val app = ApplicationManager.getApplication()
         app.registerService<XDebuggerUtil>(XDebuggerUtilImpl())

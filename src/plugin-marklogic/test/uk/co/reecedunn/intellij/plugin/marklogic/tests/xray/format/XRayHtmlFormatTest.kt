@@ -42,6 +42,7 @@ class XRayHtmlFormatTest : IdeaPlatformTestCase() {
         return XRayTestFormat.format("html").parse(value)!!
     }
 
+    @Suppress("UnstableApiUsage")
     override fun registerServicesAndExtensions() {
         val app = ApplicationManager.getApplication()
         app.registerService<XDebuggerUtil>(XDebuggerUtilImpl())

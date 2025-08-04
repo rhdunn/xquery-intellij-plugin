@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 class MarkLogicQueryErrorTest : IdeaPlatformTestCase() {
     override val pluginId: PluginId = PluginId.getId("MarkLogicQueryErrorTest")
 
+    @Suppress("UnstableApiUsage")
     override fun registerServicesAndExtensions() {
         val app = ApplicationManager.getApplication()
         app.registerService<XDebuggerUtil>(XDebuggerUtilImpl())

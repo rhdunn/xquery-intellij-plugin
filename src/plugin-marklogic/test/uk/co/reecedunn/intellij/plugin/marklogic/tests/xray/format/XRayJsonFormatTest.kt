@@ -42,6 +42,7 @@ class XRayJsonFormatTest : IdeaPlatformTestCase() {
         return XRayTestFormat.format("json").parse(value)!!
     }
 
+    @Suppress("UnstableApiUsage")
     override fun registerServicesAndExtensions() {
         val app = ApplicationManager.getApplication()
         app.registerService<XDebuggerUtil>(XDebuggerUtilImpl())

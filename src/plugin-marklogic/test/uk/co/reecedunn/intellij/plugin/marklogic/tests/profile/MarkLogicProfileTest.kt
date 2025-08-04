@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 class MarkLogicProfileTest : IdeaPlatformTestCase() {
     override val pluginId: PluginId = PluginId.getId("MarkLogicProfileTest")
 
+    @Suppress("UnstableApiUsage")
     override fun registerServicesAndExtensions() {
         val app = ApplicationManager.getApplication()
         app.registerService<XDebuggerUtil>(XDebuggerUtilImpl())

@@ -42,6 +42,7 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
         return XRayTestFormat.format("xunit").parse(value)!!
     }
 
+    @Suppress("UnstableApiUsage")
     override fun registerServicesAndExtensions() {
         val app = ApplicationManager.getApplication()
         app.registerService<XDebuggerUtil>(XDebuggerUtilImpl())

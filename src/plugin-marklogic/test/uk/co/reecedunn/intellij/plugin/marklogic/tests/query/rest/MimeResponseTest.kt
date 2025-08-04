@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 class MimeResponseTest : IdeaPlatformTestCase() {
     override val pluginId: PluginId = PluginId.getId("MimeResponseTest")
 
+    @Suppress("UnstableApiUsage")
     override fun registerServicesAndExtensions() {
         val app = ApplicationManager.getApplication()
         app.registerService<XDebuggerUtil>(XDebuggerUtilImpl())
