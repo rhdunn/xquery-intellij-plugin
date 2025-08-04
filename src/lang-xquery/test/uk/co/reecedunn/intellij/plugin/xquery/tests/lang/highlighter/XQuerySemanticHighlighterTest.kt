@@ -58,7 +58,7 @@ class XQuerySemanticHighlighterTest : ParsingTestCase<XQueryModule>(XQuery) {
         XpmSemanticHighlighter.register(this, XQuerySemanticHighlighter)
 
         val app = ApplicationManager.getApplication()
-        app.registerService(EditorColorsManager::class.java, MockEditorColorsManager())
+        app.registerService<EditorColorsManager>(MockEditorColorsManager())
     }
 
     @Nested

@@ -35,7 +35,7 @@ class JavaTypePathTest : IdeaPlatformTestCase() {
     override val pluginId: PluginId = PluginId.getId("JavaTypePathTest")
 
     override fun registerServicesAndExtensions() {
-        project.registerService(JavaTypePath::class.java, JavaTypePath(project))
+        project.registerService(JavaTypePath(project))
     }
 
     private fun anyURI(path: String, context: XdmUriContext): XsAnyUriValue {

@@ -1,7 +1,6 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
-import com.intellij.application.options.codeStyle.cache.CodeStyleCachingService
 import com.intellij.compat.application.options.codeStyle.cache.CodeStyleCachingService
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
@@ -46,11 +45,11 @@ abstract class ParserTestCase :
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
-        project.registerService(TreeAspect::class.java, TreeAspect())
-        project.registerService(PomModel::class.java, MockPomModel(project))
+        project.registerService(TreeAspect())
+        project.registerService<PomModel>(MockPomModel(project))
         registerPsiModification()
 
-        project.registerService(CodeStyleCachingService::class.java, CodeStyleCachingService(project))
+        project.registerService(CodeStyleCachingService(project))
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)
@@ -59,14 +58,14 @@ abstract class ParserTestCase :
         XQueryParserDefinition().registerExtension(project)
         XQueryFileType.registerFileType()
 
-        project.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
+        project.registerService<ProjectRootManager>(MockProjectRootsManager())
 
         val manager = MockModuleManager(mockProject)
         registerModules(manager)
-        project.registerService(ModuleManager::class.java, manager)
+        project.registerService<ModuleManager>(manager)
 
-        project.registerService(JavaTypePath::class.java, JavaTypePath(project))
-        project.registerService(XpmModuleLoaderSettings::class.java, XpmModuleLoaderSettings(project))
+        project.registerService(JavaTypePath(project))
+        project.registerService(XpmModuleLoaderSettings(project))
 
         project.registerService(XQueryProjectSettings())
 
@@ -85,7 +84,7 @@ abstract class ParserTestCase :
             XpmFunctionDecorator.EP_NAME, XpmFunctionDecoratorBean::class.java, pluginDisposable
         )
 
-        project.registerService(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
+        project.registerService<InjectedLanguageManager>(MockInjectedLanguageManager())
     }
 
     protected val settings: XQueryProjectSettings

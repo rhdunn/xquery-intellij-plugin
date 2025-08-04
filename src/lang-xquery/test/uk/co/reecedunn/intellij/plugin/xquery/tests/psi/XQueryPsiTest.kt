@@ -107,8 +107,8 @@ class XQueryPsiTest : ParserTestCase() {
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
 
-        project.registerService(ProjectScopeBuilder::class.java, MockProjectScopeBuilder())
-        project.registerService(ResolveScopeManager::class.java, MockResolveScopeManager(project))
+        project.registerService<ProjectScopeBuilder>(MockProjectScopeBuilder())
+        project.registerService<ResolveScopeManager>(MockResolveScopeManager(project))
     }
 
     @Nested

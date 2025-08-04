@@ -34,9 +34,9 @@ abstract class AnnotatorTestCase(language: Language) : ParsingTestCase<PsiFile>(
         )
         app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
 
-        project.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
-        project.registerService(ModuleManager::class.java, MockModuleManager(mockProject))
-        project.registerService(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
+        project.registerService<ProjectRootManager>(MockProjectRootsManager())
+        project.registerService<ModuleManager>(MockModuleManager(mockProject))
+        project.registerService<InjectedLanguageManager>(MockInjectedLanguageManager())
 
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
     }

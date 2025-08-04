@@ -1,4 +1,4 @@
-// Copyright (C) 2021, 2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2021, 2024-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.xray.format
 
 import com.intellij.compat.openapi.vfs.encoding.EncodingManagerImpl
@@ -41,9 +41,9 @@ class XRayTextFormatTest : IdeaPlatformTestCase() {
 
     override fun registerServicesAndExtensions() {
         val app = ApplicationManager.getApplication()
-        app.registerService(XDebuggerUtil::class.java, XDebuggerUtilImpl())
-        app.registerService(EditorFactory::class.java, MockEditorFactoryEx())
-        app.registerService(EncodingManager::class.java, EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
+        app.registerService<XDebuggerUtil>(XDebuggerUtilImpl())
+        app.registerService<EditorFactory>(MockEditorFactoryEx())
+        app.registerService<EncodingManager>(EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
     }
 
     @Nested

@@ -24,7 +24,6 @@ import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
 import com.intellij.openapi.options.SchemeManagerFactory
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
-import com.intellij.openapi.startup.StartupManager
 import com.intellij.openapi.util.registry.Registry
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.encoding.EncodingManager
@@ -45,7 +44,6 @@ import com.intellij.testFramework.LightVirtualFile
 import com.intellij.testFramework.MockSchemeManagerFactory
 import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import com.intellij.util.CachedValuesManagerImpl
-import com.intellij.util.messages.MessageBus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.annotations.NonNls
@@ -70,32 +68,28 @@ abstract class ParsingTestCase<File : PsiFile>(val language: Language) : IdeaPla
 
         // IntelliJ ParsingTestCase setUp
         val app = ApplicationManager.getApplication()
-        app.registerService(ProgressManager::class.java, ProgressManagerImpl())
+        app.registerService<ProgressManager>(ProgressManagerImpl())
 
         val psiManager = MockPsiManager(project)
         mFileFactory = PsiFileFactoryImpl(psiManager)
-        app.registerService(MessageBus::class.java, app.messageBus)
+        app.registerService(app.messageBus)
         val editorFactory = MockEditorFactoryEx()
-        app.registerService(EditorFactory::class.java, editorFactory)
-        app.registerService(EncodingManager::class.java, EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
-        app.registerService(CommandProcessor::class.java, CoreCommandProcessor())
-        app.registerService(
-            FileDocumentManager::class.java,
-            MockFileDocumentManagerImpl(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY) {
-                editorFactory.createDocument(it)
-            }
-        )
+        app.registerService<EditorFactory>(editorFactory)
+        app.registerService<EncodingManager>(EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
+        app.registerService<CommandProcessor>(CoreCommandProcessor())
+        app.registerService<FileDocumentManager>(MockFileDocumentManagerImpl(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY) {
+            editorFactory.createDocument(it)
+        })
 
-        app.registerService(PsiBuilderFactory::class.java, PsiBuilderFactoryImpl())
-        app.registerService(DefaultASTFactory::class.java, DefaultASTFactoryImpl())
-        app.registerService(ReferenceProvidersRegistry::class.java, ReferenceProvidersRegistryImpl())
-        project.registerService(PsiManager::class.java, psiManager)
-        project.registerService(
-            CachedValuesManager::class.java, CachedValuesManagerImpl(project, PsiCachedValuesFactory(project))
-        )
-        project.registerService(PsiDocumentManager::class.java, MockPsiDocumentManagerEx(project))
-        project.registerService(PsiFileFactory::class.java, mFileFactory!!)
-        project.registerService(StartupManager::class.java, StartupManager(project))
+        app.registerService<PsiBuilderFactory>(PsiBuilderFactoryImpl())
+        app.registerService<DefaultASTFactory>(DefaultASTFactoryImpl())
+        app.registerService<ReferenceProvidersRegistry>(ReferenceProvidersRegistryImpl())
+
+        project.registerService<PsiManager>(psiManager)
+        project.registerService<CachedValuesManager>(CachedValuesManagerImpl(project, PsiCachedValuesFactory(project)))
+        project.registerService<PsiDocumentManager>(MockPsiDocumentManagerEx(project))
+        project.registerService<PsiFileFactory>(mFileFactory!!)
+        project.registerService(StartupManager(project))
     }
 
     protected fun registerPsiModification() {
@@ -109,14 +103,14 @@ abstract class ParsingTestCase<File : PsiFile>(val language: Language) : IdeaPla
         )
 
         app.registerExtensionPointBean(TreeCopyHandler.EP_NAME, TreeCopyHandler::class.java, pluginDisposable)
-        app.registerService(IndentHelper::class.java, IndentHelperImpl())
+        app.registerService<IndentHelper>(IndentHelperImpl())
 
         registerCodeSettingsService()
         registerCodeStyleSettingsManager()
 
         val schemeManagerFactory = MockSchemeManagerFactory()
-        app.registerService(SchemeManagerFactory::class.java, schemeManagerFactory)
-        app.registerService(CodeStyleSchemes::class.java, PersistableCodeStyleSchemes(schemeManagerFactory))
+        app.registerService<SchemeManagerFactory>(schemeManagerFactory)
+        app.registerService<CodeStyleSchemes>(PersistableCodeStyleSchemes(schemeManagerFactory))
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -148,11 +142,8 @@ abstract class ParsingTestCase<File : PsiFile>(val language: Language) : IdeaPla
             FileCodeStyleProvider.EP_NAME, FileCodeStyleProvider::class.java, pluginDisposable
         )
 
-        app.registerService(AppCodeStyleSettingsManager::class.java, AppCodeStyleSettingsManager())
-        project.registerService(
-            ProjectCodeStyleSettingsManager::class.java,
-            ProjectCodeStyleSettingsManager(project)
-        )
+        app.registerService(AppCodeStyleSettingsManager())
+        project.registerService(ProjectCodeStyleSettingsManager(project))
 
         @Suppress("UnstableApiUsage")
         app.registerExtensionPointBean(

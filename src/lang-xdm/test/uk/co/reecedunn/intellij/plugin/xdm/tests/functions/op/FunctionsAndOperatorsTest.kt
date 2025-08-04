@@ -45,10 +45,10 @@ class FunctionsAndOperatorsTest : ParsingTestCase<XQueryModule>(XQuery) {
         XQueryParserDefinition().registerExtension(project)
         XQueryFileType.registerFileType()
 
-        project.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
+        project.registerService<ProjectRootManager>(MockProjectRootsManager())
 
         val manager = MockModuleManager(mockProject)
-        project.registerService(ModuleManager::class.java, manager)
+        project.registerService<ModuleManager>(manager)
 
         project.registerService(XQueryProjectSettings())
 

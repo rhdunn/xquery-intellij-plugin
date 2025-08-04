@@ -39,8 +39,8 @@ abstract class InspectionTestCase : ParsingTestCase<XQueryModule>(XQuery) {
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
-        project.registerService(SmartPointerManager::class.java, MockSmartPointerManager())
-        project.registerService(InspectionManager::class.java, InspectionManagerEx(project))
+        project.registerService<SmartPointerManager>(MockSmartPointerManager())
+        project.registerService<InspectionManager>(InspectionManagerEx(project))
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

@@ -23,7 +23,7 @@ fun ASTFactory.registerExtension(project: Project, language: Language) {
 @TestOnly
 fun FileType.registerFileType() {
     val app = ApplicationManager.getApplication()
-    app.registerService(FileTypeManager::class.java, MockFileTypeManager(this))
+    app.registerService<FileTypeManager>(MockFileTypeManager(this))
 }
 
 @TestOnly
