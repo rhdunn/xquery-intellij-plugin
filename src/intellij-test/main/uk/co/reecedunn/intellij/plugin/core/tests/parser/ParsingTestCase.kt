@@ -2,9 +2,6 @@
 // Copyright 2000-2019 JetBrains s.r.o. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.tests.parser
 
-import com.intellij.codeInsight.completion.InsertionContext
-import com.intellij.codeInsight.completion.OffsetMap
-import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.openapi.startup.StartupManager
 import com.intellij.compat.openapi.vfs.encoding.EncodingManagerImpl
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
@@ -156,22 +153,5 @@ abstract class ParsingTestCase<File : PsiFile>(
 
     fun completion(text: String, completionPoint: String = "completion-point"): PsiElement {
         return parse<LeafPsiElement>(text).find { it.text == completionPoint }!!
-    }
-
-    @Suppress("MemberVisibilityCanBePrivate")
-    fun handleInsert(text: String, char: Char, lookups: Array<LookupElement>, tailOffset: Int): InsertionContext {
-        val file = parseText(text)
-        val editor = getEditor(file)
-        editor.caretModel.moveToOffset(tailOffset)
-
-        val context = InsertionContext(OffsetMap(editor.document), char, lookups, file, editor, false)
-        CommandProcessor.getInstance().executeCommand(null, {
-            lookups.forEach { it.handleInsert(context) }
-        }, null, null)
-        return context
-    }
-
-    fun handleInsert(text: String, char: Char, lookup: LookupElement, tailOffset: Int): InsertionContext {
-        return handleInsert(text, char, listOf(lookup).toTypedArray(), tailOffset)
     }
 }
