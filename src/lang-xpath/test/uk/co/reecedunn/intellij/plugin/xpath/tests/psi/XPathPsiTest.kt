@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.PsiModificationTestCase
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
@@ -57,7 +58,7 @@ import java.math.BigInteger
 
 @Suppress("ClassName", "RedundantVisibilityModifier", "Reformat")
 @DisplayName("XPath 3.1 - IntelliJ Program Structure Interface (PSI)")
-class XPathPsiTest : ParserTestCase() {
+class XPathPsiTest : ParserTestCase(), PsiModificationTestCase {
     override val pluginId: PluginId = PluginId.getId("XPathPsiTest")
 
     override fun registerServicesAndExtensions() {

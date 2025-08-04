@@ -11,6 +11,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.PsiModificationTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPragma
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
@@ -19,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ Program Structure Interface (PSI) - PsiLanguageInjectionHost - XQuery")
-class PsiLanguageInjectionHostTest : ParserTestCase() {
+class PsiLanguageInjectionHostTest : ParserTestCase(), PsiModificationTestCase {
     override val pluginId: PluginId = PluginId.getId("PsiLanguageInjectionHostTest")
 
     override fun registerServicesAndExtensions() {
