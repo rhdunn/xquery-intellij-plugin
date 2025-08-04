@@ -33,7 +33,6 @@ import com.intellij.psi.impl.source.codeStyle.IndentHelperImpl
 import com.intellij.psi.impl.source.codeStyle.PersistableCodeStyleSchemes
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistryImpl
-import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.impl.source.tree.TreeCopyHandler
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.testFramework.MockSchemeManagerFactory
@@ -147,11 +146,5 @@ abstract class ParsingTestCase<File : PsiFile>(
         app.registerExtensionPointBean(
             CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java, pluginDisposable
         )
-    }
-
-    // region IntelliJ ParsingTestCase Methods
-
-    fun completion(text: String, completionPoint: String = "completion-point"): PsiElement {
-        return parse<LeafPsiElement>(text).find { it.text == completionPoint }!!
     }
 }
