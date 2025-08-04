@@ -9,8 +9,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.annotateTree
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.prettyPrint
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.AnnotationTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
@@ -21,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaTypes
 
 @Suppress("Reformat")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - EQNames-or-hashed-keywords Schema Type Annotator")
-class EQNamesOrHashedKeywordsTest : ParsingTestCase<PsiFile>(EQNamesOrHashedKeywords) {
+class EQNamesOrHashedKeywordsTest : ParsingTestCase<PsiFile>(EQNamesOrHashedKeywords), AnnotationTestCase {
     override val pluginId: PluginId = PluginId.getId("EQNamesOrHashedKeywordsTest")
 
     override fun registerServicesAndExtensions() {

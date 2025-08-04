@@ -9,8 +9,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.annotateTree
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.prettyPrint
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.AnnotationTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
@@ -21,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaTypes
 
 @Suppress("Reformat", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - SequenceType Schema Type Annotator")
-class XslSequenceTypeTest : ParsingTestCase<PsiFile>(SequenceType) {
+class XslSequenceTypeTest : ParsingTestCase<PsiFile>(SequenceType), AnnotationTestCase {
     override val pluginId: PluginId = PluginId.getId("XslSequenceTypeTest")
 
     override fun registerServicesAndExtensions() {

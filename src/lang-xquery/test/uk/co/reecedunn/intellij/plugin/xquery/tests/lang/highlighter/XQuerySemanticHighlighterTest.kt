@@ -11,8 +11,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.colors.MockEditorColorsManager
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.annotateTree
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.prettyPrint
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.AnnotationTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -35,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery Semantic Highlighter")
-class XQuerySemanticHighlighterTest : ParsingTestCase<XQueryModule>(XQuery) {
+class XQuerySemanticHighlighterTest : ParsingTestCase<XQueryModule>(XQuery), AnnotationTestCase {
     override val pluginId: PluginId = PluginId.getId("XQuerySemanticHighlighterTest")
 
     override fun registerServicesAndExtensions() {
