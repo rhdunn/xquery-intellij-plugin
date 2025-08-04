@@ -1,26 +1,14 @@
-/*
- * Copyright (C) 2017-2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2017-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.optree
 
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.openapi.module.ModuleManager
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
@@ -49,16 +37,16 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 class XQueryStaticContextTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryStaticContextTest")
 
-    override fun registerModules(manager: MockModuleManager) {
-        manager.addModule(ResourceVirtualFile.create(this::class.java.classLoader, "tests/module-xquery"))
-    }
-
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmVariableProvider.register(this, XQueryVariableProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
+
+        val manager = MockModuleManager(mockProject)
+        manager.addModule(ResourceVirtualFile.create(this::class.java.classLoader, "tests/module-xquery"))
+        project.registerService<ModuleManager>(manager)
     }
 
     @Nested

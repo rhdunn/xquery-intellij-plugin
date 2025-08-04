@@ -6,6 +6,7 @@ import com.intellij.mock.MockResolveScopeManager
 import com.intellij.navigation.ItemPresentation
 import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.openapi.module.ModuleManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.psi.impl.DebugUtil
@@ -83,10 +84,6 @@ class XQueryPsiTest : ParserTestCase() {
 
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
-    override fun registerModules(manager: MockModuleManager) {
-        manager.addModule(res.findFileByPath("tests/module-xquery")!!)
-    }
-
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
@@ -97,6 +94,10 @@ class XQueryPsiTest : ParserTestCase() {
 
         project.registerService<ProjectScopeBuilder>(MockProjectScopeBuilder())
         project.registerService<ResolveScopeManager>(MockResolveScopeManager(project))
+
+        val manager = MockModuleManager(mockProject)
+        manager.addModule(res.findFileByPath("tests/module-xquery")!!)
+        project.registerService<ModuleManager>(manager)
     }
 
     @Nested

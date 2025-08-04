@@ -4,10 +4,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.module.ModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
-import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
@@ -32,8 +30,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 abstract class ParserTestCase :
     ParsingTestCase<XQueryModule>(XQuery) {
 
-    open fun registerModules(manager: MockModuleManager) {}
-
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
@@ -43,10 +39,6 @@ abstract class ParserTestCase :
         XQueryASTFactory().registerExtension(project, XQuery)
         XQueryParserDefinition().registerExtension(project)
         XQueryFileType.registerFileType()
-
-        val manager = MockModuleManager(mockProject)
-        registerModules(manager)
-        project.registerService<ModuleManager>(manager)
 
         project.registerService(JavaTypePath(project))
         project.registerService(XpmModuleLoaderSettings(project))
