@@ -26,7 +26,6 @@ import com.intellij.openapi.options.SchemeManagerFactory
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.util.registry.Registry
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.pom.PomModel
 import com.intellij.pom.tree.TreeAspect
@@ -43,13 +42,11 @@ import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.impl.source.tree.TreeCopyHandler
 import com.intellij.psi.util.CachedValuesManager
-import com.intellij.testFramework.LightVirtualFile
 import com.intellij.testFramework.MockSchemeManagerFactory
 import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import com.intellij.util.CachedValuesManagerImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
@@ -60,12 +57,13 @@ import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import java.nio.charset.StandardCharsets
 
 // NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
 // customise the mock implementation, making it difficult to implement some tests.
 @Suppress("SameParameterValue", "ReplaceNotNullAssertionWithElvisReturn")
-abstract class ParsingTestCase<File : PsiFile>(val language: Language) : IdeaPlatformTestCase() {
+abstract class ParsingTestCase<File : PsiFile>(
+    override val language: Language
+) : IdeaPlatformTestCase(), LanguageTestCase {
     private var mFileFactory: PsiFileFactory? = null
 
     override fun registerServicesAndExtensions() {
@@ -162,12 +160,6 @@ abstract class ParsingTestCase<File : PsiFile>(val language: Language) : IdeaPla
     }
 
     // region IntelliJ ParsingTestCase Methods
-
-    fun createVirtualFile(@NonNls name: String, text: String): VirtualFile {
-        val file = LightVirtualFile(name, language!!, text)
-        file.charset = StandardCharsets.UTF_8
-        return file
-    }
 
     @Suppress("UNCHECKED_CAST")
     fun parseText(text: String): File = createVirtualFile("testcase.xqy", text).toPsiFile(project) as File

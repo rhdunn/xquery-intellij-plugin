@@ -1,20 +1,22 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.fileTypes
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Registering a File Type - XQuery")
-class XQueryFileTypeTest : ParsingTestCase<PsiFile>(XQuery) {
+class XQueryFileTypeTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XQueryFileTypeTest")
+    override val language: Language = XQuery
 
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
