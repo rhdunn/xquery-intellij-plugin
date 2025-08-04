@@ -43,6 +43,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Documentation Provider - XQuery")
 class XQueryDocumentationProviderTest : ParserTestCase() {
+    inline fun <reified T> parse(xquery: String): List<T> {
+        return parseText(xquery).walkTree().filterIsInstance<T>().toList()
+    }
+
     companion object {
         fun body(substring: String): Matcher<in String?> = StringContains.containsString("<body>$substring</body>")
     }

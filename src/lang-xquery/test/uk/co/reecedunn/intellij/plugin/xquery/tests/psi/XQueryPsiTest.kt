@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.module.ModuleTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockProjectScopeBuilder
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec

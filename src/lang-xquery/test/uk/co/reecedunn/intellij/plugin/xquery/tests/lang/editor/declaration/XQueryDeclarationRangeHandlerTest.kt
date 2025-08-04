@@ -22,6 +22,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lang.editor.declaration.XQueryFunctionDeclRangeHandler
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -37,7 +38,7 @@ class XQueryDeclarationRangeHandlerTest : ParserTestCase() {
         @Test
         @DisplayName("external")
         fun external() {
-            val decl = parse<XQueryFunctionDecl>(" (::) declare function fn:true() external;")[0]
+            val decl =  parse<XQueryFunctionDecl>(" (::) declare function fn:true() external;")[0]
             val range = XQueryFunctionDeclRangeHandler().getDeclarationRange(decl)
             assertThat(range, `is`(nullValue()))
         }

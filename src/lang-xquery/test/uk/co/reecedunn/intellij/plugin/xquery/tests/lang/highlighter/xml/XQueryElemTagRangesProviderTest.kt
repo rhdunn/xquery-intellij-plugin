@@ -22,6 +22,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.xml.XQueryElemTagRangesProvider.getElementAtOffset
 import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.xml.XQueryElemTagRangesProvider.getElementTagRanges

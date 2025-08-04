@@ -48,7 +48,6 @@ import com.intellij.util.CachedValuesManagerImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import uk.co.reecedunn.intellij.plugin.core.psi.document
-import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
@@ -56,14 +55,13 @@ import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.MockPomModel
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 
 // NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
 // customise the mock implementation, making it difficult to implement some tests.
 @Suppress("SameParameterValue", "ReplaceNotNullAssertionWithElvisReturn")
 abstract class ParsingTestCase<File : PsiFile>(
     override val language: Language
-) : IdeaPlatformTestCase(), LanguageTestCase {
+) : IdeaPlatformTestCase(), LanguageParserTestCase<File> {
     private var mFileFactory: PsiFileFactory? = null
 
     override fun registerServicesAndExtensions() {
@@ -160,17 +158,6 @@ abstract class ParsingTestCase<File : PsiFile>(
     }
 
     // region IntelliJ ParsingTestCase Methods
-
-    @Suppress("UNCHECKED_CAST")
-    fun parseText(text: String): File = createVirtualFile("testcase.xqy", text).toPsiFile(project) as File
-
-    protected inline fun <reified T> parse(xquery: String): List<T> {
-        return parseText(xquery).walkTree().filterIsInstance<T>().toList()
-    }
-
-    protected inline fun <reified T> parse(vararg xquery: String): List<T> {
-        return parseText(xquery.joinToString("\n")).walkTree().filterIsInstance<T>().toList()
-    }
 
     @Suppress("MemberVisibilityCanBePrivate")
     fun getEditor(file: PsiFile): Editor = EditorFactory.getInstance().createEditor(file.document!!)

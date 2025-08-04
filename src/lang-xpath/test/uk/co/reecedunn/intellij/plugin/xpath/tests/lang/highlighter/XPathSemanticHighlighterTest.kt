@@ -11,6 +11,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.AnnotationTest
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType

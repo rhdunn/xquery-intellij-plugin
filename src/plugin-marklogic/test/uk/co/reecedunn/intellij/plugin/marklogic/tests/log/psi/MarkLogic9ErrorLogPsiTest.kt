@@ -10,6 +10,7 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
 import uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error.MarkLogicErrorLog as MarkLogicErrorLogNode
 import uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error.MarkLogicErrorLogLine
 import uk.co.reecedunn.intellij.plugin.marklogic.log.fileTypes.MarkLogicErrorLogFileType
