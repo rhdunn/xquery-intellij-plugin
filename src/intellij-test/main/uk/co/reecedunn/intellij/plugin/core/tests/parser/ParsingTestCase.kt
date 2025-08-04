@@ -18,7 +18,6 @@ import com.intellij.mock.MockFileDocumentManagerImpl
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.command.CommandProcessor
 import com.intellij.openapi.command.impl.CoreCommandProcessor
-import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
@@ -47,7 +46,7 @@ import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoCon
 import com.intellij.util.CachedValuesManagerImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import uk.co.reecedunn.intellij.plugin.core.psi.document
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.EditorTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
@@ -61,7 +60,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTest
 @Suppress("SameParameterValue", "ReplaceNotNullAssertionWithElvisReturn")
 abstract class ParsingTestCase<File : PsiFile>(
     override val language: Language
-) : IdeaPlatformTestCase(), LanguageParserTestCase<File> {
+) : IdeaPlatformTestCase(), LanguageParserTestCase<File>, EditorTestCase {
     private var mFileFactory: PsiFileFactory? = null
 
     override fun registerServicesAndExtensions() {
@@ -158,9 +157,6 @@ abstract class ParsingTestCase<File : PsiFile>(
     }
 
     // region IntelliJ ParsingTestCase Methods
-
-    @Suppress("MemberVisibilityCanBePrivate")
-    fun getEditor(file: PsiFile): Editor = EditorFactory.getInstance().createEditor(file.document!!)
 
     fun completion(text: String, completionPoint: String = "completion-point"): PsiElement {
         return parse<LeafPsiElement>(text).find { it.text == completionPoint }!!
