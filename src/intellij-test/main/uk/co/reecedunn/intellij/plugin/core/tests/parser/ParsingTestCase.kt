@@ -39,8 +39,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTest
 abstract class ParsingTestCase<File : PsiFile>(
     override val language: Language
 ) : IdeaPlatformTestCase(), LanguageParserTestCase<File>, EditorTestCase {
-    private var mFileFactory: PsiFileFactory? = null
-
     override fun registerServicesAndExtensions() {
         Registry.markAsLoaded()
 
@@ -49,7 +47,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         app.registerService<ProgressManager>(ProgressManagerImpl())
 
         val psiManager = MockPsiManager(project)
-        mFileFactory = PsiFileFactoryImpl(psiManager)
         app.registerService(app.messageBus)
         val editorFactory = MockEditorFactoryEx()
         app.registerService<EditorFactory>(editorFactory)
@@ -66,7 +63,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         project.registerService<PsiManager>(psiManager)
         project.registerService<CachedValuesManager>(CachedValuesManagerImpl(project, PsiCachedValuesFactory(project)))
         project.registerService<PsiDocumentManager>(MockPsiDocumentManagerEx(project))
-        project.registerService<PsiFileFactory>(mFileFactory!!)
+        project.registerService<PsiFileFactory>(PsiFileFactoryImpl(psiManager))
         project.registerService(StartupManager(project))
     }
 }
