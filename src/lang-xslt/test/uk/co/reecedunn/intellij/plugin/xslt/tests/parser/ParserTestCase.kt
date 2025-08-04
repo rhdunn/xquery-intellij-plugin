@@ -3,7 +3,6 @@ package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
 import com.intellij.compat.lang.xml.registerBasicXmlElementFactory
 import com.intellij.lang.Language
-import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.application.ApplicationManager
@@ -18,7 +17,6 @@ import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -47,7 +45,6 @@ abstract class ParserTestCase(language: Language) : ParsingTestCase<XmlFile>(lan
 
         project.registerService<ProjectRootManager>(MockProjectRootsManager())
         project.registerService<ModuleManager>(MockModuleManager(mockProject))
-        project.registerService<InjectedLanguageManager>(MockInjectedLanguageManager())
 
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
     }

@@ -4,7 +4,6 @@ package uk.co.reecedunn.intellij.plugin.xslt.tests.lang.highlighter
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.application.ApplicationManager
@@ -13,7 +12,6 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.PsiFile
 import com.intellij.psi.xml.StartTagEndTokenProvider
 import com.intellij.xml.XmlExtension
-import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -36,7 +34,6 @@ abstract class AnnotatorTestCase(language: Language) : ParsingTestCase<PsiFile>(
 
         project.registerService<ProjectRootManager>(MockProjectRootsManager())
         project.registerService<ModuleManager>(MockModuleManager(mockProject))
-        project.registerService<InjectedLanguageManager>(MockInjectedLanguageManager())
 
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
     }

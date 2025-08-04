@@ -11,6 +11,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBea
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
+import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.parameterInfo.CreateParameterInfoContext
 import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
 import com.intellij.mock.MockFileDocumentManagerImpl
@@ -50,6 +51,7 @@ import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
+import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
@@ -107,6 +109,8 @@ abstract class ParsingTestCase<File : PsiFile>(val language: Language) : IdeaPla
 
         registerCodeSettingsService()
         registerCodeStyleSettingsManager()
+
+        project.registerService<InjectedLanguageManager>(MockInjectedLanguageManager())
 
         val schemeManagerFactory = MockSchemeManagerFactory()
         app.registerService<SchemeManagerFactory>(schemeManagerFactory)

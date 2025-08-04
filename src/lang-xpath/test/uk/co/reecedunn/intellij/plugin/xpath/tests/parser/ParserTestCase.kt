@@ -4,7 +4,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 import com.intellij.compat.application.options.codeStyle.cache.CodeStyleCachingService
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
@@ -12,7 +11,6 @@ import com.intellij.pom.PomModel
 import com.intellij.pom.tree.TreeAspect
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -45,7 +43,5 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(XPath) {
         app.registerExtensionPointBean(
             XpmFunctionProvider.EP_NAME, XpmFunctionProviderBean::class.java, pluginDisposable
         )
-
-        project.registerService<InjectedLanguageManager>(MockInjectedLanguageManager())
     }
 }

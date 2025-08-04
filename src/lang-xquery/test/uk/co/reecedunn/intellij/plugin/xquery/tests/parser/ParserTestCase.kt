@@ -4,14 +4,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 import com.intellij.compat.application.options.codeStyle.cache.CodeStyleCachingService
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.pom.PomModel
 import com.intellij.pom.tree.TreeAspect
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -82,8 +80,6 @@ abstract class ParserTestCase :
         app.registerExtensionPointBean(
             XpmFunctionDecorator.EP_NAME, XpmFunctionDecoratorBean::class.java, pluginDisposable
         )
-
-        project.registerService<InjectedLanguageManager>(MockInjectedLanguageManager())
     }
 
     protected val settings: XQueryProjectSettings
