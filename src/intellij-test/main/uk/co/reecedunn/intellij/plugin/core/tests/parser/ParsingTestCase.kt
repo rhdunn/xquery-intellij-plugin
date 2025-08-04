@@ -29,6 +29,7 @@ import com.intellij.openapi.util.registry.Registry
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.pom.PomModel
+import com.intellij.pom.tree.TreeAspect
 import com.intellij.psi.*
 import com.intellij.psi.codeStyle.*
 import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
@@ -99,6 +100,7 @@ abstract class ParsingTestCase<File : PsiFile>(val language: Language) : IdeaPla
     protected fun registerPsiModification() {
         val app = ApplicationManager.getApplication()
 
+        project.registerService(TreeAspect())
         project.registerService<PomModel>(MockPomModel(project))
 
         app.registerExtensionPointBean(

@@ -6,7 +6,6 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
-import com.intellij.pom.tree.TreeAspect
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
@@ -23,8 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProviderBe
 abstract class ParserTestCase : ParsingTestCase<PsiFile>(XPath) {
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
-
-        project.registerService(TreeAspect())
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)
