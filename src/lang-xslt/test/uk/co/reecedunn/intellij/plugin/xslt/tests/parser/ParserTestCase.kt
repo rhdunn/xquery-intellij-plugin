@@ -6,7 +6,6 @@ import com.intellij.lang.Language
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.module.ModuleManager
 import com.intellij.psi.xml.StartTagEndTokenProvider
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
@@ -14,10 +13,8 @@ import com.intellij.psi.xml.XmlTag
 import com.intellij.xml.XmlExtension
 import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
-import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -40,8 +37,6 @@ abstract class ParserTestCase(language: Language) : ParsingTestCase<XmlFile>(lan
         app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
 
         app.registerBasicXmlElementFactory()
-
-        project.registerService<ModuleManager>(MockModuleManager(mockProject))
 
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
     }
