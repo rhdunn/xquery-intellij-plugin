@@ -8,8 +8,6 @@ import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
 import com.intellij.mock.MockFileDocumentManagerImpl
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.command.CommandProcessor
-import com.intellij.openapi.command.impl.CoreCommandProcessor
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
@@ -50,7 +48,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         val editorFactory = MockEditorFactoryEx()
         app.registerService<EditorFactory>(editorFactory)
         app.registerService<EncodingManager>(EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
-        app.registerService<CommandProcessor>(CoreCommandProcessor())
         app.registerService<FileDocumentManager>(MockFileDocumentManagerImpl(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY) {
             editorFactory.createDocument(it)
         })

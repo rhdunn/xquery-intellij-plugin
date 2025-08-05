@@ -6,10 +6,12 @@ import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.command.CommandProcessor
+import com.intellij.openapi.command.impl.CoreCommandProcessor
 import com.intellij.openapi.editor.impl.DocumentWriteAccessGuard
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.EditorTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 
@@ -20,6 +22,8 @@ interface LookupElementTestCase<File : PsiFile> :
 
     fun registerDocumentEditing() {
         val app = ApplicationManager.getApplication()
+        app.registerService<CommandProcessor>(CoreCommandProcessor())
+
         app.registerExtensionPointBean(
             DocumentWriteAccessGuard.EP_NAME,
             DocumentWriteAccessGuard::class.java,
