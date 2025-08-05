@@ -16,10 +16,7 @@ import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.util.registry.Registry
 import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.psi.*
-import com.intellij.psi.impl.PsiCachedValuesFactory
 import com.intellij.psi.impl.PsiFileFactoryImpl
-import com.intellij.psi.util.CachedValuesManager
-import com.intellij.util.CachedValuesManagerImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.EditorTestCase
@@ -54,7 +51,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         app.registerService<DefaultASTFactory>(DefaultASTFactoryImpl())
 
         project.registerService<PsiManager>(psiManager)
-        project.registerService<CachedValuesManager>(CachedValuesManagerImpl(project, PsiCachedValuesFactory(project)))
         project.registerService<PsiDocumentManager>(MockPsiDocumentManagerEx(project))
         project.registerService<PsiFileFactory>(PsiFileFactoryImpl(psiManager))
     }

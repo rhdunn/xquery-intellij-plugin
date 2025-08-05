@@ -8,7 +8,10 @@ import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.psi.impl.PsiCachedValuesFactory
+import com.intellij.psi.util.CachedValuesManager
 import com.intellij.psi.xml.XmlFile
+import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.xml.XmlExtension
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -16,6 +19,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
@@ -40,6 +44,8 @@ class XsltCompletionPropertyTest : ParsingTestCase<XmlFile>(XMLLanguage.INSTANCE
         val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
         app.registerBasicXmlElementFactory()
+
+        project.registerService<CachedValuesManager>(CachedValuesManagerImpl(project, PsiCachedValuesFactory(project)))
     }
 
     @Nested
