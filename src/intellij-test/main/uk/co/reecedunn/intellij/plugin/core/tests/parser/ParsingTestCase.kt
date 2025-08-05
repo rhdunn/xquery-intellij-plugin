@@ -18,8 +18,6 @@ import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.psi.*
 import com.intellij.psi.impl.PsiCachedValuesFactory
 import com.intellij.psi.impl.PsiFileFactoryImpl
-import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistry
-import com.intellij.psi.impl.source.resolve.reference.ReferenceProvidersRegistryImpl
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.util.CachedValuesManagerImpl
 import kotlinx.coroutines.CoroutineScope
@@ -54,7 +52,6 @@ abstract class ParsingTestCase<File : PsiFile>(
 
         app.registerService<PsiBuilderFactory>(PsiBuilderFactoryImpl())
         app.registerService<DefaultASTFactory>(DefaultASTFactoryImpl())
-        app.registerService<ReferenceProvidersRegistry>(ReferenceProvidersRegistryImpl())
 
         project.registerService<PsiManager>(psiManager)
         project.registerService<CachedValuesManager>(CachedValuesManagerImpl(project, PsiCachedValuesFactory(project)))
