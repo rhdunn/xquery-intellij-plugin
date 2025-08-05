@@ -1,21 +1,17 @@
-// Copyright (C) 2019-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
-package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
+// Copyright (C) 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+package uk.co.reecedunn.intellij.plugin.xslt.tests.lang
 
-import com.intellij.lang.Language
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
-import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
 
-@Suppress("MemberVisibilityCanBePrivate", "SameParameterValue")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-abstract class ParserTestCase(language: Language) : ParsingTestCase<XmlFile>(language) {
+interface XsltLanguageTestCase : LanguageParserTestCase<XmlFile> {
     fun parseXml(resource: String): XmlFile {
         if (resource.endsWith(".xsl")) {
             val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
@@ -36,7 +32,7 @@ abstract class ParserTestCase(language: Language) : ParsingTestCase<XmlFile>(lan
     fun element(resource: String, localName: String): List<XmlTag> {
         return parseXml(resource).walkTree().filterIsInstance<XmlTag>().filter { e ->
             e.namespace == XSLT.NAMESPACE && e.localName == localName
-        }.filterNotNull().toList()
+        }.toList()
     }
 
     fun attribute(resource: String, elementName: String, attributeName: String): List<XmlAttributeValue> {

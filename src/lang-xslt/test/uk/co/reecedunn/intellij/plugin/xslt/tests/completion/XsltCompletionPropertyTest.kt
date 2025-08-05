@@ -8,6 +8,7 @@ import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.psi.xml.XmlFile
 import com.intellij.xml.XmlExtension
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -17,15 +18,16 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XsltVersion
-import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xslt.tests.lang.XsltLanguageTestCase
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - Code Completion - Properties")
-class XsltCompletionPropertyTest : ParserTestCase(XMLLanguage.INSTANCE) {
+class XsltCompletionPropertyTest : ParsingTestCase<XmlFile>(XMLLanguage.INSTANCE), XsltLanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XsltCompletionPropertyTest")
 
     override fun registerServicesAndExtensions() {

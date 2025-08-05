@@ -8,6 +8,7 @@ import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.psi.xml.XmlFile
 import com.intellij.xml.XmlExtension
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.ast.exsl.EXslDocument
 import uk.co.reecedunn.intellij.plugin.xslt.ast.marklogic.MarkLogicCatch
@@ -28,11 +30,11 @@ import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltResultDocument
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltStylesheet
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltTemplate
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory
-import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xslt.tests.lang.XsltLanguageTestCase
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XSLT")
-class PluginPsiTest : ParserTestCase(XMLLanguage.INSTANCE) {
+class PluginPsiTest : ParsingTestCase<XmlFile>(XMLLanguage.INSTANCE), XsltLanguageTestCase {
     companion object {
         private const val EXSL_COMMON_NAMESPACE = "http://exslt.org/common"
         private const val SAXON_NAMESPACE = "http://saxon.sf.net/"

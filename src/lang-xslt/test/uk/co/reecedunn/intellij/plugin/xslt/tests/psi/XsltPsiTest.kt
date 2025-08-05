@@ -8,6 +8,7 @@ import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.psi.xml.XmlFile
 import com.intellij.xml.XmlExtension
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
@@ -18,16 +19,17 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xml.XsltDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.*
 import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory
-import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xslt.tests.lang.XsltLanguageTestCase
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - IntelliJ Program Structure Interface (PSI)")
-class XsltPsiTest : ParserTestCase(XMLLanguage.INSTANCE) {
+class XsltPsiTest : ParsingTestCase<XmlFile>(XMLLanguage.INSTANCE), XsltLanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XsltPsiTest")
 
     override fun registerServicesAndExtensions() {
