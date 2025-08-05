@@ -1,8 +1,6 @@
 // Copyright (C) 2018-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
@@ -12,7 +10,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProviderBean
 
 abstract class ParserTestCase : ParsingTestCase<PsiFile>(XPath) {
     override fun registerServicesAndExtensions() {
@@ -22,9 +19,6 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(XPath) {
         XPathParserDefinition().registerExtension(project)
         XPathFileType.registerFileType()
 
-        val app = ApplicationManager.getApplication()
-        app.registerExtensionPointBean(
-            XpmFunctionProvider.EP_NAME, XpmFunctionProviderBean::class.java, pluginDisposable
-        )
+        XpmFunctionProvider.register(this)
     }
 }
