@@ -4,6 +4,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.psi.impl.DebugUtil
 import com.intellij.psi.search.LocalSearchScope
@@ -15,6 +16,9 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.PsiModificationTestCase
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
@@ -22,14 +26,17 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getPrincipalNodeKind
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.*
@@ -58,13 +65,19 @@ import java.math.BigInteger
 
 @Suppress("ClassName", "RedundantVisibilityModifier", "Reformat")
 @DisplayName("XPath 3.1 - IntelliJ Program Structure Interface (PSI)")
-class XPathPsiTest : ParserTestCase(), PsiModificationTestCase {
+class XPathPsiTest : ParsingTestCase<PsiFile>(XPathLanguage), PsiModificationTestCase {
     override val pluginId: PluginId = PluginId.getId("XPathPsiTest")
 
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
         registerPsiModification()
+
+        XPathASTFactory().registerExtension(project, XPathLanguage)
+        XPathParserDefinition().registerExtension(project)
+        XPathFileType.registerFileType()
+
+        XpmFunctionProvider.register(this)
     }
 
     @Nested

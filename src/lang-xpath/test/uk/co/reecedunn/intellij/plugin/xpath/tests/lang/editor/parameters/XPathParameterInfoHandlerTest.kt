@@ -12,15 +12,32 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.ParameterInfoTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
 import uk.co.reecedunn.intellij.plugin.xpath.lang.editor.parameters.XPathParameterInfoHandler
-import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Parameter Info - XPath ParameterInfoHandler")
-class XPathParameterInfoHandlerTest : ParserTestCase(), ParameterInfoTestCase<PsiFile> {
+class XPathParameterInfoHandlerTest : ParsingTestCase<PsiFile>(XPathLanguage), ParameterInfoTestCase<PsiFile> {
     override val pluginId: PluginId = PluginId.getId("XPathParameterInfoHandlerTest")
+
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
+        XPathASTFactory().registerExtension(project, XPathLanguage)
+        XPathParserDefinition().registerExtension(project)
+        XPathFileType.registerFileType()
+
+        XpmFunctionProvider.register(this)
+    }
 
     private val parameterInfoHandler = XPathParameterInfoHandler()
 

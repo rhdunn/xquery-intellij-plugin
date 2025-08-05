@@ -3,6 +3,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.psi.intellij
 
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.util.TextRange
+import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.impl.DebugUtil
 import org.hamcrest.CoreMatchers.`is`
@@ -10,21 +11,34 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.PsiModificationTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPragma
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
+import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ Program Structure Interface (PSI) - PsiLanguageInjectionHost - XPath")
-class PsiLanguageInjectionHostTest : ParserTestCase(), PsiModificationTestCase {
+class PsiLanguageInjectionHostTest : ParsingTestCase<PsiFile>(XPathLanguage), PsiModificationTestCase {
     override val pluginId: PluginId = PluginId.getId("PsiLanguageInjectionHostTest")
 
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
         registerPsiModification()
+
+        XPathASTFactory().registerExtension(project, XPathLanguage)
+        XPathParserDefinition().registerExtension(project)
+        XPathFileType.registerFileType()
+
+        XpmFunctionProvider.register(this)
     }
 
     @Nested
