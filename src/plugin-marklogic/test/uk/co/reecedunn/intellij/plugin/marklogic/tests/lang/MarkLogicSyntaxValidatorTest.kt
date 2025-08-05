@@ -1,6 +1,7 @@
 // Copyright (C) 2020-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.lang
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.`is`
@@ -9,8 +10,9 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicVersion
@@ -30,14 +32,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("ClassName")
 @DisplayName("XQuery IntelliJ Plugin - Syntax Validation - MarkLogic")
-class MarkLogicSyntaxValidatorTest :
-    ParsingTestCase<XQueryModule>(XQuery),
-    XpmDiagnostics {
-
+class MarkLogicSyntaxValidatorTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule>, XpmDiagnostics {
     override val pluginId: PluginId = PluginId.getId("MarkLogicSyntaxValidatorTest")
+    override val language: Language = XQuery
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

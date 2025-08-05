@@ -1,6 +1,7 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
+import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.mock.MockResolveScopeManager
 import com.intellij.navigation.ItemPresentation
@@ -27,10 +28,11 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.module.ModuleTestCase
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.PsiModificationTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockProjectScopeBuilder
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
@@ -95,8 +97,9 @@ import java.math.BigInteger
 
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
-class XQueryPsiTest : ParsingTestCase<XQueryModule>(XQuery), ModuleTestCase, PsiModificationTestCase {
+class XQueryPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule>, ModuleTestCase, PsiModificationTestCase {
     override val pluginId: PluginId = PluginId.getId("XQueryPsiTest")
+    override val language: Language = XQuery
 
     protected val settings: XQueryProjectSettings
         get() = XQueryProjectSettings.getInstance(project)
@@ -106,8 +109,8 @@ class XQueryPsiTest : ParsingTestCase<XQueryModule>(XQuery), ModuleTestCase, Psi
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
-
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
         registerPsiModification()
 
         XPathASTFactory().registerExtension(project, XPath)

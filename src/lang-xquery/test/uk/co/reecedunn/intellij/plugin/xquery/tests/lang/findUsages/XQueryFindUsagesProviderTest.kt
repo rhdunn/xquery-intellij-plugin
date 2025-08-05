@@ -2,6 +2,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.findUsages
 
 import com.intellij.lang.HelpID
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.`is`
@@ -13,7 +14,8 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
@@ -42,13 +44,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Find Usages - FindUsagesProvider")
-class XQueryFindUsagesProviderTest : ParsingTestCase<XQueryModule>(XQuery) {
+class XQueryFindUsagesProviderTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule> {
     override val pluginId: PluginId = PluginId.getId("XQueryFindUsagesProviderTest")
+    override val language: Language = XQuery
 
     val provider = XQueryFindUsagesProvider()
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

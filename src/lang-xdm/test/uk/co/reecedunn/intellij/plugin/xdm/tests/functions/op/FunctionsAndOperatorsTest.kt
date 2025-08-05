@@ -1,6 +1,7 @@
 // Copyright (C) 2018, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xdm.tests.functions.op
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -10,8 +11,9 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
@@ -29,11 +31,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XPath and XQuery Functions and Operators 3.1")
-class FunctionsAndOperatorsTest : ParsingTestCase<XQueryModule>(XQuery) {
+class FunctionsAndOperatorsTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule> {
     override val pluginId: PluginId = PluginId.getId("FunctionsAndOperatorsTest")
+    override val language: Language = XQuery
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

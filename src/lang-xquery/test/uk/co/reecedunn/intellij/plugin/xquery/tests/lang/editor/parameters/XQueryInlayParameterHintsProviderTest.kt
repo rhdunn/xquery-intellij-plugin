@@ -1,6 +1,7 @@
 // Copyright (C) 2020-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.editor.parameters
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
@@ -11,8 +12,9 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
@@ -37,13 +39,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("UnstableApiUsage", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Inlay Hints - XPath Parameter Hints Provider")
-class XQueryInlayParameterHintsProviderTest : ParsingTestCase<XQueryModule>(XQuery) {
+class XQueryInlayParameterHintsProviderTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule> {
     override val pluginId: PluginId = PluginId.getId("XQueryInlayParameterHintsProviderTest")
+    override val language: Language = XQuery
 
     val provider = XPathInlayParameterHintsProvider()
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

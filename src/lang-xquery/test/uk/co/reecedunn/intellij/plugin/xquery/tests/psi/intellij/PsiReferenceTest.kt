@@ -1,6 +1,7 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi.intellij
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
@@ -13,8 +14,9 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.module.ModuleTestCase
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicOrUnionType
@@ -47,15 +49,17 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("RedundantVisibilityModifier", "ReplaceNotNullAssertionWithElvisReturn")
 @DisplayName("IntelliJ Program Structure Interface (PSI) - PsiReference - XQuery")
-class PsiReferenceTest : ParsingTestCase<XQueryModule>(XQuery), ModuleTestCase {
+class PsiReferenceTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule>, ModuleTestCase {
     override val pluginId: PluginId = PluginId.getId("PsiReferenceTest")
+    override val language: Language = XQuery
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

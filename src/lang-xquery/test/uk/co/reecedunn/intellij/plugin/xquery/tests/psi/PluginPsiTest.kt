@@ -1,6 +1,7 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
+import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
 import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.extensions.PluginId
@@ -18,8 +19,9 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -71,15 +73,17 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryIcons
 
 @Suppress("RedundantVisibilityModifier", "Reformat")
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XQuery")
-class PluginPsiTest : ParsingTestCase<XQueryModule>(XQuery) {
+class PluginPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule> {
     override val pluginId: PluginId = PluginId.getId("PluginPsiTest")
+    override val language: Language = XQuery
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

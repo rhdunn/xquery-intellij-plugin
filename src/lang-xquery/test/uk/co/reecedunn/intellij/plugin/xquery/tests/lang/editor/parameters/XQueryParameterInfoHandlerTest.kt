@@ -1,6 +1,7 @@
 // Copyright (C) 2019-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.editor.parameters
 
+import com.intellij.lang.Language
 import com.intellij.lang.parameterInfo.CreateParameterInfoContext
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.testFramework.utils.parameterInfo.MockParameterInfoUIContext
@@ -16,7 +17,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateP
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.ParameterInfoTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
@@ -41,13 +42,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("RedundantVisibilityModifier", "Reformat")
 @DisplayName("IntelliJ - Custom Language Support - Parameter Info - XPath ParameterInfoHandler")
-class XQueryParameterInfoHandlerTest : ParsingTestCase<XQueryModule>(XQuery), ParameterInfoTestCase<XQueryModule> {
+class XQueryParameterInfoHandlerTest : IdeaPlatformTestCase(), ParameterInfoTestCase<XQueryModule> {
     override val pluginId: PluginId = PluginId.getId("XQueryParameterInfoHandlerTest")
+    override val language: Language = XQuery
 
     val parameterInfoHandler = XPathParameterInfoHandler()
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

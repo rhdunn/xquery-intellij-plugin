@@ -5,13 +5,15 @@ import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ex.InspectionManagerEx
+import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.psi.SmartPointerManager
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockSmartPointerManager
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.w3.lang.XQuerySyntaxValidator
@@ -29,7 +31,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
-abstract class InspectionTestCase : ParsingTestCase<XQueryModule>(XQuery) {
+abstract class InspectionTestCase : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule> {
+    override val language: Language = XQuery
+
     private val inspectionManager: InspectionManager
         get() = InspectionManager.getInstance(project)
 
@@ -37,7 +41,8 @@ abstract class InspectionTestCase : ParsingTestCase<XQueryModule>(XQuery) {
         get() = XQueryProjectSettings.getInstance(project)
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         project.registerService<SmartPointerManager>(MockSmartPointerManager())
         project.registerService<InspectionManager>(InspectionManagerEx(project))

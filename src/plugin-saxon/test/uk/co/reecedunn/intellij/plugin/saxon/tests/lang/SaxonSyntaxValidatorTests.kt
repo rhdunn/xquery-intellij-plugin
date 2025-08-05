@@ -1,6 +1,7 @@
 // Copyright (C) 2020-2022, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.saxon.tests.lang
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.`is`
@@ -9,8 +10,9 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.saxon.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
@@ -28,11 +30,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("ClassName")
 @DisplayName("XQuery IntelliJ Plugin - Syntax Validation - Saxon")
-class SaxonSyntaxValidatorTest : ParsingTestCase<XQueryModule>(XQuery), XpmDiagnostics {
+class SaxonSyntaxValidatorTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule>, XpmDiagnostics {
     override val pluginId: PluginId = PluginId.getId("SaxonSyntaxValidatorTest")
+    override val language: Language = XQuery
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

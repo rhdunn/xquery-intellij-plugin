@@ -1,6 +1,7 @@
 // Copyright (C) 2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.log.psi
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.util.elementType
 import org.hamcrest.CoreMatchers.`is`
@@ -9,8 +10,9 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error.MarkLogicErrorLog as MarkLogicErrorLogNode
 import uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error.MarkLogicErrorLogLine
 import uk.co.reecedunn.intellij.plugin.marklogic.log.fileTypes.MarkLogicErrorLogFileType
@@ -19,11 +21,13 @@ import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogToke
 
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
 @DisplayName("MarkLogic 8.0 ErrorLog")
-class MarkLogic9ErrorLogPsiTest : ParsingTestCase<MarkLogicErrorLogNode>(MarkLogicErrorLog) {
+class MarkLogic9ErrorLogPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<MarkLogicErrorLogNode> {
     override val pluginId: PluginId = PluginId.getId("MarkLogic9ErrorLogPsiTest")
+    override val language: Language = MarkLogicErrorLog
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         MarkLogicErrorLog.ParserDefinition().registerExtension(project)
         MarkLogicErrorLogFileType.registerFileType()

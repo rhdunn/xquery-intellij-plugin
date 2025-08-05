@@ -2,6 +2,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.completion
 
 import com.intellij.codeInsight.completion.PlainPrefixMatcher
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.util.ProcessingContext
 import org.hamcrest.CoreMatchers.`is`
@@ -13,7 +14,8 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.completion.MockCompletionResultSet
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathDefaultNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownNamespaces
@@ -37,11 +39,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - Code Completion - Completion Providers")
-class XQueryCompletionProviderTest : ParsingTestCase<XQueryModule>(XQuery) {
+class XQueryCompletionProviderTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule> {
     override val pluginId: PluginId = PluginId.getId("XQueryCompletionProviderTest")
+    override val language: Language = XQuery
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

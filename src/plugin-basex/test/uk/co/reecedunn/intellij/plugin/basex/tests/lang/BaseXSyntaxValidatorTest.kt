@@ -1,6 +1,7 @@
 // Copyright (C) 2020-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.basex.tests.lang
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.`is`
@@ -12,8 +13,9 @@ import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXVersion
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
@@ -29,11 +31,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
 @DisplayName("XQuery IntelliJ Plugin - Syntax Validation - BaseX")
-class BaseXSyntaxValidatorTest : ParsingTestCase<XQueryModule>(XQuery), XpmDiagnostics {
+class BaseXSyntaxValidatorTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule>, XpmDiagnostics {
     override val pluginId: PluginId = PluginId.getId("BaseXSyntaxValidatorTest")
+    override val language: Language = XQuery
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

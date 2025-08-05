@@ -1,6 +1,7 @@
 // Copyright (C) 2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
@@ -11,7 +12,8 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
@@ -20,11 +22,13 @@ import uk.co.reecedunn.intellij.plugin.xslt.lang.EQNamesOrHashedKeywords
 
 @Suppress("Reformat", "RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - Schema Types - EQNames or hashed keywords")
-class XslEQNamesOrHashedKeywordsTest : ParsingTestCase<PsiFile>(EQNamesOrHashedKeywords) {
+class XslEQNamesOrHashedKeywordsTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile> {
     override val pluginId: PluginId = PluginId.getId("XslEQNamesOrHashedKeywordsTest")
+    override val language: Language = EQNamesOrHashedKeywords
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         EQNamesOrHashedKeywords.ParserDefinition().registerExtension(project)
         EQNamesOrHashedKeywords.FileType.registerFileType()

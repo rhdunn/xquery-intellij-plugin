@@ -1,6 +1,7 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.highlighter
 
+import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.colors.EditorColorsManager
@@ -14,8 +15,9 @@ import uk.co.reecedunn.intellij.plugin.core.tests.editor.colors.MockEditorColors
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.AnnotationTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSemanticHighlighter
@@ -35,11 +37,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery Semantic Highlighter")
-class XQuerySemanticHighlighterTest : ParsingTestCase<XQueryModule>(XQuery), AnnotationTestCase {
+class XQuerySemanticHighlighterTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule>, AnnotationTestCase {
     override val pluginId: PluginId = PluginId.getId("XQuerySemanticHighlighterTest")
+    override val language: Language = XQuery
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

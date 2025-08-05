@@ -1,6 +1,7 @@
 // Copyright (C) 2017-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xpath.tests.lang.editor.folding
 
+import com.intellij.lang.Language
 import com.intellij.lang.folding.FoldingBuilderEx
 import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.extensions.PluginId
@@ -13,7 +14,8 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lang.editor.folding.XPathFoldingBuilder
@@ -26,11 +28,13 @@ import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Code Folding - XPath")
-class XPathFoldingTest : ParsingTestCase<PsiFile>(XPathLanguage) {
+class XPathFoldingTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile> {
     override val pluginId: PluginId = PluginId.getId("XPathFoldingTest")
+    override val language: Language = XPathLanguage
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPathLanguage)
         XPathParserDefinition().registerExtension(project)

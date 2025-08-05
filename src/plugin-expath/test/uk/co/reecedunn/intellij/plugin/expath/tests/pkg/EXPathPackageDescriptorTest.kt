@@ -13,7 +13,8 @@ import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackage
@@ -25,11 +26,12 @@ import java.util.zip.ZipEntry
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("EXPath Packaging System 9 May 2012")
-class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(XMLLanguage.INSTANCE) {
+class EXPathPackageDescriptorTest : IdeaPlatformTestCase(), LanguageParserTestCase<XmlFile> {
     override val pluginId: PluginId = PluginId.getId("EXPathPackageDescriptorTest")
+    override val language: com.intellij.lang.Language = XMLLanguage.INSTANCE
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
 
         XMLParserDefinition().registerExtension(project)
         XmlFileType.INSTANCE.registerFileType()

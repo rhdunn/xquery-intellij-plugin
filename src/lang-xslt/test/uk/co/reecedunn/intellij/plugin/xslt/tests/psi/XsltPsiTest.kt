@@ -23,7 +23,8 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBea
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xml.XsltDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.*
@@ -33,11 +34,13 @@ import uk.co.reecedunn.intellij.plugin.xslt.tests.lang.XsltLanguageTestCase
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - IntelliJ Program Structure Interface (PSI)")
-class XsltPsiTest : ParsingTestCase<XmlFile>(XMLLanguage.INSTANCE), XsltLanguageTestCase {
+class XsltPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<XmlFile>, XsltLanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XsltPsiTest")
+    override val language: com.intellij.lang.Language = XMLLanguage.INSTANCE
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XmlASTFactory().registerExtension(project, XMLLanguage.INSTANCE)
         XMLParserDefinition().registerExtension(project)

@@ -23,7 +23,8 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBea
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.ast.exsl.EXslDocument
 import uk.co.reecedunn.intellij.plugin.xslt.ast.marklogic.MarkLogicCatch
@@ -38,7 +39,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.tests.lang.XsltLanguageTestCase
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XSLT")
-class PluginPsiTest : ParsingTestCase<XmlFile>(XMLLanguage.INSTANCE), XsltLanguageTestCase {
+class PluginPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<XmlFile>, XsltLanguageTestCase {
     companion object {
         private const val EXSL_COMMON_NAMESPACE = "http://exslt.org/common"
         private const val SAXON_NAMESPACE = "http://saxon.sf.net/"
@@ -47,9 +48,11 @@ class PluginPsiTest : ParsingTestCase<XmlFile>(XMLLanguage.INSTANCE), XsltLangua
     }
 
     override val pluginId: PluginId = PluginId.getId("PluginPsiTest")
+    override val language: com.intellij.lang.Language = XMLLanguage.INSTANCE
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XmlASTFactory().registerExtension(project, XMLLanguage.INSTANCE)
         XMLParserDefinition().registerExtension(project)

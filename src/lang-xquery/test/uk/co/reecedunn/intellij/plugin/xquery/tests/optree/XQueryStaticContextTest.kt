@@ -1,6 +1,7 @@
 // Copyright (C) 2017-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.optree
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
@@ -11,8 +12,9 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.module.ModuleTestCase
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
@@ -51,14 +53,16 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - Static Context")
-class XQueryStaticContextTest : ParsingTestCase<XQueryModule>(XQuery), ModuleTestCase {
+class XQueryStaticContextTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule>, ModuleTestCase {
     override val pluginId: PluginId = PluginId.getId("XQueryStaticContextTest")
+    override val language: Language = XQuery
 
     private val settings: XQueryProjectSettings
         get() = XQueryProjectSettings.getInstance(project)
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

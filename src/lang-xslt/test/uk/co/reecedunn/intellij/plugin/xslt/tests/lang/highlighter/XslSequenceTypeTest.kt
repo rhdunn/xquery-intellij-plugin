@@ -1,6 +1,7 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xslt.tests.lang.highlighter
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
@@ -11,8 +12,9 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.AnnotationTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.SequenceType
@@ -21,11 +23,13 @@ import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaTypes
 
 @Suppress("Reformat", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - SequenceType Schema Type Annotator")
-class XslSequenceTypeTest : ParsingTestCase<PsiFile>(SequenceType), AnnotationTestCase {
+class XslSequenceTypeTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile>, AnnotationTestCase {
     override val pluginId: PluginId = PluginId.getId("XslSequenceTypeTest")
+    override val language: Language = SequenceType
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         SequenceType.ParserDefinition().registerExtension(project)
         SequenceType.FileType.registerFileType()

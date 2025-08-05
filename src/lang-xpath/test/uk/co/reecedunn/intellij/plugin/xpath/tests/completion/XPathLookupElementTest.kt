@@ -4,6 +4,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.completion
 import com.intellij.codeInsight.lookup.AutoCompletionPolicy
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiFile
 import com.intellij.ui.JBColor
@@ -15,7 +16,8 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.LookupElementTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathAtomicOrUnionTypeLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
@@ -28,12 +30,13 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XPath 3.1 - Code Completion - Lookup Element")
-class XPathLookupElementTest : ParsingTestCase<PsiFile>(XPathLanguage), LookupElementTestCase<PsiFile> {
+class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile>, LookupElementTestCase<PsiFile> {
     override val pluginId: PluginId = PluginId.getId("XPathLookupElementTest")
+    override val language: Language = XPathLanguage
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
-
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
         registerDocumentEditing()
 
         XPathASTFactory().registerExtension(project, XPathLanguage)

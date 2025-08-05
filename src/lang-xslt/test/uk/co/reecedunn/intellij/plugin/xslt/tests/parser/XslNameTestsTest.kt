@@ -1,6 +1,7 @@
 // Copyright (C) 2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
@@ -11,7 +12,8 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
@@ -20,11 +22,13 @@ import uk.co.reecedunn.intellij.plugin.xslt.lang.NameTests
 
 @Suppress("Reformat", "RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - Schema Types - xsl:nametests")
-class XslNameTestsTest : ParsingTestCase<PsiFile>(NameTests) {
+class XslNameTestsTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile> {
     override val pluginId: PluginId = PluginId.getId("XslNameTestsTest")
+    override val language: Language = NameTests
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         NameTests.ParserDefinition().registerExtension(project)
         NameTests.FileType.registerFileType()

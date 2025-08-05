@@ -1,6 +1,7 @@
 // Copyright (C) 2017-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
@@ -11,7 +12,8 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
@@ -23,11 +25,13 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 
 @Suppress("ClassName", "Reformat", "RedundantVisibilityModifier")
 @DisplayName("XQuery IntelliJ Plugin - XPath Parser")
-class PluginParserTest : ParsingTestCase<PsiFile>(XPathLanguage) {
+class PluginParserTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile> {
     override val pluginId: PluginId = PluginId.getId("PluginParserTest")
+    override val language: Language = XPathLanguage
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPathLanguage)
         XPathParserDefinition().registerExtension(project)

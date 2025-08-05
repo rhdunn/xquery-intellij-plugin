@@ -1,6 +1,7 @@
 // Copyright (C) 2018, 2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 
+import com.intellij.lang.Language
 import com.intellij.lang.ParserDefinition
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiFile
@@ -11,7 +12,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -20,8 +22,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 
 @DisplayName("XPath 3.1 - (A.2.2) Terminal Delimitation")
-class XPathTerminalDelimitationTest : ParsingTestCase<PsiFile>(XPathLanguage) {
+class XPathTerminalDelimitationTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile> {
     override val pluginId: PluginId = PluginId.getId("XPathTerminalDelimitationTest")
+    override val language: Language = XPathLanguage
 
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()

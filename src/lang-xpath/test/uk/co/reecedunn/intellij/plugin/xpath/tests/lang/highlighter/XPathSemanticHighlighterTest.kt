@@ -1,6 +1,7 @@
 // Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xpath.tests.lang.highlighter
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -10,8 +11,9 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.AnnotationTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
@@ -24,11 +26,13 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XPath Semantic Highlighter")
-class XPathSemanticHighlighterTest : ParsingTestCase<XPath>(XPathLanguage), AnnotationTestCase {
+class XPathSemanticHighlighterTest : IdeaPlatformTestCase(), LanguageParserTestCase<XPath>, AnnotationTestCase {
     override val pluginId: PluginId = PluginId.getId("XPathSemanticHighlighterTest")
+    override val language: Language = XPathLanguage
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
 
         XPathASTFactory().registerExtension(project, XPathLanguage)
         XPathParserDefinition().registerExtension(project)

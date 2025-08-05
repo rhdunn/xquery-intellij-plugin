@@ -4,6 +4,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.completion
 import com.intellij.codeInsight.lookup.AutoCompletionPolicy
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.ui.JBColor
 import org.hamcrest.CoreMatchers.*
@@ -16,7 +17,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.LookupElementTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
@@ -49,12 +50,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - Code Completion - Lookup Element")
-class XQueryLookupElementTest : ParsingTestCase<XQueryModule>(XQuery), LookupElementTestCase<XQueryModule> {
+class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQueryModule> {
     override val pluginId: PluginId = PluginId.getId("XQueryLookupElementTest")
+    override val language: Language = XQuery
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
-
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
         registerDocumentEditing()
 
         XPathASTFactory().registerExtension(project, XPath)

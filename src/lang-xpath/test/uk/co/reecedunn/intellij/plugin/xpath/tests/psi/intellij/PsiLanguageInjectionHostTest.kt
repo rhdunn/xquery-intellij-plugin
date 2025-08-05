@@ -1,6 +1,7 @@
 // Copyright (C) 2020-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xpath.tests.psi.intellij
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiFile
@@ -13,9 +14,10 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.PsiModificationTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPragma
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
@@ -26,12 +28,13 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ Program Structure Interface (PSI) - PsiLanguageInjectionHost - XPath")
-class PsiLanguageInjectionHostTest : ParsingTestCase<PsiFile>(XPathLanguage), PsiModificationTestCase {
+class PsiLanguageInjectionHostTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile>, PsiModificationTestCase {
     override val pluginId: PluginId = PluginId.getId("PsiLanguageInjectionHostTest")
+    override val language: Language = XPathLanguage
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
-
+        registerPsiFileFactory()
+        registerPsiTreeWalker()
         registerPsiModification()
 
         XPathASTFactory().registerExtension(project, XPathLanguage)
