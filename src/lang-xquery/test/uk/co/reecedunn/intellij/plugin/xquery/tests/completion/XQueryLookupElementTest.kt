@@ -4,8 +4,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.completion
 import com.intellij.codeInsight.lookup.AutoCompletionPolicy
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.ui.JBColor
 import org.hamcrest.CoreMatchers.*
@@ -57,12 +55,7 @@ class XQueryLookupElementTest : ParsingTestCase<XQueryModule>(XQuery), LookupEle
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
-        val app = ApplicationManager.getApplication()
-        app.registerExtensionPointBean(
-            "com.intellij.documentWriteAccessGuard",
-            "com.intellij.openapi.editor.impl.DocumentWriteAccessGuard",
-            pluginDisposable
-        )
+        registerDocumentEditing()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

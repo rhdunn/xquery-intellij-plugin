@@ -4,12 +4,29 @@ package uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.command.CommandProcessor
+import com.intellij.openapi.editor.impl.DocumentWriteAccessGuard
 import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.EditorTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
 
-interface LookupElementTestCase<File : PsiFile> : LanguageParserTestCase<File>, EditorTestCase {
+interface LookupElementTestCase<File : PsiFile> :
+    LanguageParserTestCase<File>,
+    EditorTestCase,
+    PluginDescriptorProvider {
+
+    fun registerDocumentEditing() {
+        val app = ApplicationManager.getApplication()
+        app.registerExtensionPointBean(
+            DocumentWriteAccessGuard.EP_NAME,
+            DocumentWriteAccessGuard::class.java,
+            pluginDisposable
+        )
+    }
+
     @Suppress("MemberVisibilityCanBePrivate")
     private fun handleInsert(text: String, char: Char, lookups: Array<LookupElement>, tailOffset: Int): InsertionContext {
         val file = parseText(text)

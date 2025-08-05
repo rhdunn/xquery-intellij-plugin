@@ -4,8 +4,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.completion
 import com.intellij.codeInsight.lookup.AutoCompletionPolicy
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiFile
 import com.intellij.ui.JBColor
@@ -36,18 +34,13 @@ class XPathLookupElementTest : ParsingTestCase<PsiFile>(XPathLanguage), LookupEl
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
+        registerDocumentEditing()
+
         XPathASTFactory().registerExtension(project, XPathLanguage)
         XPathParserDefinition().registerExtension(project)
         XPathFileType.registerFileType()
 
         XpmFunctionProvider.register(this)
-
-        val app = ApplicationManager.getApplication()
-        app.registerExtensionPointBean(
-            "com.intellij.documentWriteAccessGuard",
-            "com.intellij.openapi.editor.impl.DocumentWriteAccessGuard",
-            pluginDisposable
-        )
     }
 
     @Nested
