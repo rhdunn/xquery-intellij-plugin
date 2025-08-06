@@ -16,6 +16,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.completion
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
@@ -35,7 +36,7 @@ class XQueryCompletionFilterTest : IdeaPlatformTestCase(), LanguageParserTestCas
     override val language: Language = XQuery
 
     override fun registerServicesAndExtensions() {
-        registerPsiFileFactory()
+        requiresVirtualFileToPsiFile()
         requiresIFileElementTypeParseContents()
         requiresPsiFileGetChildren()
 

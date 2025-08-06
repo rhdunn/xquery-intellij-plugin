@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
@@ -53,7 +54,7 @@ class XQueryParameterInfoHandlerTest : IdeaPlatformTestCase(), ParameterInfoTest
     val parameterInfoHandler = XPathParameterInfoHandler()
 
     override fun registerServicesAndExtensions() {
-        registerPsiFileFactory()
+        requiresVirtualFileToPsiFile()
         requiresIFileElementTypeParseContents()
         requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()

@@ -19,6 +19,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathAtomicOrUnionTypeLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
@@ -37,7 +38,7 @@ class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageParserTestCase<Ps
     override val language: Language = XPathLanguage
 
     override fun registerServicesAndExtensions() {
-        registerPsiFileFactory()
+        requiresVirtualFileToPsiFile()
         requiresPsiFileGetChildren()
         requiresPsiFileGetEditor()
         registerDocumentEditing()

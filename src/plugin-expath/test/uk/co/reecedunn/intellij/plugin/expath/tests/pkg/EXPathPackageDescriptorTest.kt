@@ -32,7 +32,6 @@ class EXPathPackageDescriptorTest : IdeaPlatformTestCase(), LanguageParserTestCa
     override val language: com.intellij.lang.Language = XMLLanguage.INSTANCE
 
     override fun registerServicesAndExtensions() {
-        registerPsiFileFactory()
         requiresVirtualFileGetCharset()
 
         XMLParserDefinition().registerExtension(project)

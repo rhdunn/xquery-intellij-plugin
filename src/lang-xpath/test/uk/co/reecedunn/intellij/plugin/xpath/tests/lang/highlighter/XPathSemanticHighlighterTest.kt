@@ -15,6 +15,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
@@ -33,7 +34,7 @@ class XPathSemanticHighlighterTest : IdeaPlatformTestCase(), LanguageParserTestC
     override val language: Language = XPathLanguage
 
     override fun registerServicesAndExtensions() {
-        registerPsiFileFactory()
+        requiresVirtualFileToPsiFile()
         requiresIFileElementTypeParseContents()
         requiresPsiFileGetChildren()
 

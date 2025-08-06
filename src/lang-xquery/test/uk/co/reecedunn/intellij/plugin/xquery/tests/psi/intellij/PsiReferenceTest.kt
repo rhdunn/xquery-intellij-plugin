@@ -18,6 +18,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
@@ -61,7 +62,7 @@ class PsiReferenceTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryMo
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
     override fun registerServicesAndExtensions() {
-        registerPsiFileFactory()
+        requiresVirtualFileToPsiFile()
         requiresIFileElementTypeParseContents()
         requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()

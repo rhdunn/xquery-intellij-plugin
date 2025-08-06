@@ -15,6 +15,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
@@ -30,7 +31,7 @@ class XslEQNamesOrHashedKeywordsTest : IdeaPlatformTestCase(), LanguageParserTes
     override val language: Language = EQNamesOrHashedKeywords
 
     override fun registerServicesAndExtensions() {
-        registerPsiFileFactory()
+        requiresVirtualFileToPsiFile()
         requiresIFileElementTypeParseContents()
         requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()

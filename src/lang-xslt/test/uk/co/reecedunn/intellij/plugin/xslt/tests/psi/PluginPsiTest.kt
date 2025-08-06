@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.ast.exsl.EXslDocument
@@ -53,7 +54,7 @@ class PluginPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<XmlFile>, X
     override val language: com.intellij.lang.Language = XMLLanguage.INSTANCE
 
     override fun registerServicesAndExtensions() {
-        registerPsiFileFactory()
+        requiresVirtualFileToPsiFile()
         requiresIFileElementTypeParseContents()
         requiresPsiFileGetChildren()
 

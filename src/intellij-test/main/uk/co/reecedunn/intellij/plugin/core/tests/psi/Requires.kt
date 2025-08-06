@@ -8,8 +8,10 @@ import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.psi.PsiDocumentManager
+import com.intellij.psi.PsiFileFactory
+import com.intellij.psi.PsiManager
+import com.intellij.psi.impl.PsiFileFactoryImpl
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresEditorFactory
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.PlatformTestCase
 
 fun PlatformTestCase.requiresPsiFileGetChildren() {
@@ -30,5 +32,11 @@ private fun PlatformTestCase.requiresFileTreeGetNode() {
 }
 
 fun PlatformTestCase.requiresPsiFileGetDocument() {
+    project.registerService<PsiManager>(MockPsiManager(project))
     project.registerService<PsiDocumentManager>(MockPsiDocumentManagerEx(project))
+}
+
+fun PlatformTestCase.requiresVirtualFileToPsiFile() {
+    project.registerService<PsiManager>(MockPsiManager(project))
+    project.registerService<PsiFileFactory>(PsiFileFactoryImpl(PsiManager.getInstance(project)))
 }

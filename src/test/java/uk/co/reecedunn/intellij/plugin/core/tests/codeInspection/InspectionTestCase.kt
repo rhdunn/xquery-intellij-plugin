@@ -15,6 +15,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockSmartPointerManager
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonSyntaxValidator
@@ -43,7 +44,7 @@ abstract class InspectionTestCase : IdeaPlatformTestCase(), LanguageParserTestCa
         get() = XQueryProjectSettings.getInstance(project)
 
     override fun registerServicesAndExtensions() {
-        registerPsiFileFactory()
+        requiresVirtualFileToPsiFile()
         requiresIFileElementTypeParseContents()
         requiresPsiFileGetChildren()
 
