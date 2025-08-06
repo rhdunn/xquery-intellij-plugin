@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
@@ -51,6 +52,7 @@ class XQueryReadWriteAccessDetectorTest : IdeaPlatformTestCase(), LanguageParser
 
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
+        requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()
 
         XPathASTFactory().registerExtension(project, XPath)

@@ -15,6 +15,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
@@ -38,6 +39,7 @@ class FunctionsAndOperatorsTest : IdeaPlatformTestCase(), LanguageParserTestCase
 
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
+        requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()
 
         XPathASTFactory().registerExtension(project, XPath)

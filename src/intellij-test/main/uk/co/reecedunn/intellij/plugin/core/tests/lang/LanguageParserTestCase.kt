@@ -1,21 +1,17 @@
 // Copyright (C) 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.tests.lang
 
-import com.intellij.compat.openapi.vfs.encoding.EncodingManagerImpl
 import com.intellij.lang.DefaultASTFactory
 import com.intellij.lang.DefaultASTFactoryImpl
 import com.intellij.lang.PsiBuilderFactory
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.EditorFactory
-import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiFileFactory
 import com.intellij.psi.PsiManager
 import com.intellij.psi.impl.PsiFileFactoryImpl
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
@@ -35,6 +31,6 @@ interface LanguageParserTestCase<File : PsiFile> : LanguageTestCase, PlatformTes
         app.registerService<PsiBuilderFactory>(PsiBuilderFactoryImpl())
 
         app.registerService<EditorFactory>(MockEditorFactoryEx())
-        app.registerService<EncodingManager>(EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
     }
 }
+

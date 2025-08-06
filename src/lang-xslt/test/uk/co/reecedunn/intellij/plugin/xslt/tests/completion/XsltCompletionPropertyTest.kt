@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersion
@@ -40,6 +41,7 @@ class XsltCompletionPropertyTest : IdeaPlatformTestCase(), LanguageParserTestCas
 
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
+        requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()
 
         XmlASTFactory().registerExtension(project, XMLLanguage.INSTANCE)

@@ -16,6 +16,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
@@ -36,6 +37,7 @@ class XQueryParserTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryMo
 
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
+        requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()
 
         XPathASTFactory().registerExtension(project, XPath)
