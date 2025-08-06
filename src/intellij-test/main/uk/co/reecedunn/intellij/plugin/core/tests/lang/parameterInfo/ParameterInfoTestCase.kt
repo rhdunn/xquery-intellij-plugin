@@ -6,7 +6,7 @@ import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
 import com.intellij.psi.PsiFile
 import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.EditorTestCase
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 
 interface ParameterInfoTestCase<File : PsiFile> : LanguageParserTestCase<File>, EditorTestCase {
     fun createParameterInfoContext(text: String, offset: Int): CreateParameterInfoContext {

@@ -1,5 +1,4 @@
-// Copyright (C) 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
-package uk.co.reecedunn.intellij.plugin.core.tests.parser
+package uk.co.reecedunn.intellij.plugin.core.tests.lang
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
