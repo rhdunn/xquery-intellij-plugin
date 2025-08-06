@@ -13,6 +13,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -60,7 +61,7 @@ class XQueryParserTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryMo
         fun emptyBuffer() {
             val expected = "XQueryModuleImpl[FILE(0:0)]\n"
 
-            assertThat(parseText("").toPsiTreeString(), `is`(expected))
+            assertThat(parseText<XQueryModule>("").toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -74,7 +75,7 @@ class XQueryParserTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryMo
                     "   LeafPsiElement[BAD_CHARACTER(1:2)]('\uFFFE')\n" +
                     "   LeafPsiElement[BAD_CHARACTER(2:3)]('\uFFFF')\n"
 
-            assertThat(parseText("^\uFFFE\uFFFF").toPsiTreeString(), `is`(expected))
+            assertThat(parseText<XQueryModule>("^\uFFFE\uFFFF").toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -86,7 +87,7 @@ class XQueryParserTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryMo
                     "   PsiErrorElementImpl[ERROR_ELEMENT(0:2)]('XPST0003: Unexpected token.')\n" +
                     "      LeafPsiElement[XQUERY_INVALID_TOKEN(0:2)]('<!')\n"
 
-            assertThat(parseText("<!").toPsiTreeString(), `is`(expected))
+            assertThat(parseText<XQueryModule>("<!").toPsiTreeString(), `is`(expected))
         }
     }
 

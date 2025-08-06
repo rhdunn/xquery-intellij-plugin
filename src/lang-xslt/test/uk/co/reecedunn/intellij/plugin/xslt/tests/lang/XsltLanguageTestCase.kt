@@ -6,6 +6,7 @@ import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
@@ -17,7 +18,7 @@ interface XsltLanguageTestCase : LanguageParserTestCase<XmlFile> {
             val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
             return file.toPsiFile(project) as XmlFile
         }
-        return super.parseText(resource)
+        return parseText(resource)
     }
 
     @Suppress("UNCHECKED_CAST")

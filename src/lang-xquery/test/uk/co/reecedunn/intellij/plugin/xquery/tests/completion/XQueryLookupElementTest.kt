@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.LookupElementTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
@@ -81,7 +82,7 @@ class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQ
     @DisplayName("XQuery 3.1 EBNF (131) VarRef")
     internal inner class VarRef {
         fun parse(text: String): Pair<XQueryModule, XpmVariableDeclaration> {
-            val module = parseText(text)
+            val module = parseText<XQueryModule>(text)
             val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XpmVariableReference
             val ref = call.variableName?.element?.references?.get(1)?.resolve()?.parent!!
             return module to ref as XpmVariableDeclaration
@@ -179,7 +180,7 @@ class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQ
     @DisplayName("XQuery 3.1 EBNF (137) FunctionCall (empty parameters)")
     internal inner class FunctionCall_EmptyParams {
         fun parse(text: String): Pair<XQueryModule, XpmFunctionDeclaration> {
-            val module = parseText(text)
+            val module = parseText<XQueryModule>(text)
             val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XpmFunctionReference
             val ref = call.functionName?.element?.references?.get(1)?.resolve()?.parent!!
             return module to ref as XpmFunctionDeclaration
@@ -309,7 +310,7 @@ class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQ
     @DisplayName("XQuery 3.1 EBNF (137) FunctionCall (with parameters)")
     internal inner class FunctionCall_WithParams {
         fun parse(text: String): Pair<XQueryModule, XpmFunctionDeclaration> {
-            val module = parseText(text)
+            val module = parseText<XQueryModule>(text)
             val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XpmFunctionReference
             val ref = call.functionName?.element?.references?.get(1)?.resolve()?.parent!!
             return module to ref as XpmFunctionDeclaration

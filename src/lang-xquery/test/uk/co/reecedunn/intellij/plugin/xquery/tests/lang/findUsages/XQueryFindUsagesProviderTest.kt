@@ -15,6 +15,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
@@ -76,7 +77,7 @@ class XQueryFindUsagesProviderTest : IdeaPlatformTestCase(), LanguageParserTestC
     @DisplayName("XQuery 3.1 EBNF (131) VarRef")
     internal inner class VarRef {
         fun parse(text: String): Pair<PsiElement, PsiElement> {
-            val module = parseText(text)
+            val module = parseText<XQueryModule>(text)
             val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XpmVariableReference
             val element = call.variableName?.element!!
             val references = element.references
@@ -131,7 +132,7 @@ class XQueryFindUsagesProviderTest : IdeaPlatformTestCase(), LanguageParserTestC
     @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
     internal inner class FunctionCall {
         fun parse(text: String): Pair<PsiElement, PsiElement> {
-            val module = parseText(text)
+            val module = parseText<XQueryModule>(text)
             val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XpmFunctionReference
             val element = call.functionName?.element!!
             val references = element.references

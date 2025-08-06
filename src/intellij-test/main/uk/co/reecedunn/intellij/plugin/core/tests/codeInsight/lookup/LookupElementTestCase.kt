@@ -14,6 +14,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBea
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.EditorTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 
 interface LookupElementTestCase<File : PsiFile> :
     LanguageParserTestCase<File>,
@@ -33,7 +34,7 @@ interface LookupElementTestCase<File : PsiFile> :
 
     @Suppress("MemberVisibilityCanBePrivate")
     private fun handleInsert(text: String, char: Char, lookups: Array<LookupElement>, tailOffset: Int): InsertionContext {
-        val file = parseText(text)
+        val file = parseText<File>(text)
         val editor = getEditor(file)
         editor.caretModel.moveToOffset(tailOffset)
 

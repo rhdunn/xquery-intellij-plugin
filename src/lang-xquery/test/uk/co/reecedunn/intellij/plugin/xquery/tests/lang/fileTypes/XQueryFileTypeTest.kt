@@ -8,6 +8,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.createVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType

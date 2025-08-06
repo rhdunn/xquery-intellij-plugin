@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.completion
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage

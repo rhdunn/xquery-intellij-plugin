@@ -15,21 +15,17 @@ import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.psi.PsiDocumentManager
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiFileFactory
 import com.intellij.psi.PsiManager
 import com.intellij.psi.impl.PsiFileFactoryImpl
-import com.intellij.psi.impl.source.tree.LeafPsiElement
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.PlatformTestCase
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 
 interface LanguageParserTestCase<File : PsiFile> : LanguageTestCase, PlatformTestCase {
     fun registerPsiFileFactory() {
@@ -54,19 +50,4 @@ interface LanguageParserTestCase<File : PsiFile> : LanguageTestCase, PlatformTes
             EditorFactory.getInstance().createDocument(it)
         })
     }
-
-    @Suppress("UNCHECKED_CAST")
-    fun parseText(text: String): File = createVirtualFile("testcase.xqy", text).toPsiFile(project) as File
-
-    fun completion(text: String, completionPoint: String = "completion-point"): PsiElement {
-        return parse<LeafPsiElement>(text).find { it.text == completionPoint }!!
-    }
-}
-
-inline fun <reified T> LanguageParserTestCase<*>.parse(xquery: String): List<T> {
-    return parseText(xquery).walkTree().filterIsInstance<T>().toList()
-}
-
-inline fun <reified T> LanguageParserTestCase<*>.parse(vararg xquery: String): List<T> {
-    return parseText(xquery.joinToString("\n")).walkTree().filterIsInstance<T>().toList()
 }

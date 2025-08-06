@@ -17,6 +17,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
@@ -71,7 +72,7 @@ class XQueryReadWriteAccessDetectorTest : IdeaPlatformTestCase(), LanguageParser
     val detector: ReadWriteAccessDetector = XQueryReadWriteAccessDetector()
 
     fun variable(text: String): Pair<PsiElement, PsiReference> {
-        val module = parseText(text)
+        val module = parseText<XQueryModule>(text)
         val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XpmVariableReference
         val element = call.variableName?.element!! as XPathEQName
         val references = element.references

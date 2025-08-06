@@ -14,6 +14,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
@@ -51,7 +52,7 @@ class XQueryDocumentationProviderTest : IdeaPlatformTestCase(), LanguageParserTe
     override val language: Language = XQuery
 
     inline fun <reified T> parse(xquery: String): List<T> {
-        return parseText(xquery).walkTree().filterIsInstance<T>().toList()
+        return parseText<XQueryModule>(xquery).walkTree().filterIsInstance<T>().toList()
     }
 
     companion object {
@@ -88,7 +89,7 @@ class XQueryDocumentationProviderTest : IdeaPlatformTestCase(), LanguageParserTe
     @DisplayName("XQuery 3.1 EBNF (4) LibraryModule")
     internal inner class LibraryModule {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
-            val module = parseText(text)
+            val module = parseText<XQueryModule>(text)
             val element = module.walkTree().filterIsInstance<XPathUriLiteral>().first()
             val ref = element.references[0].resolve()
             return element to ref
@@ -109,7 +110,7 @@ class XQueryDocumentationProviderTest : IdeaPlatformTestCase(), LanguageParserTe
     @DisplayName("XQuery 3.1 EBNF (23) ModuleImport")
     internal inner class ModuleImport {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
-            val module = parseText(text)
+            val module = parseText<XQueryModule>(text)
             val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XpmFunctionReference
             val element = call.functionName?.element!!
             val ref = element.references[0].resolve()
@@ -175,7 +176,7 @@ class XQueryDocumentationProviderTest : IdeaPlatformTestCase(), LanguageParserTe
     @DisplayName("XQuery 3.1 EBNF (24) NamespaceDecl")
     internal inner class NamespaceDecl {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
-            val module = parseText(text)
+            val module = parseText<XQueryModule>(text)
             val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XpmFunctionReference
             val element = call.functionName?.element!!
             val ref = element.references[0].resolve()
@@ -358,7 +359,7 @@ class XQueryDocumentationProviderTest : IdeaPlatformTestCase(), LanguageParserTe
     @DisplayName("XQuery 3.1 EBNF (131) VarRef")
     internal inner class VarRef {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
-            val module = parseText(text)
+            val module = parseText<XQueryModule>(text)
             val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XpmVariableReference
             val element = call.variableName?.element!!
             val ref = element.references[1].resolve()
@@ -388,7 +389,7 @@ class XQueryDocumentationProviderTest : IdeaPlatformTestCase(), LanguageParserTe
     @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
     internal inner class FunctionCall {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
-            val module = parseText(text)
+            val module = parseText<XQueryModule>(text)
             val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XpmFunctionReference
             val element = call.functionName?.element!!
             val ref = element.references[1].resolve()
