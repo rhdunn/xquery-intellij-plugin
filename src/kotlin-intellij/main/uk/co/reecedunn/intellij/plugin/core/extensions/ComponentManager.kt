@@ -52,7 +52,10 @@ fun <T : Any> ComponentManager.registerExtension(
 
 @TestOnly
 fun <T : Any> ComponentManager.registerService(serviceInterface: Class<T>, implementation: T) {
-    (this as MockComponentManager).registerService(serviceInterface, implementation)
+    val mockComponentManager = this as MockComponentManager
+    if (!mockComponentManager.hasComponent(serviceInterface)) {
+        mockComponentManager.registerService(serviceInterface, implementation)
+    }
 }
 
 @TestOnly

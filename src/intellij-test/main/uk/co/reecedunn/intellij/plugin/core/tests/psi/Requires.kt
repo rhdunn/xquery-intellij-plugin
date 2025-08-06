@@ -7,7 +7,9 @@ import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.impl.ProgressManagerImpl
+import com.intellij.psi.PsiDocumentManager
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresEditorFactory
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.PlatformTestCase
 
 fun PlatformTestCase.requiresPsiFileGetChildren() {
@@ -25,4 +27,8 @@ private fun PlatformTestCase.requiresFileTreeGetNode() {
             EditorFactory.getInstance().createDocument(it)
         }
     )
+}
+
+fun PlatformTestCase.requiresPsiFileGetDocument() {
+    project.registerService<PsiDocumentManager>(MockPsiDocumentManagerEx(project))
 }

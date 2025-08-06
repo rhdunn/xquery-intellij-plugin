@@ -11,7 +11,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresEditorFactory
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresPsiFileGetEditor
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.ParameterInfoTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
@@ -36,7 +36,7 @@ class XPathParameterInfoHandlerTest : IdeaPlatformTestCase(), ParameterInfoTestC
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
         requiresPsiFileGetChildren()
-        requiresEditorFactory()
+        requiresPsiFileGetEditor()
 
         XPathASTFactory().registerExtension(project, XPathLanguage)
         XPathParserDefinition().registerExtension(project)

@@ -14,7 +14,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.LookupElementTestCase
-import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresEditorFactory
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresPsiFileGetEditor
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
@@ -39,7 +39,7 @@ class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageParserTestCase<Ps
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
         requiresPsiFileGetChildren()
-        requiresEditorFactory()
+        requiresPsiFileGetEditor()
         registerDocumentEditing()
 
         XPathASTFactory().registerExtension(project, XPathLanguage)

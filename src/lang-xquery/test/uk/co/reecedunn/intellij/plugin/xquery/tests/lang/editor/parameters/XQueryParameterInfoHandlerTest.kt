@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresPsiFileGetEditor
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.ParameterInfoTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
@@ -54,6 +55,7 @@ class XQueryParameterInfoHandlerTest : IdeaPlatformTestCase(), ParameterInfoTest
         registerPsiFileFactory()
         requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()
+        requiresPsiFileGetEditor()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

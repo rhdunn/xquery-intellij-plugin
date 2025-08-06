@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.LookupElementTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresPsiFileGetEditor
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
@@ -61,6 +62,7 @@ class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQ
         registerPsiFileFactory()
         requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()
+        requiresPsiFileGetEditor()
         registerDocumentEditing()
 
         XPathASTFactory().registerExtension(project, XPath)
