@@ -9,16 +9,15 @@ import com.intellij.openapi.command.CommandProcessor
 import com.intellij.openapi.command.impl.CoreCommandProcessor
 import com.intellij.openapi.editor.impl.DocumentWriteAccessGuard
 import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.core.editor.editor
 import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import uk.co.reecedunn.intellij.plugin.core.tests.editor.EditorTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 
 interface LookupElementTestCase<File : PsiFile> :
     LanguageParserTestCase<File>,
-    EditorTestCase,
     PluginDescriptorProvider {
 
     fun registerDocumentEditing() {
@@ -35,7 +34,7 @@ interface LookupElementTestCase<File : PsiFile> :
     @Suppress("MemberVisibilityCanBePrivate")
     private fun handleInsert(text: String, char: Char, lookups: Array<LookupElement>, tailOffset: Int): InsertionContext {
         val file = parseText<File>(text)
-        val editor = getEditor(file)
+        val editor = file.editor
         editor.caretModel.moveToOffset(tailOffset)
 
         val context = InsertionContext(OffsetMap(editor.document), char, lookups, file, editor, false)
