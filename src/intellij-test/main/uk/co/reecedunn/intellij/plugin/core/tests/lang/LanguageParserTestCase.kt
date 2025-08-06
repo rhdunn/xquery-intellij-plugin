@@ -28,10 +28,10 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
-import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.ProjectTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.PlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 
-interface LanguageParserTestCase<File : PsiFile> : LanguageTestCase, ProjectTestCase {
+interface LanguageParserTestCase<File : PsiFile> : LanguageTestCase, PlatformTestCase {
     fun registerPsiFileFactory() {
         val psiManager = MockPsiManager(project)
         project.registerService<PsiManager>(psiManager)

@@ -4,8 +4,6 @@ package uk.co.reecedunn.intellij.plugin.core.tests.testFramework
 import com.intellij.mock.MockApplication
 import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.Disposable
-import com.intellij.openapi.application.Application
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.project.Project
@@ -13,10 +11,9 @@ import com.intellij.openapi.util.Disposer
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
-import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-abstract class IdeaPlatformTestCase : PluginDescriptorProvider, ProjectTestCase {
+abstract class IdeaPlatformTestCase : PlatformTestCase {
     // region PluginDescriptorProvider
 
     override val pluginDescriptor: PluginDescriptor
@@ -25,11 +22,12 @@ abstract class IdeaPlatformTestCase : PluginDescriptorProvider, ProjectTestCase 
     override val pluginDisposable: Disposable = PluginDisposable()
 
     // endregion
+    // region ProjectTestCase
 
     private var mainProject: MockProjectEx? = null
     override val project: Project get() = mainProject!!
 
-    val app: Application get() = ApplicationManager.getApplication()
+    // endregion
 
     @BeforeAll
     fun setupFixture() {

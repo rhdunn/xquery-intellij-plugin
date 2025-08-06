@@ -8,23 +8,23 @@ import com.intellij.psi.impl.source.tree.TreeCopyHandler
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.codeStyles.MockIndentHelper
-import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.PlatformTestCase
 
-fun IdeaPlatformTestCase.requiresPsiElementReplace() {
+fun PlatformTestCase.requiresPsiElementReplace() {
     requiresPomModel()
     requiresChangeUtilCopyElement()
     requiresChangeEditUtilReplaceChild()
 }
 
-private fun IdeaPlatformTestCase.requiresPomModel() {
+private fun PlatformTestCase.requiresPomModel() {
     project.registerService(TreeAspect())
     project.registerService<PomModel>(MockPomModel(project))
 }
 
-private fun IdeaPlatformTestCase.requiresChangeUtilCopyElement() {
+private fun PlatformTestCase.requiresChangeUtilCopyElement() {
     app.registerExtensionPointBean(TreeCopyHandler.EP_NAME, TreeCopyHandler::class.java, pluginDisposable)
 }
 
-private fun IdeaPlatformTestCase.requiresChangeEditUtilReplaceChild() {
+private fun PlatformTestCase.requiresChangeEditUtilReplaceChild() {
     app.registerService<IndentHelper>(MockIndentHelper())
 }
