@@ -1,11 +1,6 @@
 // Copyright (C) 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.tests.lang
 
-import com.intellij.lang.DefaultASTFactory
-import com.intellij.lang.DefaultASTFactoryImpl
-import com.intellij.lang.PsiBuilderFactory
-import com.intellij.lang.impl.PsiBuilderFactoryImpl
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiFileFactory
 import com.intellij.psi.PsiManager
@@ -19,9 +14,5 @@ interface LanguageParserTestCase<File : PsiFile> : LanguageTestCase, PlatformTes
         val psiManager = MockPsiManager(project)
         project.registerService<PsiManager>(psiManager)
         project.registerService<PsiFileFactory>(PsiFileFactoryImpl(psiManager))
-
-        val app = ApplicationManager.getApplication()
-        app.registerService<DefaultASTFactory>(DefaultASTFactoryImpl())
-        app.registerService<PsiBuilderFactory>(PsiBuilderFactoryImpl())
     }
 }

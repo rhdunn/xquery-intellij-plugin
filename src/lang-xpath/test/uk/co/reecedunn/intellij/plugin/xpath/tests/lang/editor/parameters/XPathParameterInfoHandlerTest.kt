@@ -16,6 +16,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateP
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.ParameterInfoTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
@@ -35,6 +36,7 @@ class XPathParameterInfoHandlerTest : IdeaPlatformTestCase(), ParameterInfoTestC
 
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
+        requiresIFileElementTypeParseContents()
         requiresPsiFileGetChildren()
         requiresPsiFileGetEditor()
 

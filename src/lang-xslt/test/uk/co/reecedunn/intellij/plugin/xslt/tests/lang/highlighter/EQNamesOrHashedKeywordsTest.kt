@@ -14,6 +14,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.AnnotationTest
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
@@ -30,6 +31,7 @@ class EQNamesOrHashedKeywordsTest : IdeaPlatformTestCase(), LanguageParserTestCa
 
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
+        requiresIFileElementTypeParseContents()
         requiresPsiFileGetChildren()
 
         EQNamesOrHashedKeywords.ParserDefinition().registerExtension(project)

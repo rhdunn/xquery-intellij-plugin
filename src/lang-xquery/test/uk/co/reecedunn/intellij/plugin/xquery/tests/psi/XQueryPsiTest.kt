@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.module.ModuleTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.requiresPsiElementReplace
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockProjectScopeBuilder
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
@@ -112,6 +113,7 @@ class XQueryPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModul
 
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
+        requiresIFileElementTypeParseContents()
         requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()
         requiresPsiElementReplace()

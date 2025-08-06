@@ -16,6 +16,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -40,6 +41,7 @@ class XQueryBreadcrumbProviderTest : IdeaPlatformTestCase(), LanguageParserTestC
 
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
+        requiresIFileElementTypeParseContents()
         requiresPsiFileGetChildren()
 
         XPathASTFactory().registerExtension(project, XPath)
