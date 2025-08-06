@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
-import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.PsiModificationTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.requiresPsiElementReplace
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -67,7 +67,7 @@ import java.math.BigInteger
 
 @Suppress("ClassName", "RedundantVisibilityModifier", "Reformat")
 @DisplayName("XPath 3.1 - IntelliJ Program Structure Interface (PSI)")
-class XPathPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile>, PsiModificationTestCase {
+class XPathPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile> {
     override val pluginId: PluginId = PluginId.getId("XPathPsiTest")
     override val language: Language = XPathLanguage
 

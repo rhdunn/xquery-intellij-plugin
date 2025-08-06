@@ -4,6 +4,8 @@ package uk.co.reecedunn.intellij.plugin.core.tests.testFramework
 import com.intellij.mock.MockApplication
 import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.Disposable
+import com.intellij.openapi.application.Application
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.project.Project
@@ -23,12 +25,11 @@ abstract class IdeaPlatformTestCase : PluginDescriptorProvider, ProjectTestCase 
     override val pluginDisposable: Disposable = PluginDisposable()
 
     // endregion
-    // region ProjectTestCase
 
     private var mainProject: MockProjectEx? = null
     override val project: Project get() = mainProject!!
 
-    // endregion
+    val app: Application get() = ApplicationManager.getApplication()
 
     @BeforeAll
     fun setupFixture() {

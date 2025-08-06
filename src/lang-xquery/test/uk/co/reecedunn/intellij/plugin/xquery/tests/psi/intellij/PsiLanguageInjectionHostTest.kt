@@ -16,7 +16,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
-import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.PsiModificationTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.requiresPsiElementReplace
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPragma
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
@@ -34,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ Program Structure Interface (PSI) - PsiLanguageInjectionHost - XQuery")
-class PsiLanguageInjectionHostTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule>, PsiModificationTestCase {
+class PsiLanguageInjectionHostTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule> {
     override val pluginId: PluginId = PluginId.getId("PsiLanguageInjectionHostTest")
     override val language: Language = XQuery
 
