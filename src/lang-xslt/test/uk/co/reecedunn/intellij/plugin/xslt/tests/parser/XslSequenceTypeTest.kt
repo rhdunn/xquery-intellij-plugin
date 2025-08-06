@@ -13,6 +13,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -28,7 +29,7 @@ class XslSequenceTypeTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFi
 
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
-        registerPsiTreeWalker()
+        requiresPsiFileGetChildren()
 
         SequenceType.ParserDefinition().registerExtension(project)
         SequenceType.FileType.registerFileType()

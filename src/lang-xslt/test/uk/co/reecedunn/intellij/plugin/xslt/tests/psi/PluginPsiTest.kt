@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.ast.exsl.EXslDocument
@@ -52,7 +53,7 @@ class PluginPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<XmlFile>, X
 
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
-        registerPsiTreeWalker()
+        requiresPsiFileGetChildren()
 
         XmlASTFactory().registerExtension(project, XMLLanguage.INSTANCE)
         XMLParserDefinition().registerExtension(project)

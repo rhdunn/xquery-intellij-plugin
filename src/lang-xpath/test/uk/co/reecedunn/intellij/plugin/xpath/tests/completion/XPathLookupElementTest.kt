@@ -17,6 +17,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.LookupEleme
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathAtomicOrUnionTypeLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
@@ -36,7 +37,7 @@ class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageParserTestCase<Ps
 
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
-        registerPsiTreeWalker()
+        requiresPsiFileGetChildren()
         registerDocumentEditing()
 
         XPathASTFactory().registerExtension(project, XPathLanguage)

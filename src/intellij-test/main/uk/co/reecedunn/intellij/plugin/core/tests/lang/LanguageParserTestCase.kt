@@ -6,13 +6,8 @@ import com.intellij.lang.DefaultASTFactory
 import com.intellij.lang.DefaultASTFactoryImpl
 import com.intellij.lang.PsiBuilderFactory
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
-import com.intellij.mock.MockFileDocumentManagerImpl
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.EditorFactory
-import com.intellij.openapi.fileEditor.FileDocumentManager
-import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
-import com.intellij.openapi.progress.ProgressManager
-import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
@@ -41,13 +36,5 @@ interface LanguageParserTestCase<File : PsiFile> : LanguageTestCase, PlatformTes
 
         app.registerService<EditorFactory>(MockEditorFactoryEx())
         app.registerService<EncodingManager>(EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
-    }
-
-    fun registerPsiTreeWalker() {
-        val app = ApplicationManager.getApplication()
-        app.registerService<ProgressManager>(ProgressManagerImpl())
-        app.registerService<FileDocumentManager>(MockFileDocumentManagerImpl(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY) {
-            EditorFactory.getInstance().createDocument(it)
-        })
     }
 }
