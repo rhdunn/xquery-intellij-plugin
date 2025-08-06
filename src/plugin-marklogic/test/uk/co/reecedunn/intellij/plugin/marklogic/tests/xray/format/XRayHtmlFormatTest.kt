@@ -2,22 +2,16 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.xray.format
 
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import com.intellij.compat.openapi.vfs.encoding.EncodingManagerImpl
-import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.impl.XDebuggerUtilImpl
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
@@ -44,10 +38,8 @@ class XRayHtmlFormatTest : IdeaPlatformTestCase() {
 
     @Suppress("UnstableApiUsage")
     override fun registerServicesAndExtensions() {
-        val app = ApplicationManager.getApplication()
         app.registerService<XDebuggerUtil>(XDebuggerUtilImpl())
-        app.registerService<EditorFactory>(MockEditorFactoryEx())
-        app.registerService<EncodingManager>(EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
+        requiresVirtualFileGetCharset()
     }
 
     @Nested
