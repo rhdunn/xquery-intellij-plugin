@@ -74,7 +74,8 @@ class XPathPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile>, Ps
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
         registerPsiTreeWalker()
-        registerPsiModification()
+
+        requiresPsiElementReplace()
 
         XPathASTFactory().registerExtension(project, XPathLanguage)
         XPathParserDefinition().registerExtension(project)

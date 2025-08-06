@@ -111,7 +111,8 @@ class XQueryPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModul
     override fun registerServicesAndExtensions() {
         registerPsiFileFactory()
         registerPsiTreeWalker()
-        registerPsiModification()
+
+        requiresPsiElementReplace()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)
