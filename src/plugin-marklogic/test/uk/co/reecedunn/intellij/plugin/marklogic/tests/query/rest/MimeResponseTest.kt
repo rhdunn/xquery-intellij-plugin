@@ -2,11 +2,8 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.query.rest
 
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import com.intellij.mock.MockFileTypeManager
-import com.intellij.mock.MockLanguageFileType
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.testFramework.LightVirtualFile
 import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.impl.XDebuggerUtilImpl
@@ -20,11 +17,13 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.http.StringMessage
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.queryResults
 import uk.co.reecedunn.intellij.plugin.processor.debug.position.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 
 @Suppress("Reformat")
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - MarkLogic MIME Response to Query Results")
@@ -36,8 +35,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
         val app = ApplicationManager.getApplication()
         app.registerService<XDebuggerUtil>(XDebuggerUtilImpl())
 
-        val fileType = MockLanguageFileType(XQuery, "xq")
-        app.registerService<FileTypeManager>(MockFileTypeManager(fileType))
+        XQueryFileType.registerFileType()
     }
 
     @Test
