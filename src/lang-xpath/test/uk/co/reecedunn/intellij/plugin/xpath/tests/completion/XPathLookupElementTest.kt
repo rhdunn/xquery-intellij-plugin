@@ -13,8 +13,8 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.LookupElementTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.handleInsert
+import uk.co.reecedunn.intellij.plugin.core.tests.command.requiresCommandProcessor
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresDocumentWriteAccess
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresPsiFileGetEditor
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XPath 3.1 - Code Completion - Lookup Element")
-class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageTestCase, LookupElementTestCase<PsiFile> {
+class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XPathLookupElementTest")
     override val language: Language = XPathLanguage
 
@@ -43,8 +43,9 @@ class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageTestCase, LookupE
         requiresVirtualFileToPsiFile()
         requiresPsiFileGetChildren()
         requiresPsiFileGetEditor()
+
+        requiresCommandProcessor()
         requiresDocumentWriteAccess()
-        registerDocumentEditing()
 
         XPathASTFactory().registerExtension(project, XPathLanguage)
         XPathParserDefinition().registerExtension(project)

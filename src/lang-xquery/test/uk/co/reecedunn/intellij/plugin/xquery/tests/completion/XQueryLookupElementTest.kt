@@ -15,10 +15,11 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.LookupElementTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.handleInsert
+import uk.co.reecedunn.intellij.plugin.core.tests.command.requiresCommandProcessor
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresDocumentWriteAccess
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresPsiFileGetEditor
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
@@ -59,7 +60,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - Code Completion - Lookup Element")
-class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQueryModule> {
+class XQueryLookupElementTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XQueryLookupElementTest")
     override val language: Language = XQuery
 
@@ -69,8 +70,9 @@ class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQ
         requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()
         requiresPsiFileGetEditor()
+
+        requiresCommandProcessor()
         requiresDocumentWriteAccess()
-        registerDocumentEditing()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)
