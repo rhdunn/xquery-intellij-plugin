@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.module.ModuleTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
+import uk.co.reecedunn.intellij.plugin.core.tests.module.requiresModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
@@ -56,7 +56,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - Static Context")
-class XQueryStaticContextTest : IdeaPlatformTestCase(), LanguageTestCase, ModuleTestCase {
+class XQueryStaticContextTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XQueryStaticContextTest")
     override val language: Language = XQuery
 
@@ -80,7 +80,7 @@ class XQueryStaticContextTest : IdeaPlatformTestCase(), LanguageTestCase, Module
         XpmVariableProvider.register(this, XQueryVariableProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
 
-        registerModuleManager(ResourceVirtualFile.create(this::class.java.classLoader, "tests/module-xquery"))
+        requiresModuleManager(ResourceVirtualFile.create(this::class.java.classLoader, "tests/module-xquery"))
 
         project.registerService(XQueryProjectSettings())
         project.registerService(XpmModuleLoaderSettings(project))

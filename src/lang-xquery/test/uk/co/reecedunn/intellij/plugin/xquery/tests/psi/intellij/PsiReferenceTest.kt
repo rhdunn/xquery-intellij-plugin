@@ -13,10 +13,10 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.module.ModuleTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
+import uk.co.reecedunn.intellij.plugin.core.tests.module.requiresModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
@@ -53,7 +53,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("RedundantVisibilityModifier", "ReplaceNotNullAssertionWithElvisReturn")
 @DisplayName("IntelliJ Program Structure Interface (PSI) - PsiReference - XQuery")
-class PsiReferenceTest : IdeaPlatformTestCase(), LanguageTestCase, ModuleTestCase {
+class PsiReferenceTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("PsiReferenceTest")
     override val language: Language = XQuery
 
@@ -77,7 +77,7 @@ class PsiReferenceTest : IdeaPlatformTestCase(), LanguageTestCase, ModuleTestCas
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmVariableProvider.register(this, XQueryVariableProvider)
 
-        registerModuleManager()
+        requiresModuleManager()
 
         project.registerService(XQueryProjectSettings())
         project.registerService(XpmModuleLoaderSettings(project))

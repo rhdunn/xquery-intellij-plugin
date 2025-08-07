@@ -7,12 +7,10 @@ import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.PlatformTestCase
 
-interface ModuleTestCase : PlatformTestCase {
-    fun registerModuleManager(module: VirtualFile? = null) {
-        val manager = MockModuleManager(project as MockProjectEx)
-        if (module != null) {
-            manager.addModule(module)
-        }
-        project.registerService<ModuleManager>(manager)
+fun PlatformTestCase.requiresModuleManager(module: VirtualFile? = null) {
+    val manager = MockModuleManager(project as MockProjectEx)
+    if (module != null) {
+        manager.addModule(module)
     }
+    project.registerService<ModuleManager>(manager)
 }

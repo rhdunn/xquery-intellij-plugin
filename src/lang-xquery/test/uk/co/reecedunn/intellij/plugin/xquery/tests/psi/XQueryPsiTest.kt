@@ -27,10 +27,10 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.module.ModuleTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
+import uk.co.reecedunn.intellij.plugin.core.tests.module.requiresModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.requiresPsiElementReplace
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockProjectScopeBuilder
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
@@ -101,7 +101,7 @@ import java.math.BigInteger
 
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
-class XQueryPsiTest : IdeaPlatformTestCase(), LanguageTestCase, ModuleTestCase {
+class XQueryPsiTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XQueryPsiTest")
     override val language: Language = XQuery
 
@@ -134,7 +134,7 @@ class XQueryPsiTest : IdeaPlatformTestCase(), LanguageTestCase, ModuleTestCase {
         project.registerService<ProjectScopeBuilder>(MockProjectScopeBuilder())
         project.registerService<ResolveScopeManager>(MockResolveScopeManager(project))
 
-        registerModuleManager(res.findFileByPath("tests/module-xquery")!!)
+        requiresModuleManager(res.findFileByPath("tests/module-xquery")!!)
 
         project.registerService(XQueryProjectSettings())
         project.registerService(XpmModuleLoaderSettings(project))
