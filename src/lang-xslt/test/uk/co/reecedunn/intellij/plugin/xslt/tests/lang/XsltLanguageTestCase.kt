@@ -5,14 +5,14 @@ import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
 
-interface XsltLanguageTestCase : LanguageParserTestCase<XmlFile> {
+interface XsltLanguageTestCase : LanguageTestCase {
     fun parseXml(resource: String): XmlFile {
         if (resource.endsWith(".xsl")) {
             val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)

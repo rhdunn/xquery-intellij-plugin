@@ -15,7 +15,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.editor.colors.MockEditorColors
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.AnnotationTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
@@ -40,7 +40,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery Semantic Highlighter")
-class XQuerySemanticHighlighterTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule>, AnnotationTestCase {
+class XQuerySemanticHighlighterTest : IdeaPlatformTestCase(), LanguageTestCase, AnnotationTestCase {
     override val pluginId: PluginId = PluginId.getId("XQuerySemanticHighlighterTest")
     override val language: Language = XQuery
 

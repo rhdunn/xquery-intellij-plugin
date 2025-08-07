@@ -10,7 +10,7 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @Suppress("ClassName")
 @DisplayName("XQuery IntelliJ Plugin - Syntax Validation - Saxon")
-class SaxonSyntaxValidatorTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule>, XpmDiagnostics {
+class SaxonSyntaxValidatorTest : IdeaPlatformTestCase(), LanguageTestCase, XpmDiagnostics {
     override val pluginId: PluginId = PluginId.getId("SaxonSyntaxValidatorTest")
     override val language: Language = XQuery
 

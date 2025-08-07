@@ -13,7 +13,7 @@ import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXVersion
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
@@ -34,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
 @DisplayName("XQuery IntelliJ Plugin - Syntax Validation - BaseX")
-class BaseXSyntaxValidatorTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule>, XpmDiagnostics {
+class BaseXSyntaxValidatorTest : IdeaPlatformTestCase(), LanguageTestCase, XpmDiagnostics {
     override val pluginId: PluginId = PluginId.getId("BaseXSyntaxValidatorTest")
     override val language: Language = XQuery
 

@@ -17,7 +17,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.LookupEleme
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresPsiFileGetEditor
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XPath 3.1 - Code Completion - Lookup Element")
-class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile>, LookupElementTestCase<PsiFile> {
+class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageTestCase, LookupElementTestCase<PsiFile> {
     override val pluginId: PluginId = PluginId.getId("XPathLookupElementTest")
     override val language: Language = XPathLanguage
 

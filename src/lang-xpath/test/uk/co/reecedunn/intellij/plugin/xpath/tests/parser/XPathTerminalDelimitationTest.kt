@@ -4,7 +4,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 import com.intellij.lang.Language
 import com.intellij.lang.ParserDefinition
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
@@ -22,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 
 @DisplayName("XPath 3.1 - (A.2.2) Terminal Delimitation")
-class XPathTerminalDelimitationTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile> {
+class XPathTerminalDelimitationTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XPathTerminalDelimitationTest")
     override val language: Language = XPathLanguage
 

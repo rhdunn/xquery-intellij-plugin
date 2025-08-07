@@ -10,13 +10,12 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
-import uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error.MarkLogicErrorLog as MarkLogicErrorLogNode
 import uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error.MarkLogicErrorLogLine
 import uk.co.reecedunn.intellij.plugin.marklogic.log.fileTypes.MarkLogicErrorLogFileType
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLog
@@ -24,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogToke
 
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
 @DisplayName("MarkLogic 8.0 ErrorLog")
-class MarkLogic9ErrorLogPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<MarkLogicErrorLogNode> {
+class MarkLogic9ErrorLogPsiTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("MarkLogic9ErrorLogPsiTest")
     override val language: Language = MarkLogicErrorLog
 

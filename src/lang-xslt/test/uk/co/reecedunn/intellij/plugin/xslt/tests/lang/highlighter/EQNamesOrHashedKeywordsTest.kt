@@ -3,7 +3,6 @@ package uk.co.reecedunn.intellij.plugin.xslt.tests.lang.highlighter
 
 import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.AnnotationTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
@@ -26,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaTypes
 
 @Suppress("Reformat")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - EQNames-or-hashed-keywords Schema Type Annotator")
-class EQNamesOrHashedKeywordsTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile>, AnnotationTestCase {
+class EQNamesOrHashedKeywordsTest : IdeaPlatformTestCase(), LanguageTestCase, AnnotationTestCase {
     override val pluginId: PluginId = PluginId.getId("EQNamesOrHashedKeywordsTest")
     override val language: Language = EQNamesOrHashedKeywords
 

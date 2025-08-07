@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
 
 @DisplayName("XPath 3.1 - Parser")
 @Suppress("ClassName", "Reformat", "RedundantVisibilityModifier")
-class XPathParserTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile> {
+class XPathParserTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XPathParserTest")
     override val language: Language = XPathLanguage
 

@@ -3,7 +3,6 @@ package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
 import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
@@ -26,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.lang.NameTests
 
 @Suppress("Reformat", "RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - Schema Types - xsl:nametests")
-class XslNameTestsTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile> {
+class XslNameTestsTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XslNameTestsTest")
     override val language: Language = NameTests
 

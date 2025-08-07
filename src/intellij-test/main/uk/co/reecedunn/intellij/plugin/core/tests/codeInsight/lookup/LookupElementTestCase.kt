@@ -10,16 +10,12 @@ import com.intellij.openapi.command.impl.CoreCommandProcessor
 import com.intellij.openapi.editor.impl.DocumentWriteAccessGuard
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.editor.editor
-import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 
-interface LookupElementTestCase<File : PsiFile> :
-    LanguageParserTestCase<File>,
-    PluginDescriptorProvider {
-
+interface LookupElementTestCase<File : PsiFile> : LanguageTestCase {
     fun registerDocumentEditing() {
         val app = ApplicationManager.getApplication()
         app.registerService<CommandProcessor>(CoreCommandProcessor())

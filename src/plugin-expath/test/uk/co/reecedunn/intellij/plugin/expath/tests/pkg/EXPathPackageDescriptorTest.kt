@@ -5,7 +5,6 @@ import com.intellij.ide.highlighter.XmlFileType
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.psi.xml.XmlFile
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
@@ -13,7 +12,7 @@ import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -27,7 +26,7 @@ import java.util.zip.ZipEntry
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("EXPath Packaging System 9 May 2012")
-class EXPathPackageDescriptorTest : IdeaPlatformTestCase(), LanguageParserTestCase<XmlFile> {
+class EXPathPackageDescriptorTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("EXPathPackageDescriptorTest")
     override val language: com.intellij.lang.Language = XMLLanguage.INSTANCE
 

@@ -4,7 +4,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.psi.intellij
 import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.util.TextRange
-import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.impl.DebugUtil
 import org.hamcrest.CoreMatchers.`is`
@@ -14,7 +13,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.requiresPsiElementReplace
@@ -31,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ Program Structure Interface (PSI) - PsiLanguageInjectionHost - XPath")
-class PsiLanguageInjectionHostTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile> {
+class PsiLanguageInjectionHostTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("PsiLanguageInjectionHostTest")
     override val language: Language = XPathLanguage
 

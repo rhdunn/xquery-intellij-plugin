@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.module.ModuleTestCase
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.requiresPsiElementReplace
@@ -101,7 +101,7 @@ import java.math.BigInteger
 
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
-class XQueryPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<XQueryModule>, ModuleTestCase {
+class XQueryPsiTest : IdeaPlatformTestCase(), LanguageTestCase, ModuleTestCase {
     override val pluginId: PluginId = PluginId.getId("XQueryPsiTest")
     override val language: Language = XQuery
 

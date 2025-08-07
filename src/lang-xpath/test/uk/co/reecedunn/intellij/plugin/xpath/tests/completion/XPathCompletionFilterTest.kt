@@ -3,7 +3,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.completion
 
 import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.psi.PsiFile
 import com.intellij.util.ProcessingContext
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.completion
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
@@ -27,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XPath 3.1 - Code Completion - Completion Filters")
-class XPathCompletionFilterTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile> {
+class XPathCompletionFilterTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XPathCompletionFilterTest")
     override val language: Language = XPathLanguage
 

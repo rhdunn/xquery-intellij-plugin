@@ -6,10 +6,10 @@ import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
 import com.intellij.psi.PsiFile
 import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.editor.editor
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 
-interface ParameterInfoTestCase<File : PsiFile> : LanguageParserTestCase<File> {
+interface ParameterInfoTestCase<File : PsiFile> : LanguageTestCase {
     fun createParameterInfoContext(text: String, offset: Int): CreateParameterInfoContext {
         val file = parseText<File>(text)
         val editor = file.editor

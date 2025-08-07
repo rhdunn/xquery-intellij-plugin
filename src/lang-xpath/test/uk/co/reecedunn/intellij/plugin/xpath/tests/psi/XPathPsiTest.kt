@@ -5,7 +5,6 @@ import com.intellij.lang.Language
 import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.psi.impl.DebugUtil
 import com.intellij.psi.search.LocalSearchScope
@@ -19,7 +18,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.requiresPsiElementReplace
@@ -70,7 +69,7 @@ import java.math.BigInteger
 
 @Suppress("ClassName", "RedundantVisibilityModifier", "Reformat")
 @DisplayName("XPath 3.1 - IntelliJ Program Structure Interface (PSI)")
-class XPathPsiTest : IdeaPlatformTestCase(), LanguageParserTestCase<PsiFile> {
+class XPathPsiTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XPathPsiTest")
     override val language: Language = XPathLanguage
 

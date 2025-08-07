@@ -11,7 +11,6 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.impl.PsiCachedValuesFactory
 import com.intellij.psi.util.CachedValuesManager
-import com.intellij.psi.xml.XmlFile
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.xml.XmlExtension
 import org.hamcrest.CoreMatchers.`is`
@@ -23,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBea
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageParserTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
@@ -37,7 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.tests.lang.XsltLanguageTestCase
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - Code Completion - Properties")
-class XsltCompletionPropertyTest : IdeaPlatformTestCase(), LanguageParserTestCase<XmlFile>, XsltLanguageTestCase {
+class XsltCompletionPropertyTest : IdeaPlatformTestCase(), LanguageTestCase, XsltLanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XsltCompletionPropertyTest")
     override val language: Language = XMLLanguage.INSTANCE
 
