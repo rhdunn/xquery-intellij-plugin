@@ -14,6 +14,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.LookupElementTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.handleInsert
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresPsiFileGetEditor
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
@@ -99,7 +100,7 @@ class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageTestCase, LookupE
         @DisplayName("handle insert")
         fun handleInsert() {
             val lookup: LookupElement = XPathKeywordLookup("descendant", XPathInsertText.AXIS_MARKER)
-            val context = handleInsert("descendant", 'd', lookup, 10)
+            val context = handleInsert<PsiFile>("descendant", 'd', lookup, 10)
 
             assertThat(context.document.text, `is`("descendant::"))
             assertThat(context.editor.caretModel.offset, `is`(12))
@@ -109,7 +110,7 @@ class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageTestCase, LookupE
         @DisplayName("handle insert with ':' after the inserted text")
         fun handleInsert_colonAfter() {
             val lookup: LookupElement = XPathKeywordLookup("descendant", XPathInsertText.AXIS_MARKER)
-            val context = handleInsert("descendant:", 'd', lookup, 10)
+            val context = handleInsert<PsiFile>("descendant:", 'd', lookup, 10)
 
             assertThat(context.document.text, `is`("descendant::"))
             assertThat(context.editor.caretModel.offset, `is`(12))
@@ -119,7 +120,7 @@ class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageTestCase, LookupE
         @DisplayName("handle insert with '::' after the inserted text")
         fun handleInsert_axisSpecifierAfter() {
             val lookup: LookupElement = XPathKeywordLookup("descendant", XPathInsertText.AXIS_MARKER)
-            val context = handleInsert("descendant::", 'd', lookup, 10)
+            val context = handleInsert<PsiFile>("descendant::", 'd', lookup, 10)
 
             assertThat(context.document.text, `is`("descendant::"))
             assertThat(context.editor.caretModel.offset, `is`(12))
@@ -203,7 +204,7 @@ class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageTestCase, LookupE
         @DisplayName("handle insert")
         fun handleInsert() {
             val lookup: LookupElement = XPathAtomicOrUnionTypeLookup("integer", "xsd")
-            val context = handleInsert("xsd:integer", 'i', lookup, 11)
+            val context = handleInsert<PsiFile>("xsd:integer", 'i', lookup, 11)
 
             assertThat(context.document.text, `is`("xsd:integer"))
             assertThat(context.editor.caretModel.offset, `is`(11))
@@ -259,7 +260,7 @@ class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageTestCase, LookupE
         @DisplayName("handle insert")
         fun handleInsert() {
             val lookup: LookupElement = XPathKeywordLookup("math", XPathInsertText.QNAME_PREFIX)
-            val context = handleInsert("math", 'm', lookup, 4)
+            val context = handleInsert<PsiFile>("math", 'm', lookup, 4)
 
             assertThat(context.document.text, `is`("math:"))
             assertThat(context.editor.caretModel.offset, `is`(5))
@@ -269,7 +270,7 @@ class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageTestCase, LookupE
         @DisplayName("handle insert with ':' after the inserted text")
         fun handleInsert_colonAfter() {
             val lookup: LookupElement = XPathKeywordLookup("math", XPathInsertText.QNAME_PREFIX)
-            val context = handleInsert("math:", 'd', lookup, 4)
+            val context = handleInsert<PsiFile>("math:", 'd', lookup, 4)
 
             assertThat(context.document.text, `is`("math:"))
             assertThat(context.editor.caretModel.offset, `is`(5))

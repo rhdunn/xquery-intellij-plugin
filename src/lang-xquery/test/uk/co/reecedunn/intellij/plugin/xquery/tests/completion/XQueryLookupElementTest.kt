@@ -6,6 +6,7 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
 import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.psi.PsiFile
 import com.intellij.ui.JBColor
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.LookupElementTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.handleInsert
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresPsiFileGetEditor
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
@@ -177,7 +179,7 @@ class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQ
         fun handleInsert() {
             val ref = parse("declare variable \$local:test := 2; \$local:test")
             val lookup: LookupElement = XPathVarNameLookup("test", "local", ref.second)
-            val context = handleInsert("\$local:test", 't', lookup, 11)
+            val context = handleInsert<PsiFile>("\$local:test", 't', lookup, 11)
 
             assertThat(context.document.text, `is`("\$local:test"))
             assertThat(context.editor.caretModel.offset, `is`(11))
@@ -285,7 +287,7 @@ class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQ
         fun handleInsert() {
             val ref = parse("declare function local:test() {}; local:test()")
             val lookup: LookupElement = XPathFunctionCallLookup("test", "local", ref.second)
-            val context = handleInsert("local:test", 't', lookup, 10)
+            val context = handleInsert<PsiFile>("local:test", 't', lookup, 10)
 
             assertThat(context.document.text, `is`("local:test()"))
             assertThat(context.editor.caretModel.offset, `is`(12))
@@ -296,7 +298,7 @@ class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQ
         fun handleInsert_openParenAfter() {
             val ref = parse("declare function local:test() {}; local:test()")
             val lookup: LookupElement = XPathFunctionCallLookup("test", "local", ref.second)
-            val context = handleInsert("local:test(", 't', lookup, 10)
+            val context = handleInsert<PsiFile>("local:test(", 't', lookup, 10)
 
             assertThat(context.document.text, `is`("local:test()"))
             assertThat(context.editor.caretModel.offset, `is`(12))
@@ -307,7 +309,7 @@ class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQ
         fun handleInsert_emptyParensAfter() {
             val ref = parse("declare function local:test() {}; local:test()")
             val lookup: LookupElement = XPathFunctionCallLookup("test", "local", ref.second)
-            val context = handleInsert("local:test()", 't', lookup, 10)
+            val context = handleInsert<PsiFile>("local:test()", 't', lookup, 10)
 
             assertThat(context.document.text, `is`("local:test()"))
             assertThat(context.editor.caretModel.offset, `is`(12))
@@ -417,7 +419,7 @@ class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQ
         fun handleInsert() {
             val ref = parse("declare function local:test(\$x as (::) xs:float, \$y as item((::))) {}; local:test(1,2)")
             val lookup: LookupElement = XPathFunctionCallLookup("test", "local", ref.second)
-            val context = handleInsert("local:test", 't', lookup, 10)
+            val context = handleInsert<PsiFile>("local:test", 't', lookup, 10)
 
             assertThat(context.document.text, `is`("local:test()"))
             assertThat(context.editor.caretModel.offset, `is`(11))
@@ -428,7 +430,7 @@ class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQ
         fun handleInsert_openParenAfter() {
             val ref = parse("declare function local:test(\$x as (::) xs:float, \$y as item((::))) {}; local:test(1,2)")
             val lookup: LookupElement = XPathFunctionCallLookup("test", "local", ref.second)
-            val context = handleInsert("local:test(", 't', lookup, 10)
+            val context = handleInsert<PsiFile>("local:test(", 't', lookup, 10)
 
             assertThat(context.document.text, `is`("local:test()"))
             assertThat(context.editor.caretModel.offset, `is`(11))
@@ -439,7 +441,7 @@ class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQ
         fun handleInsert_emptyParensAfter() {
             val ref = parse("declare function local:test(\$x as (::) xs:float, \$y as item((::))) {}; local:test(1,2)")
             val lookup: LookupElement = XPathFunctionCallLookup("test", "local", ref.second)
-            val context = handleInsert("local:test()", 't', lookup, 10)
+            val context = handleInsert<PsiFile>("local:test()", 't', lookup, 10)
 
             assertThat(context.document.text, `is`("local:test()"))
             assertThat(context.editor.caretModel.offset, `is`(11))
