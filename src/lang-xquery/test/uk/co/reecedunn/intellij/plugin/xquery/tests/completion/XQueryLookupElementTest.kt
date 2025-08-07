@@ -17,6 +17,7 @@ import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.LookupElementTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.handleInsert
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresDocumentWriteAccess
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresPsiFileGetEditor
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
@@ -68,6 +69,7 @@ class XQueryLookupElementTest : IdeaPlatformTestCase(), LookupElementTestCase<XQ
         requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()
         requiresPsiFileGetEditor()
+        requiresDocumentWriteAccess()
         registerDocumentEditing()
 
         XPathASTFactory().registerExtension(project, XPath)

@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.LookupElementTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.handleInsert
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresDocumentWriteAccess
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresPsiFileGetEditor
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
@@ -42,6 +43,7 @@ class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageTestCase, LookupE
         requiresVirtualFileToPsiFile()
         requiresPsiFileGetChildren()
         requiresPsiFileGetEditor()
+        requiresDocumentWriteAccess()
         registerDocumentEditing()
 
         XPathASTFactory().registerExtension(project, XPathLanguage)
