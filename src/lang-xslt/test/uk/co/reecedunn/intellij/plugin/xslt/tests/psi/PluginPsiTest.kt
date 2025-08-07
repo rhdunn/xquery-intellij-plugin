@@ -37,11 +37,11 @@ import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltResultDocument
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltStylesheet
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltTemplate
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory
-import uk.co.reecedunn.intellij.plugin.xslt.tests.lang.XsltLanguageTestCase
+import uk.co.reecedunn.intellij.plugin.xslt.tests.lang.parse
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XSLT")
-class PluginPsiTest : IdeaPlatformTestCase(), LanguageTestCase, XsltLanguageTestCase {
+class PluginPsiTest : IdeaPlatformTestCase(), LanguageTestCase {
     companion object {
         private const val EXSL_COMMON_NAMESPACE = "http://exslt.org/common"
         private const val SAXON_NAMESPACE = "http://saxon.sf.net/"

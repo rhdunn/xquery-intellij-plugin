@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
@@ -31,11 +32,11 @@ import uk.co.reecedunn.intellij.plugin.xslt.ast.xml.XsltDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.*
 import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory
-import uk.co.reecedunn.intellij.plugin.xslt.tests.lang.XsltLanguageTestCase
+import uk.co.reecedunn.intellij.plugin.xslt.tests.lang.parse
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - IntelliJ Program Structure Interface (PSI)")
-class XsltPsiTest : IdeaPlatformTestCase(), XsltLanguageTestCase {
+class XsltPsiTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XsltPsiTest")
     override val language: com.intellij.lang.Language = XMLLanguage.INSTANCE
 

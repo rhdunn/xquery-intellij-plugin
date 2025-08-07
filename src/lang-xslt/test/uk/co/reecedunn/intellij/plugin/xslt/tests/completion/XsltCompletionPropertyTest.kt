@@ -32,11 +32,11 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XsltVersion
-import uk.co.reecedunn.intellij.plugin.xslt.tests.lang.XsltLanguageTestCase
+import uk.co.reecedunn.intellij.plugin.xslt.tests.lang.attribute
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - Code Completion - Properties")
-class XsltCompletionPropertyTest : IdeaPlatformTestCase(), LanguageTestCase, XsltLanguageTestCase {
+class XsltCompletionPropertyTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XsltCompletionPropertyTest")
     override val language: Language = XMLLanguage.INSTANCE
 
