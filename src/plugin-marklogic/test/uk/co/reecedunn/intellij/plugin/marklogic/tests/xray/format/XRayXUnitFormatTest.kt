@@ -1,10 +1,7 @@
 // Copyright (C) 2021, 2024-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.xray.format
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.xdebugger.XDebuggerUtil
-import com.intellij.xdebugger.impl.XDebuggerUtilImpl
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -12,6 +9,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
+import uk.co.reecedunn.intellij.plugin.core.tests.xdebugger.requiresXDebuggerUtilCreatePosition
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
@@ -36,9 +34,8 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
         return XRayTestFormat.format("xunit").parse(value)!!
     }
 
-    @Suppress("UnstableApiUsage")
     override fun registerServicesAndExtensions() {
-        app.registerService<XDebuggerUtil>(XDebuggerUtilImpl())
+        requiresXDebuggerUtilCreatePosition()
         requiresVirtualFileGetCharset()
     }
 

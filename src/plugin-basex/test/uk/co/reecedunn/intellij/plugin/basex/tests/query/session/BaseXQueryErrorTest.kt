@@ -1,12 +1,8 @@
 // Copyright (C) 2018-2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.basex.tests.query.session
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.testFramework.LightVirtualFile
-import com.intellij.xdebugger.XDebuggerUtil
-import com.intellij.xdebugger.impl.XDebuggerUtilImpl
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -14,6 +10,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.basex.query.session.toBaseXQueryError
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.xdebugger.requiresXDebuggerUtilCreatePosition
 import uk.co.reecedunn.intellij.plugin.processor.debug.position.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
@@ -22,10 +19,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 class BaseXQueryErrorTest : IdeaPlatformTestCase() {
     override val pluginId: PluginId = PluginId.getId("BaseXQueryErrorTest")
 
-    @Suppress("UnstableApiUsage")
     override fun registerServicesAndExtensions() {
-        val app = ApplicationManager.getApplication()
-        app.registerService<XDebuggerUtil>(XDebuggerUtilImpl())
+        requiresXDebuggerUtilCreatePosition()
 
         XQueryFileType.registerFileType()
     }

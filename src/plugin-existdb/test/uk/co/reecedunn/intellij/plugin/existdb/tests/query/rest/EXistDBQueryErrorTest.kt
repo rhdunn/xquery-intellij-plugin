@@ -1,12 +1,8 @@
 // Copyright (C) 2018-2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.existdb.tests.query.rest
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.testFramework.LightVirtualFile
-import com.intellij.xdebugger.XDebuggerUtil
-import com.intellij.xdebugger.impl.XDebuggerUtilImpl
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.intellij.lang.annotations.Language
@@ -14,6 +10,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.xdebugger.requiresXDebuggerUtilCreatePosition
 import uk.co.reecedunn.intellij.plugin.existdb.query.rest.toEXistDBQueryError
 import uk.co.reecedunn.intellij.plugin.processor.debug.position.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
@@ -24,10 +21,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 class EXistDBQueryErrorTest : IdeaPlatformTestCase() {
     override val pluginId: PluginId = PluginId.getId("EXistDBQueryErrorTest")
 
-    @Suppress("UnstableApiUsage")
     override fun registerServicesAndExtensions() {
-        val app = ApplicationManager.getApplication()
-        app.registerService<XDebuggerUtil>(XDebuggerUtilImpl())
+        requiresXDebuggerUtilCreatePosition()
 
         XQueryFileType.registerFileType()
     }
