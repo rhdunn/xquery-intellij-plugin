@@ -130,9 +130,11 @@ The version of IntelliJ to build can be configured as follows:
 
 The following are some useful gradle tasks:
 
+- `clean` -- clear previous build artifacts;
 - `:buildPlugin` -- build the plugin to the `build/distributions` directory;
 - `:runIde` -- run an instance of the specified IntelliJ IDE with the plugin installed;
-- `check` -- run the tests.
+- `check` -- run the tests;
+- `:verifyPlugin` -- run the IntelliJ plugin verifier to check for compatibility.
 
 ## License
 

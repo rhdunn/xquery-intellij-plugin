@@ -128,4 +128,15 @@ intellijPlatform {
             untilBuild = "${ijVersion.buildVersion}.*"
         }
     }
+
+    pluginVerification {
+        ides {
+            recommended()
+        }
+
+        freeArgs = listOf(
+            // The plugin was previously uploaded to the JetBrains Marketplace, so `intellij` in the plugin ID is permitted.
+            "-mute", "TemplateWordInPluginId",
+        )
+    }
 }
