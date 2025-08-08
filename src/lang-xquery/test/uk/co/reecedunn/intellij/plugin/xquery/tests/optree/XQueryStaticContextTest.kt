@@ -17,6 +17,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeP
 import uk.co.reecedunn.intellij.plugin.core.tests.module.requiresModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
+import uk.co.reecedunn.intellij.plugin.core.tests.roots.requiresProjectSourceFolders
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
@@ -68,6 +69,7 @@ class XQueryStaticContextTest : IdeaPlatformTestCase(), LanguageTestCase {
         requiresIFileElementTypeParseContents()
         requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()
+        requiresProjectSourceFolders()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)

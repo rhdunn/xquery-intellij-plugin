@@ -35,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.requiresPsiElementRep
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockProjectScopeBuilder
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
+import uk.co.reecedunn.intellij.plugin.core.tests.roots.requiresProjectSourceFolders
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
@@ -118,6 +119,7 @@ class XQueryPsiTest : IdeaPlatformTestCase(), LanguageTestCase {
         requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()
         requiresPsiElementReplace()
+        requiresProjectSourceFolders()
 
         XPathASTFactory().registerExtension(project, XPath)
         XPathParserDefinition().registerExtension(project)
