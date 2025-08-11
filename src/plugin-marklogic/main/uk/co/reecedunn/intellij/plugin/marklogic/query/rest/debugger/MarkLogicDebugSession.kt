@@ -59,7 +59,7 @@ internal class MarkLogicDebugSession(
 
     override fun getBreakpointHandlers(language: Language, project: Project): Array<XBreakpointHandler<*>> {
         breakpointHandlers = arrayOf(
-            MarkLogicXQueryBreakpointHandler(XQueryExpressionBreakpointType::class.java, WeakReference(this))
+            MarkLogicXQueryBreakpointHandler(XQueryExpressionBreakpointType::class.java, project, WeakReference(this))
         )
         return breakpointHandlers
     }
