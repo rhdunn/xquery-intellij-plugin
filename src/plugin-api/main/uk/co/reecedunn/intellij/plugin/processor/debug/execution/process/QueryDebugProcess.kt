@@ -21,13 +21,13 @@ import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.
 
 class QueryDebugProcess(
     session: XDebugSession,
-    private val language: Language,
+    language: Language,
     private val state: RunProfileStateEx
 ) : XDebugProcess(session), DebugSessionListener {
     private val editorsProvider: XDebuggerEditorsProvider = QueryEditorsProvider(language)
     private val query: DebuggableQuery = state.createQuery() as DebuggableQuery
     private val debugger: DebugSession = query.session
-    private val breakpointHandlers: Array<XBreakpointHandler<*>> = debugger.getBreakpointHandlers(language)
+    private val breakpointHandlers: Array<XBreakpointHandler<*>> = debugger.getBreakpointHandlers(language, session.project)
 
     init {
         debugger.listener = this

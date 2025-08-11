@@ -4,6 +4,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 import com.intellij.lang.Language
 import com.intellij.openapi.application.runInEdt
 import com.intellij.openapi.application.runReadAction
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
@@ -56,7 +57,7 @@ internal class MarkLogicDebugSession(
     // endregion
     // region DebugSession
 
-    override fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>> {
+    override fun getBreakpointHandlers(language: Language, project: Project): Array<XBreakpointHandler<*>> {
         breakpointHandlers = arrayOf(
             MarkLogicXQueryBreakpointHandler(XQueryExpressionBreakpointType::class.java, WeakReference(this))
         )
