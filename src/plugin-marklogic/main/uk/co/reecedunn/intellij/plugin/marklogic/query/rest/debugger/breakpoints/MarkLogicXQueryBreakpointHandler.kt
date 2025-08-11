@@ -20,13 +20,15 @@ internal class MarkLogicXQueryBreakpointHandler(
     val expressionBreakpoints = ArrayList<XpmExpression>()
 
     override fun registerBreakpoint(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>) {
-        val expr = breakpoint.properties.getExpression(breakpoint) ?: return
+        val position = breakpoint.sourcePosition ?: return
+        val expr = breakpoint.properties.getExpression(project, position) ?: return
         expressionBreakpoints.add(expr)
         session.get()?.updateBreakpoint(expr, register = true)
     }
 
     override fun unregisterBreakpoint(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>, temporary: Boolean) {
-        val expr = breakpoint.properties.getExpression(breakpoint) ?: return
+        val position = breakpoint.sourcePosition ?: return
+        val expr = breakpoint.properties.getExpression(project, position) ?: return
         expressionBreakpoints.remove(expr)
         session.get()?.updateBreakpoint(expr, register = false)
     }
