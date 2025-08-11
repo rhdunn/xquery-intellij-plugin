@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2020 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
 import com.intellij.lang.Language
@@ -49,10 +35,7 @@ internal class MarkLogicDebugSession(
     private var modulePath: String = "/"
     private var state: QueryProcessState = QueryProcessState.Starting
     private var requestId: String? = null
-
-    private val breakpointHandlers: Array<XBreakpointHandler<*>> = arrayOf(
-        MarkLogicXQueryBreakpointHandler(XQueryExpressionBreakpointType::class.java, WeakReference(this))
-    )
+    private var breakpointHandlers: Array<XBreakpointHandler<*>> = arrayOf()
 
     // region XDebuggerEvaluator
 
@@ -73,7 +56,12 @@ internal class MarkLogicDebugSession(
     // endregion
     // region DebugSession
 
-    override fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>> = breakpointHandlers
+    override fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>> {
+        breakpointHandlers = arrayOf(
+            MarkLogicXQueryBreakpointHandler(XQueryExpressionBreakpointType::class.java, WeakReference(this))
+        )
+        return breakpointHandlers
+    }
 
     override var listener: DebugSessionListener? = null
 
@@ -170,9 +158,9 @@ internal class MarkLogicDebugSession(
     private fun registerBreakpoints() {
         // Accessing the containing file and associated document need to be
         // accessed via a read action on the EDT thread.
+        val xquery = breakpointHandlers.get(0) as? MarkLogicXQueryBreakpointHandler ?: return
         runInEdt {
             runReadAction {
-                val xquery = breakpointHandlers[0] as MarkLogicXQueryBreakpointHandler
                 xquery.expressionBreakpoints.forEach { updateBreakpoint(it, register = true, initializing = true) }
 
                 // MarkLogic requests are suspended at the start of the first expression.
