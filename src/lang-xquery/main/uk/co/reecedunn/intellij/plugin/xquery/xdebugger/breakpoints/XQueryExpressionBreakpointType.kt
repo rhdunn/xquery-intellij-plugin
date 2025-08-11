@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2020-2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2020-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.xdebugger.breakpoints
 
 import com.intellij.navigation.NavigationItem
@@ -21,9 +7,11 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
+import com.intellij.xdebugger.breakpoints.XBreakpoint
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType
 import com.intellij.xdebugger.impl.XSourcePositionImpl
+import com.intellij.xdebugger.impl.breakpoints.XBreakpointBase
 import uk.co.reecedunn.intellij.plugin.core.psi.lineElements
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -63,8 +51,11 @@ class XQueryExpressionBreakpointType :
             .toMutableList().asReversed()
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun getHighlightRange(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>?): TextRange? {
-        return (breakpoint?.properties?.getExpression(breakpoint) as? PsiElement)?.textRange
+        val position = breakpoint?.sourcePosition ?: return null
+        val project = (breakpoint as? XBreakpointBase<XBreakpoint<*>, *, *>)?.getProject() ?: return null
+        return (breakpoint.properties.getExpression(project, position) as? PsiElement)?.textRange
     }
 
     private fun getExpressionsAt(module: XQueryModule, line: Int): Sequence<XpmExpression> {
