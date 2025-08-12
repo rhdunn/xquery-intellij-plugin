@@ -7,11 +7,9 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
-import com.intellij.xdebugger.breakpoints.XBreakpoint
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType
 import com.intellij.xdebugger.impl.XSourcePositionImpl
-import com.intellij.xdebugger.impl.breakpoints.XBreakpointBase
 import uk.co.reecedunn.intellij.plugin.core.psi.lineElements
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -53,9 +51,7 @@ class XQueryExpressionBreakpointType :
 
     @Suppress("UNCHECKED_CAST")
     override fun getHighlightRange(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>?): TextRange? {
-        val position = breakpoint?.sourcePosition ?: return null
-        val project = (breakpoint as? XBreakpointBase<XBreakpoint<*>, *, *>)?.getProject() ?: return null
-        return (breakpoint.properties.getExpression(project, position) as? PsiElement)?.textRange
+        return breakpoint?.properties?.textRange
     }
 
     private fun getExpressionsAt(module: XQueryModule, line: Int): Sequence<XpmExpression> {
@@ -73,7 +69,7 @@ class XQueryExpressionBreakpointType :
     ) : XLinePsiElementBreakpointVariant(position, element) {
         override fun createProperties(): XQueryBreakpointProperties? {
             val properties = super.createProperties() ?: return null
-            properties.exprOffset = element.textOffset
+            properties.textRange = element.textRange
             return properties
         }
 
