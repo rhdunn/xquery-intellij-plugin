@@ -4,6 +4,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.xdebugger.breakpoints
 import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
+import com.intellij.openapi.util.text.StringUtil
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
@@ -65,17 +66,21 @@ class XQueryExpressionBreakpointType :
 
     inner class ExpressionBreakpointVariant(
         position: XSourcePosition,
-        private val element: PsiElement
+        element: PsiElement
     ) : XLinePsiElementBreakpointVariant(position, element) {
+        private val icon: Icon = (element as? NavigationItem)?.presentation?.getIcon(false) ?: XPathIcons.Nodes.Expr
+        private val text: String = element.text
+        private val highlightRange: TextRange? = element.textRange
+
         override fun createProperties(): XQueryBreakpointProperties? {
             val properties = super.createProperties() ?: return null
-            properties.textRange = element.textRange
+            properties.textRange = highlightRange
             return properties
         }
 
-        override fun getIcon(): Icon {
-            return (element as? NavigationItem)?.presentation?.getIcon(false) ?: XPathIcons.Nodes.Expr
-        }
+        override fun getIcon(): Icon = icon
+        override fun getText(): String = StringUtil.shortenTextWithEllipsis(text, 100, 0)
+        override fun getHighlightRange(): TextRange? = highlightRange
     }
 
     // endregion
