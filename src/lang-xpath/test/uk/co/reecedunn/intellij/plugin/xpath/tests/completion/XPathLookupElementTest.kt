@@ -1,52 +1,57 @@
-/*
- * Copyright (C) 2019 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2019, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xpath.tests.completion
 
 import com.intellij.codeInsight.lookup.AutoCompletionPolicy
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
-import com.intellij.openapi.application.ApplicationManager
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.psi.PsiFile
 import com.intellij.ui.JBColor
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.lookup.handleInsert
+import uk.co.reecedunn.intellij.plugin.core.tests.command.requiresCommandProcessor
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresDocumentWriteAccess
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresPsiFileGetEditor
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathAtomicOrUnionTypeLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathInsertText
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLookup
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
+import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XPath 3.1 - Code Completion - Lookup Element")
-class XPathLookupElementTest : ParserTestCase() {
+class XPathLookupElementTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XPathLookupElementTest")
+    override val language: Language = XPathLanguage
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        requiresVirtualFileToPsiFile()
+        requiresPsiFileGetChildren()
+        requiresPsiFileGetEditor()
 
-        val app = ApplicationManager.getApplication()
-        app.registerExtensionPointBean(
-            "com.intellij.documentWriteAccessGuard",
-            "com.intellij.openapi.editor.impl.DocumentWriteAccessGuard",
-            pluginDisposable
-        )
+        requiresCommandProcessor()
+        requiresDocumentWriteAccess()
+
+        XPathASTFactory().registerExtension(project, XPathLanguage)
+        XPathParserDefinition().registerExtension(project)
+        XPathFileType.registerFileType()
+
+        XpmFunctionProvider.register(this)
     }
 
     @Nested
@@ -81,9 +86,11 @@ class XPathLookupElementTest : ParserTestCase() {
             assertThat(presentation.isItemTextBold, `is`(true))
             assertThat(presentation.isItemTextItalic, `is`(false))
             assertThat(presentation.isItemTextUnderlined, `is`(false))
-            assertThat(presentation.itemTextForeground, `is`(JBColor.foreground()))
             assertThat(presentation.isTypeGrayed, `is`(false))
             assertThat(presentation.isTypeIconRightAligned, `is`(false))
+
+            // NOTE: This causes a ThreadLeakTracker exception on IntelliJ 2025.2.
+            //assertThat(presentation.itemTextForeground, `is`(JBColor.foreground()))
 
             val tailFragments = presentation.tailFragments
             assertThat(tailFragments.size, `is`(1))
@@ -98,7 +105,7 @@ class XPathLookupElementTest : ParserTestCase() {
         @DisplayName("handle insert")
         fun handleInsert() {
             val lookup: LookupElement = XPathKeywordLookup("descendant", XPathInsertText.AXIS_MARKER)
-            val context = handleInsert("descendant", 'd', lookup, 10)
+            val context = handleInsert<PsiFile>("descendant", 'd', lookup, 10)
 
             assertThat(context.document.text, `is`("descendant::"))
             assertThat(context.editor.caretModel.offset, `is`(12))
@@ -108,7 +115,7 @@ class XPathLookupElementTest : ParserTestCase() {
         @DisplayName("handle insert with ':' after the inserted text")
         fun handleInsert_colonAfter() {
             val lookup: LookupElement = XPathKeywordLookup("descendant", XPathInsertText.AXIS_MARKER)
-            val context = handleInsert("descendant:", 'd', lookup, 10)
+            val context = handleInsert<PsiFile>("descendant:", 'd', lookup, 10)
 
             assertThat(context.document.text, `is`("descendant::"))
             assertThat(context.editor.caretModel.offset, `is`(12))
@@ -118,7 +125,7 @@ class XPathLookupElementTest : ParserTestCase() {
         @DisplayName("handle insert with '::' after the inserted text")
         fun handleInsert_axisSpecifierAfter() {
             val lookup: LookupElement = XPathKeywordLookup("descendant", XPathInsertText.AXIS_MARKER)
-            val context = handleInsert("descendant::", 'd', lookup, 10)
+            val context = handleInsert<PsiFile>("descendant::", 'd', lookup, 10)
 
             assertThat(context.document.text, `is`("descendant::"))
             assertThat(context.editor.caretModel.offset, `is`(12))
@@ -158,9 +165,11 @@ class XPathLookupElementTest : ParserTestCase() {
             assertThat(presentation.isItemTextBold, `is`(false))
             assertThat(presentation.isItemTextItalic, `is`(false))
             assertThat(presentation.isItemTextUnderlined, `is`(false))
-            assertThat(presentation.itemTextForeground, `is`(JBColor.foreground()))
             assertThat(presentation.isTypeGrayed, `is`(false))
             assertThat(presentation.isTypeIconRightAligned, `is`(false))
+
+            // NOTE: This causes a ThreadLeakTracker exception on IntelliJ 2025.2.
+            //assertThat(presentation.itemTextForeground, `is`(JBColor.foreground()))
         }
 
         @Test
@@ -193,16 +202,18 @@ class XPathLookupElementTest : ParserTestCase() {
             assertThat(presentation.isItemTextBold, `is`(false))
             assertThat(presentation.isItemTextItalic, `is`(false))
             assertThat(presentation.isItemTextUnderlined, `is`(false))
-            assertThat(presentation.itemTextForeground, `is`(JBColor.foreground()))
             assertThat(presentation.isTypeGrayed, `is`(false))
             assertThat(presentation.isTypeIconRightAligned, `is`(false))
+
+            // NOTE: This causes a ThreadLeakTracker exception on IntelliJ 2025.2.
+            //assertThat(presentation.itemTextForeground, `is`(JBColor.foreground()))
         }
 
         @Test
         @DisplayName("handle insert")
         fun handleInsert() {
             val lookup: LookupElement = XPathAtomicOrUnionTypeLookup("integer", "xsd")
-            val context = handleInsert("xsd:integer", 'i', lookup, 11)
+            val context = handleInsert<PsiFile>("xsd:integer", 'i', lookup, 11)
 
             assertThat(context.document.text, `is`("xsd:integer"))
             assertThat(context.editor.caretModel.offset, `is`(11))
@@ -241,9 +252,11 @@ class XPathLookupElementTest : ParserTestCase() {
             assertThat(presentation.isItemTextBold, `is`(true))
             assertThat(presentation.isItemTextItalic, `is`(false))
             assertThat(presentation.isItemTextUnderlined, `is`(false))
-            assertThat(presentation.itemTextForeground, `is`(JBColor.foreground()))
             assertThat(presentation.isTypeGrayed, `is`(false))
             assertThat(presentation.isTypeIconRightAligned, `is`(false))
+
+            // NOTE: This causes a ThreadLeakTracker exception on IntelliJ 2025.2.
+            //assertThat(presentation.itemTextForeground, `is`(JBColor.foreground()))
 
             val tailFragments = presentation.tailFragments
             assertThat(tailFragments.size, `is`(1))
@@ -258,7 +271,7 @@ class XPathLookupElementTest : ParserTestCase() {
         @DisplayName("handle insert")
         fun handleInsert() {
             val lookup: LookupElement = XPathKeywordLookup("math", XPathInsertText.QNAME_PREFIX)
-            val context = handleInsert("math", 'm', lookup, 4)
+            val context = handleInsert<PsiFile>("math", 'm', lookup, 4)
 
             assertThat(context.document.text, `is`("math:"))
             assertThat(context.editor.caretModel.offset, `is`(5))
@@ -268,7 +281,7 @@ class XPathLookupElementTest : ParserTestCase() {
         @DisplayName("handle insert with ':' after the inserted text")
         fun handleInsert_colonAfter() {
             val lookup: LookupElement = XPathKeywordLookup("math", XPathInsertText.QNAME_PREFIX)
-            val context = handleInsert("math:", 'd', lookup, 4)
+            val context = handleInsert<PsiFile>("math:", 'd', lookup, 4)
 
             assertThat(context.document.text, `is`("math:"))
             assertThat(context.editor.caretModel.offset, `is`(5))

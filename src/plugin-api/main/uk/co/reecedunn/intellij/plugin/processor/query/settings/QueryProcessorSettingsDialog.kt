@@ -1,30 +1,15 @@
-/*
- * Copyright (C) 2018-2020 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2018-2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.processor.query.settings
 
+import com.intellij.compat.openapi.fileChooser.FileChooserDescriptorFactory
+import com.intellij.compat.openapi.fileChooser.withExtensionFilterEx
+import com.intellij.compat.openapi.ui.addBrowseFolderListenerEx
 import com.intellij.icons.AllIcons
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.fileChooser.FileChooserDescriptor
-import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
-import com.intellij.openapi.fileChooser.FileTypeDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
-import com.intellij.openapi.util.SystemInfo
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
@@ -178,21 +163,18 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
         row {
             label(PluginApiBundle.message("xquery.settings.dialog.query-processor.api-jar.label"), column.vgap())
             jar = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
-                addBrowseFolderListener(
-                    PluginApiBundle.message("browser.choose.implementation-api-jar"), null,
-                    project,
-                    FileTypeDescriptor(PluginApiBundle.message("browser.choose.implementation-api-jar"), "jar")
-                )
+                val descriptor = FileChooserDescriptorFactory.singleFile()
+                    .withExtensionFilterEx("jar")
+                descriptor.title = PluginApiBundle.message("browser.choose.implementation-api-jar")
+                addBrowseFolderListenerEx(project, descriptor)
             }
         }
         row {
             label(PluginApiBundle.message("xquery.settings.dialog.query-processor.config-path.label"), column.vgap())
             configuration = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
-                addBrowseFolderListener(
-                    PluginApiBundle.message("browser.choose.configuration"), null,
-                    project,
-                    FileChooserDescriptorFactory.createSingleFileDescriptor()
-                )
+                val descriptor = FileChooserDescriptorFactory.singleFile()
+                    .withTitle(PluginApiBundle.message("browser.choose.configuration"))
+                addBrowseFolderListenerEx(project, descriptor)
             }
         }
         buttonGroup {
@@ -230,25 +212,10 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
                     column.surrogate().vgap()
                 )
                 awsApplication = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
-                    addBrowseFolderListener(
-                        PluginApiBundle.message("browser.choose.aws-application"), null,
-                        project,
-                        object : FileChooserDescriptor(true, false, false, false, false, false) {
-                            override fun isFileVisible(file: VirtualFile?, showHiddenFiles: Boolean): Boolean = when {
-                                file == null -> false
-                                file.isDirectory -> true
-                                else -> file.name == "aws" || file.name == "aws.exe"
-                            }
-
-                            override fun isFileSelectable(file: VirtualFile?): Boolean {
-                                return super.isFileSelectable(file) || isMacExecutable(file)
-                            }
-
-                            fun isMacExecutable(file: VirtualFile?): Boolean {
-                                return SystemInfo.isMac && file?.isDirectory == true && "app" == file.extension
-                            }
-                        }
-                    )
+                    val descriptor = FileChooserDescriptorFactory.singleFileOrAppBundle()
+                        .withTitle(PluginApiBundle.message("browser.choose.aws-application"))
+                        .withFileFilter { it.name == "aws" || it.name == "aws.exe" }
+                    addBrowseFolderListenerEx(project, descriptor)
                 }
             }
             row {

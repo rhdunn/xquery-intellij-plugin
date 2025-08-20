@@ -1,21 +1,8 @@
-/*
- * Copyright (C) 2016-2019 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2016-2019, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.findUsages
 
 import com.intellij.lang.HelpID
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.`is`
@@ -23,41 +10,80 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.lang.findUsages.XQueryFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
-import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Find Usages - FindUsagesProvider")
-class XQueryFindUsagesProviderTest : ParserTestCase() {
+class XQueryFindUsagesProviderTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XQueryFindUsagesProviderTest")
+    override val language: Language = XQuery
 
     val provider = XQueryFindUsagesProvider()
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        requiresVirtualFileToPsiFile()
+        requiresIFileElementTypeParseContents()
+        requiresVirtualFileGetCharset()
+        requiresPsiFileGetChildren()
+
+        XPathASTFactory().registerExtension(project, XPath)
+        XPathParserDefinition().registerExtension(project)
+
+        XQueryASTFactory().registerExtension(project, XQuery)
+        XQueryParserDefinition().registerExtension(project)
+        XQueryFileType.registerFileType()
 
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmVariableProvider.register(this, XQueryVariableProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
+
+        project.registerService(XQueryProjectSettings())
+        project.registerService(XpmModuleLoaderSettings(project))
+
+        XpmModulePathFactory.register(this, XpmModuleLocationPath, "")
+        ImportPathResolver.register(this, uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions)
     }
 
     @Nested
     @DisplayName("XQuery 3.1 EBNF (131) VarRef")
     internal inner class VarRef {
         fun parse(text: String): Pair<PsiElement, PsiElement> {
-            val module = parseText(text)
+            val module = parseText<XQueryModule>(text)
             val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XpmVariableReference
             val element = call.variableName?.element!!
             val references = element.references
@@ -112,7 +138,7 @@ class XQueryFindUsagesProviderTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
     internal inner class FunctionCall {
         fun parse(text: String): Pair<PsiElement, PsiElement> {
-            val module = parseText(text)
+            val module = parseText<XQueryModule>(text)
             val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XpmFunctionReference
             val element = call.functionName?.element!!
             val references = element.references

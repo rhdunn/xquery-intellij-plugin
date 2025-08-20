@@ -1,20 +1,7 @@
-/*
- * Copyright (C) 2018-2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2018-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
+import com.intellij.lang.Language
 import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
@@ -29,19 +16,31 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
+import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.requiresPsiElementReplace
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getPrincipalNodeKind
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.*
@@ -70,8 +69,22 @@ import java.math.BigInteger
 
 @Suppress("ClassName", "RedundantVisibilityModifier", "Reformat")
 @DisplayName("XPath 3.1 - IntelliJ Program Structure Interface (PSI)")
-class XPathPsiTest : ParserTestCase() {
+class XPathPsiTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XPathPsiTest")
+    override val language: Language = XPathLanguage
+
+    override fun registerServicesAndExtensions() {
+        requiresVirtualFileToPsiFile()
+        requiresIFileElementTypeParseContents()
+        requiresPsiFileGetChildren()
+        requiresPsiElementReplace()
+
+        XPathASTFactory().registerExtension(project, XPathLanguage)
+        XPathParserDefinition().registerExtension(project)
+        XPathFileType.registerFileType()
+
+        XpmFunctionProvider.register(this)
+    }
 
     @Nested
     @DisplayName("XPath 4.0 ED (2) Basics ; XPath 3.1 (2) Basics")

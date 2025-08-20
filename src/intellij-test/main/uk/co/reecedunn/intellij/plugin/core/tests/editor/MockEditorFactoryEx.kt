@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2019-2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2019-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.tests.editor
 
 import com.intellij.compat.openapi.editor.EditorFactory
@@ -66,12 +52,16 @@ class MockEditorFactoryEx : EditorFactory() {
 
     override fun getAllEditors(): Array<Editor> = arrayOf()
 
+    @Deprecated("Deprecated in Java")
+    @Suppress("removal")
     override fun addEditorFactoryListener(listener: EditorFactoryListener) {
     }
 
     override fun addEditorFactoryListener(listener: EditorFactoryListener, parentDisposable: Disposable) {
     }
 
+    @Deprecated("Deprecated in Java")
+    @Suppress("removal")
     override fun removeEditorFactoryListener(listener: EditorFactoryListener) {
     }
 

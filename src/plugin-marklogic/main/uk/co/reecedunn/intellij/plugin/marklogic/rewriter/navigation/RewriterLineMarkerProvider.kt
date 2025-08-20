@@ -24,7 +24,7 @@ class RewriterLineMarkerProvider : LineMarkerProvider {
         return NavigationGutterIconBuilder.create(MarkLogicIcons.Markers.Endpoint)
             .setTargets(endpoints.map { it.endpoint })
             .setTooltipText(PluginApiBundle.message("line-marker.rewriter-endpoint.tooltip-text"))
-            .setTargetRenderer { RewriterListCellRenderer(endpoints) as PsiTargetPresentationRenderer<PsiElement> }
+            .setTargetRenderer { RewriterListCellRenderer(endpoints) }
             .createLineMarkerInfo(element)
     }
 

@@ -6,16 +6,16 @@ import java.io.File
 import java.net.URI
 
 sealed interface IntelliJVersion {
-    val platformType: String?
+    val platformType: String
     val platformVersion: String
     val buildVersion: Int
 }
 
-fun IntelliJVersion(value: String): IntelliJVersion {
-    return IntelliJVersionNumber.parse(value)
-        ?: IntelliJBuildNumber.parse(value)
-        ?: IntelliJSnapshot.parse(value)
-        ?: throw GradleException("Unsupported IntelliJ version: $value")
+fun IntelliJVersion(type: String, version: String): IntelliJVersion {
+    return IntelliJVersionNumber.parse(type, version)
+        ?: IntelliJBuildNumber.parse(type, version)
+        ?: IntelliJSnapshot.parse(type, version)
+        ?: throw GradleException("Unsupported IntelliJ version: $version")
 }
 
 /**
@@ -29,7 +29,7 @@ fun IntelliJVersion(value: String): IntelliJVersion {
  */
 data class IntelliJVersionNumber(
     val value: String,
-    override val platformType: String?,
+    override val platformType: String,
     override val platformVersion: String,
     override val buildVersion: Int,
     val year: Int,
@@ -41,11 +41,11 @@ data class IntelliJVersionNumber(
     companion object {
         val FORMAT = "(([A-Z]+)-)?((20([0-9][0-9])).([1-3])(.([0-9]+))?)".toRegex()
 
-        fun parse(value: String): IntelliJVersionNumber? {
-            FORMAT.matchEntire(value)?.let { match ->
+        fun parse(type: String, version: String): IntelliJVersionNumber? {
+            FORMAT.matchEntire(version)?.let { match ->
                 return IntelliJVersionNumber(
-                    value = value,
-                    platformType = match.groupValues[2].takeIf { it.isNotEmpty() },
+                    value = version,
+                    platformType = match.groupValues[2].takeIf { it.isNotEmpty() } ?: type,
                     platformVersion = match.groupValues[3],
                     buildVersion = "${match.groupValues[5]}${match.groupValues[6]}".toInt(),
                     year = match.groupValues[4].toInt(),
@@ -67,7 +67,7 @@ data class IntelliJVersionNumber(
  */
 data class IntelliJBuildNumber(
     val value: String,
-    override val platformType: String?,
+    override val platformType: String,
     override val platformVersion: String,
     val major: Int,
     val minor: Int,
@@ -80,11 +80,11 @@ data class IntelliJBuildNumber(
     companion object {
         val FORMAT = "(([A-Z]+)-)?((([0-9][0-9])([0-9])).([0-9]+).([0-9]+))".toRegex()
 
-        fun parse(value: String): IntelliJBuildNumber? {
-            FORMAT.matchEntire(value)?.let { match ->
+        fun parse(type: String, version: String): IntelliJBuildNumber? {
+            FORMAT.matchEntire(version)?.let { match ->
                 return IntelliJBuildNumber(
-                    value = value,
-                    platformType = match.groupValues[2].takeIf { it.isNotEmpty() },
+                    value = version,
+                    platformType = match.groupValues[2].takeIf { it.isNotEmpty() } ?: type,
                     platformVersion = "20${match.groupValues[5]}.${match.groupValues[6]}",
                     major = match.groupValues[4].toInt(),
                     minor = match.groupValues[7].toInt(),
@@ -107,7 +107,7 @@ data class IntelliJSnapshot(
     val value: String,
     val build: IntelliJBuildNumber,
 ) : IntelliJVersion {
-    override val platformType: String? get() = null
+    override val platformType: String get() = build.platformType
     override val platformVersion: String get() = "${build.platformVersion} EAP"
     override val buildVersion: Int get() = build.buildVersion
 
@@ -119,14 +119,14 @@ data class IntelliJSnapshot(
 
         val FORMAT = "([0-9][0-9][0-9]|LATEST)-EAP-SNAPSHOT".toRegex()
 
-        fun parse(value: String): IntelliJSnapshot? {
-            if (FORMAT.matchEntire(value) == null) return null
+        fun parse(type: String, version: String): IntelliJSnapshot? {
+            if (FORMAT.matchEntire(version) == null) return null
 
-            val build = File("build/BUILD-$value.txt")
+            val build = File("build/BUILD-$version.txt")
             if (!build.exists()) {
                 build.parentFile.mkdirs()
 
-                val downloadUrl = URI("$REPOSITORY_PATH/$value/BUILD-$value.txt").toURL()
+                val downloadUrl = URI("$REPOSITORY_PATH/$version/BUILD-$version.txt").toURL()
                 println("Downloading build version file '$downloadUrl' to '${build.absolutePath}'")
 
                 downloadUrl.openStream().use { input ->
@@ -136,7 +136,7 @@ data class IntelliJSnapshot(
                 }
             }
 
-            return IntelliJSnapshot(value, IntelliJBuildNumber.parse(build.readLines()[0])!!)
+            return IntelliJSnapshot(version, IntelliJBuildNumber.parse(type, build.readLines()[0])!!)
         }
     }
 }

@@ -1,23 +1,10 @@
-/*
- * Copyright (C) 2020-2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2020-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.xdebugger.breakpoints
 
 import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
+import com.intellij.openapi.util.text.StringUtil
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
@@ -63,8 +50,9 @@ class XQueryExpressionBreakpointType :
             .toMutableList().asReversed()
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun getHighlightRange(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>?): TextRange? {
-        return (breakpoint?.properties?.getExpression(breakpoint) as? PsiElement)?.textRange
+        return breakpoint?.properties?.textRange
     }
 
     private fun getExpressionsAt(module: XQueryModule, line: Int): Sequence<XpmExpression> {
@@ -78,17 +66,21 @@ class XQueryExpressionBreakpointType :
 
     inner class ExpressionBreakpointVariant(
         position: XSourcePosition,
-        private val element: PsiElement
+        element: PsiElement
     ) : XLinePsiElementBreakpointVariant(position, element) {
+        private val icon: Icon = (element as? NavigationItem)?.presentation?.getIcon(false) ?: XPathIcons.Nodes.Expr
+        private val text: String = element.text
+        private val highlightRange: TextRange? = element.textRange
+
         override fun createProperties(): XQueryBreakpointProperties? {
             val properties = super.createProperties() ?: return null
-            properties.exprOffset = element.textOffset
+            properties.textRange = highlightRange
             return properties
         }
 
-        override fun getIcon(): Icon {
-            return (element as? NavigationItem)?.presentation?.getIcon(false) ?: XPathIcons.Nodes.Expr
-        }
+        override fun getIcon(): Icon = icon
+        override fun getText(): String = StringUtil.shortenTextWithEllipsis(text, 100, 0)
+        override fun getHighlightRange(): TextRange? = highlightRange
     }
 
     // endregion

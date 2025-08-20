@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2020 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.processor.debug.execution.process
 
 import com.intellij.execution.executors.DefaultDebugExecutor
@@ -35,12 +21,13 @@ import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.
 
 class QueryDebugProcess(
     session: XDebugSession,
-    private val language: Language,
+    language: Language,
     private val state: RunProfileStateEx
 ) : XDebugProcess(session), DebugSessionListener {
     private val editorsProvider: XDebuggerEditorsProvider = QueryEditorsProvider(language)
     private val query: DebuggableQuery = state.createQuery() as DebuggableQuery
     private val debugger: DebugSession = query.session
+    private val breakpointHandlers: Array<XBreakpointHandler<*>> = debugger.getBreakpointHandlers(language, session.project)
 
     init {
         debugger.listener = this
@@ -48,7 +35,7 @@ class QueryDebugProcess(
 
     override fun getEditorsProvider(): XDebuggerEditorsProvider = editorsProvider
 
-    override fun getBreakpointHandlers(): Array<XBreakpointHandler<*>> = debugger.getBreakpointHandlers(language)
+    override fun getBreakpointHandlers(): Array<XBreakpointHandler<*>> = breakpointHandlers
 
     override fun createConsole(): ExecutionConsole {
         val console = state.createConsole(DefaultDebugExecutor.getDebugExecutorInstance())

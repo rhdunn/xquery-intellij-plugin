@@ -1,21 +1,9 @@
-/*
- * Copyright (C) 2019 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2019, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xpath.tests.lang.editor.parameters
 
+import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.psi.PsiFile
 import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
@@ -23,16 +11,42 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresPsiFileGetEditor
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.ParameterInfoTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath as XPathLanguage
 import uk.co.reecedunn.intellij.plugin.xpath.lang.editor.parameters.XPathParameterInfoHandler
-import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Parameter Info - XPath ParameterInfoHandler")
-class XPathParameterInfoHandlerTest : ParserTestCase() {
+class XPathParameterInfoHandlerTest : IdeaPlatformTestCase(), ParameterInfoTestCase<PsiFile> {
     override val pluginId: PluginId = PluginId.getId("XPathParameterInfoHandlerTest")
+    override val language: Language = XPathLanguage
+
+    override fun registerServicesAndExtensions() {
+        requiresVirtualFileToPsiFile()
+        requiresIFileElementTypeParseContents()
+        requiresPsiFileGetChildren()
+        requiresPsiFileGetEditor()
+
+        XPathASTFactory().registerExtension(project, XPathLanguage)
+        XPathParserDefinition().registerExtension(project)
+        XPathFileType.registerFileType()
+
+        XpmFunctionProvider.register(this)
+    }
 
     private val parameterInfoHandler = XPathParameterInfoHandler()
 

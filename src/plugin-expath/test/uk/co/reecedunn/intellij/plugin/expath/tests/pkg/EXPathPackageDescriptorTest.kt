@@ -1,29 +1,20 @@
-/*
- * Copyright (C) 2019-2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2019-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.expath.tests.pkg
 
+import com.intellij.ide.highlighter.XmlFileType
+import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.psi.xml.XmlFile
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.*
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackage
@@ -35,8 +26,16 @@ import java.util.zip.ZipEntry
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("EXPath Packaging System 9 May 2012")
-class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
+class EXPathPackageDescriptorTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("EXPathPackageDescriptorTest")
+    override val language: com.intellij.lang.Language = XMLLanguage.INSTANCE
+
+    override fun registerServicesAndExtensions() {
+        requiresVirtualFileGetCharset()
+
+        XMLParserDefinition().registerExtension(project)
+        XmlFileType.INSTANCE.registerFileType()
+    }
 
     private fun pkg(xml: String, files: Sequence<Pair<ZipEntry, ByteArray>> = sequenceOf()): EXPathPackage {
         val zip = sequenceOf(

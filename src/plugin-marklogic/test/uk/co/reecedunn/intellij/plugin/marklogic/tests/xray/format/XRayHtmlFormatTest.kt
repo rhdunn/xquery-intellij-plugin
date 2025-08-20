@@ -1,23 +1,15 @@
-// Copyright (C) 2021, 2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2021, 2024-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.xray.format
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
-import com.intellij.compat.openapi.vfs.encoding.EncodingManagerImpl
-import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.openapi.vfs.encoding.EncodingManager
-import com.intellij.xdebugger.XDebuggerUtil
-import com.intellij.xdebugger.impl.XDebuggerUtilImpl
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
+import uk.co.reecedunn.intellij.plugin.core.tests.xdebugger.requiresXDebuggerUtilCreatePosition
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
@@ -43,10 +35,8 @@ class XRayHtmlFormatTest : IdeaPlatformTestCase() {
     }
 
     override fun registerServicesAndExtensions() {
-        val app = ApplicationManager.getApplication()
-        app.registerServiceInstance(XDebuggerUtil::class.java, XDebuggerUtilImpl())
-        app.registerServiceInstance(EditorFactory::class.java, MockEditorFactoryEx())
-        app.registerServiceInstance(EncodingManager::class.java, EncodingManagerImpl(CoroutineScope(Dispatchers.IO)))
+        requiresXDebuggerUtilCreatePosition()
+        requiresVirtualFileGetCharset()
     }
 
     @Nested

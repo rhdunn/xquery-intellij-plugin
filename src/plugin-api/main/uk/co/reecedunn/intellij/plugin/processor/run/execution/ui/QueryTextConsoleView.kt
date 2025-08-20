@@ -1,26 +1,12 @@
-/*
- * Copyright (C) 2019-2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2019-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.processor.run.execution.ui
 
+import com.intellij.compat.fileTypes.FileTypeEditorHighlighterProviders
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.lang.Language
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
-import com.intellij.openapi.fileTypes.FileTypeEditorHighlighterProviders
 import com.intellij.openapi.fileTypes.PlainTextLanguage
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
@@ -110,7 +96,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
                     activeLanguage != null -> { // Multiple file types... don't highlight.
                         activeLanguage = PlainTextLanguage.INSTANCE
                         activeLanguage?.associatedFileType!!.let {
-                            val provider = FileTypeEditorHighlighterProviders.INSTANCE.forFileType(it)
+                            val provider = FileTypeEditorHighlighterProviders.getInstance().forFileType(it)
                             editor!!.highlighter = provider.getEditorHighlighter(
                                 project, it, null, editor!!.colorsScheme
                             )
@@ -119,7 +105,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
                     else -> {
                         newLanguage.associatedFileType!!.let {
                             activeLanguage = newLanguage
-                            val provider = FileTypeEditorHighlighterProviders.INSTANCE.forFileType(it)
+                            val provider = FileTypeEditorHighlighterProviders.getInstance().forFileType(it)
                             editor!!.highlighter = provider.getEditorHighlighter(
                                 project, it, null, editor!!.colorsScheme
                             )

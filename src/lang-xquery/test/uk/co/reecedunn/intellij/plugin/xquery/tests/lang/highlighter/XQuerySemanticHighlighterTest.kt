@@ -1,21 +1,8 @@
-/*
- * Copyright (C) 2016-2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.highlighter
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import com.intellij.lang.Language
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.extensions.PluginId
@@ -25,26 +12,61 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.colors.MockEditorColorsManager
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.annotation.AnnotationTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSemanticHighlighter
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighter
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySemanticHighlighter
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery Semantic Highlighter")
-class XQuerySemanticHighlighterTest : AnnotatorTestCase() {
+class XQuerySemanticHighlighterTest : IdeaPlatformTestCase(), LanguageTestCase, AnnotationTestCase {
     override val pluginId: PluginId = PluginId.getId("XQuerySemanticHighlighterTest")
+    override val language: Language = XQuery
 
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        requiresVirtualFileToPsiFile()
+        requiresIFileElementTypeParseContents()
+        requiresPsiFileGetChildren()
 
-        val app = ApplicationManager.getApplication()
-        app.registerServiceInstance(EditorColorsManager::class.java, MockEditorColorsManager())
+        XPathASTFactory().registerExtension(project, XPath)
+        XPathParserDefinition().registerExtension(project)
+
+        XQueryASTFactory().registerExtension(project, XQuery)
+        XQueryParserDefinition().registerExtension(project)
+        XQueryFileType.registerFileType()
+
+        project.registerService(XQueryProjectSettings())
+
+        XpmVariableProvider.register(this, XQueryVariableProvider)
+
+        XpmNamespaceProvider.register(this)
 
         XpmSemanticHighlighter.register(this, XPathSemanticHighlighter)
         XpmSemanticHighlighter.register(this, XQuerySemanticHighlighter)
+
+        val app = ApplicationManager.getApplication()
+        app.registerService<EditorColorsManager>(MockEditorColorsManager())
     }
 
     @Nested

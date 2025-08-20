@@ -25,6 +25,8 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.*
@@ -3227,7 +3229,7 @@ class PluginInspectionTest : InspectionTestCase() {
         @DisplayName("IJVS0003 - HTML4 and HTML5 predefined entities")
         internal inner class IJVS0003Test {
             private fun checkSupportedEntities(version: Specification, entities: String) {
-                val file = parseText(entities)
+                val file = parseText<XQueryModule>(entities)
 
                 val problems = inspect(file, IJVS0003()) {
                     XQueryVersion = version.versionId
@@ -3249,7 +3251,7 @@ class PluginInspectionTest : InspectionTestCase() {
                 endsWith: String,
                 type: ProblemHighlightType = ProblemHighlightType.GENERIC_ERROR_OR_WARNING
             ) {
-                val file = parseText(entities)
+                val file = parseText<XQueryModule>(entities)
 
                 val problems = inspect(file, IJVS0003()) {
                     XQueryVersion = version.versionId

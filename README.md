@@ -5,7 +5,20 @@
 
 <img src="images/xquery-intellij-plugin.png" alt="Syntax Highlighting" width="60%" align="right"/>
 
+- [XQuery and XSLT](#xquery-and-xslt)
+  - [Overview](#overview)
+  - [Query Processor and Database Integration](#query-processor-and-database-integration)
+  - [Libraries and Frameworks](#libraries-and-frameworks)
+  - [IntelliJ Integration](#intellij-integration)
+- [Building](#building)
+  - [Gradle](#gradle)
+  - [Java](#java)
+  - [IntelliJ](#intellij)
+- [License](#license)
+
 ## XQuery and XSLT
+
+### Overview
 
 This is a plugin for the IntelliJ IDE that adds support for the XML Query (XQuery) and
 XML Path (XPath) languages. This covers support for:
@@ -25,7 +38,7 @@ languages that use XPath:
 See https://rhdunn.github.io/xquery-intellij-plugin/ for the plugin documentation
 and tutorials.
 
-The latest development version of this plugin supports IntelliJ 2022.3 &ndash; 2024.3   .
+The latest development version of this plugin supports IntelliJ 2022.3 &ndash; 2025.2.
 Older versions of the plugin are compatible with older versions of IntelliJ.
 
 ### Query Processor and Database Integration
@@ -82,9 +95,50 @@ The plugin also supports the following IntelliJ Ultimate features:
 1.  Support displaying MarkLogic rewriter files in the Endpoints tool window;
 1.  Support displaying EXQuery RESTXQ endpoints in the Endpoints tool window.
 
------
+## Building
 
-Copyright (C) 2016-2024 Reece H. Dunn
+### Gradle
+
+This project uses `gradle`. It requires gradle 8.5 or later. You can then use:
+
+- `gradle ...`.
+
+If you open the project in IntelliJ it will install and configure the gradle wrapper
+for you. You can then use:
+
+- `./gradlew ...` if using a bash or similar shell;
+- `gradlew.bat ...` if using Windows.
+
+### Java
+
+The Java version depends on the version of IntelliJ being targeted:
+
+- IntelliJ 2022.3 - 2024.1 require Java 17;
+- IntelliJ 2024.2 - 2025.2 require Java 21.
+
+In IntelliJ you need to specify the `Gradle JVM` property (File | Settings |
+Build, Execution, Deployment | Build Tools | Gradle) to that Java version.
+
+### IntelliJ
+
+The version of IntelliJ to build can be configured as follows:
+
+| Environment Variable | System Property    | Default  | Description             |
+|----------------------|--------------------|----------|-------------------------|
+| `IDEA_TYPE`          | `platform.type`    | `IU`     | IntelliJ platform type. |
+| `IDEA_VERSION`       | `platform.version` | `2025.1` | IntelliJ version.       |
+
+The following are some useful gradle tasks:
+
+- `clean` -- clear previous build artifacts;
+- `:buildPlugin` -- build the plugin to the `build/distributions` directory;
+- `:runIde` -- run an instance of the specified IntelliJ IDE with the plugin installed;
+- `check` -- run the tests;
+- `:verifyPlugin` -- run the IntelliJ plugin verifier to check for compatibility.
+
+## License
+
+Copyright (C) 2016-2025 Reece H. Dunn
 
 This software and document includes material copied from or derived from the
 XPath and XQuery specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio,

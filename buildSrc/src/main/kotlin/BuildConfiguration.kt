@@ -1,34 +1,31 @@
-// Copyright (C) 2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2024-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 
 import io.github.rhdunn.intellij.IntelliJVersion
-import org.gradle.api.GradleException
-import org.gradle.api.Project
 
 object BuildConfiguration {
     /**
-     * The version of IntelliJ platform to target.
+     * The IntelliJ platform type to build for.
      */
-    fun getPlatformVersion(project: Project): IntelliJVersion {
-        val version = getProperty(project, "platform.version", "IDEA_VERSION")
-            ?: throw GradleException("The platform.version property is not set.")
-        return IntelliJVersion(version)
-    }
+    val PlatformType: String
+        get() = getProperty("platform.type", "IDEA_TYPE") ?: Version.PlatformType
 
     /**
-     * The type of IntelliJ platform to target.
+     * The IntelliJ platform version to build for.
      */
-    fun getPlatformType(project: Project): String {
-        return getProperty(project, "platform.type", "IDEA_TYPE")
-            ?: throw GradleException("The platform.type property is not set.")
-    }
+    val PlatformVersion: String
+        get() = getProperty("platform.version", "IDEA_VERSION") ?: Version.PlatformVersion
 
-    private fun getProperty(project: Project, name: String, envName: String? = null): String? {
-        val projectValue = project.findProperty(name)?.toString()
-            ?.takeIf { value -> value.isNotBlank() }
+    /**
+     * The version of IntelliJ platform to target.
+     */
+    val IntelliJ: IntelliJVersion
+        get() = IntelliJVersion(PlatformType, PlatformVersion)
+
+    private fun getProperty(name: String, envName: String? = null): String? {
         val systemValue = System.getProperty(name)
             ?.takeIf { value -> value.isNotBlank() }
         val envValue = envName?.let { System.getenv(it) }
             ?.takeIf { value -> value.isNotBlank() }
-        return envValue ?: systemValue ?: projectValue
+        return envValue ?: systemValue
     }
 }

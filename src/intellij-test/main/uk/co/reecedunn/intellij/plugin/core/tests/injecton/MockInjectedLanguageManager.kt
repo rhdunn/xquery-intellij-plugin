@@ -79,6 +79,10 @@ class MockInjectedLanguageManager : InjectedLanguageManager() {
 
     override fun freezeWindow(document: DocumentWindow): DocumentWindow = TODO()
 
+    override fun shouldInspectionsBeLenient(injectedContext: PsiElement): Boolean = TODO()
+
+    override fun isFrankensteinInjection(injectedContext: PsiElement): Boolean = TODO()
+
     override fun findInjectedElementAt(hostFile: PsiFile, hostDocumentOffset: Int): PsiElement = TODO()
 
     override fun injectedToHost(injectedContext: PsiElement, injectedTextRange: TextRange): TextRange = TODO()

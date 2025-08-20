@@ -1,21 +1,8 @@
-/*
- * Copyright (C) 2016-2021 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2016-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerServiceInstance
+import com.intellij.lang.Language
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import com.intellij.mock.MockResolveScopeManager
 import com.intellij.navigation.ItemPresentation
 import com.intellij.navigation.NavigationItem
@@ -38,8 +25,19 @@ import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.parse
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
+import uk.co.reecedunn.intellij.plugin.core.tests.module.requiresModuleManager
+import uk.co.reecedunn.intellij.plugin.core.tests.pom.core.requiresPsiElementReplace
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockProjectScopeBuilder
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
+import uk.co.reecedunn.intellij.plugin.core.tests.roots.requiresProjectSourceFolders
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
@@ -47,15 +45,25 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getPrincipalNodeKind
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
+import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
@@ -78,37 +86,66 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirNamespaceAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryIcons
-import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import java.math.BigDecimal
 import java.math.BigInteger
 
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
-class XQueryPsiTest : ParserTestCase() {
+class XQueryPsiTest : IdeaPlatformTestCase(), LanguageTestCase {
     override val pluginId: PluginId = PluginId.getId("XQueryPsiTest")
+    override val language: Language = XQuery
+
+    protected val settings: XQueryProjectSettings
+        get() = XQueryProjectSettings.getInstance(project)
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
-    override fun registerModules(manager: MockModuleManager) {
-        manager.addModule(res.findFileByPath("tests/module-xquery")!!)
-    }
-
     override fun registerServicesAndExtensions() {
-        super.registerServicesAndExtensions()
+        requiresVirtualFileToPsiFile()
+        requiresIFileElementTypeParseContents()
+        requiresVirtualFileGetCharset()
+        requiresPsiFileGetChildren()
+        requiresPsiElementReplace()
+        requiresProjectSourceFolders()
+
+        XPathASTFactory().registerExtension(project, XPath)
+        XPathParserDefinition().registerExtension(project)
+
+        XQueryASTFactory().registerExtension(project, XQuery)
+        XQueryParserDefinition().registerExtension(project)
+        XQueryFileType.registerFileType()
 
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
 
-        project.registerServiceInstance(ProjectScopeBuilder::class.java, MockProjectScopeBuilder())
-        project.registerServiceInstance(ResolveScopeManager::class.java, MockResolveScopeManager(project))
+        XpmFunctionDecorator.register(this)
+
+        project.registerService<ProjectScopeBuilder>(MockProjectScopeBuilder())
+        project.registerService<ResolveScopeManager>(MockResolveScopeManager(project))
+
+        requiresModuleManager(res.findFileByPath("tests/module-xquery")!!)
+
+        project.registerService(XQueryProjectSettings())
+        project.registerService(XpmModuleLoaderSettings(project))
+
+        XpmModuleLoaderFactory.register(this, "module", JspModuleSourceRootLoader, "")
+        XpmModuleLoaderFactory.register(this, "relative", RelativeModuleLoader)
+
+        XpmModulePathFactory.register(this, XpmModuleLocationPath, "")
+        ImportPathResolver.register(this, uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions)
     }
 
     @Nested
