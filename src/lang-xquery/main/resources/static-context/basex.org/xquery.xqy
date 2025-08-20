@@ -109,4 +109,11 @@ declare namespace ws = "http://basex.org/modules/ws";
 (: BaseX 9.2.1 :)
 declare namespace sessions = "http://basex.org/modules/sessions";
 
+(: BaseX 10.0 :)
+declare namespace string = "http://basex.org/modules/string";
+declare namespace store = "http://basex.org/modules/store";
+
+(: BaseX 11.0 :)
+declare namespace job = "http://basex.org/modules/job";
+
 ()
