@@ -25,3 +25,5 @@ declare %a:since("basex", "10.0") function job:result($id as xs:string, $options
 declare %a:since("basex", "10.0") function job:remove($id as xs:string) as empty-sequence() external;
 declare %a:since("basex", "10.0") function job:wait($id as xs:string) as empty-sequence() external;
 declare %a:since("basex", "10.0") function job:bindings($id as xs:string) as map(*) external;
+declare %a:since("basex", "12.0") function job:execute($query as (xs:string|xs:anyURI)) as item()* external;
+declare %a:since("basex", "12.0") function job:execute($query as (xs:string|xs:anyURI), $bindings as map(*)?) as item()* external;
