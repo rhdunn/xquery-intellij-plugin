@@ -136,3 +136,5 @@ declare %a:since("basex", "10.0") function db:create-backup($db as xs:string, $o
 declare %a:since("basex", "10.0")
         %a:see-also("basex", "10.0", "db:is-raw")
         %a:see-also("basex", "10.0", "db:is-xml") function db:type($db as xs:string, $path as xs:string) as xs:boolean external;
+declare %a:since("basex", "12.0") function db:option-map($name as xs:string) as map(xs:string,item()) external;
+declare %a:since("basex", "12.0") function db:property-map($database as xs:string, $name as xs:string) as element(database) external;
