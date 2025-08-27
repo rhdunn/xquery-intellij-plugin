@@ -90,6 +90,22 @@ declare %a:since("xpath-functions", "3.1-20170321") function array:insert-before
   $member as item()*
 ) as array(*) external;
 
+declare %a:since("xpath-functions", "4.0-20250825") function array:index-of(
+  $array as array(*),
+  $target as item()*
+) as xs:integer* external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function array:index-of(
+  $array as array(*),
+  $target as item()*,
+  $collation as xs:string?
+) as xs:integer* external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function array:index-where(
+  $array as array(*),
+  $predicate as function(item()*, xs:integer) as xs:boolean
+) as xs:integer* external;
+
 declare %a:since("xpath-functions", "3.1-20170321") function array:join(
   $arrays as array(*)*
 ) as array(*) external;
