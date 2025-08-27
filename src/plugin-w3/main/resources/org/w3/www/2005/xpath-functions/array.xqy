@@ -21,6 +21,15 @@ declare %a:since("xpath-functions", "3.1-20170321") function array:append(
   $appendage as item()*
 ) as array(*) external;
 
+declare %a:since("xpath-functions", "4.0-20250825") function array:build(
+  $array as item()*,
+  $action as (function(item(),xs:integer) as item()*)?
+) as array(*) external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function array:empty(
+  $array as array(*)
+) as xs:boolean external;
+
 declare %a:since("xpath-functions", "3.1-20170321") function array:filter(
   $array as array(*),
   $predicate as function(item()*) as xs:boolean
@@ -40,6 +49,10 @@ declare %a:since("xpath-functions", "3.1-20170321") function array:fold-right(
   $array as array(*),
   $zero as item()*,
   $action as function(item()*, item()*) as item()*
+) as item()* external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function array:foot(
+  $array as array(*)
 ) as item()* external;
 
 declare %a:since("xpath-functions", "3.1-20170321") function array:for-each(
