@@ -16,6 +16,28 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare option o:requires "xpath-functions/3.1";
 
+declare %a:since("xpath-functions", "4.0-20250825") function map:build(
+  $input as item()*
+) as map(*) external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function map:build(
+  $input as item()*,
+  $key as function(item(), xs:integer) as xs:anyAtomicType*?
+) as map(*) external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function map:build(
+  $input as item()*,
+  $key as function(item(), xs:integer) as xs:anyAtomicType*?,
+  $value as function(item(), xs:integer) as item()*?
+) as map(*) external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function map:build(
+  $input as item()*,
+  $key as function(item(), xs:integer) as xs:anyAtomicType*?,
+  $value as function(item(), xs:integer) as item()*?,
+  $options as map(*)?
+) as map(*) external;
+
 declare %a:since("xslt", "3.0-20170608")
         %a:since("xpath-functions", "3.1-20170321") function map:contains(
   $map as map(*),
@@ -51,10 +73,20 @@ declare %a:since("xslt", "3.0-20170608")
   $key as xs:anyAtomicType
 ) as item()* external;
 
+declare %a:since("xpath-functions", "4.0-20250825") function map:get(
+  $map as map(*),
+  $key as xs:anyAtomicType,
+  $default as item()*
+) as item()* external;
+
 declare %a:since("xpath-functions", "4.0-20210113") function map:group-by(
   $input as item()*,
   $key as function(item()) as xs:anyAtomicType?
 ) as map(*) external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function map:items(
+  $map as map(*)
+) as item()* external;
 
 declare %a:since("xslt", "3.0-20170608")
         %a:since("xpath-functions", "3.1-20170321") function map:keys(
