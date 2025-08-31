@@ -86,7 +86,8 @@ declare %a:since("basex", "7.0") function math:tanh(
 ) as xs:double? external;
 
 declare %a:restrict-until("$string", "basex", "9.1", "xs:string")
-        %a:since("basex", "7.3") function math:crc32(
+        %a:since("basex", "7.3")
+        %a:until("basex", "11.0", "fn:hash") function math:crc32(
   $string as xs:string?
 ) as xs:hexBinary? external;
 
