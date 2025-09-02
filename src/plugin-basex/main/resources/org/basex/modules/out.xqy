@@ -11,7 +11,14 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare option o:requires "basex/7.3";
 
-declare %a:since("basex", "9.0") function out:cr() as xs:string external;
-declare %a:since("basex", "7.3") function out:nl() as xs:string external;
-declare %a:since("basex", "7.3") function out:tab() as xs:string external;
-declare %a:since("basex", "7.3") function out:format($format as xs:string, $item1 as item(), $items as item()...) as xs:string external;
+declare %a:since("basex", "9.0")
+        %a:deprecated("basex", "10.0", "string:cr")
+        %a:see-also("basex", "11.0", "fn:char") function out:cr() as xs:string external;
+declare %a:since("basex", "7.3")
+        %a:deprecated("basex", "10.0", "string:nl")
+        %a:see-also("basex", "11.0", "fn:char") function out:nl() as xs:string external;
+declare %a:since("basex", "7.3")
+        %a:deprecated("basex", "10.0", "string:tab")
+        %a:see-also("basex", "11.0", "fn:char") function out:tab() as xs:string external;
+declare %a:since("basex", "7.3")
+        %a:deprecated("basex", "10.0", "string:format") function out:format($format as xs:string, $item1 as item(), $items as item()...) as xs:string external;
