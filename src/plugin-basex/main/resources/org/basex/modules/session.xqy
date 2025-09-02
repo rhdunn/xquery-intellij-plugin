@@ -28,3 +28,4 @@ declare %a:restrict-until("$value", "basex", "7.9", "xs:string")
         %a:since("basex", "7.5") function session:set($name as xs:string, $value as item()*) as empty-sequence() external;
 declare %a:since("basex", "7.5") function session:delete($name as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.5") function session:close() as empty-sequence() external;
+declare %a:since("basex", "11.0") function session:client-id() as xs:string external;
