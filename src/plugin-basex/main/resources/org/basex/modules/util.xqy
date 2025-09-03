@@ -57,3 +57,10 @@ declare %a:since("basex", "9.5")
 declare %a:since("basex", "9.5")
         %a:deprecated("basex", "11.0", "map:items") function util:map-values($map as map(*)) as item()* external;
 
+declare %a:since("basex", "12.0") function util:map-key-at($map as map(*), $index as xs:integer) as item()* external;
+
+declare %a:since("basex", "12.0") function util:map-value-at($map as map(*), $index as xs:integer) as item()* external;
+
+declare %a:since("basex", "12.0") function util:values-except($values as xs:anyAtomicType*, $except as xs:anyAtomicType*) as xs:anyAtomicType* external;
+
+declare %a:since("basex", "12.0") function util:values-except($values as xs:anyAtomicType*, $except as xs:anyAtomicType*, $collation as xs:string) as xs:anyAtomicType* external;
