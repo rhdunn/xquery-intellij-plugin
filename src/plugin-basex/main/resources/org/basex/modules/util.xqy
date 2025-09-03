@@ -1,4 +1,4 @@
-xquery version "3.0";
+xquery version "3.1";
 (:~
  : BaseX Utility Module functions
  :
@@ -34,3 +34,17 @@ declare %a:since("basex", "9.7") function util:count-within($sequence as item()*
 declare %a:since("basex", "9.7") function util:count-within($sequence as item()*, $min as xs:integer, $max as xs:integer) as xs:boolean external;
 declare %a:since("basex", "9.7") function util:strip-namespace($node as node()) as node() external;
 declare %a:since("basex", "9.7") function util:strip-namespaces($node as node(), $prefixes as xs:string*) as node() external;
+
+declare %a:since("basex", "9.5")
+        %a:until("basex", "10.0")
+        %a:deprecated("basex", "11.0", "fn:duplicate-values") function util:duplicates($sequence as item()*) as xs:anyAtomicType* external;
+declare %a:since("basex", "9.5")
+        %a:until("basex", "10.0")
+        %a:deprecated("basex", "11.0", "fn:duplicate-values") function util:duplicates($sequence as item()*, $collation as xs:string) as xs:anyAtomicType* external;
+declare %a:since("basex", "9.5")
+        %a:until("basex", "11.0") function util:array-members($array as array(*)) as array(*) external;
+declare %a:since("basex", "9.5")
+        %a:until("basex", "11.0") function util:array-values($array as array(*)) as item()* external;
+declare %a:since("basex", "9.5") function util:map-entries($map as map(*)) as map(xs:string, item()*)* external;
+declare %a:since("basex", "9.5") function util:map-values($map as map(*)) as item()* external;
+
