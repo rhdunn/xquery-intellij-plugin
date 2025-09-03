@@ -30,6 +30,7 @@ declare %a:since("basex", "8.0")
 declare %a:since("basex", "7.3") %a:until("basex", "10.0") %a:see-also("basex", "10.0", "xquery:parse#1") function xquery:parse-uri($uri as xs:string) as item()? external;
 declare %a:since("basex", "7.3") %a:until("basex", "10.0") %a:see-also("basex", "10.0", "xquery:parse#2") function xquery:parse-uri($uri as xs:string, $options as map(*)?) as item()? external;
 declare %a:since("basex", "8.5") function xquery:fork-join($functions as function(*)*) as item()* external;
+declare %a:since("basex", "11.0") function xquery:fork-join($functions as function(*)*, $options as map(*)?) as item()* external;
 declare %a:since("basex", "7.8") %a:until("basex", "8.0") function xquery:evaluate() as item()* external;
 declare %a:since("basex", "7.3") %a:until("basex", "8.5") %a:see-also("basex", "8.5", "prof:type") function xquery:type() as item()* external;
 declare %a:since("basex", "8.0") %a:until("basex", "9.0") %a:see-also("basex", "9.0", "xquery:eval-update") function xquery:update() as item()* external;
