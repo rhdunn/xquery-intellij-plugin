@@ -11,6 +11,9 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare option o:requires "basex/8.3";
 
-declare %a:since("basex", "8.3") function strings:levenshtein($string1 as xs:string, $string2 as xs:string) as xs:double external;
-declare %a:since("basex", "8.3") function strings:soundex($string as xs:string) as xs:string external;
-declare %a:since("basex", "8.3") function strings:cologne-phonetic($string as xs:string) as xs:string external;
+declare %a:since("basex", "8.3")
+        %a:deprecated("basex", "10.0", "string:levenshtein") function strings:levenshtein($string1 as xs:string, $string2 as xs:string) as xs:double external;
+declare %a:since("basex", "8.3")
+        %a:deprecated("basex", "10.0", "string:soundex") function strings:soundex($string as xs:string) as xs:string external;
+declare %a:since("basex", "8.3")
+        %a:deprecated("basex", "10.0", "string:cologne-phonetic") function strings:cologne-phonetic($string as xs:string) as xs:string external;

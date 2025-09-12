@@ -21,6 +21,15 @@ declare %a:since("xpath-functions", "3.1-20170321") function array:append(
   $appendage as item()*
 ) as array(*) external;
 
+declare %a:since("xpath-functions", "4.0-20250825") function array:build(
+  $array as item()*,
+  $action as (function(item(),xs:integer) as item()*)?
+) as array(*) external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function array:empty(
+  $array as array(*)
+) as xs:boolean external;
+
 declare %a:since("xpath-functions", "3.1-20170321") function array:filter(
   $array as array(*),
   $predicate as function(item()*) as xs:boolean
@@ -40,6 +49,10 @@ declare %a:since("xpath-functions", "3.1-20170321") function array:fold-right(
   $array as array(*),
   $zero as item()*,
   $action as function(item()*, item()*) as item()*
+) as item()* external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function array:foot(
+  $array as array(*)
 ) as item()* external;
 
 declare %a:since("xpath-functions", "3.1-20170321") function array:for-each(
@@ -67,6 +80,12 @@ declare %a:since("xpath-functions", "3.1-20170321") function array:get(
   $position as xs:integer
 ) as item()* external;
 
+declare %a:since("xpath-functions", "4.0-20250825") function array:get(
+  $array as array(*),
+  $position as xs:integer,
+  $default as item()*
+) as item()* external;
+
 declare %a:since("xpath-functions", "3.1-20170321") function array:head(
   $array as array(*)
 ) as item()* external;
@@ -77,8 +96,33 @@ declare %a:since("xpath-functions", "3.1-20170321") function array:insert-before
   $member as item()*
 ) as array(*) external;
 
+declare %a:since("xpath-functions", "4.0-20250825") function array:index-of(
+  $array as array(*),
+  $target as item()*
+) as xs:integer* external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function array:index-of(
+  $array as array(*),
+  $target as item()*,
+  $collation as xs:string?
+) as xs:integer* external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function array:index-where(
+  $array as array(*),
+  $predicate as function(item()*, xs:integer) as xs:boolean
+) as xs:integer* external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function array:items(
+  $array as array(*)
+) as item()* external;
+
 declare %a:since("xpath-functions", "3.1-20170321") function array:join(
   $arrays as array(*)*
+) as array(*) external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function array:join(
+  $arrays as array(*)*,
+  $separator as array(*)?
 ) as array(*) external;
 
 declare %a:since("xpath-functions", "4.0-20210113") function array:partition(
@@ -133,6 +177,10 @@ declare %a:since("xpath-functions", "3.1-20170321") function array:sort(
   $key as function(item()*) as xs:anyAtomicType*
 ) as array(*) external;
 
+declare %a:since("xpath-functions", "4.0-20250825") function array:split(
+  $array as array(*)
+) as array(*)* external;
+
 declare %a:since("xpath-functions", "3.1-20170321") function array:subarray(
   $array as array(*),
   $start as xs:integer
@@ -145,5 +193,9 @@ declare %a:since("xpath-functions", "3.1-20170321") function array:subarray(
 ) as array(*) external;
 
 declare %a:since("xpath-functions", "3.1-20170321") function array:tail(
+  $array as array(*)
+) as array(*) external;
+
+declare %a:since("xpath-functions", "4.0-20250825") function array:trunk(
   $array as array(*)
 ) as array(*) external;

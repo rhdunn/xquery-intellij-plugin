@@ -27,6 +27,7 @@ declare %a:since("basex", "7.6") function validate:xsd-info($input as item(), $s
 declare %a:restrict-until("$version-features", "basex", "9.2", "xs:string")
         %a:restrict-since("$version-features", "basex", "9.2", "map(*)")
         %a:since("basex", "7.6") function validate:xsd-info($input as item(), $schema as item()?, $version-features as (xs:string|map(*))) as xs:string* external;
+declare %a:since("basex", "11.0") function validate:xsd-init() as empty-sequence() external;
 declare %a:since("basex", "8.3") function validate:xsd-report($input as item()) as element(report) external;
 declare %a:since("basex", "8.3") function validate:xsd-report($input as item(), $schema as xs:string?) as element(report) external;
 declare %a:restrict-until("$version-features", "basex", "9.2", "xs:string")

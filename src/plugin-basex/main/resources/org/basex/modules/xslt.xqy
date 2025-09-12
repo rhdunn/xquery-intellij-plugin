@@ -14,6 +14,7 @@ declare option o:requires "basex/7.0"; (: NOTE: 7.0 is the earliest version defi
 declare %a:since("basex", "7.0") %a:until("basex", "7.3", "xslt:processor#0") variable $xslt:processor external;
 declare %a:since("basex", "7.0") %a:until("basex", "7.3", "xslt:version#0") variable $xslt:version external;
 
+declare %a:since("basex", "11.0") function xslt:init() as empty-sequence() external;
 declare %a:since("basex", "7.3") function xslt:processor() as xs:string external;
 declare %a:since("basex", "7.3") function xslt:version() as xs:string external;
 declare %a:since("basex", "7.0") function xslt:transform($input as item(), $stylesheet as item()) as node() external;
@@ -24,3 +25,6 @@ declare %a:since("basex", "7.6") function xslt:transform-text($input as item(), 
 declare %a:restrict-until("$params", "basex", "9.0", "map(xs:string, xs:string)")
         %a:since("basex", "7.6") function xslt:transform-text($input as item(), $stylesheet as item(), $params as map(*)?) as xs:string external;
 declare %a:since("basex", "9.0") function xslt:transform-text($input as item(), $stylesheet as item(), $params as map(*)?, $options as map(*)?) as xs:string external;
+declare %a:since("basex", "9.7") function xslt:transform-report($input as item(), $stylesheet as item()) as xs:string external;
+declare %a:since("basex", "9.7") function xslt:transform-report($input as item(), $stylesheet as item(), $params as map(*)?) as xs:string external;
+declare %a:since("basex", "9.7") function xslt:transform-report($input as item(), $stylesheet as item(), $params as map(*)?, $options as map(*)?) as xs:string external;

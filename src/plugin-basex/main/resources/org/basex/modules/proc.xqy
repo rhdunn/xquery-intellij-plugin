@@ -26,3 +26,4 @@ declare %a:since("basex", "9.0") function proc:fork($cmd as xs:string, $args as 
 declare %a:since("basex", "9.0") function proc:fork($cmd as xs:string, $args as xs:string*, $options as map(xs:string, xs:string)) as element(result) external;
 declare %a:since("basex", "8.3") function proc:property($name as xs:string) as xs:string? external;
 declare %a:since("basex", "8.3") function proc:property-names() as xs:string* external;
+declare %a:since("basex", "11.0") function proc:property-map() as map(xs:string, xs:string) external;

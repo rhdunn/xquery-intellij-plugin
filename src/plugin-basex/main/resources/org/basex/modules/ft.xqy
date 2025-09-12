@@ -32,3 +32,5 @@ declare %a:restrict-until("$string", "basex", "9.1", "xs:string")
         %a:since("basex", "8.0") function ft:normalize($string as xs:string?) as xs:string external;
 declare %a:restrict-until("$string", "basex", "9.1", "xs:string")
         %a:since("basex", "8.0") function ft:normalize($string as xs:string?, $options as map(*)?) as xs:string external;
+declare %a:since("basex", "9.6") function ft:thesaurus($node as node(), $term as xs:string) as xs:string* external;
+declare %a:since("basex", "9.6") function ft:thesaurus($node as node(), $term as xs:string, $options as map(*)?) as xs:string* external;

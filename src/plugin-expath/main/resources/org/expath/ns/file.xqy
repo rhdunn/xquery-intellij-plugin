@@ -58,6 +58,7 @@ declare %a:since("expath-file", "1.0-20100517") function file:exists($path as xs
 declare %a:since("expath-file", "1.0-20100517") %a:until("expath-file", "1.0-20120614") %a:missing("basex", "7.0") function file:files($path as xs:string) as xs:string* external;
 declare %a:since("expath-file", "1.0-20100517") %a:until("expath-file", "1.0-20120614") %a:missing("basex", "7.0") function file:files($path as xs:string, $pattern as xs:string) as xs:string* external;
 declare %a:since("expath-file", "1.0-20100517") %a:until("expath-file", "1.0-20120614") %a:missing("basex", "7.0") function file:files($path as xs:string, $pattern as xs:string, $recursive as xs:boolean) as xs:string* external;
+declare %a:since("basex", "11.0") function file:list-roots() as xs:string* external;
 declare %a:since("basex", "8.2") function file:is-absolute($path as xs:string) as xs:boolean external;
 declare %a:since("expath-file", "1.0-20120614") function file:is-dir($path as xs:string) as xs:boolean external;
 declare %a:since("expath-file", "1.0-20100517") %a:since("basex", "7.0") %a:until("expath-file", "1.0-20120614", "file:is-dir#1") %a:until("basex", "7.3", "file:is-dir#1") function file:is-directory($path as xs:string) as xs:boolean external;
