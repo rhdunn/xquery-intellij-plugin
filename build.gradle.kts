@@ -70,9 +70,13 @@ allprojects {
 
 dependencies {
     intellijPlatform {
-        bundledPlugin("org.intellij.intelliLang")
         bundledPlugin("com.intellij.java")
         bundledPlugin("com.intellij.properties")
+        if (ijVersion.buildVersion >= 253) {
+            bundledModule("intellij.platform.langInjection")
+        } else {
+            bundledPlugin("org.intellij.intelliLang")
+        }
         if (ijVersion.buildVersion >= 243) {
             bundledPlugin("com.intellij.modules.json")
         }

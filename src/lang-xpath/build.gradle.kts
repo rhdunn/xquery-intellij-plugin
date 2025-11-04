@@ -22,7 +22,11 @@ tasks {
 
 dependencies {
     intellijPlatform {
-        bundledPlugin("org.intellij.intelliLang")
+        if (ijVersion.buildVersion >= 253) {
+            bundledModule("intellij.platform.langInjection")
+        } else {
+            bundledPlugin("org.intellij.intelliLang")
+        }
 
         if (ijVersion.buildVersion >= 252) {
             bundledModule("intellij.spellchecker")
