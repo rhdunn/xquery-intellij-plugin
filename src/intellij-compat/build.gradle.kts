@@ -43,10 +43,12 @@ sourceSets.main {
         java.srcDir("src/243/compat")
     }
 
-    if (ijVersion.buildVersion >= 251) {
-        java.srcDir("src/251/native")
+    if (ijVersion.buildVersion >= 253) {
+        java.srcDir("src/251-253/native")
+    } else if (ijVersion.buildVersion >= 251) {
+        java.srcDir("src/251-253/251")
     } else {
-        java.srcDir("src/251/compat")
+        java.srcDir("src/251-253/compat")
     }
 
     if (ijVersion.buildVersion >= 252) {
