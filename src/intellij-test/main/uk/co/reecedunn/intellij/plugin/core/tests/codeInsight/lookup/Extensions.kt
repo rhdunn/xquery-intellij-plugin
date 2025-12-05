@@ -6,6 +6,7 @@ import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.openapi.command.CommandProcessor
 import com.intellij.psi.PsiFile
+import com.intellij.testFramework.runInEdtAndWait
 import uk.co.reecedunn.intellij.plugin.core.editor.editor
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parseText
@@ -30,8 +31,10 @@ private fun <File : PsiFile> LanguageTestCase.handleInsert(
     editor.caretModel.moveToOffset(tailOffset)
 
     val context = InsertionContext(OffsetMap(editor.document), char, lookups, file, editor, false)
-    CommandProcessor.getInstance().executeCommand(null, {
-        lookups.forEach { it.handleInsert(context) }
-    }, null, null)
+    runInEdtAndWait {
+        CommandProcessor.getInstance().executeCommand(null, {
+            lookups.forEach { it.handleInsert(context) }
+        }, null, null)
+    }
     return context
 }
