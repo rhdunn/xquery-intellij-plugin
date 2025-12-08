@@ -1,12 +1,11 @@
 // Copyright (C) 2010, 2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.tests.roots
 
-import com.intellij.compat.root.ProjectRootManager
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.projectRoots.Sdk
-import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.roots.OrderEnumerator
 import com.intellij.openapi.roots.ProjectFileIndex
+import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
@@ -24,9 +23,9 @@ class MockProjectRootsManager : ProjectRootManager() {
 
     override fun setProjectSdk(sdk: Sdk?): Unit = TODO()
 
-    override fun getModuleSourceRoots(rootTypes: MutableSet<out JpsModuleSourceRootType<*>>): MutableList<VirtualFile> {
-        TODO()
-    }
+    override fun getModuleSourceRoots(
+        rootTypes: MutableSet<out JpsModuleSourceRootType<*>>
+    ): MutableList<VirtualFile> = TODO()
 
     override fun getContentSourceRoots(): Array<VirtualFile> = arrayOf()
 
@@ -39,8 +38,4 @@ class MockProjectRootsManager : ProjectRootManager() {
     override fun getContentRoots(): Array<VirtualFile> = TODO()
 
     override fun getContentRootUrls(): MutableList<String> = TODO()
-
-    override fun getModuleRootManager(module: Module): ModuleRootManager {
-        return module.getService(ModuleRootManager::class.java) as ModuleRootManager
-    }
 }

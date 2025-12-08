@@ -1,7 +1,17 @@
 // Copyright (C) 2016-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 
+val ijVersion = BuildConfiguration.IntelliJ
+
+version = ijVersion.buildVersion.toString()
+
 sourceSets.main {
     java.srcDir("main")
+
+    if (ijVersion.buildVersion >= 252) {
+        java.srcDir("compat/252/native")
+    } else {
+        java.srcDir("compat/252/compat")
+    }
 }
 
 sourceSets.test {
