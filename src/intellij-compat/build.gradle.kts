@@ -5,12 +5,6 @@ val ijVersion = BuildConfiguration.IntelliJ
 version = ijVersion.buildVersion.toString()
 
 sourceSets.main {
-    if (ijVersion.buildVersion >= 233) {
-        java.srcDir("src/233/native")
-    } else {
-        java.srcDir("src/233/compat")
-    }
-
     if (ijVersion.buildVersion >= 242) {
         java.srcDir("src/242/native")
     } else {
@@ -19,10 +13,8 @@ sourceSets.main {
 
     if (ijVersion.buildVersion >= 242) {
         java.srcDir("src/233-242/native")
-    } else if (ijVersion.buildVersion >= 233) {
-        java.srcDir("src/233-242/233")
     } else {
-        java.srcDir("src/233-242/232")
+        java.srcDir("src/233-242/233")
     }
 
     if (ijVersion.buildVersion >= 243) {
@@ -45,10 +37,8 @@ sourceSets.main {
         java.srcDir("src/233-253/252")
     } else if (ijVersion.buildVersion >= 251) {
         java.srcDir("src/233-253/251")
-    } else if (ijVersion.buildVersion >= 233) {
-        java.srcDir("src/233-253/233")
     } else {
-        java.srcDir("src/233-253/232")
+        java.srcDir("src/233-253/233")
     }
 
     if (ijVersion.buildVersion >= 253) {
