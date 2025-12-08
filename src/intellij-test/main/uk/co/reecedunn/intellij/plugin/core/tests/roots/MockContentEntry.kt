@@ -1,9 +1,10 @@
 // Copyright (C) 2018, 2022-2023 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.tests.roots
 
-import com.intellij.compat.openapi.roots.ContentEntry
+import com.intellij.openapi.roots.ContentEntry
 import com.intellij.openapi.roots.ExcludeFolder
 import com.intellij.openapi.roots.ModuleRootModel
+import com.intellij.openapi.roots.ProjectModelExternalSource
 import com.intellij.openapi.roots.SourceFolder
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.JpsElement
@@ -61,10 +62,36 @@ class MockContentEntry(private val file: VirtualFile) : ContentEntry {
         type: JpsModuleSourceRootType<P>
     ): SourceFolder = TODO()
 
+    override fun <P : JpsElement?> addSourceFolder(
+        p0: String,
+        p1: JpsModuleSourceRootType<P?>,
+        p2: ProjectModelExternalSource
+    ): SourceFolder = TODO()
+
+    override fun <P : JpsElement?> addSourceFolder(
+        p0: String,
+        p1: JpsModuleSourceRootType<P?>,
+        p2: Boolean
+    ): SourceFolder = TODO()
+
     override fun <P : JpsElement> addSourceFolder(
         url: String,
         type: JpsModuleSourceRootType<P>,
         properties: P
+    ): SourceFolder = TODO()
+
+    override fun <P : JpsElement?> addSourceFolder(
+        p0: String,
+        p1: JpsModuleSourceRootType<P?>,
+        p2: P & Any,
+        p3: Boolean
+    ): SourceFolder = TODO()
+
+    override fun <P : JpsElement?> addSourceFolder(
+        p0: String,
+        p1: JpsModuleSourceRootType<P?>,
+        p2: P & Any,
+        p3: ProjectModelExternalSource?
     ): SourceFolder = TODO()
 
     override fun removeSourceFolder(sourceFolder: SourceFolder): Unit = TODO()
@@ -74,6 +101,8 @@ class MockContentEntry(private val file: VirtualFile) : ContentEntry {
     override fun addExcludeFolder(file: VirtualFile): ExcludeFolder = TODO()
 
     override fun addExcludeFolder(url: String): ExcludeFolder = TODO()
+
+    override fun addExcludeFolder(p0: String, p1: Boolean): ExcludeFolder = TODO()
 
     override fun removeExcludeFolder(excludeFolder: ExcludeFolder): Unit = TODO()
 
