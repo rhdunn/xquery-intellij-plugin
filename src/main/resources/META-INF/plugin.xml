@@ -73,7 +73,7 @@
     <p>Various compatibility and bug fixes.</p>
   ]]></change-notes>
 
-  <idea-version since-build="223"/>
+  <idea-version since-build="231"/>
 
   <xi:include href="lang-xpm.xml" xpointer="xpointer(/idea-plugin/*)"/>
 

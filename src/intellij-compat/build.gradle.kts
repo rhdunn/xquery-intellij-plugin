@@ -5,11 +5,7 @@ val ijVersion = BuildConfiguration.IntelliJ
 version = ijVersion.buildVersion.toString()
 
 sourceSets.main {
-    if (ijVersion.buildVersion >= 231) {
-        java.srcDir("src/231/native")
-    } else {
-        java.srcDir("src/231/compat")
-    }
+    java.srcDir("src/231/native")
 
     if (ijVersion.buildVersion >= 232) {
         java.srcDir("src/232/native")
