@@ -1,7 +1,7 @@
 // Copyright (C) 2020-2021, 2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.search.options.navigation
 
-import com.intellij.compat.codeInsight.navigation.impl.PsiTargetPresentationRenderer
+import com.intellij.codeInsight.navigation.impl.PsiTargetPresentationRenderer
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomConstraintFunctionReference

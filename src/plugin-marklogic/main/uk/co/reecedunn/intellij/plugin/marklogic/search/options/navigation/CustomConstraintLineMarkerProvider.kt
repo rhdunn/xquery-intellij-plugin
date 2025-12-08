@@ -4,7 +4,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.search.options.navigation
 import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
-import com.intellij.compat.codeInsight.navigation.impl.*
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.SearchOptions
 import uk.co.reecedunn.intellij.plugin.marklogic.search.options.reference.CustomConstraintFunctionReference

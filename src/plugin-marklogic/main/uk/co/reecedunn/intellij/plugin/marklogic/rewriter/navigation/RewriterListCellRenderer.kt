@@ -1,7 +1,7 @@
 // Copyright (C) 2020-2021, 2023-2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.navigation
 
-import com.intellij.compat.codeInsight.navigation.impl.PsiTargetPresentationRenderer
+import com.intellij.codeInsight.navigation.impl.PsiTargetPresentationRenderer
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
