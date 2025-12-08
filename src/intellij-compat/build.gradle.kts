@@ -43,10 +43,8 @@ sourceSets.main {
 
     if (ijVersion.buildVersion >= 253) {
         java.srcDir("src/241-253/native")
-    } else if (ijVersion.buildVersion >= 241) {
-        java.srcDir("src/241-253/241")
     } else {
-        java.srcDir("src/241-253/233")
+        java.srcDir("src/241-253/241")
     }
 
     // Microservices

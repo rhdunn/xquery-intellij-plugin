@@ -15,7 +15,6 @@ jobs:
       fail-fast: false
       matrix:
         idea-version: [
-            IC-2023.3,
             IC-2024.1,
             IC-2024.2,
             IC-2024.3,
@@ -24,9 +23,6 @@ jobs:
             LATEST-EAP-SNAPSHOT
         ]
         include:
-
-          - java-version: 17
-            idea-version: IC-2023.3
 
           - java-version: 17
             idea-version: IC-2024.1
