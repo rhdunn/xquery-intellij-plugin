@@ -8,12 +8,12 @@ object Version {
     /**
      * The IntelliJ platform type to default to unless overridden. See BuildConfiguration.
      */
-    const val PlatformType = "IC"
+    const val PlatformType = "IU"
 
     /**
      * The IntelliJ platform version to default to unless overridden. See BuildConfiguration.
      */
-    const val PlatformVersion = "2025.2"
+    const val PlatformVersion = "2025.3"
 
     /**
      * The version of the Kotlin compiler and runtime.
