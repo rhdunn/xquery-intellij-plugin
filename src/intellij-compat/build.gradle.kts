@@ -25,12 +25,6 @@ sourceSets.main {
         java.srcDir("src/251-253/compat")
     }
 
-    if (ijVersion.buildVersion >= 253) {
-        java.srcDir("src/241-253/native")
-    } else {
-        java.srcDir("src/241-253/241")
-    }
-
     // Microservices
 
     if (ijVersion.platformType == "IU") {
