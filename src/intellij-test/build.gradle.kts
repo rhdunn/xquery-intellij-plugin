@@ -40,6 +40,14 @@ sourceSets.main {
     } else {
         java.srcDir("compat/233-253/233")
     }
+
+    if (ijVersion.buildVersion >= 253) {
+        java.srcDir("compat/251-253/253")
+    } else if (ijVersion.buildVersion >= 251) {
+        java.srcDir("compat/251-253/251")
+    } else {
+        java.srcDir("compat/251-253/243")
+    }
 }
 
 sourceSets.test {

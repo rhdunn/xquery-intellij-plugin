@@ -1,7 +1,7 @@
 // Copyright (C) 2019, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xslt.tests.completion
 
-import com.intellij.compat.lang.xml.registerBasicXmlElementFactory
+import uk.co.reecedunn.intellij.plugin.core.tests.xml.registerBasicXmlElementFactory
 import com.intellij.ide.highlighter.XmlFileType
 import com.intellij.lang.Language
 import com.intellij.lang.xml.XMLLanguage
