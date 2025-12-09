@@ -26,16 +26,6 @@ sourceSets.main {
     }
 
     if (ijVersion.buildVersion >= 253) {
-        java.srcDir("src/233-253/native")
-    } else if (ijVersion.buildVersion >= 252) {
-        java.srcDir("src/233-253/252")
-    } else if (ijVersion.buildVersion >= 251) {
-        java.srcDir("src/233-253/251")
-    } else {
-        java.srcDir("src/233-253/233")
-    }
-
-    if (ijVersion.buildVersion >= 253) {
         java.srcDir("src/241-253/native")
     } else {
         java.srcDir("src/241-253/241")
