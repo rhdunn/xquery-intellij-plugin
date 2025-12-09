@@ -1,0 +1,17 @@
+// Copyright (C) 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+package uk.co.reecedunn.intellij.plugin.core.tests.vfs
+
+import com.intellij.openapi.vfs.encoding.EncodingManager
+import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.requiresEditorFactory
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.PlatformTestCase
+
+fun PlatformTestCase.requiresVirtualFileGetCharset() {
+    requiresEditorFactory()
+    requiresEncodingManager()
+}
+
+private fun PlatformTestCase.requiresEncodingManager() {
+    app.registerService<EncodingManager>(EncodingManagerImpl())
+}

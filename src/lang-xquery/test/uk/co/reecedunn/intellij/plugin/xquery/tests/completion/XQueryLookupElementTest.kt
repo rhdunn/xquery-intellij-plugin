@@ -7,7 +7,6 @@ import com.intellij.codeInsight.lookup.LookupElementPresentation
 import com.intellij.lang.Language
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiFile
-import com.intellij.ui.JBColor
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName

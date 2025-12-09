@@ -13,6 +13,12 @@ sourceSets.main {
         java.srcDir("compat/242/compat")
     }
 
+    if (ijVersion.buildVersion >= 243) {
+        java.srcDir("compat/243/native")
+    } else {
+        java.srcDir("compat/243/compat")
+    }
+
     if (ijVersion.buildVersion >= 252) {
         java.srcDir("compat/252/native")
     } else {
