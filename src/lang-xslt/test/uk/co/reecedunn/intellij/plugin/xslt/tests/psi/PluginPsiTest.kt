@@ -1,25 +1,18 @@
 // Copyright (C) 2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xslt.tests.psi
 
-import com.intellij.ide.highlighter.XmlFileType
 import com.intellij.lang.xml.XMLLanguage
-import com.intellij.lang.xml.XMLParserDefinition
-import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.impl.PsiCachedValuesFactory
 import com.intellij.psi.util.CachedValuesManager
 import com.intellij.util.CachedValuesManagerImpl
-import com.intellij.xml.XmlExtension
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
@@ -55,15 +48,9 @@ class PluginPsiTest : IdeaPlatformTestCase(), LanguageTestCase {
         requiresVirtualFileToPsiFile()
         requiresIFileElementTypeParseContents()
         requiresPsiFileGetChildren()
-
-        XmlASTFactory().registerExtension(project, XMLLanguage.INSTANCE)
-        XMLParserDefinition().registerExtension(project)
-        XmlFileType.INSTANCE.registerFileType()
+        requiresXmlParser()
 
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
-
-        app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
-        requiresXmlParser()
 
         project.registerService<CachedValuesManager>(CachedValuesManagerImpl(project, PsiCachedValuesFactory(project)))
     }
