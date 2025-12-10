@@ -11,3 +11,5 @@ typealias FrameworkPresentation = com.intellij.microservices.endpoints.Framework
 
 val HTTP_SERVER_TYPE: EndpointType
     get() = com.intellij.microservices.endpoints.HTTP_SERVER_TYPE
+
+typealias EndpointsProvider<Group, Endpoint> = com.intellij.microservices.endpoints.EndpointsProvider<Group, Endpoint>
