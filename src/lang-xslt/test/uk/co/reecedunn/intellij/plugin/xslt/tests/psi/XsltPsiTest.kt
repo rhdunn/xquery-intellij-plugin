@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeP
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
-import uk.co.reecedunn.intellij.plugin.core.tests.xml.registerBasicXmlElementFactory
+import uk.co.reecedunn.intellij.plugin.core.tests.xml.requiresXmlParser
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xml.XsltDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.*
@@ -51,7 +51,7 @@ class XsltPsiTest : IdeaPlatformTestCase(), LanguageTestCase {
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
 
         app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
-        registerBasicXmlElementFactory()
+        requiresXmlParser()
 
         project.registerService<CachedValuesManager>(CachedValuesManagerImpl(project, PsiCachedValuesFactory(project)))
     }

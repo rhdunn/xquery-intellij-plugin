@@ -3,5 +3,5 @@ package uk.co.reecedunn.intellij.plugin.core.tests.xml
 
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.PlatformTestCase
 
-fun PlatformTestCase.registerBasicXmlElementFactory() {
+fun PlatformTestCase.requiresXmlParser() {
 }

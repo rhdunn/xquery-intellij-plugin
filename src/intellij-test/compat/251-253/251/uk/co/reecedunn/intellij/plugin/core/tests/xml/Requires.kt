@@ -6,6 +6,6 @@ import com.intellij.lang.xml.BasicXmlElementFactory
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.PlatformTestCase
 
-fun PlatformTestCase.registerBasicXmlElementFactory() {
+fun PlatformTestCase.requiresXmlParser() {
     app.registerService(BasicXmlElementFactory::class.java, BackendXmlElementFactory())
 }

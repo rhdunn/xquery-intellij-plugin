@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
-import uk.co.reecedunn.intellij.plugin.core.tests.xml.registerBasicXmlElementFactory
+import uk.co.reecedunn.intellij.plugin.core.tests.xml.requiresXmlParser
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersion
@@ -50,7 +50,7 @@ class XsltCompletionPropertyTest : IdeaPlatformTestCase(), LanguageTestCase {
         XmlFileType.INSTANCE.registerFileType()
 
         app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
-        registerBasicXmlElementFactory()
+        requiresXmlParser()
 
         project.registerService<CachedValuesManager>(CachedValuesManagerImpl(project, PsiCachedValuesFactory(project)))
     }
