@@ -1,12 +1,10 @@
 // Copyright (C) 2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xslt.tests.psi
 
-import uk.co.reecedunn.intellij.plugin.core.tests.xml.registerBasicXmlElementFactory
 import com.intellij.ide.highlighter.XmlFileType
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.impl.PsiCachedValuesFactory
 import com.intellij.psi.util.CachedValuesManager
@@ -27,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeP
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.xml.registerBasicXmlElementFactory
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.ast.exsl.EXslDocument
 import uk.co.reecedunn.intellij.plugin.xslt.ast.marklogic.MarkLogicCatch
@@ -63,9 +62,8 @@ class PluginPsiTest : IdeaPlatformTestCase(), LanguageTestCase {
 
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
 
-        val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
-        app.registerBasicXmlElementFactory()
+        registerBasicXmlElementFactory()
 
         project.registerService<CachedValuesManager>(CachedValuesManagerImpl(project, PsiCachedValuesFactory(project)))
     }

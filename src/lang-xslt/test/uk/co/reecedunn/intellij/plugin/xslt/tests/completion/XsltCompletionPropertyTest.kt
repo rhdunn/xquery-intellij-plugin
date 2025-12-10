@@ -1,13 +1,11 @@
 // Copyright (C) 2019, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xslt.tests.completion
 
-import uk.co.reecedunn.intellij.plugin.core.tests.xml.registerBasicXmlElementFactory
 import com.intellij.ide.highlighter.XmlFileType
 import com.intellij.lang.Language
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.impl.PsiCachedValuesFactory
 import com.intellij.psi.util.CachedValuesManager
@@ -28,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.vfs.requiresVirtualFileGetCharset
+import uk.co.reecedunn.intellij.plugin.core.tests.xml.registerBasicXmlElementFactory
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersion
@@ -50,9 +49,8 @@ class XsltCompletionPropertyTest : IdeaPlatformTestCase(), LanguageTestCase {
         XMLParserDefinition().registerExtension(project)
         XmlFileType.INSTANCE.registerFileType()
 
-        val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
-        app.registerBasicXmlElementFactory()
+        registerBasicXmlElementFactory()
 
         project.registerService<CachedValuesManager>(CachedValuesManagerImpl(project, PsiCachedValuesFactory(project)))
     }

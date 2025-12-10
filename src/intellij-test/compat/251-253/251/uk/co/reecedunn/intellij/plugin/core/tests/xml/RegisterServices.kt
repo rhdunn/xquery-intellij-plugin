@@ -3,9 +3,9 @@ package uk.co.reecedunn.intellij.plugin.core.tests.xml
 
 import com.intellij.lang.xml.BackendXmlElementFactory
 import com.intellij.lang.xml.BasicXmlElementFactory
-import com.intellij.mock.MockComponentManager
-import com.intellij.openapi.application.Application
+import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.PlatformTestCase
 
-fun Application.registerBasicXmlElementFactory() {
-    (this as MockComponentManager).registerService(BasicXmlElementFactory::class.java, BackendXmlElementFactory())
+fun PlatformTestCase.registerBasicXmlElementFactory() {
+    app.registerService(BasicXmlElementFactory::class.java, BackendXmlElementFactory())
 }
