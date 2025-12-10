@@ -9,6 +9,7 @@ import com.intellij.xml.XmlExtension
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerExtensionPointBean
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.registerFileType
+import uk.co.reecedunn.intellij.plugin.core.tests.syntax.requiresPsiSyntaxBuilderFactory
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.PlatformTestCase
 
 fun PlatformTestCase.requiresXmlParser() {
@@ -17,4 +18,6 @@ fun PlatformTestCase.requiresXmlParser() {
     XmlFileType.INSTANCE.registerFileType()
 
     app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
+
+    requiresPsiSyntaxBuilderFactory()
 }
