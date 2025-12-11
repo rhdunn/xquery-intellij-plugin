@@ -19,8 +19,8 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.xml.XmlTag
-import uk.co.reecedunn.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
-import uk.co.reecedunn.intellij.microservices.endpoints.presentation.HttpMethodPresentation
+import com.intellij.compat.microservices.endpoints.presentation.EndpointMethodPresentation
+import com.intellij.compat.microservices.endpoints.presentation.HttpMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.psi.ancestor
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons

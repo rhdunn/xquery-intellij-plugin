@@ -1,5 +1,5 @@
-// Copyright (C) 2021, 2023 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
-package uk.co.reecedunn.intellij.microservices.endpoints
+// Copyright (C) 2021, 2023, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+package com.intellij.compat.microservices.endpoints
 
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
