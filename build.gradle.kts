@@ -112,12 +112,8 @@ dependencies {
 }
 
 sourceSets.main {
-    if (ijVersion.platformType == "IU") {
-        if (ijVersion.buildVersion >= 193) {
-            resources.srcDir("src/main/resources-microservices/193")
-        } else {
-            resources.srcDir("src/main/resources-microservices/compat")
-        }
+    if (ijVersion.buildVersion >= 251 || ijVersion.platformType == "IU") {
+        resources.srcDir("src/main/resources-microservices/native")
     } else {
         resources.srcDir("src/main/resources-microservices/compat")
     }

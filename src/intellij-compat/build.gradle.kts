@@ -25,7 +25,7 @@ sourceSets.main {
 
     // Microservices
 
-    if (ijVersion.platformType == "IU") {
+    if (ijVersion.buildVersion >= 251 || ijVersion.platformType == "IU") {
         java.srcDir("src/microservices/IU-231")
     } else {
         java.srcDir("src/microservices/IC-203")
