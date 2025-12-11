@@ -1,26 +1,14 @@
-/*
- * Copyright (C) 2020-2023 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2020-2023, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
+import com.intellij.compat.actionSystem.DataSink
+import com.intellij.compat.actionSystem.UiDataProvider
+import com.intellij.compat.microservices.endpoints.presentation.EndpointMethodPresentation
+import com.intellij.compat.microservices.endpoints.presentation.HttpMethodPresentation
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.xml.XmlTag
-import com.intellij.compat.microservices.endpoints.presentation.EndpointMethodPresentation
-import com.intellij.compat.microservices.endpoints.presentation.HttpMethodPresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.psi.ancestor
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
@@ -31,6 +19,7 @@ import javax.swing.Icon
 class RewriterEndpoint(val endpoint: XmlTag) :
     EndpointMethodPresentation,
     ItemPresentation,
+    UiDataProvider,
     DataProvider {
     // region ItemPresentation
 
@@ -57,6 +46,13 @@ class RewriterEndpoint(val endpoint: XmlTag) :
             .firstOrNull()
             ?.getAttributeValue("any-of")
         methods?.split("\\s+") ?: listOf()
+    }
+
+    // endregion
+    // region UiDataProvider
+
+    override fun uiDataSnapshot(sink: DataSink) {
+        sink[CommonDataKeys.PSI_ELEMENT] = endpointTarget?.resolve()
     }
 
     // endregion

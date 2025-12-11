@@ -1,20 +1,8 @@
-/*
- * Copyright (C) 2019 Reece H. Dunn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright (C) 2019, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
+import com.intellij.compat.actionSystem.DataSink
+import com.intellij.compat.actionSystem.UiDataProvider
 import com.intellij.execution.filters.Filter
 import com.intellij.execution.filters.HyperlinkInfo
 import com.intellij.execution.process.ProcessHandler
@@ -28,7 +16,7 @@ import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-open class ConsoleViewImpl : JPanel(BorderLayout()), ConsoleView, DataProvider {
+open class ConsoleViewImpl : JPanel(BorderLayout()), ConsoleView, UiDataProvider, DataProvider {
     private var helpId: String? = null
 
     // region ConsoleView
@@ -81,6 +69,14 @@ open class ConsoleViewImpl : JPanel(BorderLayout()), ConsoleView, DataProvider {
     }
 
     override fun scrollTo(offset: Int) {
+    }
+
+    // endregion
+    // region UiDataProvider
+
+    override fun uiDataSnapshot(sink: DataSink) {
+        sink[PlatformDataKeys.HELP_ID] = helpId
+        sink[LangDataKeys.CONSOLE_VIEW] = this
     }
 
     // endregion
