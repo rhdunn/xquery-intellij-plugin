@@ -14,7 +14,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaratio
 import javax.swing.Icon
 
 @Suppress("RedundantSuppression", "UnstableApiUsage")
-class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) :
+class RestXqEndpoint(val endpoint: XpmFunctionDeclaration) :
     EndpointMethodPresentation,
     ItemPresentation,
     UiDataProvider,

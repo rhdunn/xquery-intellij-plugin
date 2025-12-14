@@ -43,7 +43,7 @@ class RestXqEndpointsProvider :
     }
 
     override fun getDocumentationElement(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint): PsiElement? {
-        return getEndpointData(group, endpoint, CommonDataKeys.PSI_ELEMENT.name) as? PsiElement
+        return endpoint.endpoint as? PsiElement
     }
 
     private fun getEndpointGroups(project: Project): List<RestXqEndpointsGroup> {
