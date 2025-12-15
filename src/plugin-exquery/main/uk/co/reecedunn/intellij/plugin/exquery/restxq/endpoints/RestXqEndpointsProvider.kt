@@ -1,9 +1,9 @@
 // Copyright (C) 2020-2022, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
+import com.intellij.compat.actionSystem.DataSink
 import com.intellij.compat.microservices.endpoints.*
 import com.intellij.navigation.ItemPresentation
-import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.util.Key
@@ -38,6 +38,12 @@ class RestXqEndpointsProvider :
         EXQueryIcons.RESTXQ.EndpointsFramework
     )
 
+    override fun uiDataSnapshot(sink: DataSink, group: RestXqEndpointsGroup, endpoint: RestXqEndpoint) {
+        endpoint.uiDataSnapshot(sink)
+    }
+
+    @Deprecated("Override [uiDataSnapshot] instead")
+    @Suppress("DEPRECATION")
     override fun getEndpointData(group: RestXqEndpointsGroup, endpoint: RestXqEndpoint, dataId: String): Any? {
         return endpoint.getData(dataId) ?: super.getEndpointData(group, endpoint, dataId)
     }

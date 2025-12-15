@@ -1,7 +1,6 @@
 // Copyright (C) 2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package com.intellij.compat.microservices.endpoints
 
-import com.intellij.compat.actionSystem.DataSink
 import com.intellij.microservices.endpoints.EndpointsFilter
 import com.intellij.microservices.endpoints.EndpointsProvider
 import com.intellij.microservices.endpoints.FrameworkPresentation
@@ -18,6 +17,4 @@ typealias FrameworkPresentation = FrameworkPresentation
 val HTTP_SERVER_TYPE: EndpointType
     get() = HTTP_SERVER_TYPE
 
-interface EndpointsProvider<Group : Any, Endpoint : Any> : EndpointsProvider<Group, Endpoint> {
-    fun uiDataSnapshot(sink: DataSink, group: Group, endpoint: Endpoint)
-}
+typealias EndpointsProvider<Group, Endpoint> = EndpointsProvider<Group, Endpoint>

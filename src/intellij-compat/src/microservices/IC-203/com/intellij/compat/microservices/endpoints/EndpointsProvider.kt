@@ -1,6 +1,7 @@
 // Copyright (C) 2021, 2023, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package com.intellij.compat.microservices.endpoints
 
+import com.intellij.compat.actionSystem.DataSink
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.ModificationTracker
@@ -10,6 +11,8 @@ interface EndpointsProvider<Group : Any, Endpoint : Any> {
     val endpointType: EndpointType
 
     val presentation: FrameworkPresentation
+
+    fun uiDataSnapshot(sink: DataSink, group: Group, endpoint: Endpoint)
 
     fun getEndpointData(group: Group, endpoint: Endpoint, dataId: String): Any? = null
 

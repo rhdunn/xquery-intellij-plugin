@@ -1,6 +1,7 @@
 // Copyright (C) 2020-2022, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
+import com.intellij.compat.actionSystem.DataSink
 import com.intellij.compat.microservices.endpoints.*
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
@@ -21,6 +22,12 @@ class RewriterEndpointsProvider : EndpointsProvider<RewriterEndpointsGroup, Rewr
         MarkLogicIcons.Rewriter.EndpointsFramework
     )
 
+    override fun uiDataSnapshot(sink: DataSink, group: RewriterEndpointsGroup, endpoint: RewriterEndpoint) {
+        endpoint.uiDataSnapshot(sink)
+    }
+
+    @Deprecated("Override [uiDataSnapshot] instead")
+    @Suppress("DEPRECATION")
     override fun getEndpointData(group: RewriterEndpointsGroup, endpoint: RewriterEndpoint, dataId: String): Any? {
         return endpoint.getData(dataId) ?: super.getEndpointData(group, endpoint, dataId)
     }
