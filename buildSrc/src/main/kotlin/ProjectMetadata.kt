@@ -14,7 +14,7 @@ object ProjectMetadata {
         /**
          * The semantic version of the current version.
          */
-        const val VersionTag = "1.9.5"
+        const val VersionTag = "1.9.6"
 
         /**
          * The build type of this project.
