@@ -13,7 +13,7 @@ object Version {
     /**
      * The IntelliJ platform version to default to unless overridden. See BuildConfiguration.
      */
-    const val PlatformVersion = "2025.3"
+    const val PlatformVersion = "2026.1"
 
     /**
      * The version of the Kotlin compiler and runtime.

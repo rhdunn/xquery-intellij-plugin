@@ -21,6 +21,7 @@ jobs:
             IC-2025.1,
             IC-2025.2,
             IU-2025.3,
+            IU-2026.1,
             LATEST-EAP-SNAPSHOT
         ]
         include:
@@ -42,6 +43,9 @@ jobs:
 
           - java-version: 21
             idea-version: IU-2025.3
+
+          - java-version: 21
+            idea-version: IU-2026.1
 
           - java-version: 21
             idea-version: LATEST-EAP-SNAPSHOT
