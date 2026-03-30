@@ -7,8 +7,6 @@ version = ijVersion.buildVersion.toString()
 sourceSets.main {
     java.srcDir("main")
 
-    java.srcDir("compat/242/native")
-
     if (ijVersion.buildVersion >= 243) {
         java.srcDir("compat/243/native")
     } else {
@@ -25,6 +23,12 @@ sourceSets.main {
         java.srcDir("compat/253/native")
     } else {
         java.srcDir("compat/253/compat")
+    }
+
+    if (ijVersion.buildVersion >= 261) {
+        java.srcDir("compat/261/native")
+    } else {
+        java.srcDir("compat/261/compat")
     }
 
     if (ijVersion.buildVersion >= 253) {
