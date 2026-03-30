@@ -27,7 +27,6 @@ object Version {
         intellij.buildVersion >= 261 -> "2.3.20"
         intellij.buildVersion >= 251 -> "2.1.10"
         intellij.buildVersion >= 242 -> "1.9.22"
-        intellij.buildVersion >= 223 -> "1.8.22"
         else -> throw GradleException("Unsupported version of IntelliJ: $intellij")
     }
 
@@ -37,7 +36,6 @@ object Version {
     @Suppress("FunctionName")
     fun Java(intellij: IntelliJVersion): Int = when {
         intellij.buildVersion >= 242 -> 21
-        intellij.buildVersion >= 223 -> 17
         else -> throw GradleException("Unsupported version of IntelliJ: $intellij")
     }
 
