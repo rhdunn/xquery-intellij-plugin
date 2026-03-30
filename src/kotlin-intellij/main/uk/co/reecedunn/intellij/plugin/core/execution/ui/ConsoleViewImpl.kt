@@ -1,7 +1,6 @@
 // Copyright (C) 2019, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
-import com.intellij.compat.actionSystem.UiDataProvider
 import com.intellij.execution.filters.Filter
 import com.intellij.execution.filters.HyperlinkInfo
 import com.intellij.execution.process.ProcessHandler
@@ -12,6 +11,7 @@ import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.openapi.actionSystem.DataSink
 import com.intellij.openapi.actionSystem.LangDataKeys
 import com.intellij.openapi.actionSystem.PlatformDataKeys
+import com.intellij.openapi.actionSystem.UiDataProvider
 import java.awt.BorderLayout
 import javax.swing.JComponent
 import javax.swing.JPanel

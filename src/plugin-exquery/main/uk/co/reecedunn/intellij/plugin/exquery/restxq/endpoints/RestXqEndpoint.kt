@@ -1,11 +1,11 @@
 // Copyright (C) 2020-2023, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
-import com.intellij.compat.actionSystem.UiDataProvider
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.openapi.actionSystem.DataSink
+import com.intellij.openapi.actionSystem.UiDataProvider
 import com.intellij.psi.PsiElement
 import com.intellij.compat.microservices.endpoints.presentation.EndpointMethodPresentation
 import com.intellij.compat.microservices.endpoints.presentation.HttpMethodPresentation
