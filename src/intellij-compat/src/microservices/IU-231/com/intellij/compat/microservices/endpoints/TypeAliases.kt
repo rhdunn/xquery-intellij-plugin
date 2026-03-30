@@ -1,11 +1,11 @@
 // Copyright (C) 2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package com.intellij.compat.microservices.endpoints
 
-import com.intellij.compat.actionSystem.DataSink
 import com.intellij.microservices.endpoints.EndpointsFilter
 import com.intellij.microservices.endpoints.EndpointsProvider
 import com.intellij.microservices.endpoints.FrameworkPresentation
 import com.intellij.microservices.endpoints.HTTP_SERVER_TYPE
+import com.intellij.openapi.actionSystem.DataSink
 
 typealias EndpointsFilter = EndpointsFilter
 
