@@ -50,7 +50,7 @@ object Version {
          *
          * @see <a href="https://github.com/JetBrains/intellij-platform-gradle-plugin">https://github.com/JetBrains/intellij-platform-gradle-plugin</a>
          */
-        const val IntelliJPlatform = "2.13.1"
+        const val IntelliJPlatform = "2.18.1"
     }
 
     /**
