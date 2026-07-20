@@ -82,6 +82,7 @@ dependencies {
         }
         if (ijVersion.buildVersion >= 262) {
             bundledModule("intellij.platform.smRunner")
+            bundledModule("intellij.platform.structureView")
         }
     }
 
