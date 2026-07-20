@@ -29,6 +29,7 @@ dependencies {
             bundledModule("intellij.platform.smRunner")
             bundledModule("intellij.platform.structureView")
             bundledModule("intellij.xml.structureView")
+            bundledModule("intellij.xml.structureView.impl")
         }
     }
 

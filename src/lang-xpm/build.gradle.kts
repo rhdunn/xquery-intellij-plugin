@@ -15,7 +15,9 @@ sourceSets.test {
 dependencies {
     intellijPlatform {
         if (ijVersion.buildVersion >= 262) {
+            bundledModule("intellij.platform.structureView")
             bundledModule("intellij.xml.structureView")
+            bundledModule("intellij.xml.structureView.impl")
         }
     }
 
