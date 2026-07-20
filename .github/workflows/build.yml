@@ -47,7 +47,7 @@ jobs:
           - java-version: 21
             idea-version: IU-2026.2
 
-          - java-version: 21
+          - java-version: 25
             idea-version: LATEST-EAP-SNAPSHOT
 
     runs-on: ubuntu-latest
