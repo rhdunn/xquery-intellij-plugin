@@ -1,4 +1,4 @@
-// Copyright (C) 2016-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2016-2026 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 
 val ijVersion = BuildConfiguration.IntelliJ
 
@@ -17,6 +17,9 @@ dependencies {
         bundledPlugin("com.intellij.properties")
         if (ijVersion.buildVersion >= 243) {
             bundledPlugin("com.intellij.modules.json")
+        }
+        if (ijVersion.buildVersion >= 262) {
+            bundledModule("intellij.platform.smRunner")
         }
     }
 

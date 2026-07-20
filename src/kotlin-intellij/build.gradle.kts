@@ -1,4 +1,6 @@
-// Copyright (C) 2016-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2016-2026 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+
+val ijVersion = BuildConfiguration.IntelliJ
 
 sourceSets.main {
     java.srcDir("main")
@@ -10,5 +12,11 @@ sourceSets.test {
 }
 
 dependencies {
+    intellijPlatform {
+        if (ijVersion.buildVersion >= 262) {
+            bundledModule("intellij.platform.smRunner")
+        }
+    }
+
     implementation(project(":src:intellij-compat"))
 }

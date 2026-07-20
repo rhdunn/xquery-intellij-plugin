@@ -1,4 +1,4 @@
-// Copyright (C) 2016-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2016-2026 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 import io.github.rhdunn.intellij.IntelliJSnapshot
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import java.net.URI
@@ -79,6 +79,9 @@ dependencies {
         }
         if (ijVersion.buildVersion >= 243) {
             bundledPlugin("com.intellij.modules.json")
+        }
+        if (ijVersion.buildVersion >= 262) {
+            bundledModule("intellij.platform.smRunner")
         }
     }
 
