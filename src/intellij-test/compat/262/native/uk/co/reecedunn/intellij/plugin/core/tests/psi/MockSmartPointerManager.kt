@@ -11,8 +11,8 @@ class MockSmartPointerManager : SmartPointerManager() {
 
     override fun <E : PsiElement> createSmartPsiElementPointer(
         element: E,
-        containingFile: PsiFile
-    ): SmartPsiElementPointer<E> {
+        containingFile: PsiFile?
+    ): SmartPsiElementPointer<E?> {
         return MockSmartPsiElementPointer(element, containingFile)
     }
 
