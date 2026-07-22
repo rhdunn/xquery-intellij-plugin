@@ -1,4 +1,4 @@
-// Copyright (C) 2020, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2020, 2025-2026 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xslt.tests.psi
 
 import com.intellij.lang.xml.XMLLanguage
@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresMetaLanguage
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
@@ -47,6 +48,7 @@ class PluginPsiTest : IdeaPlatformTestCase(), LanguageTestCase {
     override fun registerServicesAndExtensions() {
         requiresVirtualFileToPsiFile()
         requiresIFileElementTypeParseContents()
+        requiresMetaLanguage()
         requiresPsiFileGetChildren()
         requiresXmlParser()
 

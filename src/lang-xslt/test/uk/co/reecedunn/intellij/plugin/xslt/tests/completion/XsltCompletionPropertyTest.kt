@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.extensions.registerService
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.LanguageTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresIFileElementTypeParseContents
+import uk.co.reecedunn.intellij.plugin.core.tests.lang.requiresMetaLanguage
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresPsiFileGetChildren
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.requiresVirtualFileToPsiFile
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
@@ -35,6 +36,7 @@ class XsltCompletionPropertyTest : IdeaPlatformTestCase(), LanguageTestCase {
     override fun registerServicesAndExtensions() {
         requiresVirtualFileToPsiFile()
         requiresIFileElementTypeParseContents()
+        requiresMetaLanguage()
         requiresVirtualFileGetCharset()
         requiresPsiFileGetChildren()
         requiresXmlParser()
