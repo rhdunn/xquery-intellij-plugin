@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2020, 2026 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,8 +43,9 @@ class XPathColorSettingsPageTest {
         lexer.start(withoutHighlightElements)
 
         val keys = ArrayList<TextAttributesKey>()
-        while (lexer.tokenType != null) {
-            for (key in highlighter.getTokenHighlights(lexer.tokenType)) {
+        while (true) {
+            val tokenType = lexer.tokenType ?: break
+            for (key in highlighter.getTokenHighlights(tokenType)) {
                 if (!keys.contains(key)) {
                     keys.add(key)
                 }
