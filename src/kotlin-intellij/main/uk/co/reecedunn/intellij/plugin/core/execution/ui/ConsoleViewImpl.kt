@@ -1,6 +1,7 @@
-// Copyright (C) 2019, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2019, 2025-2026 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
+import com.intellij.compat.execution.ui.CONSOLE_VIEW_DATA_KEY
 import com.intellij.execution.filters.Filter
 import com.intellij.execution.filters.HyperlinkInfo
 import com.intellij.execution.process.ProcessHandler
@@ -9,7 +10,6 @@ import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.openapi.actionSystem.DataSink
-import com.intellij.openapi.actionSystem.LangDataKeys
 import com.intellij.openapi.actionSystem.PlatformDataKeys
 import com.intellij.openapi.actionSystem.UiDataProvider
 import java.awt.BorderLayout
@@ -76,7 +76,7 @@ open class ConsoleViewImpl : JPanel(BorderLayout()), ConsoleView, UiDataProvider
 
     override fun uiDataSnapshot(sink: DataSink) {
         sink[PlatformDataKeys.HELP_ID] = helpId
-        sink[LangDataKeys.CONSOLE_VIEW] = this
+        sink[CONSOLE_VIEW_DATA_KEY] = this
     }
 
     // endregion
@@ -84,7 +84,7 @@ open class ConsoleViewImpl : JPanel(BorderLayout()), ConsoleView, UiDataProvider
 
     override fun getData(dataId: String): Any? = when (dataId) {
         PlatformDataKeys.HELP_ID.name -> helpId
-        LangDataKeys.CONSOLE_VIEW.name -> this
+        CONSOLE_VIEW_DATA_KEY.name -> this
         else -> null
     }
 
