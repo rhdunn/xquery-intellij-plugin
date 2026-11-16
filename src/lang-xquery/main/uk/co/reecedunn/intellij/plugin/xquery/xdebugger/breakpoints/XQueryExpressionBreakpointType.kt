@@ -1,4 +1,4 @@
-// Copyright (C) 2020-2021, 2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2020-2021, 2025-2026 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.xquery.xdebugger.breakpoints
 
 import com.intellij.navigation.NavigationItem
@@ -7,10 +7,10 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.util.text.StringUtil
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
+import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType
-import com.intellij.xdebugger.impl.XSourcePositionImpl
 import uk.co.reecedunn.intellij.plugin.core.psi.lineElements
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -44,7 +44,7 @@ class XQueryExpressionBreakpointType :
             .distinctBy { it.hashCode() }
             .mapNotNull { expression ->
                 val element = expression as PsiElement
-                XSourcePositionImpl.createByElement(element)?.let { ExpressionBreakpointVariant(it, element) }
+                XDebuggerUtil.getInstance().createPositionByElement(element)?.let { ExpressionBreakpointVariant(it, element) }
             }
             .sortedBy { it.highlightRange?.startOffset }
             .toMutableList().asReversed()

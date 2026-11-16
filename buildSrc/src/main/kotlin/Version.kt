@@ -1,4 +1,4 @@
-// Copyright (C) 2024-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2024-2026 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 
 import io.github.rhdunn.intellij.IntelliJVersion
 import org.gradle.api.GradleException
@@ -13,7 +13,7 @@ object Version {
     /**
      * The IntelliJ platform version to default to unless overridden. See BuildConfiguration.
      */
-    const val PlatformVersion = "2026.2"
+    const val PlatformVersion = "2026.3"
 
     /**
      * The version of the Kotlin compiler and runtime.
@@ -92,7 +92,12 @@ object Version {
          *
          * @see <a href="https://github.com/junit-team/junit5">https://github.com/junit-team/junit5</a>
          */
-        const val JUnit5 = "5.9.1"
+        @Suppress("FunctionName")
+        fun JUnit5(intellij: IntelliJVersion): String = when {
+            // IntelliJ 2026.3's test framework depends on JUnit 6, including the JUnit Vintage engine.
+            intellij.buildVersion >= 263 -> "6.1.3"
+            else -> "5.9.1"
+        }
 
         /**
          * The version of the `junit` library.
@@ -101,7 +106,12 @@ object Version {
          *
          * @see <a href="https://github.com/junit-team/junit5">https://github.com/junit-team/junit5</a>
          */
-        const val JUnitPlatform = "1.9.1"
+        @Suppress("FunctionName")
+        fun JUnitPlatform(intellij: IntelliJVersion): String = when {
+            // JUnit 6 uses the same version number for the JUnit Platform and JUnit Jupiter.
+            intellij.buildVersion >= 263 -> "6.1.3"
+            else -> "1.9.1"
+        }
 
         /**
          * The version of the Saxon HE XQuery/XSLT processor.

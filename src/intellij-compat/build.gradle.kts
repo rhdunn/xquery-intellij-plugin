@@ -1,4 +1,4 @@
-// Copyright (C) 2016-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2016-2026 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 
 val ijVersion = BuildConfiguration.IntelliJ
 
@@ -21,6 +21,12 @@ sourceSets.main {
         java.srcDir("src/252/native")
     } else {
         java.srcDir("src/252/compat")
+    }
+
+    if (ijVersion.buildVersion >= 263) {
+        java.srcDir("src/263/native")
+    } else {
+        java.srcDir("src/263/compat")
     }
 
     // Microservices

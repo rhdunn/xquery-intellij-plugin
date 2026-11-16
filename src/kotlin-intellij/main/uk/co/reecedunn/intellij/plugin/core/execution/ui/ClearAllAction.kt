@@ -1,13 +1,13 @@
-// Copyright (C) 2019-2024 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2019-2026 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
+import com.intellij.compat.execution.ui.CONSOLE_VIEW_DATA_KEY
 import com.intellij.execution.ExecutionBundle
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
-import com.intellij.openapi.actionSystem.LangDataKeys
 import com.intellij.openapi.project.DumbAwareAction
 
 class ClearAllAction internal constructor(private val consoleView: ConsoleView?) : DumbAwareAction(
@@ -20,7 +20,7 @@ class ClearAllAction internal constructor(private val consoleView: ConsoleView?)
     override fun update(e: AnActionEvent) {
         var enabled = consoleView != null && consoleView.contentSize > 0
         if (!enabled) {
-            enabled = e.getData(LangDataKeys.CONSOLE_VIEW) != null
+            enabled = e.getData(CONSOLE_VIEW_DATA_KEY) != null
             val editor = e.getData(CommonDataKeys.EDITOR)
             if (editor != null && editor.document.textLength == 0) {
                 enabled = false
@@ -30,7 +30,7 @@ class ClearAllAction internal constructor(private val consoleView: ConsoleView?)
     }
 
     override fun actionPerformed(e: AnActionEvent) {
-        val consoleView = consoleView ?: e.getData(LangDataKeys.CONSOLE_VIEW)
+        val consoleView = consoleView ?: e.getData(CONSOLE_VIEW_DATA_KEY)
         consoleView?.clear()
     }
 }

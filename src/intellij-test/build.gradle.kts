@@ -1,4 +1,4 @@
-// Copyright (C) 2016-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2016-2026 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 
 val ijVersion = BuildConfiguration.IntelliJ
 
@@ -37,6 +37,12 @@ sourceSets.main {
         java.srcDir("compat/262/compat")
     }
 
+    if (ijVersion.buildVersion >= 263) {
+        java.srcDir("compat/263/native")
+    } else {
+        java.srcDir("compat/263/compat")
+    }
+
     if (ijVersion.buildVersion >= 253) {
         java.srcDir("compat/233-253/253")
     } else if (ijVersion.buildVersion >= 252) {
@@ -61,7 +67,14 @@ sourceSets.test {
 }
 
 dependencies {
-    implementation("org.junit.jupiter:junit-jupiter-api:${Version.Dependency.JUnit5}")
+    intellijPlatform {
+        if (ijVersion.buildVersion >= 263) {
+            // Provides XDebuggerUtilImpl.
+            bundledModule("intellij.platform.debugger.impl")
+        }
+    }
+
+    implementation("org.junit.jupiter:junit-jupiter-api:${Version.Dependency.JUnit5(ijVersion)}")
     implementation("org.hamcrest:hamcrest:${Version.Dependency.Hamcrest}")
 
     implementation(project(":src:intellij-compat"))

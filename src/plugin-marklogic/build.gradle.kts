@@ -21,6 +21,9 @@ dependencies {
         if (ijVersion.buildVersion >= 262) {
             bundledModule("intellij.platform.smRunner")
         }
+        if (ijVersion.buildVersion >= 263) {
+            bundledModule("intellij.regexp")
+        }
     }
 
     implementation(project(":src:intellij-compat"))

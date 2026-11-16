@@ -50,13 +50,21 @@ allprojects {
             }
 
             testFramework(TestFrameworkType.Platform)
+
+            if (ijVersion.buildVersion >= 263) {
+                // IntelliJ 2026.3 moved the XML support from the platform into a bundled plugin.
+                bundledPlugin("com.intellij.xml")
+
+                // IntelliJ 2026.3 no longer includes the debugger API module on the default classpath.
+                bundledModule("intellij.platform.debugger")
+            }
         }
 
-        testImplementation("org.junit.jupiter:junit-jupiter-api:${Version.Dependency.JUnit5}")
+        testImplementation("org.junit.jupiter:junit-jupiter-api:${Version.Dependency.JUnit5(ijVersion)}")
         testImplementation("org.hamcrest:hamcrest-core:${Version.Dependency.Hamcrest}")
 
-        testRuntimeOnly("org.junit.platform:junit-platform-launcher:${Version.Dependency.JUnitPlatform}")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Version.Dependency.JUnit5}")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher:${Version.Dependency.JUnitPlatform(ijVersion)}")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Version.Dependency.JUnit5(ijVersion)}")
         testRuntimeOnly("junit:junit:${Version.Dependency.JUnit4}")
     }
 
