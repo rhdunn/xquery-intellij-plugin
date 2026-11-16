@@ -1,4 +1,4 @@
-// Copyright (C) 2024-2025 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
+// Copyright (C) 2024-2026 Reece H. Dunn. SPDX-License-Identifier: Apache-2.0
 
 import io.github.rhdunn.intellij.IntelliJVersion
 import org.gradle.api.GradleException
@@ -13,7 +13,7 @@ object Version {
     /**
      * The IntelliJ platform version to default to unless overridden. See BuildConfiguration.
      */
-    const val PlatformVersion = "2026.2"
+    const val PlatformVersion = "2026.3"
 
     /**
      * The version of the Kotlin compiler and runtime.
