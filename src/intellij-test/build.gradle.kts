@@ -67,6 +67,13 @@ sourceSets.test {
 }
 
 dependencies {
+    intellijPlatform {
+        if (ijVersion.buildVersion >= 263) {
+            // Provides XDebuggerUtilImpl.
+            bundledModule("intellij.platform.debugger.impl")
+        }
+    }
+
     implementation("org.junit.jupiter:junit-jupiter-api:${Version.Dependency.JUnit5}")
     implementation("org.hamcrest:hamcrest:${Version.Dependency.Hamcrest}")
 
