@@ -50,6 +50,11 @@ allprojects {
             }
 
             testFramework(TestFrameworkType.Platform)
+
+            if (ijVersion.buildVersion >= 263) {
+                // IntelliJ 2026.3 moved the XML support from the platform into a bundled plugin.
+                bundledPlugin("com.intellij.xml")
+            }
         }
 
         testImplementation("org.junit.jupiter:junit-jupiter-api:${Version.Dependency.JUnit5}")
