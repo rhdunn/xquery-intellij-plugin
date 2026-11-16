@@ -92,7 +92,12 @@ object Version {
          *
          * @see <a href="https://github.com/junit-team/junit5">https://github.com/junit-team/junit5</a>
          */
-        const val JUnit5 = "5.9.1"
+        @Suppress("FunctionName")
+        fun JUnit5(intellij: IntelliJVersion): String = when {
+            // IntelliJ 2026.3's test framework depends on JUnit 6, including the JUnit Vintage engine.
+            intellij.buildVersion >= 263 -> "6.1.3"
+            else -> "5.9.1"
+        }
 
         /**
          * The version of the `junit` library.
@@ -101,7 +106,12 @@ object Version {
          *
          * @see <a href="https://github.com/junit-team/junit5">https://github.com/junit-team/junit5</a>
          */
-        const val JUnitPlatform = "1.9.1"
+        @Suppress("FunctionName")
+        fun JUnitPlatform(intellij: IntelliJVersion): String = when {
+            // JUnit 6 uses the same version number for the JUnit Platform and JUnit Jupiter.
+            intellij.buildVersion >= 263 -> "6.1.3"
+            else -> "1.9.1"
+        }
 
         /**
          * The version of the Saxon HE XQuery/XSLT processor.

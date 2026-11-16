@@ -74,7 +74,7 @@ dependencies {
         }
     }
 
-    implementation("org.junit.jupiter:junit-jupiter-api:${Version.Dependency.JUnit5}")
+    implementation("org.junit.jupiter:junit-jupiter-api:${Version.Dependency.JUnit5(ijVersion)}")
     implementation("org.hamcrest:hamcrest:${Version.Dependency.Hamcrest}")
 
     implementation(project(":src:intellij-compat"))

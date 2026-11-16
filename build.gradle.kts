@@ -60,11 +60,11 @@ allprojects {
             }
         }
 
-        testImplementation("org.junit.jupiter:junit-jupiter-api:${Version.Dependency.JUnit5}")
+        testImplementation("org.junit.jupiter:junit-jupiter-api:${Version.Dependency.JUnit5(ijVersion)}")
         testImplementation("org.hamcrest:hamcrest-core:${Version.Dependency.Hamcrest}")
 
-        testRuntimeOnly("org.junit.platform:junit-platform-launcher:${Version.Dependency.JUnitPlatform}")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Version.Dependency.JUnit5}")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher:${Version.Dependency.JUnitPlatform(ijVersion)}")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Version.Dependency.JUnit5(ijVersion)}")
         testRuntimeOnly("junit:junit:${Version.Dependency.JUnit4}")
     }
 
